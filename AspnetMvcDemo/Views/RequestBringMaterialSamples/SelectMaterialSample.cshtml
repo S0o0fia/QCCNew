@@ -1,0 +1,39 @@
+﻿@model AspnetMvcDemo.ViewModel.MaterialSample
+
+@{
+    ViewBag.Title = "Home";
+
+}
+
+
+<body>
+
+    @using (Html.BeginForm("SelectMaterialSample", "RequestBringMaterialSamples", FormMethod.Post))
+    {
+        @Html.DropDownListFor(l => l.locationId, Model.locations, "Please select", new { onchange = "document.forms[0].submit();" })
+        <br />
+        <br />
+
+        @Html.DropDownListFor(m => m.factoryId, Model.factories, "Please select", new { onchange = "document.forms[0].submit();", disabled = "disabled" })
+        <br />
+        <br />
+        <br />
+        <input type="submit" value="Submit" />
+    }
+
+</body>
+
+<script type="text/javascript">
+    $(function () {
+        if ($("#factoryId option").length > 1) {
+            $("#factoryId").removeAttr("disabled");
+        }
+
+        if ($("#locationId").val() != "" && $("#factoryId").val() != "") {
+            var message = "Country: " + $("#CountryId option:selected").text();
+            message += "\nState: " + $("#StateId option:selected").text();
+            message += "\nCity: " + $("#CityId option:selected").text();
+            alert(message);
+        }
+    });
+</script>

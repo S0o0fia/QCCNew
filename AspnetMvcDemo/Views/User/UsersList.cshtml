@@ -1,0 +1,117 @@
+﻿@model IEnumerable<AspnetMvcDemo.Models.User>
+@using Resources;
+@{
+    ViewBag.Title = "UsersList";
+}
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/datatables/datatables")
+}
+
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/datatables/datatables")
+
+    @Scripts.Render("~/bundle/js/tables_datatables")
+
+    @Scripts.Render("~/bundle/vendor/js/bootbox/bootbox")
+    @Scripts.Render("~/bundle/vendor/js/sweetalert2/sweetalert2")
+
+    @Scripts.Render("~/bundle/js/ui_modals")
+}
+
+<style type="text/css">
+    .nav-tabs-top {
+    }
+
+    tr:hover {
+        background-color: #2F3337;
+        color: white;
+    }
+</style>
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <div id="alertAdded" class="alert alert-dark-success alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        User added successfully
+    </div>
+    <div class="page-header  align-items-center">
+        <h3 style="text-align : right ; text-decoration:underline ">@Resources.Users_List</h3>
+    </div>
+    <div class="nav-tabs-top nav-responsive-xl" style="-ms-flex-direction: column; flex-direction: column; margin-top: 5%; padding-left: 100px; padding-right: 100px;">
+
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="navs-top-responsive-link-1">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="datatables-demo table table-bordered">
+                            <thead style="text-align:center">
+                                <tr>
+                                    <th>
+                                        @Resources.User_name
+                                    </th>
+                                    <th>
+                                        @Resources.Email
+                                    </th>
+                                    <th>
+                                        @Resources.Phone_Nubmer
+                                    </th>
+                                    <th>
+                                        @Resources.Job_Title
+                                    </th>
+                                </tr>
+                            </thead>
+
+
+                            <tbody style="text-align:center">
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FullName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Email)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PhoneNumber)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.JobTitle)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+<script>
+
+    @*function Modalpop(Id) {
+        var urlPost = '@Url.Action("FactoryDetails", "Factory")' + "/" + Id;
+        $.get(urlPost, function (data) {
+            $('#ModalBody').html(data.toString());
+
+            $('#Modal_sucess').modal('show');
+
+        });
+   }*@
+
+    $(document).ready(function () {
+        $("#alertAdded").hide();
+
+        var message = "@TempData["AlertMessage"]";
+
+        if (message != null && message != "") {
+            $("#alertAdded").show("fast");
+        }
+    });
+
+</script>

@@ -1,0 +1,107 @@
+﻿@model IEnumerable<AspnetMvcDemo.Models.SampleReport>
+@using Resources
+@{
+    ViewBag.Title = "ConcreteSampleReports";
+}
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/datatables/datatables")
+}
+
+@section Scripts {
+
+    @Scripts.Render("~/bundle/vendor/js/datatables/datatables")
+
+    @Scripts.Render("~/bundle/js/tables_datatables")
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/bootbox/bootbox")
+    @Scripts.Render("~/bundle/vendor/js/sweetalert2/sweetalert2")
+
+    @Scripts.Render("~/bundle/js/ui_modals")
+}
+
+<style type="text/css">
+    .nav-tabs-top {
+        -ms-flex-direction: column;
+        flex-direction: column;
+        margin-top: 5%;
+        padding-left: 100px;
+        padding-right: 100px;
+    }
+
+    .table {
+        border-bottom: solid 2px #eeeeee;
+    }
+
+    a {
+        font-weight: bold;
+        text-align: right;
+    }
+
+    .edit:hover {
+        background-color: white;
+        color: #02BC77;
+    }
+
+    tr:hover {
+        color: white;
+        background-color: #2F3337;
+    }
+</style>
+
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <div class="page-header  align-items-center">
+        <h3 style="text-align : right ; text-decoration:underline ">@Resources.Visiting_Report</h3>
+    </div>
+    <div class="tab-pane fade show active" id="navs-top-responsive-link-1">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="datatables-demo table table-bordered">
+                    <thead style="text-align:center">
+                        <tr>
+                            <th>@Resources.Sample_Number</th>
+                            <th>@Resources.Report_Date</th>
+                            <th>@Resources.Factory_Name</th>
+                            <th>@Resources.Monitor_Name</th>
+                            <th>@Resources.Client_Name</th>
+
+                            <th>
+                                @Resources.Display
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align:center">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SampleNumber)
+                                </td>
+                                <td>
+                                    @item.ReportedDate.Value.ToShortDateString()
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FactoryName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MonitorName)
+                                </td>
+                                <td>
+                                    @if (item.CustomerName == null || item.CustomerName == "")
+                                    {
+                                        <span>--</span>
+                                    }
+                                    @Html.DisplayFor(modelItem => item.CustomerName)
+                                </td>
+                                <td>
+                                    <input type="button" value="@Resources.Display" id="editVisit" class="edit btn btn-success" style="cursor:pointer"
+                                           onclick="location.href='@Url.Action("EditConcreteSampleReports", "ConcreteFactoryReports", new { id=item.SampleNumber })'" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>

@@ -1,0 +1,74 @@
+﻿
+@using Resources
+@{
+    ViewBag.Title = "المتابعات";
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundle/vendor/js/validate/validate")
+    @Scripts.Render("~/bundle/js/forms_wizard")
+}
+
+<style type="text/css">
+    .col-md-2 {
+        flex: 0 0 16.66667%;
+        max-width: 16.66667%;
+        text-align: left;
+        vertical-align: text-bottom;
+    }
+
+    .col-12 {
+        align-content: center;
+        justify-content: center;
+        margin-bottom:2%;
+    }
+    .bt {
+        justify-self: center;
+        align-self: center;
+        box-shadow: 2px 2px #808080;
+    }
+
+    .bt:hover{
+        background-color:darkgrey;
+        border-color:black;
+        border-style:solid;
+        color:black;
+        padding:1%;
+    }
+</style>
+
+
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <div class="card" style="top:20%">
+        <div class="card-header">
+            <h3 style="text-align:center">@Resources.Followups</h3>
+        </div>
+
+        <div class="card-body">
+           
+            <div class="row" style="text-align:center;">
+                
+                <div class="col-12"><a class="btn btn-danger bt" 
+                  href="@Url.RouteUrl("Default", new { action = "Temprature", controller = "Followings"})" 
+                  style="color:white; text-shadow: 1px 1px #000000;">@Resources.Follow_the_temperature</a>
+                </div>
+                <div class="col-12"><a class="btn btn-primary bt" 
+                 href="@Url.RouteUrl("Default", new { action = "AddMachine", controller = "Followings"})"                        
+                style="color:white;text-shadow: 1px 1px #000000;">@Resources.Add_calibration_machine</a></div>
+                <div class="col-12"><a class="btn btn-success bt"
+                 href="@Url.RouteUrl("Default", new { action = "ShowMachine", controller = "Followings"})"                        
+                 style="color:white;text-shadow: 1px 1px #000000;">@Resources.Show_added_machines</a></div>
+            </div> 
+           
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+
+</script>
+
+
+

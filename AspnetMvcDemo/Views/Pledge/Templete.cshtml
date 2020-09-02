@@ -1,0 +1,72 @@
+﻿@model AspnetMvcDemo.ViewModel.ViewPledgeAlert 
+@using Resources
+@{
+    ViewBag.Title = "AddTestsMixingDesign";
+}
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/bootbox/bootbox")
+    @Scripts.Render("~/bundle/vendor/js/sweetalert2/sweetalert2")
+    @Scripts.Render("~/bundle/js/ui_modals")
+}
+<style type="text/css">
+   .data{
+       font-weight: bold;
+   }
+   span{
+       font-size:x-large;
+   }
+   .col-12
+   {
+       margin-top:5%
+   }
+</style>
+<body dir="rtl" id="Grid">
+    <div style="height:15%">
+        <div class="col-12">
+            <div class="col-4"></div>
+            <div class="col-4" style="text-align:center">
+             <img src="~/Content/themes/amana.png" style="width:15% ;height:15%;" />
+            </div>
+            <div class="col-4"></div>
+        </div>
+
+    </div>
+    <div class="card">
+
+        <div class="card-header">
+            <h1 style="text-align:center; font-weight:bold">@Resources.Pledge</h1>
+        </div>
+        <div class="card-body">
+            <div class="col-12">
+                <span>
+                    اتعهد انا صاحب مصنع / <span class="data">@Model.FactoryName</span> أن المخالفات  المذكورة في الانذار النهائي برقم  <span class="data"> @Model.ID </span> وتاريخ <span class="data">@Model.Date.Value.ToShortDateString()</span> سوف لن تتكرر مستقبلا وفي حالة تكرار هذة المخالفات سوف اكون مسئولا
+                    مسئولية كاملة علي ما يترتب من الاجراءات النظامية ضد المصنع من ايقافها عن الانتاج واغلاق المصنع وعلي هذا جري التوقيع
+
+                </span>
+            </div>
+
+            <div class="col-12" style="text-align:center">
+                  <span> والله الموفق ؛؛؛</span>
+                </div>
+
+                <div class="col-12" style="text-align:right">
+                    <h2 style="font-weight:bold">صاحب المصنع</h2>
+                    <h3>الاسم : ................................... </h3>
+                    <h3> التوقيع : ...............................</h3>
+                    <h3>التاريخ : ................................</h3>
+                </div>
+
+            </div>
+
+        </div>
+
+</body>
+<script>
+   
+         $(function () {
+            $("#btnSubmit").click(function () {
+                $("input[name='GridHtml']").val($("#Grid").html());
+            });
+        });
+</script>

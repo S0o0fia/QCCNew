@@ -1,0 +1,103 @@
+﻿
+@model   List<AspnetMvcDemo.ViewModel.TestReportViewModel>
+    @using Resources
+@{
+    ViewBag.Title = "TestReport";
+}
+
+    <style type="text/css">
+
+        .nav-tabs-top {
+        }
+
+        .table {
+            border: solid 2px #eeeeee;
+        }
+
+            .table tr td {
+                text-align: center;
+                vertical-align: middle;
+            }
+
+        .page-header {
+            padding-top: 2%;
+            padding-bottom: 3%;
+        }
+
+        .form-control-plaintext {
+            padding-left: 3%;
+            outline-color: limegreen;
+            outline-style: solid;
+            outline-width: thin;
+        }
+    </style>
+
+    <body dir="rtl">
+        <div calss="card" style="top:10%">
+         <div class="card-header" style="text-align:center;">
+             <h3>تقرير نتيجة اختبارات مقاومة الضغط</h3>
+         </div>
+            <div class="card-body">
+                <table class="table" style="background-color:white;">
+                    <thead style="text-align:center">
+                        <tr>
+                            <th>
+                                @Resources.Sample_Number
+                            </th>
+                            <th>
+                                @Resources.Factory_Name
+                            </th>
+                            <th>
+                                @Resources.Factroy_Location
+                            </th>
+                            <th>
+                                @Resources.Concrete_Rank
+                            </th>
+                            <th>
+                                @Resources.Test_Date
+                            </th>
+                            <th>
+                                @Resources.AverageCompressiveStrengthMonthly
+                            </th>
+                        </tr>
+                    </thead>
+                    @foreach (var item in Model)
+                    {
+
+                        <tbody style="text-align:center">
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.sampleNumber)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.factoryName)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.location)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.concreteRank)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.testDate)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.testResult)
+                                </td>
+                                <td>
+                                    <input type="button" value="@Resources.Details" id="editVisit" class="edit btn btn-success" onclick="location.href = '@Url.Action( "testReportDetails","Reports", new { sampleNumber = item.sampleNumber })'" style="cursor:pointer" />
+                                </td>
+
+
+                            </tr>
+                        </tbody>
+                    }
+                </table>
+            </div>
+        </div>
+
+    </body>
+

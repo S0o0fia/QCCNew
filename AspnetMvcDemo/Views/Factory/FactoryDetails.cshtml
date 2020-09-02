@@ -1,0 +1,615 @@
+﻿@model AspnetMvcDemo.Models.Factory11
+@using Resources
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/validate/validate")
+    <script src="https://maps.google.com/maps/api/js?key=AIzaSyCdFgjBkq4uZTK7P5-mvWukUrkQVub8jw0"></script>
+    @Scripts.Render("~/bundle/vendor/js/gmaps/gmaps")
+    @*@Scripts.Render("~/bundle/js/charts_gmaps")*@
+}
+
+<script type="text/javascript">
+
+
+    function initialize() {
+        document.getElementById("lat").value = 24.7136;
+        document.getElementById("lon").value = 46.6753;
+        var myLatLng = new google.maps.LatLng(24.7136, 46.6753),
+            myOptions = {
+                zoom: 13,
+                center: myLatLng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            },
+            map = new google.maps.Map(document.getElementById('gmaps-example'), myOptions),
+            marker = new google.maps.Marker({ position: myLatLng, map: map });
+
+        marker.setMap(map);
+        //moveBus(map, marker);
+
+        google.maps.event.addListener(map, "click", function (event) {
+            // get lat/lon of click
+            var clickLat = event.latLng.lat();
+            var clickLon = event.latLng.lng();
+
+            // show in input box
+            document.getElementById("lat").value = clickLat.toFixed(3);
+            document.getElementById("lon").value = clickLon.toFixed(3);
+
+            if (marker && marker.setMap) {
+                marker.setMap(null);
+            }
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(clickLat, clickLon),
+                map: map
+            });
+
+            marker.setMap(map);
+        });
+    }
+
+    $('document').ready(function () {
+        initialize();
+    });
+
+</script>
+
+<style type="text/css">
+    #gmaps-example {
+        height: 400px !important;
+        width: 100% !important;
+    }
+</style>
+
+<div class="nav-tabs-top nav-responsive-xl">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#navs-top-responsive-link-4" style="width:100%">@Resources.Factory_Info</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#navs-top-responsive-link-5" style="width:100%">@Resources.Factroy_Location</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#navs-top-responsive-link-6" style="width:100%">@Resources.Owner_Info</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#navs-top-responsive-link-7" style="width:100%">@Resources.Attachments</a>
+        </li>
+    </ul>
+    @using (Html.BeginForm("UpdateFactory", "Factory", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
+        <form>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="navs-top-responsive-link-4">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="form-label">@Resources.Factory_Name</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input type="text" class="form-control">*@
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @required = true, @autofocus = "autofocus" })
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">@Resources.Factroy_Type</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<select class="form-control">
+                                        <option selected="selected">@Resources.Select_Factroy_Type</option>
+                                        <option>@Resources.Manual</option>
+                                        <option>@Resources.Semi_Atuomatic</option>
+                                        <option>@Resources.Atuomatic</option>
+                                    </select>*@
+                                @{
+                                    var selectList = new SelectList(
+                                        new List<SelectListItem>
+                                        {                                                                   new SelectListItem {Text = Resources.Manual, Value = "Manual"},
+                                                                                                                                                                    new SelectListItem {Text = Resources.Semi_Atuomatic, Value = "Semi_Atuomatic"},
+                                                                                                                                                                    new SelectListItem {Text = Resources.Attachments, Value = "Atuomatic"},
+                                        }, "Value", "Text");
+                                }
+                                @Html.DropDownListFor(m => m.Type, selectList, new { @class = "form-control", @selected = "selected" })
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Produce_Power</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input class="form-control" type="number" />*@
+                                @Html.TextBoxFor(m => m.ProductionCapacity, new { type = "number", min = "0", step = "1", @class = "form-control" })
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Average_Daily_Production</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input class="form-control" type="number" />*@
+                                @Html.TextBoxFor(m => m.DailyProductionRate, new { type = "number", min = "0", step = "1", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Total_Mixers_Number</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input class="form-control" type="number" />*@
+                                @Html.TextBoxFor(m => m.NumberofMixers, new { type = "number", min = "0", step = "1", @class = "form-control" })
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Total_Truckers_Number</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input class="form-control" type="number" />*@
+                                @Html.TextBoxFor(m => m.NumberofTrucks, new { type = "number", min = "0", step = "1", @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Factory_Phone_Number </label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input class="form-control" type="text" />*@
+                                @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", @required = true })
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Factory_Fax </label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input class="form-control" type="text" />*@
+                                @Html.TextBoxFor(m => m.FaxNumber, new { @class = "form-control", @required = true })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2 form-group">
+                                <label class="form-label"> @Resources.Post_Code </label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input class="form-control" type="text" />*@
+                                @Html.TextBoxFor(m => m.MailBox, new { @class = "form-control", @required = true })
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="form-label"> @Resources.Factory_Email </label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input class="form-control" type="email" />*@
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @required = true })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div id="gmaps-example" style="height:400px; width:100% !important"></div>*@
+                <div class="tab-pane fade" id="navs-top-responsive-link-5">
+                    <div class="card-body">
+                        <div id="gmaps-example" style="height:400px !important; width:100% !important"></div>
+                        <div class="card-text">
+                            <div class="row" style="border-top:25px;">
+                                <div class="col-md-1 form-group">
+                                    <label class="form-label">@Resources.Latitude</label>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    @*<input type="text" class="form-control" id="lat" />*@
+                                    @Html.TextBoxFor(m => m.Latitude, new { id = "lat", @class = "form-control", @required = true })
+                                </div>
+                                <div class="col-md-1 form-group">
+                                    <label class="form-label">@Resources.Longitude</label>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    @*<input type="text" class="form-control" id="lon" />*@
+                                    @Html.TextBoxFor(m => m.Longitude, new { id = "lon", @class = "form-control", @required = true })
+                                </div>
+                                <div class="col-md-1">
+                                    <label class="form-label">@Resources.Factroy_Location</label>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    @{
+                                        var locationList = new SelectList(
+                                            new List<SelectListItem>
+                                            {
+
+                                                                                                                                                                        new SelectListItem {Text = "Molhem", Value = "Molhem"},
+                                                                                                                                                                        new SelectListItem {Text = "Solay", Value = "Solay"},
+                                                                                                                                                                        new SelectListItem {Text = "Nathiem", Value = "Nathiem"},
+                                                                                                                                                                        new SelectListItem {Text = "Al-Kharj", Value = "Al-Kharj"},
+                                                                                                                                                                        new SelectListItem {Text = "Makkah Road", Value = "Makkah Road"}
+                                            }, "Value", "Text");
+                                    }
+                                    @Html.DropDownListFor(m => m.Location, locationList, "اختيار موقع", new { @class = "form-control" })
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="navs-top-responsive-link-6">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="form-label">@Resources.Owner_Name </label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input type="text" class="form-control">*@
+                                @Html.TextBoxFor(m => m.OwnerName, new { @class = "form-control", @required = true })
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">@Resources.Owner_Email </label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input type="email" class="form-control">*@
+                                @Html.TextBoxFor(m => m.OwnerEmail, new { @class = "form-control", @required = true })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Owner_Phone_Number</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input type="text" class="form-control">*@
+                                @Html.TextBoxFor(m => m.OwnerPhoneNumber, new { @class = "form-control", @required = true })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Manager__Name</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input class="form-control" type="text" />*@
+                                @Html.TextBoxFor(m => m.ManagerName, new { @class = "form-control", @required = true })
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Manager__Email </label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input class="form-control" type="email" />*@
+                                @Html.TextBoxFor(m => m.ManagerEmail, new { @class = "form-control", @required = true })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Manager__PhoneNumber</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input class="form-control" type="text" />*@
+                                @Html.TextBoxFor(m => m.ManagerPhoneNumber, new { @class = "form-control", @required = true })
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Manager_Experience__years_</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input class="form-control" type="number" />*@
+                                @Html.TextBoxFor(m => m.ManagerExperience, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Quality_Engineer_Name</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input class="form-control" type="text" />*@
+                                @Html.TextBoxFor(m => m.EngineerName, new { @class = "form-control", @required = true })
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Quality_Engineer__Email </label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input class="form-control" type="email" />*@
+                                @Html.TextBoxFor(m => m.EngineerEmail, new { @class = "form-control", @required = true })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Quality_Engineer__PhoneNumber </label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input class="form-control" type="text" />*@
+                                @Html.TextBoxFor(m => m.EngineerPhoneNumber, new { @class = "form-control", @required = true })
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="form-label"> @Resources.Quality_Engineer_Experience__years_</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input class="form-control" type="number" />*@
+                                @Html.TextBoxFor(m => m.EngineerExperience, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="navs-top-responsive-link-7">
+                    <div class="card-body align-items-center table-responsive">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr style="text-align:center">
+                                    <th>@Resources.File_Name</th>
+                                    <th>@Resources.Attached</th>
+                                    <th>@Resources.Not_Attached</th>
+                                    <th>@Resources.Note</th>
+                                    <th>@Resources.Upload</th>
+                                </tr>
+                            </thead>
+                            <tbody style="text-align:center">
+                                <tr>
+                                    <td>@Resources.Municipality_license</td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <label class="switcher">
+                                                <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio1">
+                                                <span class="switcher-indicator">
+                                                    <span class="switcher-no"></span>
+                                                    <span class="switcher-yes"></span>
+                                                </span>
+                                                <span class="switcher-label" style="color:black !important">@Resources.Attached</span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <label class="switcher">
+                                                <input type="radio" class="switcher-input is-valid" checked name="switchers-stacked-radio1">
+                                                <span class="switcher-indicator">
+                                                    <span class="switcher-yes"></span>
+                                                    <span class="switcher-no"></span>
+                                                </span>
+                                                <span class="switcher-label" style="color:black !important">@Resources.Not_Attached</span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <input class="form-control" type="text" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <input class="form-control" name="file" type="file" multiple>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>@Resources.Industrial_license</td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <label class="switcher">
+                                                <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio2">
+                                                <span class="switcher-indicator">
+                                                    <span class="switcher-no"></span>
+                                                    <span class="switcher-yes"></span>
+                                                </span>
+                                                <span class="switcher-label" style="color:black !important">@Resources.Attached</span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <label class="switcher">
+                                                <input type="radio" class="switcher-input is-valid" checked name="switchers-stacked-radio2">
+                                                <span class="switcher-indicator">
+                                                    <span class="switcher-yes"></span>
+                                                    <span class="switcher-no"></span>
+                                                </span>
+                                                <span class="switcher-label" style="color:black !important">@Resources.Not_Attached</span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <input class="form-control" type="text" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <input class="form-control" name="file" type="file" multiple>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>@Resources.Commercial_Register</td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <label class="switcher">
+                                                <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio3">
+                                                <span class="switcher-indicator">
+                                                    <span class="switcher-no"></span>
+                                                    <span class="switcher-yes"></span>
+                                                </span>
+                                                <span class="switcher-label" style="color:black !important">@Resources.Attached</span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <label class="switcher">
+                                                <input type="radio" class="switcher-input is-valid" checked name="switchers-stacked-radio3">
+                                                <span class="switcher-indicator">
+                                                    <span class="switcher-yes"></span>
+                                                    <span class="switcher-no"></span>
+                                                </span>
+                                                <span class="switcher-label" style="color:black !important">@Resources.Not_Attached</span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <input class="form-control" type="text" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <input class="form-control" name="file" type="file" multiple>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>@Resources.Calibration_certificates</td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <label class="switcher">
+                                                <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio4">
+                                                <span class="switcher-indicator">
+                                                    <span class="switcher-no"></span>
+                                                    <span class="switcher-yes"></span>
+                                                </span>
+                                                <span class="switcher-label" style="color:black !important">@Resources.Attached</span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <label class="switcher">
+                                                <input type="radio" class="switcher-input is-valid" checked name="switchers-stacked-radio4">
+                                                <span class="switcher-indicator">
+                                                    <span class="switcher-yes"></span>
+                                                    <span class="switcher-no"></span>
+                                                </span>
+                                                <span class="switcher-label" style="color:black !important">@Resources.Not_Attached</span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <input class="form-control" type="text" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <input class="form-control" name="file" type="file" multiple>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>@Resources.ISO_certificates</td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <label class="switcher">
+                                                <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio5">
+                                                <span class="switcher-indicator">
+                                                    <span class="switcher-no"></span>
+                                                    <span class="switcher-yes"></span>
+                                                </span>
+                                                <span class="switcher-label" style="color:black !important">@Resources.Attached</span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <label class="switcher">
+                                                <input type="radio" class="switcher-input is-valid" checked name="switchers-stacked-radio5">
+                                                <span class="switcher-indicator">
+                                                    <span class="switcher-yes"></span>
+                                                    <span class="switcher-no"></span>
+                                                </span>
+                                                <span class="switcher-label" style="color:black !important">@Resources.Not_Attached</span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <input class="form-control" type="text" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <input class="form-control" name="file" type="file" multiple>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>@Resources.performance_sign</td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <label class="switcher">
+                                                <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio6">
+                                                <span class="switcher-indicator">
+                                                    <span class="switcher-no"></span>
+                                                    <span class="switcher-yes"></span>
+                                                </span>
+                                                <span class="switcher-label" style="color:black !important">@Resources.Attached</span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <label class="switcher">
+                                                <input type="radio" class="switcher-input is-valid" checked name="switchers-stacked-radio6">
+                                                <span class="switcher-indicator">
+                                                    <span class="switcher-yes"></span>
+                                                    <span class="switcher-no"></span>
+                                                </span>
+                                                <span class="switcher-label" style="color:black !important">@Resources.Not_Attached</span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <input class="form-control" type="text" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <input class="form-control" name="file" type="file" multiple>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>@Resources.The_design_mixture_used</td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <label class="switcher">
+                                                <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio7">
+                                                <span class="switcher-indicator">
+                                                    <span class="switcher-no"></span>
+                                                    <span class="switcher-yes"></span>
+                                                </span>
+                                                <span class="switcher-label" style="color:black !important">@Resources.Attached</span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <label class="switcher">
+                                                <input type="radio" class="switcher-input is-valid" checked name="switchers-stacked-radio7">
+                                                <span class="switcher-indicator">
+                                                    <span class="switcher-yes"></span>
+                                                    <span class="switcher-no"></span>
+                                                </span>
+                                                <span class="switcher-label" style="color:black !important">@Resources.Not_Attached</span>
+                                            </label>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <input class="form-control" type="text" />
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex form-group">
+                                            <input class="form-control" name="file" type="file" multiple>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        @Html.HiddenFor(m => m.Id)
+                        @Html.HiddenFor(m => m.Status, new { id = "status" })
+                        <div class="modal-footer">
+                            @if (Model.Status == "Pending")
+                            {
+                                <button id="btnApprove" type="submit" class="btn btn-success">@Resources.Approve</button>
+                                <button id="btnDecline" type="submit" class="btn btn-danger">@Resources.Decline</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    }
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+</div>
+<script type="text/javascript">
+    $("#btnApprove").click(function () {
+        $("#status").val("Approved");
+    });
+
+    $("#btnDecline").click(function () {
+        $("#status").val("Rejected");
+    });
+</script>

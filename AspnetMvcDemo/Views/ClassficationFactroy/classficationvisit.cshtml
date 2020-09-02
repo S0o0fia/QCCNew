@@ -1,0 +1,1395 @@
+﻿<script src="~/Scripts/jquery-2.1.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.11.2.min.js"></script>
+<link href="~/Content/themes/base/all.css" rel="stylesheet" />
+<link href="~/Content/themes/base/accordion.css" rel="stylesheet" />
+<link href="~/Content/demos.css" rel="stylesheet" />
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/datatables/datatables")
+    @Styles.Render("~/bundle/vendor/css/smartwizard/smartwizard")
+}
+
+@{
+    var selectList = new SelectList(
+        new List<SelectListItem>
+{
+                                            new SelectListItem {Text = "Daily", Value = "Daily"},
+                                            new SelectListItem {Text = "Weekly", Value = "Weekly"},
+                                            new SelectListItem {Text = "Monthly", Value = "Monthly"},
+                                            new SelectListItem {Text = "4Months", Value = "4Months"} ,
+                                            new SelectListItem {Text = "Annually", Value = "Annually"}
+
+}, "Value", "Text");
+}
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundle/vendor/js/datatables/datatables")
+
+    @Scripts.Render("~/bundle/js/tables_datatables")
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/bootbox/bootbox")
+    @Scripts.Render("~/bundle/js/ui_modals")
+    @Scripts.Render("~/bundle/vendor/js/smartwizard/smartwizard")
+    @Scripts.Render("~/bundle/vendor/js/validate/validate")
+
+    @Scripts.Render("~/bundle/js/forms_wizard")
+
+}
+<style type="text/css">
+    @*for Mobile Design*@
+ @@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+
+    tr{
+      display:grid;
+      border-bottom:1px solid #ccc;
+    }
+   /* Force table to not be like tables anymore */
+	table, tbody , thead , td, tr, th  {
+		display: block;
+	}
+	table {
+        width :100%;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+
+	td {
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+	}
+
+   td:before {
+		width: 45%;
+		padding-left: 10px;
+		white-space: nowrap;
+        float:right;
+        text-align:center;
+        font-weight : bold;
+	}
+
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "اسم المصنع"; }
+	td:nth-of-type(2):before { content: "موقع الزيارة"; }
+	td:nth-of-type(3):before { content: "تقرير تحضير العينة"; }
+	td:nth-of-type(4):before { content: "إلغاء"; }
+
+      #prepareSample
+      {
+         width : 100%;
+
+      }
+
+}
+
+
+    @*for General and PC Design*@
+    .nav-tabs-top {
+        -ms-flex-direction: column;
+        flex-direction: column;
+        margin-top: 5%;
+
+    }
+    table {
+        background-color : white;
+         width:75%;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    }
+
+    a {
+        font-weight: bold;
+        text-align: right;
+    }
+
+    .edit:hover {
+        background-color: white;
+        color: #02BC77;
+    }
+
+    tr:hover {
+        color: white;
+        background-color: gray;
+    }
+    .nav-tabs {
+       margin-bottom : 1%;
+
+    }
+     td , tr{
+         font-size:large;
+     }
+    #prepareSample{
+        color : white;
+        font-size : large;
+         background-color:#2E323A;
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
+         border-radius : 25px;
+    }
+
+    .title
+    {
+        font-size:medium;
+        font-weight : bolder;
+    }
+
+    .bigtitle
+    {
+        color:red;
+    }
+</style>
+
+
+<script type="text/javascript">
+    var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+    };
+
+
+    function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+
+    $('document').ready(function () {
+        navigator.geolocation.getCurrentPosition(success, error, options);
+
+    });
+
+</script>
+
+<style type="text/css">
+    .col-md-2 {
+        flex: 0 0 16.66667%;
+        max-width: 16.66667%;
+        text-align: left;
+        vertical-align: text-bottom;
+    }
+</style>
+
+
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <h3 style="text-align:center">@Resources.Resources.Prepare_Concrete</h3>
+    <hr class="container-m-nx border-light my-4">
+    @*<h6 class="text-muted small font-weight-bold py-3 my-4">
+            With icon
+        </h6>*@
+    @using (Html.BeginForm("AddConcreteSample", "ConcreteFactoryReports", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
+        <form>
+            <div id="smartwizard" class="smartwizard-example">
+                <ul>
+                    <li>
+                        <a href="#smartwizard-step-1" class="mb-3">
+                            <span class="sw-done-icon ion ion-md-checkmark"></span>
+                            <span class="sw-icon ion ion-md-copy"></span>
+                            @Resources.Resources.Factory_and_fittings_indicator
+                            <div class="text-muted small">@Resources.Resources.Step1</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#smartwizard-step-2" class="mb-3">
+                            <span class="sw-done-icon ion ion-md-checkmark"></span>
+                            <span class="sw-icon ion ion-md-copy"></span>
+                            @Resources.Resources.Laboratory_index_and_self_quality_control_activities
+                            <div class="text-muted small">@Resources.Resources.Step2</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#smartwizard-step-3" class="mb-3">
+                            <span class="sw-done-icon ion ion-md-checkmark"></span>
+                            <span class="sw-icon ion ion-md-copy"></span>
+                            @Resources.Resources.Production_quality_index
+                            <div class="text-muted small">@Resources.Resources.Step3</div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="mb-3">
+                    <!--Step one-->
+                    <div id="smartwizard-step-1" class="card animated fadeIn">
+                        <div class="card-body">
+
+                            <!--Table 1-->
+                            <div id="accordion2">
+                                <div class="card mb-2">
+                                    <div class="card-header">
+                                        <a class="text-body d-flex justify-content-between" data-toggle="collapse" aria-expanded="true" href="#accordion2-1">
+                                            <span style="width:5% ; text-align:center"><i class="ion-ios-checkmark-circle" style="color:forestgreen"></i></span>
+                                            <span style="width:95%; text-align:right; font-size:large" class="bigtitle">@Resources.Resources.Administrative_organization_and_technical_qualification</span>
+                                            <div class="collapse-icon"></div>
+                                        </a>
+                                    </div>
+                                    <div id="accordion2-1" class="collapse" data-parent="#accordion2">
+                                        <table class="table" dir="rtl">
+                                            <tbody>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.There_is_an_organizational_structure_between_the_administrative_organization_and_specifies_the_responsibilities_of_factory_workers</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.There_is_a_quality_system_and_written_procedure_guide_for_all_activities_in_the_factory</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.The_factory_has_a_Saudi_quality_mark_or_ISO_9000_certificate</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.The_senior_management__executive_director_or_technical_director__has_academic_qualification_and_appropriate_experience_in_the_field_of_engineering_and_concrete_technology</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--2-->  <!--Done-->
+                            <div id="accordion2-2">
+                                <div class="card mb-2">
+                                    <div class="card-header">
+                                        <a class="text-body d-flex justify-content-between" data-toggle="collapse" aria-expanded="true" href="#accordion2-3">
+                                            <span style="width:5% ; text-align:center"><i class="ion-ios-checkmark-circle" style="color:forestgreen"></i></span>
+                                            <span style="width:95%; text-align:right; font-size:large" class="bigtitle">@Resources.Resources.Site_regulation_and_environmental_precautions</span>
+                                            <div class="collapse-icon"></div>
+                                        </a>
+                                    </div>
+                                    <div id="accordion2-3" class="collapse" data-parent="#accordion2">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Cleanliness_and_maintenance_of_the_site_and_the_internal_facilities_that_are_done_regularly</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Cleaning_and_maintenance_of_mixing_stations_and_control_rooms_are_done_periodically</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.There_is_an_internal_communication_system_for_connecting_mixing_stations_with_other_departments_inside_the_factory</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Use_a_wet_mixing_method_to_reduce_flying_dust</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!--3-->  <!--Done-->
+                            <div id="accordion2-4">
+                                <div class="card mb-2">
+                                    <div class="card-header">
+                                        <a class="text-body d-flex justify-content-between" data-toggle="collapse" aria-expanded="true" href="#accordion2-5">
+                                            <span style="width:5% ; text-align:center"><i class="ion-ios-checkmark-circle" style="color:forestgreen"></i></span>
+                                            <span style="width:95%; text-align:right; font-size:large" class="bigtitle">@Resources.Resources.Material_storage_and_handling</span>
+                                            <div class="collapse-icon"></div>
+                                        </a>
+                                    </div>
+                                    <div id="accordion2-5" class="collapse" data-parent="#accordion2">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Stored_storage_is_done_in_a_way_that_prevents_granular_separation_or_breakage</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Spacers_and_barriers_are_sufficient_to_prevent_overlapping_of_various_types_of_aggregate</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.The_aggregate_aggregates_are_not_exposed_to_pollution_or_dust</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.The_method_of_transporting_and_handling_aggregates_does_not_cause_granular_separation</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--4-->  <!--Done-->
+                            <div id="accordion2-6">
+                                <div class="card mb-2">
+                                    <div class="card-header">
+                                        <a class="text-body d-flex justify-content-between" data-toggle="collapse" aria-expanded="true" href="#accordion2-7">
+                                            <span style="width:5% ; text-align:center"><i class="ion-ios-checkmark-circle" style="color:forestgreen"></i></span>
+                                            <span style="width:95%; text-align:right; font-size:large" class="bigtitle">@Resources.Resources.Calendar_of_mixing_stations</span>
+                                            <div class="collapse-icon"></div>
+                                        </a>
+                                    </div>
+                                    <div id="accordion2-7" class="collapse" data-parent="#accordion2">
+                                        <table class="table">
+                                            <tbody>
+                                                <!--Part A-->
+                                                <tr class="title">
+                                                    <td>أ - </td>
+                                                    <td style="text-align:right">@Resources.Resources.Mixing_method</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Central_mixer</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Confused_in_the_truck</td>
+                                                </tr>
+                                                <!--Part B-->
+                                                <!--1-->
+                                                <tr class="title">
+                                                    <td class="title">ب - </td>
+                                                    <td style="text-align:right">@Resources.Resources.Mixing_process_control_system</td>
+                                                </tr>
+                                                <tr class="title">
+                                                    <td class="title">1-</td>
+                                                    <td style="text-align:right">@Resources.Resources.Weights_control_system</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Manual</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Semi_Atuomatic</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Atuomatic</td>
+                                                </tr>
+
+                                                <!--2-->
+                                                <tr class="title">
+                                                    <td class="title">2 - </td>
+                                                    <td style="text-align:right">@Resources.Resources.Volume_control_system</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Manual</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Atuomatic</td>
+                                                </tr>
+
+                                                <!--Part C-->
+                                                <tr class="title">
+                                                    <td>ج - </td>
+                                                    <td style="text-align:right">@Resources.Resources.Scales</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.The_mixer_operator_can_read_devices_from_its_usual_position_easily</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Each_accurate_scale_is_within__0_2___of_the_scale_capacity</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.There_are_standard_weights__at_least_250_kg__to_check_the_accuracy_of_the_scale</td>
+                                                </tr>
+
+                                                <!--Part D-->
+                                                <tr class="title">
+                                                    <td class="title">د - </td>
+                                                    <td style="text-align:right">@Resources.Resources.Index_of_the_scales_in_the_central_station</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Normal</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Digital</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Mixed__regular_and_digital_</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Every_normal_or_digital_indicator_of_the_scales_is_closed_and_protected_from_dust </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.The_numbers_for_each_normal_or_numerical_indicator_for_the_scales_are_large_so_that_they_can_be_read_easily</td>
+                                                </tr>
+
+                                                <!--Part E-->
+                                                <tr class="title">
+                                                    <td class="title">هـ - </td>
+                                                    <td style="text-align:right">@Resources.Resources.Documentation_of_produced_concrete</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Use_a_tape_recorder_to_keep_a_permanent_record_of_the_quantities_used_in_each_mixture_produced </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!--5--> <!--Done-->
+                            <div id="accordion2-8">
+                                <div class="card mb-2">
+                                    <div class="card-header">
+                                        <a class="text-body d-flex justify-content-between" data-toggle="collapse" aria-expanded="true" href="#accordion2-9">
+                                            <span style="width:5% ; text-align:center"><i class="ion-ios-checkmark-circle" style="color:forestgreen"></i></span>
+                                            <span style="width:95%; text-align:right; font-size:large" class="bigtitle">@Resources.Resources.Concrete_mixer_trucks</span>
+                                            <div class="collapse-icon"></div>
+                                        </a>
+                                    </div>
+                                    <div id="accordion2-9" class="collapse" data-parent="#accordion2">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.The_trucks_are_clean_and_the_paint_is_in_good_condition </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Chute_surface_is_smooth_and_clean</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.The_barrel_of_the_truck_is_free_from_the_accumulation_of_cement_and_concrete</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Truck_barrel_spindle_is_working_properly</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.The_water_meter_is_in_good_condition</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--6--> <!--Done-->
+                            <div id="accordion2-10">
+                                <div class="card mb-2">
+                                    <div class="card-header">
+                                        <a class="text-body d-flex justify-content-between" data-toggle="collapse" aria-expanded="true" href="#accordion2-11">
+                                            <span style="width:5% ; text-align:center"><i class="ion-ios-checkmark-circle" style="color:forestgreen"></i></span>
+                                            <span style="width:95%; text-align:right; font-size:large" class="bigtitle">@Resources.Resources.Precautions_for_producing_concrete_in_hot_weather</span>
+                                            <div class="collapse-icon"></div>
+                                        </a>
+                                    </div>
+                                    <div id="accordion2-11" class="collapse" data-parent="#accordion2">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Sprinklers_of_water_are_located_above_the_aggregate_chokes </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.There_is_an_ice_production_plant_in_the_factory </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.There_is_a_separate_and_isolated_water_tank_for_cold_water  </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.The_water_cooled_tubes_to_the_mixing_plant_are_buried_or_thermally_insulated </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Cement_vessels_painted_white </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.White_drums_of_concrete_transport_trucks  </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--7--> <!--Done-->
+                            <div id="accordion2-12">
+                                <div class="card mb-2">
+                                    <div class="card-header">
+                                        <a class="text-body d-flex justify-content-between" data-toggle="collapse" aria-expanded="true" href="#accordion2-13">
+                                            <span style="width:5% ; text-align:center"><i class="ion-ios-checkmark-circle" style="color:forestgreen"></i></span>
+                                            <span style="width:95%; text-align:right; font-size:large" class="bigtitle">@Resources.Resources.Concrete_ordering_and_supplying_system</span>
+                                            <div class="collapse-icon"></div>
+                                        </a>
+                                    </div>
+                                    <div id="accordion2-13" class="collapse" data-parent="#accordion2">
+                                        <table class="table">
+                                            <tbody>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.All_required_data_is_filled_out__10_points_are_deducted_for_every_lack_of_required_data_ </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.The_issuance_of_a_concrete_supply_ticket_is_automated_directly_from_the_control_room  </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Step Two-->
+                    <div id="smartwizard-step-2" class="card animated fadeIn">
+                        <div class="card-body">
+                            <!--1-->
+                            <div id="accordion2-14">
+                                <div class="card mb-2">
+                                    <div class="card-header">
+                                        <a class="text-body d-flex justify-content-between" data-toggle="collapse" aria-expanded="true" href="#accordion2-16">
+                                            <span style="width:5% ; text-align:center"><i class="ion-ios-checkmark-circle" style="color:forestgreen"></i></span>
+                                            <span style="width:95%; text-align:right; font-size:large" class="bigtitle">@Resources.Resources.Quality_lab_and_its_equipments</span>
+                                            <div class="collapse-icon"></div>
+                                        </a>
+                                    </div>
+                                    <div id="accordion2-16" class="collapse" data-parent="#accordion2">
+                                        <table class="table">
+
+                                            <tbody>
+                                                <!--Part A-->
+                                                <tr class="title">
+                                                    <td>أ -</td>
+                                                    <td style="text-align:right">@Resources.Resources.Laboratory </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Good_cleanliness_and_organization  </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.The_place_is_air_conditioned_and_well_ventilated </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Store_samples_in_designated_areas </td>
+                                                </tr>
+                                                <!--Part B-->
+                                                <tr class="title">
+                                                    <td>ب -</td>
+                                                    <td style="text-align:right">@Resources.Resources.art_Device </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Mananger_Lab_Exists </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.There_are__2__technicians_qualified_to_work_on_the_site </td>
+                                                </tr>
+                                                <!--Part C-->
+                                                <tr class="title">
+                                                    <td>ج -</td>
+                                                    <td style="text-align:right">@Resources.Resources.Additional_devices_and_tools  </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Standard_cylindrical_molds__150___300mm_  </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.A_device_for_measuring_the_thickness_of_doubt_in_concrete  </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.A_device_to_measure_the_percentage_of_air_spaces </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Los_Angeles_device  </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Standard_Cubes_Set__50___50___50mm_ </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Cement_time_measuring_device  </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Concrete_hearts_sampling_machine  </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Non_destructive_testing_devices_for_concrete </td>
+                                                </tr>
+
+                                                <!--Part D-->
+                                                <tr class="title">
+                                                    <td>د -</td>
+                                                    <td style="text-align:right">@Resources.Resources.Pressure_resistance_test_requirements   </td>
+                                                </tr>
+                                                <!--1-->
+                                                <tr class="title">
+                                                    <td>1 -</td>
+                                                    <td style="text-align:right">@Resources.Resources.Machine_type</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Digital_and_in_good_condition  </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Normal_and_in_good_condition  </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.The_machine_is_not_acceptable  </td>
+                                                </tr>
+                                                <!--2-->
+                                                <tr class="title">
+                                                    <td>2 -</td>
+                                                    <td style="text-align:right">@Resources.Resources.Download_speed_control_method </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Manual  </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Automatic  </td>
+                                                </tr>
+                                                <!--3-->
+                                                <tr class="title">
+                                                    <td>3 -</td>
+                                                    <td style="text-align:right">@Resources.Resources.Download_speed_control_method </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.By_rooms_controlled_by_temperature   </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.By_air_conditioned_rooms  </td>
+                                                </tr>
+                                                <tr>
+                                                    <td><input class="col-md-12" type="checkbox" name="" value="1" /></td>
+                                                    <td style="text-align:right">@Resources.Resources.Using_heaters_running_inside_the_water   </td>
+                                                </tr>
+                                            </tbody>
+
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <!--2-->
+                            <div id="accordion2-17">
+                                <div class="card mb-2">
+                                    <div class="card-header">
+                                        <a class="text-body d-flex justify-content-between" data-toggle="collapse" aria-expanded="true" href="#accordion2-18">
+                                            <span style="width:5% ; text-align:center"><i class="ion-ios-checkmark-circle" style="color:forestgreen"></i></span>
+                                            <span style="width:95%; text-align:right; font-size:large" class="bigtitle">@Resources.Resources.Self_control_quality_activities</span>
+                                            <div class="collapse-icon"></div>
+                                        </a>
+                                    </div>
+                                    <div id="accordion2-18" class="collapse" data-parent="#accordion2">
+                                        <table class="table">
+                                            <tbody>
+                                                <!--Part A-->
+                                                <tr class="title">
+                                                    <td>أ - </td>
+                                                    <td style="text-align:right">
+
+                                                        <div id="accordion2-19">
+                                                            <div class="card mb-2">
+                                                                <div class="card-header">
+                                                                    <a class="text-body d-flex justify-content-between" data-toggle="collapse" aria-expanded="true" href="#accordion2-20">
+
+                                                                        <span style="width:100%; text-align:right; font-size:large" class="bigtitle">@Resources.Resources.Material_tests</span>
+                                                                        <div class="collapse-icon"></div>
+                                                                    </a>
+                                                                </div>
+                                                                <div id="accordion2-20" class="collapse" data-parent="#accordion2">
+                                                                    <!--Table 1-->
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+
+                                                                                <th style="width:20%; text-align:left;"></th>
+                                                                                <th style="width:75%; text-align:left;">A-Aggregate</th>
+                                                                                <th style="text-align:left; width:5%"></th>
+
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;"> Parctice for Sampling aggregate ( ASTM D-75 )</td>
+                                                                                <td style="text-align:left;">1</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Reducing field samples to testing size (SAAO 226 / ASTM C-702)</td>
+                                                                                <td style="text-align:left;">2</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Sieve Analysis of Aggregate (SASO 249-1 / ASTM C-136)</td>
+                                                                                <td style="text-align:left;">3</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Material finer than (No. 200 ) seive by washing (SASO 278-4 / ASTM C-117)</td>
+                                                                                <td style="text-align:left;">4</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Specific gravity and adsorption of coarse aggregate ( ASTM C-127 ) </td>
+                                                                                <td style="text-align:left;">5</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Specific gravity and adsorption of fine aggregate ( ASTM C-128 )</td>
+                                                                                <td style="text-align:left;">6</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Organic Impurities in fine aggregate ( SASO 250-2 / ASTM C-40 )</td>
+                                                                                <td style="text-align:left;">7</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Total moisture content of aggregate by drying ( ASTM C-566 )</td>
+                                                                                <td style="text-align:left;">8</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Unit weight and voids in aggregate (ASTM C-29)</td>
+                                                                                <td style="text-align:left;">9</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Resistance degradation of coarse aggregate (ASTM C-131)</td>
+                                                                                <td style="text-align:left;">10</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Clay lumps and friable particles (ASTM C-142)</td>
+                                                                                <td style="text-align:left;">11</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Soundness of aggregate (ASTN C-88)</td>
+                                                                                <td style="text-align:left;">12</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Potential reactivity of aggregate ( ASTM C-289)</td>
+                                                                                <td style="text-align:left;">13</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Flaky and elogated particles (BS 812) </td>
+                                                                                <td style="text-align:left;">14</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Chloride in aggregate (SASO 806 / BS 812 ) </td>
+                                                                                <td style="text-align:left;">15</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Sulfate in aggregate ( SASO 806 / BS 812 ) </td>
+                                                                                <td style="text-align:left;">16</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <!--Table 2-->
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+
+                                                                                <th style="width:20%; text-align:left;"></th>
+                                                                                <th style="width:75%; text-align:left;">B-Mixing Water</th>
+                                                                                <th style="text-align:left; width:5%"></th>
+
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;"> Chloride (ASTM D-512) </td>
+                                                                                <td style="text-align:left;">1</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Sulfate ( ASTM D-516 )</td>
+                                                                                <td style="text-align:left;">2</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Total dissolved solids ( AASHTO T-26 )</td>
+                                                                                <td style="text-align:left;">3</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">ALkalies</td>
+                                                                                <td style="text-align:left;">4</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">PH-value</td>
+                                                                                <td style="text-align:left;">5</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <!--Table 3-->
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+
+                                                                                <th style="width:20%; text-align:left;"></th>
+                                                                                <th style="width:75%; text-align:left;">C-Cement</th>
+                                                                                <th style="text-align:left; width:5%"></th>
+
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Recent factory certificate on file</td>
+                                                                                <td style="text-align:left;">1</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;"> Setting Time (ASTM  C-191) </td>
+                                                                                <td style="text-align:left;">2</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Comperssive Strength (ASTM C-109) </td>
+                                                                                <td style="text-align:left;">3</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <!--Table 4-->
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+
+                                                                                <th style="width:20%; text-align:left;"></th>
+                                                                                <th style="width:75%; text-align:left;">D-Admixture</th>
+                                                                                <th style="text-align:left; width:5%"></th>
+
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Technical Sheet on file </td>
+                                                                                <td style="text-align:left;">1</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Trail Mixer for evaluating the effect admixture on Slump , Slump loss setting Time and Strength  </td>
+                                                                                <td style="text-align:left;">2</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td style="text-align:right"><input type="text" id="materialtest" class="form-control" /></td>
+
+                                                </tr>
+                                                <!--Part B-->
+                                                <tr class="title">
+                                                    <td>ب - </td>
+                                                    <td style="text-align:right">
+                                                        <div id="accordion2-21">
+                                                            <div class="card mb-2">
+                                                                <div class="card-header">
+                                                                    <a class="text-body d-flex justify-content-between" data-toggle="collapse" aria-expanded="true" href="#accordion2-22">
+
+                                                                        <span style="width:100%; text-align:right; font-size:large" class="bigtitle"> @Resources.Resources.Concrete_tests_and_the_method_of_handling_and_testing_cubes</span>
+                                                                        <div class="collapse-icon"></div>
+                                                                    </a>
+                                                                </div>
+                                                                <div id="accordion2-22" class="collapse" data-parent="#accordion2">
+                                                                    <!--Table 1-->
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+
+                                                                                <th style="width:20%; text-align:left;"></th>
+                                                                                <th style="width:75%; text-align:left;">A-Test on Concrete</th>
+                                                                                <th style="text-align:left; width:5%"></th>
+
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Sampling freshly mixed concrete (ASTM C-172)</td>
+                                                                                <td style="text-align:left;">1</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Temperature of fresh concrete (ASTM C-1064) </td>
+                                                                                <td style="text-align:left;">2</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Slump of concrete ( SASO 379 / ASTM C-143 )</td>
+                                                                                <td style="text-align:left;">3</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Unit Weight , yield and air content ( ASTM C-138 )</td>
+                                                                                <td style="text-align:left;">4</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">air content  ( SASO 875 / ASTM C-173 or C-231 ) </td>
+                                                                                <td style="text-align:left;">5</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Making and curing test sepcimens (ASTM C-31 or BS-1881 : part 3 )</td>
+                                                                                <td style="text-align:left;">6</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Compressive strength ( SASO 1253 /ASTM C-39 or BS-1881 : part 4 ) </td>
+                                                                                <td style="text-align:left;">7</td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <!--Table 2-->
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+
+                                                                                <th style="width:20%; text-align:left;"></th>
+                                                                                <th style="width:75%; text-align:left;">B-Concrete cusirng and practice </th>
+                                                                                <th style="text-align:left; width:5%"></th>
+
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">Proper protection ,handling and storage of samples </td>
+                                                                                <td style="text-align:left;">1</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">
+                                                                                    <div class="row" style="text-align:left;">
+                                                                                        <div class="col-12">
+                                                                                            Method of curing of concrete samples
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-8">Use of lime saturated water</div>
+                                                                                        <div class="col-4"><input type="text" class="form-control" /></div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-8">Controlling the temperature of curing tank</div>
+                                                                                        <div class="col-4"><input type="text" class="form-control" /></div>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="text-align:left;">2</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td style="text-align:left;">
+                                                                                    @*@Html.DropDownListFor(selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" })*@
+                                                                                </td>
+                                                                                <td style="text-align:left;">
+                                                                                    <div class="row" style="text-align:left;">
+                                                                                        <div class="col-12">
+                                                                                            Method of testing of concrete for compressive strength
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-8">Surface if the testing specimens is in moist condition</div>
+                                                                                        <div class="col-4"><input type="text" class="form-control" /></div>
+                                                                                    </div>
+                                                                                    <div class="row">
+                                                                                        <div class="col-8">Proper control of rate loading</div>
+                                                                                        <div class="col-4"><input type="text" class="form-control" /></div>
+                                                                                    </div>
+                                                                                </td>
+                                                                                <td style="text-align:left;">3</td>
+                                                                            </tr>
+
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
+
+                                                </tr>
+                                                <tr>
+                                                    <td></td>
+                                                    <td style="text-align:right"><input type="text" id="concretetest" class="form-control" /></td>
+                                                </tr>
+
+                                                <!--Part C-->
+                                                <tr class="title">
+                                                    <td>ج - </td>
+                                                    <td style="text-align:right">
+                                                        <div id="accordion2-23">
+                                                            <div class="card mb-2">
+                                                                <div class="card-header">
+                                                                    <a class="text-body d-flex justify-content-between" data-toggle="collapse" aria-expanded="true" href="#accordion2-24">
+
+                                                                        <span style="width:100%; text-align:right; font-size:large" class="bigtitle"> @Resources.Resources.Documentation__laboratory_records_and_reports</span>
+                                                                        <div class="collapse-icon"></div>
+                                                                    </a>
+                                                                </div>
+                                                                <div id="accordion2-24" class="collapse" data-parent="#accordion2">
+
+                                                                    <!--table 1-->
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>
+                                                                                </th>
+                                                                                <th style="text-align:right">@Resources.Resources.Laboratory_records </th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input class="col-md-12" type="checkbox" name="" value="1" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    Standard operation procedure
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input class="col-md-12" type="checkbox" name="" value="1" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    Calibration ( for Compressive machine)
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input class="col-md-12" type="checkbox" name="" value="1" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    Records on lab. Personnel the document education and work exprience
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input class="col-md-12" type="checkbox" name="" value="1" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    Proper making and labling of samples
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input class="col-md-12" type="checkbox" name="" value="1" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    Current standard test methods and other pertinent reference material  in a library  
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <!--table 2-->
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th></th>
+                                                                                <th style="text-align:right">@Resources.Resources.Reports</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input class="col-md-12" type="checkbox" name="" value="1" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    Identification of report and date issued
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input class="col-md-12" type="checkbox" name="" value="1" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    Name of the Clinet
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input class="col-md-12" type="checkbox" name="" value="1" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    Project Identification
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input class="col-md-12" type="checkbox" name="" value="1" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    Sample Identification
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input class="col-md-12" type="checkbox" name="" value="1" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    Identification of the Standardtest method used
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input class="col-md-12" type="checkbox" name="" value="1" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    Tests result
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input class="col-md-12" type="checkbox" name="" value="1" />
+                                                                                </td>
+                                                                                <td>
+                                                                                   Name of the registered professional engineer
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    <!--table 3 -->
+                                                                    <table class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th></th>
+                                                                                <th style="text-align:right">@Resources.Resources.Statistical_analysis_of_pressure_resistance_results</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input class="col-md-12" type="checkbox" name="" value="1" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    Yearly Report Documneting average strength and standard deviation on monthly basis
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input class="col-md-12" type="checkbox" name="" value="1" />
+                                                                                </td>
+                                                                                <td>
+                                                                                   Strength testing is reiable and effective
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                    </td>
+                                                </tr>
+
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Step3-->
+                    <div id="smartwizard-step-3" class="card animated fadeIn">
+                        <div class="card-body">
+                            <table class="table">
+                                <tbody>
+                                    <!--Part A-->
+                                    <tr class="title">
+                                        <td>أ - </td>
+                                        <td style="text-align:right">@Resources.Resources.Efficient_control_of_the_temperature_of_the_concrete_mixture  </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td style="text-align:right"><input type="text" id="Efficient" class="form-control" /></td>
+                                    </tr>
+                                    <!--Part B-->
+                                    <tr class="title">
+                                        <td>ب - </td>
+                                        <td style="text-align:right">@Resources.Resources.Slugability_of_concrete_mixture    </td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td style="text-align:right"><input type="text" id="Slugability" class="form-control" /></td>
+                                    </tr>
+
+                                    <!--Part C-->
+                                    <tr class="title">
+                                        <td>ج - </td>
+                                        <td style="text-align:right">@Resources.Resources.Pressure_resistance_tests</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td style="text-align:right"><input type="text" id="Pressure" class="form-control" /></td>
+                                    </tr>
+
+                                    <!--Part D-->
+                                    <tr class="title">
+                                        <td>د - </td>
+                                        <td style="text-align:right">@Resources.Resources.Production_control_level</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td style="text-align:right"><input type="text" id="Production" class="form-control" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <input class="btn btn-success" type="submit" value="@Resources.Resources.Save" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    }
+    <hr class="container-m-nx border-light mt-0 mb-5">
+
+
+</body>

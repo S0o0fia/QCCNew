@@ -1,0 +1,334 @@
+﻿@model AspnetMvcDemo.Models.BlockTestResultCubes
+@{
+    ViewBag.Title = "BlockTestingResult";
+}
+@using Resources
+<style type="text/css">
+    .nav-tabs-top {
+    }
+
+    .table {
+        border-bottom: solid 2px #eeeeee 
+    }
+
+     .form-control-plaintext
+    {
+        padding-left : 3% ;
+        outline-color : limegreen ; 
+        outline-style : solid ;
+        outline-width : thin ;
+        
+    }
+</style>
+
+<body style="background-color :#ECECF1 ; background-size: cover " dir="rtl">
+    <div id="alertAdded" class="alert alert-dark-success alert-dismissible fade">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        @Resources.Sample_Added_Sucessfully
+    </div>
+    <div class="page-header  align-items-center">
+        <h3 style="text-align : center">@Resources.Block_Entering_Testing_Result</h3>
+    </div>
+    @using (Html.BeginForm("BlockTestingResult", "TestingResults", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
+
+        <div class="nav-tabs-top nav-responsive-xl" style="-ms-flex-direction: column  ;flex-direction: column ; margin-top: 4% ; padding-left: 100px ; padding-right: 100px ">
+            <div class="tab-content">
+                <div class="tab-pane fade show active">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h4> @Resources.Compressive_Strength_of_Block_Cube</h4>
+                            </div>
+                            <div class="col-md-5">
+                                <h6>@Resources.Sample_Number  :  @Model.Cube1.sampleNumber</h6>
+                            </div>
+                            @Html.HiddenFor(m => m.Cube1.sampleNumber)
+                        </div>
+                        <table class="table table-reponsive" dir="ltr">
+                            <thead style="text-align:center">
+                                <tr>
+                                    <th>@Resources.Sample_Number</th>
+                                    <th>1</th>
+                                    <th>2</th>
+                                    <th>3</th>
+                                </tr>
+                            </thead>
+
+
+                            <tbody style="text-align:center">
+                                <tr>
+                                    <th>Weight (kg)</th>
+                                    <td>
+                                        @*<input type="text" id="weight1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube1.weight, new { @class = "form-control", @id = "weight1" })
+
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="weight2" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube2.weight, new { @class = "form-control", @id = "weight2" })
+
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="weight3" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube3.weight, new { @class = "form-control", @id = "weight3" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Length (mm)</th>
+                                    <td>
+                                        @*<input type="text" id="length1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube1.length, new { @class = "form-control", @id = "length1" })
+
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="length2" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube2.length, new { @class = "form-control", @id = "length2" })
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="length3" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube3.length, new { @class = "form-control", @id = "length3" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Width (mm)</th>
+                                    <td>
+                                        @*<input type="text" id="width1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube1.width, new { @class = "form-control", @id = "width1" })
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="width2" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube2.width, new { @class = "form-control", @id = "width2" })
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="width3" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube3.width, new { @class = "form-control", @id = "width3" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Height (mm)</th>
+                                    <td>
+                                        @*<input type="text" id="height1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube1.height, new { @class = "form-control", @id = "height1" })
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="height2" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube2.height, new { @class = "form-control", @id = "height2" })
+
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="height3" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube3.height, new { @class = "form-control", @id = "height3" })
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Min Face Shell (mm)</th>
+                                    <td>
+                                        @*<input type="text" id="shell1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube1.Minfaceshell, new { @class = "form-control", @id = "shell1" })
+
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="shell2" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube2.Minfaceshell, new { @class = "form-control", @id = "shell2" })
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="shell3" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube3.Minfaceshell, new { @class = "form-control", @id = "shell3" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Net Area (mm2) </th>
+                                    <td>
+                                        @*<input type="text" id="nArea1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube1.NetArea, new { @class = "form-control", @id = "nArea1" })
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="nArea2" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube2.NetArea, new { @class = "form-control", @id = "nArea2" })
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="nArea3" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube3.NetArea, new { @class = "form-control", @id = "nArea3" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Gross Area (mm2) </th>
+                                    <td>
+                                        @*<input type="text" id="gArea1" class="form-control-plaintext" readonly="readonly" />*@
+                                        @Html.TextBoxFor(m => m.Cube1.GrossArea, new { @class = "form-control", @id = "gArea1", @readonly = "readonly" })
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="gArea2" class="form-control-plaintext" readonly="readonly" />*@
+                                        @Html.TextBoxFor(m => m.Cube2.GrossArea, new { @class = "form-control", @id = "gArea2", @readonly = "readonly" })
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="gArea3" class="form-control-plaintext" readonly="readonly" />*@
+                                        @Html.TextBoxFor(m => m.Cube3.GrossArea, new { @class = "form-control", @id = "gArea3", @readonly = "readonly" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Load (kn) </th>
+                                    <td>
+                                        @*<input type="text" id="load1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube1.load, new { @class = "form-control", @id = "load1" })
+
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="load2" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube2.load, new { @class = "form-control", @id = "load2" })
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="load3" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                        @Html.TextBoxFor(m => m.Cube3.load, new { @class = "form-control", @id = "load3" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Comp Strength  (net Area) (Mpa) </th>
+                                    <td>
+                                        @*<input type="text" id="ncStrength1" class="form-control-plaintext" readonly="readonly" />*@
+                                        @Html.TextBoxFor(m => m.Cube1.compbetarea, new { @class = "form-control", @id = "ncStrength1", @readonly = "readonly" })
+
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="ncStrength2" class="form-control-plaintext" readonly="readonly" />*@
+                                        @Html.TextBoxFor(m => m.Cube2.compbetarea, new { @class = "form-control", @id = "ncStrength2", @readonly = "readonly" })
+
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="ncStrength3" class="form-control-plaintext" readonly="readonly" />*@
+                                        @Html.TextBoxFor(m => m.Cube3.compbetarea, new { @class = "form-control", @id = "ncStrength3", @readonly = "readonly" })
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Comp Strength (Gross Area) (Mpa) </th>
+                                    <td>
+                                        @*<input type="text" id="gcStrength1" class="form-control-plaintext" readonly="readonly" />*@
+                                        @Html.TextBoxFor(m => m.Cube1.compgrossarea, new { @class = "form-control", @id = "gcStrength1", @readonly = "readonly" })
+
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="gcStrength2" class="form-control-plaintext" readonly="readonly" />*@
+                                        @Html.TextBoxFor(m => m.Cube2.compgrossarea, new { @class = "form-control", @id = "gcStrength2", @readonly = "readonly" })
+
+                                    </td>
+                                    <td>
+                                        @*<input type="text" id="gcStrength3" class="form-control-plaintext" readonly="readonly" />*@
+                                        @Html.TextBoxFor(m => m.Cube3.compgrossarea, new { @class = "form-control", @id = "gcStrength3", @readonly = "readonly" })
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Strength Requirement</th>
+                                    <td colspan="3">MIN = 3.45 Mpa </td>
+                                </tr>
+                                <tr>
+                                    <th>Min Ave Compressive Strength of (3) Units (Net Area) (Mpa)</th>
+                                    <td>
+                                        @*<input type="text" id="macStrengthNet1" class="form-control-plaintext" readonly="readonly" />*@
+                                        @Html.TextBoxFor(m => m.Cube1.AvgNetArea, new { @class = "form-control", @id = "macStrengthNet1", @readonly = "readonly" })
+
+                                    </td>
+                                    <td></td>
+                                    <td>MIN= 4.14Mpa </td>
+                                </tr>
+                                <tr>
+                                    <th>Min Ave Compressive Strength of (3) Units (Gross Area) (Mpa) </th>
+                                    <td>
+                                        @*<input type="text" id="macStrength1" class="form-control-plaintext" readonly="readonly" />*@
+                                        @Html.TextBoxFor(m => m.Cube1.AvgGrossArea, new { @class = "form-control", @id = "macStrength1", @readonly = "readonly" })
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                        <button type="submit" class="btn btn-success" id="save">@Resources.Save</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    }
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var gArea1, gArea2, gArea3 
+
+        //Gross Area Calculation
+        $('#width1').change(function () {
+            gArea1 = ($('#length1').val()) * ($('#width1').val()) 
+            $("#gArea1").val(gArea1.toFixed(2)) 
+        }) 
+        $('#width2').change(function () {
+            gArea2 = ($('#length2').val()) * ($('#width2').val()) 
+            $("#gArea2").val(gArea2.toFixed(2)) 
+        }) 
+        $('#width3').change(function () {
+            gArea3 = ($('#length3').val()) * ($('#width3').val()) 
+            $("#gArea3").val(gArea3.toFixed(2)) 
+        }) 
+
+        //Comp Strength (net Area) Calculation
+        var ncStrength1, ncStrength2, ncStrength3 
+        $('#load1').change(function () {
+            ncStrength1 = ($('#load1').val()*1000)/($("#nArea1").val()) 
+            $('#ncStrength1').val(ncStrength1.toFixed(2)) 
+        }) 
+        $('#load2').change(function () {
+            ncStrength2 = ($('#load2').val() * 1000) / ($("#nArea2").val()) 
+            $('#ncStrength2').val(ncStrength2.toFixed(2)) 
+        }) 
+        $('#load3').change(function () {
+            ncStrength3 = ($('#load3').val() * 1000) / ($("#nArea3").val()) 
+            $('#ncStrength3').val(ncStrength3.toFixed(2)) 
+        }) 
+
+        //Comp Strength (gross Area) Calculation
+        var gcStrength1, gcStrength2, gcStrength3 
+        $('#load1').change(function () {
+            gcStrength1 = ($('#load1').val() * 1000) / ($("#gArea1").val()) 
+            $('#gcStrength1').val(gcStrength1.toFixed(2)) 
+        }) 
+        $('#load2').change(function () {
+            gcStrength2 = ($('#load2').val() * 1000) / ($("#gArea2").val()) 
+            $('#gcStrength2').val(gcStrength2.toFixed(2)) 
+        }) 
+        $('#load3').change(function () {
+            gcStrength3 = ($('#load3').val() * 1000) / ($("#gArea3").val()) 
+            $('#gcStrength3').val(gcStrength3.toFixed(2)) 
+
+            //Min Ave Compressive Strength of (3) Units (Net Area) Calculation
+            var macStrengthNet = (ncStrength1 + ncStrength2 + ncStrength3) / 3 
+            $('#macStrengthNet1').val(macStrengthNet.toFixed(2)) 
+            $('#macStrengthNet2').val(macStrengthNet.toFixed(2)) 
+
+            //Min Ave Compressive Strength of (3) Units (Net Area) Calculation
+            var macStrength = (gcStrength1 + gcStrength2 + gcStrength3) / 3 
+            $('#macStrength1').val(macStrength.toFixed(2)) 
+            $('#macStrength2').val(macStrength.toFixed(2)) 
+            $('#macStrength3').val(macStrength.toFixed(2)) 
+        }) 
+
+    }) 
+
+
+     
+    var message = "@TempData["AlertMessage2"]";
+
+    
+    if (message != null && message != "") {
+        $("#alertAdded").show("fast");
+        $('#save').hide();
+    }
+    else {
+       $("#alertAdded").hide();
+    }
+</script>
+

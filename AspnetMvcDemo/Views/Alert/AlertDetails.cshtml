@@ -1,0 +1,175 @@
+﻿@model AspnetMvcDemo.Models.InfractionAlert
+@using Resources
+@{
+    ViewBag.Title = "AddTestsMixingDesign";
+}
+
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/smartwizard/smartwizard")
+}
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/smartwizard/smartwizard")
+    @Scripts.Render("~/bundle/vendor/js/validate/validate")
+
+    @Scripts.Render("~/bundle/js/forms_wizard")
+
+    <script src="https://maps.google.com/maps/api/js?key=AIzaSyCdFgjBkq4uZTK7P5-mvWukUrkQVub8jw0"></script>
+    @Scripts.Render("~/bundle/vendor/js/gmaps/gmaps")
+
+    @*@Scripts.Render("~/bundle/js/charts_gmaps")*@
+}
+
+<style type="text/css">
+    .col-md-2 {
+        flex: 0 0 16.66667%;
+        max-width: 16.66667%;
+        text-align: left;
+        vertical-align: text-bottom;
+    }
+</style>
+
+
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <h3 style="text-align:center">@Resources.Alerts_Details</h3>
+    
+    @*<h6 class="text-muted small font-weight-bold py-3 my-4">
+            With icon
+        </h6>*@
+    @Html.HiddenFor(m => m.AlertId)
+
+    <table class="table table-reponsive">
+        <thead style="text-align:center">
+            <tr>
+                <th>
+                    @Resources.Visit_Date
+                </th>
+
+                <th colspan="6">
+                    @Resources.Details
+                </th>
+
+            </tr>
+        </thead>
+        <tbody style="text-align:center">
+
+            @foreach (var item in Model.Infractions)
+            {
+
+                <tr>
+                    <td> @item.VisitDate</td>
+
+                    @if (item.AbsenceofDevice == true)
+                    {
+
+                        <td class=" form-group">
+
+                            <label> @Resources.The_absence_of_the_device_for_the_laboratory_technician</label>
+                        </td>
+                    }
+                    @if (item.C8Day == true)
+                    {
+                        <td>
+
+                            <label> انخفاض مقاومة الضغط</label>
+                        </td>
+                    }
+                    @if (item.HardwareNotCalibrated == true)
+                    {
+                        <td>
+
+                            <label> @Resources.Hardware_not_calibrated</label>
+                        </td>
+                    }
+                    @if (item.InsufficientRecords == true)
+                    {
+                        <td>
+
+                            <label> @Resources.Insufficient_quality_and_documentation_records</label>
+                        </td>
+                    }
+                    @if (item.IsCleanLocation == true)
+                    {
+                        <td>
+
+                            <label> @Resources.Lack_of_attention_to_site_cleanliness_and_environmental_protection</label>
+                        </td>
+                    }
+                    @if (item.NotUsingMixtureofClass == true)
+                    {
+                        <td>
+
+                            <label> @Resources.Not_using_a_mixture_of_class</label>
+                        </td>
+                    }
+                    @if (item.Temperature == true)
+                    {
+                        <td>
+
+                            <label> @Resources.High_temperature_concrete</label>
+                        </td>
+                    }
+                    @if (item.Landing == true)
+                    {
+                        <td>
+
+                            <label> @Resources.Reduced_amount_of_decline</label>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+    @if (Model.User.JobTitle == "Admin")
+    {
+        if (Model.Status == null)
+        {
+            <div class="col-12" style="margin-top:3%">
+                <button style="text-align:left; margin:auto" class="btn btn-primary" data-toggle="modal" onclick="Modalpop(@Model.AlertId,0);">@Resources.Reviewed</button>
+            </div>
+        }
+   
+        if (Model.Status == "Admin")
+        {
+            <div class="col-12" style="margin-top:3%">
+                <button style="text-align:left; margin:auto" class="btn btn-warning" data-toggle="modal" onclick="Modalpop(@Model.AlertId,1);">@Resources.ApprovedBySuperVisor</button>
+            </div>
+       
+            <div class="col-12" style="margin-top:3%">
+                <button style="text-align:left; margin:auto" class="btn btn-success" data-toggle="modal" onclick="Modalpop(@Model.AlertId,2);">@Resources.ApprovedByDirector</button>
+            </div>
+        }
+
+    }
+    <script>
+
+     
+         function Modalpop(id, num) {
+        if (num == 0) {
+              var urlPost = '@Url.Action("ApproveAdmin", "Alert")' + "/" + id;
+      
+        }
+        if (num == 1) {
+              var urlPost = '@Url.Action("ApproveMonitor1", "Alert")' + "/" + id;
+      
+        }
+        if (num == 2) {
+              var urlPost = '@Url.Action("ApproveMonitor2", "Alert")' + "/" + id;
+      
+        }
+        $.get(urlPost, function (data) {
+
+            $('#ModalBody').html(data.toString());
+
+            $('#Modal_sucess').modal('show');
+            console.log("ads")
+
+        });
+    }
+
+   
+    </script>
+</body>
+
+

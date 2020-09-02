@@ -1,0 +1,315 @@
+﻿@model AspnetMvcDemo.Models.FactoryEvaluationReport
+
+@{
+    ViewBag.Title = "ConcreteFactoryReports";
+    var ListofBasicQualificationsNotLab = ((List<AspnetMvcDemo.Models.EquipmentRequirementsType>)ViewBag.ListOfQualifications).Where(p => p.LevelOfImportanc == 1 && !(bool)p.QualityLab).ToList();
+    var ListofSupplementaryQualificationsNotLab = ((List<AspnetMvcDemo.Models.EquipmentRequirementsType>)ViewBag.ListOfQualifications).Where(p => p.LevelOfImportanc == 2 && !(bool)p.QualityLab).ToList();
+    var ListofBasicQualificationsLab = ((List<AspnetMvcDemo.Models.EquipmentRequirementsType>)ViewBag.ListOfQualifications).Where(p => p.LevelOfImportanc == 1 && (bool)p.QualityLab).ToList();
+    var ListofSupplementaryQualificationsLab = ((List<AspnetMvcDemo.Models.EquipmentRequirementsType>)ViewBag.ListOfQualifications).Where(p => p.LevelOfImportanc == 2 && (bool)p.QualityLab).ToList();
+}
+
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/smartwizard/smartwizard")
+}
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/smartwizard/smartwizard")
+    @Scripts.Render("~/bundle/vendor/js/validate/validate")
+
+    @Scripts.Render("~/bundle/js/forms_wizard")
+
+    @*@Scripts.Render("~/bundle/js/charts_gmaps")*@
+}
+
+<style type="text/css">
+    .col-md-2 {
+        flex: 0 0 16.66667%;
+        max-width: 16.66667%;
+        text-align: left;
+        vertical-align: text-bottom;
+    }
+</style>
+
+
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <h3 style="text-align:center">@Resources.Resources.Prepare_Concrete</h3>
+    <hr class="container-m-nx border-light my-4">
+    @*<h6 class="text-muted small font-weight-bold py-3 my-4">
+            With icon
+        </h6>*@
+    <div class="container" style="text-align:right;">
+        <div class="row">
+            <div class="col-md-6">اسم المصنع : @Model.Factory.Name</div>
+            <div class="col-md-6">الموقع  : @Model.Factory.Location</div>
+            <div class="col-md-6">اسم المالك : @Model.Factory.OwnerName</div>
+
+        </div>
+        <div class="row">
+            <div class="col-md-6">المدير المسئول : @Model.Factory.ManagerName</div>
+            <div class="col-md-6">المؤهل العلمي : @Model.Factory.ManagerExperience</div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">المدير الفني : </div>
+            <div class="col-md-6">المؤهل العلمي : </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">رقم الهاتف : @Model.Factory.PhoneNumber</div>
+            <div class="col-md-6">رقم الفاكس : @Model.Factory.FaxNumber</div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">الطاقة الانتاجية : @Model.Factory.ProductionCapacity</div>
+            <div class="col-md-6">معدل اإلنتاج اليومي : @Model.Factory.DailyProductionRate</div>
+        </div>
+    </div>
+    <hr class="container-m-nx border-light my-4">
+
+    @using (Html.BeginForm("Create", "EvaluationFactory", FormMethod.Post, new { @class = "form-horizon[ID], [Title], [QualityLab], [LevelOfImportanc]tal", role = "form", enctype = "multipart/form-data" }))
+    {
+        @Html.Hidden("FactoryId", Model.FactoryId)
+        <div id="smartwizard-2" class="smartwizard-example">
+            <ul>
+                <li>
+                    <a href="#smartwizard-2-factoryRate-1" class="mb-3">
+                        <span class="sw-done-icon ion ion-md-checkmark"></span>
+                        <span class="sw-icon ion ion-md-copy"></span>
+
+                        <div class="text-muted small">تقويم التجهيزات والمتطلبات الخاصة </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#smartwizard-2-factoryRate-2" class="mb-3">
+                        <span class="sw-done-icon ion ion-md-checkmark"></span>
+                        <span class="sw-icon ion ion-md-copy"></span>
+
+                        <div class="text-muted small">تقويم المخترب و أنشطة ضبط الجودة الذاتية</div>
+                    </a>
+                </li>
+            </ul>
+            <div class="mb-3">
+                <div id="smartwizard-2-factoryRate-1" class="card animated fadeIn">
+                    <div class="card-body">
+                        <div class="container">
+
+                            <div id="smartwizard-2" class="smartwizard-example">
+                                <ul>
+                                    <li>
+                                        <a href="#smartwizard-2-step-1" class="mb-3">
+                                            <span class="sw-done-icon ion ion-md-checkmark"></span>
+                                            <span class="sw-icon ion ion-md-copy"></span>
+
+                                            <div class="text-muted small">البيانات الاساسية</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#smartwizard-2-step-2" class="mb-3">
+                                            <span class="sw-done-icon ion ion-md-checkmark"></span>
+                                            <span class="sw-icon ion ion-md-copy"></span>
+
+                                            <div class="text-muted small">البيانات التكميلية</div>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <div class="mb-3">
+                                    <div id="smartwizard-2-step-1" class="card animated fadeIn">
+                                        <div class="card-body">
+                                            <div class="container">
+                                                @{
+                                                    Html.RenderAction("NormalSubmittedForm", new {
+                                                        ListOfTitles = ListofBasicQualificationsNotLab,
+                                                        ListOfAnswers = Model.CheckEquipmentRequirementsOfFactories.ToList(),
+                                                        FactoryId = Model.FactoryId });
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="smartwizard-2-step-2" class="card animated fadeIn">
+                                        <div class="card-body">
+                                            <div class="container">
+                                                @{
+                                                    Html.RenderAction("NormalSubmittedForm", new {
+                                                        ListOfTitles = ListofSupplementaryQualificationsNotLab,
+                                                        ListOfAnswers = Model.CheckEquipmentRequirementsOfFactories.ToList(),
+                                                        FactoryId = Model.FactoryId });
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="smartwizard-2-factoryRate-2" class="card animated fadeIn">
+                    <div class="card-body">
+                        <div class="container">
+                            <div id="smartwizard-2" class="smartwizard-example">
+                                <ul>
+                                    <li>
+                                        <a href="#smartwizard-2-step-1" class="mb-3">
+                                            <span class="sw-done-icon ion ion-md-checkmark"></span>
+                                            <span class="sw-icon ion ion-md-copy"></span>
+                                            <div class="text-muted small">البيانات الاساسية</div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#smartwizard-2-step-2" class="mb-3">
+                                            <span class="sw-done-icon ion ion-md-checkmark"></span>
+                                            <span class="sw-icon ion ion-md-copy"></span>
+                                            <div class="text-muted small">البيانات التكميلية</div>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                                <div class="mb-3">
+                                    <div id="smartwizard-2-step-1" class="card animated fadeIn">
+                                        <div class="card-body">
+                                            <div class="container">
+                                                @{
+                                                    Html.RenderAction("NormalSubmittedForm", new {
+                                                        ListOfTitles = ListofBasicQualificationsLab,
+                                                        ListOfAnswers = Model.CheckEquipmentRequirementsOfFactories.ToList(),
+                                                        FactoryId = Model.FactoryId });
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="smartwizard-2-step-2" class="card animated fadeIn">
+                                        <div class="card-body">
+                                            <div class="container">
+                                                @{
+                                                    Html.RenderAction("NormalSubmittedForm", new {
+                                                        ListOfTitles = ListofSupplementaryQualificationsLab,
+                                                        ListOfAnswers = Model.CheckEquipmentRequirementsOfFactories.ToList(),
+                                                        FactoryId = Model.FactoryId });
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <input class="btn btn-primary" type="submit" value="Submit" />
+
+    }
+    <hr class="container-m-nx border-light mt-0 mb-5">
+
+
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    })
+    var BaseUrl = '@Url.Content("~/EvaluationFactory/")';
+
+    function AddNewMixitingStation() {
+        var factoryId = @Model.FactoryId;
+        $.ajax({
+            type: "post",
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            url: BaseUrl + 'AddMixiningStation',
+            data: '{ FactoryId : ' + factoryId + '}',
+            success: function (data) {
+                $("#MixitingStation").html(data);
+            },
+            error: function () {
+            }
+        });
+    }
+    $("#dropRank").change(function () {
+        if ($("#dropRank").val() == "C-35")
+            $("#ReasonHiddenDrop").attr("hidden", "hidden")
+        else
+            $("#ReasonHiddenDrop").removeAttr("hidden")
+
+    })
+    $("#IsCleanUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsCleanUsage").val(true);
+    });
+
+    $("#IsBasicUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsBasicUsage").val(true)
+    });
+    $("#IsColumnUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsColumnUsage").val(true);
+    });
+    $("#IsRoofUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsRoofUsage").val(true);
+    });
+    $("#IsOtherUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsOtherUsage").val(true);
+        $("#ReasonHidden").removeAttr("hidden")
+        if ($("#dropRank").val() == "C-35")
+            $("#ReasonHiddenDrop").attr("hidden", "hidden")
+        else
+            $("#ReasonHiddenDrop").removeAttr("hidden")
+
+
+    });
+    function ChangeFalse() {
+        $("#IsOtherUsage").val(false);
+        $("#IsRoofUsage").val(false);
+        $("#IsColumnUsage").val(false);
+        $("#IsBasicUsage").val(false)
+        $("#IsCleanUsage").val(false);
+        $("#ReasonHidden").attr("hidden", "hidden")
+
+    }
+    $("#IsCleanLocationTrue").click(function () {
+        $("#IsCleanLocation").val(true);
+        console.log("clean")
+        console.log($("#IsCleanLocation").val())
+    });
+    $("#IsCleanLocationFalse").click(function () {
+        $("#IsCleanLocation").val(false);
+        console.log("clean")
+        console.log($("#IsCleanLocation").val())
+    });
+    $("#IsMoldanatInTrucksTrue").click(function () {
+        $("#IsMoldanatInTrucks").val(true);
+    });
+    $("#IsMoldanatInTrucksFalse").click(function () {
+        $("#IsMoldanatInTrucks").val(false);
+    });
+    $("#IsRokamSummerTrue").click(function () {
+        $("#IsRokamSummer").val(true);
+    });
+    $("#IsRokamSummerFalse").click(function () {
+        $("#IsRokamSummer").val(false);
+    });
+    $("#IsLabEngineerTrue").click(function () {
+        $("#IsLabEngineer").val(true);
+    });
+    $("#IsLabEngineerFalse").click(function () {
+        $("#IsLabEngineer").val(false);
+    });
+    $("#IsDustControlInStationTrue").click(function () {
+        $("#IsDustControlInStation").val(true);
+    });
+    $("#IsDustControlInStationFalse").click(function () {
+        $("#IsDustControlInStation").val(false);
+    });
+    $("#IsPeopleSaftyTrue").click(function () {
+        $("#IsPeopleSafty").val(true);
+    });
+    $("#IsPeopleSaftyFalse").click(function () {
+        $("#IsPeopleSafty").val(false);
+    });
+
+
+</script>
+

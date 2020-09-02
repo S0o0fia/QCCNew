@@ -1,0 +1,1479 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Account settings" xml:space="preserve">
+    <value>إعدادات الحساب</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>إضافة</value>
+  </data>
+  <data name="Add Mixing Design" xml:space="preserve">
+    <value>إضافة خلطة تصميمة</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>العنوان</value>
+  </data>
+  <data name="Addtion Amount" xml:space="preserve">
+    <value>كمية الإضافات (ل/م3) </value>
+  </data>
+  <data name="Addtion Type" xml:space="preserve">
+    <value>نوع الإضافات </value>
+  </data>
+  <data name="Age" xml:space="preserve">
+    <value>المدة</value>
+  </data>
+  <data name="Approve" xml:space="preserve">
+    <value>اعتماد</value>
+  </data>
+  <data name="Approve Mixing Design" xml:space="preserve">
+    <value>اعتماد خلطة تصميمية</value>
+  </data>
+  <data name="Approved" xml:space="preserve">
+    <value>معتمد</value>
+  </data>
+  <data name="Approved Factories" xml:space="preserve">
+    <value>المصانع المعتمدة</value>
+  </data>
+  <data name="Area" xml:space="preserve">
+    <value>مساحة</value>
+  </data>
+  <data name="Area Loaded" xml:space="preserve">
+    <value>المساحة المزودة</value>
+  </data>
+  <data name="Attached" xml:space="preserve">
+    <value>مرفق </value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>المرفقات</value>
+  </data>
+  <data name="Attend Break Concrete Sample" xml:space="preserve">
+    <value>حضور كسر عينة خرسانة</value>
+  </data>
+  <data name="Atuomatic" xml:space="preserve">
+    <value>أتوماتيكي</value>
+  </data>
+  <data name="Average Compressive Strength" xml:space="preserve">
+    <value>متوسط قوة الضغط</value>
+  </data>
+  <data name="Average Daily Production" xml:space="preserve">
+    <value>معدل الإنتاج اليومي</value>
+  </data>
+  <data name="Block Entering Testing Result" xml:space="preserve">
+    <value>نتيجة كسر عينة بلوك</value>
+  </data>
+  <data name="Block Sapmle Infromation" xml:space="preserve">
+    <value>بيانات عينة البلوك</value>
+  </data>
+  <data name="Block System" xml:space="preserve">
+    <value>نظام البلوك</value>
+  </data>
+  <data name="Block Testing Result" xml:space="preserve">
+    <value>نتيجة اختبار عينة بلوك</value>
+  </data>
+  <data name="Break Block Sample" xml:space="preserve">
+    <value>كسر عينة بلوك</value>
+  </data>
+  <data name="Break Concrete 28 days" xml:space="preserve">
+    <value>كسر عينة خرسانة 28 يوم</value>
+  </data>
+  <data name="Break Concrete 7 days" xml:space="preserve">
+    <value>كسر عينة خرسانة 7 أيام</value>
+  </data>
+  <data name="Break Concrete Sample" xml:space="preserve">
+    <value>حضور كسر عينة خرسانة</value>
+  </data>
+  <data name="Calibration certificates" xml:space="preserve">
+    <value>شهادات المعايرة </value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="Cement Source" xml:space="preserve">
+    <value>مصدر الاسمنت</value>
+  </data>
+  <data name="Cement Type" xml:space="preserve">
+    <value>نوع الاسمنت </value>
+  </data>
+  <data name="Cement Weight" xml:space="preserve">
+    <value>وزن الاسمنت (كجم)</value>
+  </data>
+  <data name="Clean" xml:space="preserve">
+    <value>نظافة </value>
+  </data>
+  <data name="Click below button to go" xml:space="preserve">
+    <value>اضغط الزر للذهاب</value>
+  </data>
+  <data name="Client Name" xml:space="preserve">
+    <value>اسم العميل </value>
+  </data>
+  <data name="Columns" xml:space="preserve">
+    <value>أعمدة </value>
+  </data>
+  <data name="Commercial Register" xml:space="preserve">
+    <value>السجل التجاري</value>
+  </data>
+  <data name="Compressive Strength" xml:space="preserve">
+    <value>قوة الضغط</value>
+  </data>
+  <data name="Compressive Strength of Block Cube" xml:space="preserve">
+    <value>قوة ضغط مكعب البلوك</value>
+  </data>
+  <data name="Compressive Strength of Concrete Cube" xml:space="preserve">
+    <value>قوة ضغط مكعب خرسانة</value>
+  </data>
+  <data name="Concrete Entering Testing Result" xml:space="preserve">
+    <value>نتيجة كسر عينة خرسانه</value>
+  </data>
+  <data name="Concrete Rank" xml:space="preserve">
+    <value>MPa رتبة العينة نيوتن (نيوتن / مم2)</value>
+  </data>
+  <data name="Concrete Sample" xml:space="preserve">
+    <value>عينة الخرسانة</value>
+  </data>
+  <data name="Concrete System" xml:space="preserve">
+    <value>نظام الخرسانة</value>
+  </data>
+  <data name="Concrete Tempereture" xml:space="preserve">
+    <value>درجة حرارة الخرسانة (مْ)</value>
+  </data>
+  <data name="Concrete Testing Result" xml:space="preserve">
+    <value>نتيجة اختبار عينة خرسانة</value>
+  </data>
+  <data name="Concrete Using" xml:space="preserve">
+    <value>استخدام الخرسانة</value>
+  </data>
+  <data name="Create" xml:space="preserve">
+    <value>إنشاء</value>
+  </data>
+  <data name="Create Factory" xml:space="preserve">
+    <value>تسجيل مصنع جديد</value>
+  </data>
+  <data name="Create User" xml:space="preserve">
+    <value>إضافة مستخدم</value>
+  </data>
+  <data name="Crushing Load" xml:space="preserve">
+    <value>مدى تحمل الكسر</value>
+  </data>
+  <data name="Decline" xml:space="preserve">
+    <value>مرفوض</value>
+  </data>
+  <data name="Decline Reason" xml:space="preserve">
+    <value>سبب الرفض</value>
+  </data>
+  <data name="Declined" xml:space="preserve">
+    <value>المرفوض</value>
+  </data>
+  <data name="Declined Factories" xml:space="preserve">
+    <value>المصانع المرفوضة</value>
+  </data>
+  <data name="Deliver Block" xml:space="preserve">
+    <value>استلام عينة بلوك</value>
+  </data>
+  <data name="Deliver Concrete" xml:space="preserve">
+    <value>استلام عينة خرسانه </value>
+  </data>
+  <data name="Deliver Samples" xml:space="preserve">
+    <value>تلقي عينة</value>
+  </data>
+  <data name="Deliver Done" xml:space="preserve">
+    <value>تم الاستلام</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>وصف </value>
+  </data>
+  <data name="Details" xml:space="preserve">
+    <value>التفاصيل </value>
+  </data>
+  <data name="Dim" xml:space="preserve">
+    <value>الايعاد (الطول * العرض * الارتفاع ) ملم</value>
+  </data>
+  <data name="Down Amount" xml:space="preserve">
+    <value>قيمة الهبوط (مم)</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>البريد الالكتروني</value>
+  </data>
+  <data name="Enter Data" xml:space="preserve">
+    <value>ادخل البيانات</value>
+  </data>
+  <data name="Expiary Date" xml:space="preserve">
+    <value>تاريخ انتهاء صلاحية الخلطة</value>
+  </data>
+  <data name="Factories List" xml:space="preserve">
+    <value>قائمة المصانع</value>
+  </data>
+  <data name="Factory Details" xml:space="preserve">
+    <value>تفاصيل المصنع</value>
+  </data>
+  <data name="Factory Email" xml:space="preserve">
+    <value>البريد الالكتروني للمصنع </value>
+  </data>
+  <data name="Factory Fax" xml:space="preserve">
+    <value>رقم  فاكس المصنع </value>
+  </data>
+  <data name="Factory Info" xml:space="preserve">
+    <value>معلومات المصنع</value>
+  </data>
+  <data name="Factory Name" xml:space="preserve">
+    <value>اسم المصنع</value>
+  </data>
+  <data name="Factory Phone Number" xml:space="preserve">
+    <value>رقم هاتف المصنع </value>
+  </data>
+  <data name="Factory Status" xml:space="preserve">
+    <value>حالة المصنع</value>
+  </data>
+  <data name="Factory workers commitment to wear masks" xml:space="preserve">
+    <value>التزام العاملين بالمصنع بلبس الكمامات</value>
+  </data>
+  <data name="Factroy" xml:space="preserve">
+    <value>المصنع</value>
+  </data>
+  <data name="Factroy Location" xml:space="preserve">
+    <value>موقع المصنع</value>
+  </data>
+  <data name="Factroy Type" xml:space="preserve">
+    <value>نوع المصنع</value>
+  </data>
+  <data name="Factroy Visit Number" xml:space="preserve">
+    <value>رقم زيارة المصنع</value>
+  </data>
+  <data name="File Name" xml:space="preserve">
+    <value>اسم الملف </value>
+  </data>
+  <data name="First Name" xml:space="preserve">
+    <value>الاسم الأول</value>
+  </data>
+  <data name="Global Information" xml:space="preserve">
+    <value>بيانات عامة </value>
+  </data>
+  <data name="go" xml:space="preserve">
+    <value>الذهاب</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>الرئيسية</value>
+  </data>
+  <data name="Industrial license" xml:space="preserve">
+    <value>الترخيص الصناعي</value>
+  </data>
+  <data name="Infastructure" xml:space="preserve">
+    <value>أساسيات </value>
+  </data>
+  <data name="Invoice Number" xml:space="preserve">
+    <value>رقم الفاتورة </value>
+  </data>
+  <data name="ISO certificates" xml:space="preserve">
+    <value>شهادات الأيزو </value>
+  </data>
+  <data name="Job Title" xml:space="preserve">
+    <value>المسمى الوظيفي</value>
+  </data>
+  <data name="Laboratory" xml:space="preserve">
+    <value>المختبر</value>
+  </data>
+  <data name="Laboratory Exist" xml:space="preserve">
+    <value>وجود مختبر </value>
+  </data>
+  <data name="Laboratory Screen" xml:space="preserve">
+    <value>شاشة المختبر</value>
+  </data>
+  <data name="Laboratroy Engineer Exist" xml:space="preserve">
+    <value>تواجد مهندس المختبر</value>
+  </data>
+  <data name="Latitude" xml:space="preserve">
+    <value> خط الطول </value>
+  </data>
+  <data name="Login to Your Account" xml:space="preserve">
+    <value>تسجيل الدخول</value>
+  </data>
+  <data name="Logout" xml:space="preserve">
+    <value>تسجيل الخروج</value>
+  </data>
+  <data name="Longitude" xml:space="preserve">
+    <value>خط العرض</value>
+  </data>
+  <data name="Make Choice" xml:space="preserve">
+    <value>اختر النظام الذي تريد استخدامه</value>
+  </data>
+  <data name="Manager  Email" xml:space="preserve">
+    <value>البريد الالكتروني لمدير المصنع </value>
+  </data>
+  <data name="Manager  Name" xml:space="preserve">
+    <value>اسم مدير المصنع</value>
+  </data>
+  <data name="Manager  PhoneNumber" xml:space="preserve">
+    <value>رقم جوال مدير المصنع </value>
+  </data>
+  <data name="Manager Experience (years)" xml:space="preserve">
+    <value>المؤهل العلمي وسنوات الخبرة</value>
+  </data>
+  <data name="Manual" xml:space="preserve">
+    <value>يدوي</value>
+  </data>
+  <data name="Mix Design" xml:space="preserve">
+    <value>الخلطة التصميمية</value>
+  </data>
+  <data name="Mix Design Details" xml:space="preserve">
+    <value>تفاصيل الخلطة التصميمية</value>
+  </data>
+  <data name="Mixer Number" xml:space="preserve">
+    <value>رقم الخلاطة </value>
+  </data>
+  <data name="Move" xml:space="preserve">
+    <value>الانتقال</value>
+  </data>
+  <data name="Municipality license" xml:space="preserve">
+    <value>ترخيص البلدية </value>
+  </data>
+  <data name="My profile" xml:space="preserve">
+    <value>الملف الشخصي</value>
+  </data>
+  <data name="Next" xml:space="preserve">
+    <value>التالي</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>لا</value>
+  </data>
+  <data name="Nom" xml:space="preserve">
+    <value>م</value>
+  </data>
+  <data name="Not Attached" xml:space="preserve">
+    <value>غير مرفق </value>
+  </data>
+  <data name="Note" xml:space="preserve">
+    <value>ملاحظات </value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>الإشعارات</value>
+  </data>
+  <data name="Nqraa Solutions" xml:space="preserve">
+    <value>بواسطة نقرة لتنقية المعلومات </value>
+  </data>
+  <data name="Others" xml:space="preserve">
+    <value>أخرى</value>
+  </data>
+  <data name="Owner Email" xml:space="preserve">
+    <value>البريد الالكتروني لصاحب المصنع </value>
+  </data>
+  <data name="Owner Info" xml:space="preserve">
+    <value>معلومات المالك والمديرين</value>
+  </data>
+  <data name="Owner Name" xml:space="preserve">
+    <value>اسم صاحب المصنع </value>
+  </data>
+  <data name="Owner Phone Number" xml:space="preserve">
+    <value>رقم جوال صاحب المصنع</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>كلمة السر</value>
+  </data>
+  <data name="Pending" xml:space="preserve">
+    <value>قيد انتظار الاعتماد</value>
+  </data>
+  <data name="Pending Factories" xml:space="preserve">
+    <value>مصانع قيد الموافقة</value>
+  </data>
+  <data name="performance sign" xml:space="preserve">
+    <value>علامة الجودة </value>
+  </data>
+  <data name="Pervious" xml:space="preserve">
+    <value>السابق</value>
+  </data>
+  <data name="Phone Nubmer" xml:space="preserve">
+    <value>رقم الجوال</value>
+  </data>
+  <data name="Photo" xml:space="preserve">
+    <value>الصورة </value>
+  </data>
+  <data name="Post Code" xml:space="preserve">
+    <value>صندوق بريد المصنع </value>
+  </data>
+  <data name="Prepare Block" xml:space="preserve">
+    <value>أخذ عينة بلوك </value>
+  </data>
+  <data name="Prepare Concrete" xml:space="preserve">
+    <value>تحضير عينة خرسانة</value>
+  </data>
+  <data name="Prepare Samples" xml:space="preserve">
+    <value>تحضيرات العينات </value>
+  </data>
+  <data name="Produce Power" xml:space="preserve">
+    <value>الطاقة الإنتاجية</value>
+  </data>
+  <data name="Quality Control" xml:space="preserve">
+    <value>مراقبة الجودة</value>
+  </data>
+  <data name="Quality control of flying dust from the mixer" xml:space="preserve">
+    <value>جودة التحكم في الغبار المتطاير من الخلاطة</value>
+  </data>
+  <data name="Quality Engineer  Email" xml:space="preserve">
+    <value>البريد الالكتروني لمهندس الجودة</value>
+  </data>
+  <data name="Quality Engineer  PhoneNumber" xml:space="preserve">
+    <value>رقم جوال مهندس الجودة </value>
+  </data>
+  <data name="Quality Engineer Experience (years)" xml:space="preserve">
+    <value>المؤهل العلمي وسنوات الخبرة </value>
+  </data>
+  <data name="Quality Engineer Name" xml:space="preserve">
+    <value>اسم مهندس الجودة </value>
+  </data>
+  <data name="Quality of Factory Cleaning" xml:space="preserve">
+    <value>جودة نظافة الموقع </value>
+  </data>
+  <data name="Quanlity Control System for Concrete" xml:space="preserve">
+    <value>مراقبة جودة مصانع الخرسانة والبلوك</value>
+  </data>
+  <data name="Remember me" xml:space="preserve">
+    <value>تذكرني</value>
+  </data>
+  <data name="Report Date" xml:space="preserve">
+    <value>تاريخ التقرير</value>
+  </data>
+  <data name="Report Number" xml:space="preserve">
+    <value>رقم التقرير </value>
+  </data>
+  <data name="Report Visit Block Factory" xml:space="preserve">
+    <value>تقرير زيارة مصنع البلوك</value>
+  </data>
+  <data name="Report Visit Concrete Factory" xml:space="preserve">
+    <value>تقرير زيارة مصنع خرسانة</value>
+  </data>
+  <data name="Roles and Accounts" xml:space="preserve">
+    <value>الصلاحيات والحسابات</value>
+  </data>
+  <data name="Roofs" xml:space="preserve">
+    <value>أسقف </value>
+  </data>
+  <data name="Rubble 3/4" xml:space="preserve">
+    <value>الركام 4/3 (كجم)</value>
+  </data>
+  <data name="Rubble 3/8" xml:space="preserve">
+    <value>الركام 8/3 (كجم)</value>
+  </data>
+  <data name="Sample Number" xml:space="preserve">
+    <value>رقم العينة </value>
+  </data>
+  <data name="Sample Time" xml:space="preserve">
+    <value>وقت العينة</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>حفظ</value>
+  </data>
+  <data name="Search" xml:space="preserve">
+    <value>بحث</value>
+  </data>
+  <data name="Select Factroy Type" xml:space="preserve">
+    <value>اختر نوع المصنع</value>
+  </data>
+  <data name="Select Rnak" xml:space="preserve">
+    <value>اختار رتبة</value>
+  </data>
+  <data name="Semi Atuomatic" xml:space="preserve">
+    <value>أتوماتيكي جزئي</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>الإعدادت </value>
+  </data>
+  <data name="Shape" xml:space="preserve">
+    <value>الشكل</value>
+  </data>
+  <data name="Show all notifications" xml:space="preserve">
+    <value>رؤية كل الإشعارات</value>
+  </data>
+  <data name="Sign In" xml:space="preserve">
+    <value>دخول</value>
+  </data>
+  <data name="Sign out" xml:space="preserve">
+    <value>تسجيل الخروج</value>
+  </data>
+  <data name="Sign Up" xml:space="preserve">
+    <value>تسجيل </value>
+  </data>
+  <data name="Signup as new Factory" xml:space="preserve">
+    <value>التسجيل كمصنع جديد</value>
+  </data>
+  <data name="Spray debris in the summer" xml:space="preserve">
+    <value>رش الركام في فصل الصيف</value>
+  </data>
+  <data name="Status" xml:space="preserve">
+    <value>الحالة </value>
+  </data>
+  <data name="Step1" xml:space="preserve">
+    <value>الخطوة الأولى</value>
+  </data>
+  <data name="Step2" xml:space="preserve">
+    <value>الخطوة الثانية</value>
+  </data>
+  <data name="Step3" xml:space="preserve">
+    <value>الخطوة الثالثة</value>
+  </data>
+  <data name="Step4" xml:space="preserve">
+    <value>الخطوة الرابعة</value>
+  </data>
+  <data name="Test Date" xml:space="preserve">
+    <value>تاريخ الاختبار</value>
+  </data>
+  <data name="TestingResults" xml:space="preserve">
+    <value>نتائج الاختبارات</value>
+  </data>
+  <data name="The design mixture used" xml:space="preserve">
+    <value>الخلطات التصميمية المستخدمة</value>
+  </data>
+  <data name="The presence of plasticizers in the concrete transport vehicle" xml:space="preserve">
+    <value>وجود ملدنات في سيارة نقل الخرسانة</value>
+  </data>
+  <data name="The presence of the laboratory engineer" xml:space="preserve">
+    <value>تواجد مهندس المختبر</value>
+  </data>
+  <data name="Total Mixers Number" xml:space="preserve">
+    <value>عدد الخلاطات بالمصنع </value>
+  </data>
+  <data name="Total Truckers Number" xml:space="preserve">
+    <value>عدد الشاحنات </value>
+  </data>
+  <data name="Trucker Number" xml:space="preserve">
+    <value>رقم الشاحنة </value>
+  </data>
+  <data name="Unit Weight" xml:space="preserve">
+    <value>الوزن الكلي</value>
+  </data>
+  <data name="Upload" xml:space="preserve">
+    <value>إرفاق</value>
+  </data>
+  <data name="User name" xml:space="preserve">
+    <value>اسم المستخدم</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>اسم المستخدم</value>
+  </data>
+  <data name="UserProfile" xml:space="preserve">
+    <value>الحساب الشخصي</value>
+  </data>
+  <data name="Visit Date" xml:space="preserve">
+    <value>تاريخ الزيارة</value>
+  </data>
+  <data name="Visit Location" xml:space="preserve">
+    <value>موقع الزيارة</value>
+  </data>
+  <data name="Visit Reports" xml:space="preserve">
+    <value>تقارير الزيارة</value>
+  </data>
+  <data name="Visting  Block Factroy Report" xml:space="preserve">
+    <value>تقرير زيارة مصنع بلوك</value>
+  </data>
+  <data name="Volume" xml:space="preserve">
+    <value>الحجم</value>
+  </data>
+  <data name="Washed Sand" xml:space="preserve">
+    <value>الرمل المغسول (كجم) </value>
+  </data>
+  <data name="Water Tempreture" xml:space="preserve">
+    <value>درجة حرارة الماء (مْ) </value>
+  </data>
+  <data name="Water Weight" xml:space="preserve">
+    <value>وزن الماء (كجم) </value>
+  </data>
+  <data name="Weather Tempreture" xml:space="preserve">
+    <value>درجة حرارة الجو  (مْ)</value>
+  </data>
+  <data name="Weight" xml:space="preserve">
+    <value>الوزن (كغ)</value>
+  </data>
+  <data name="White Sand" xml:space="preserve">
+    <value>الرمل الأبيض (كجم) </value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>نعم </value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>تعديل</value>
+  </data>
+  <data name="Block_Quanlty" xml:space="preserve">
+    <value>جودة البلوك</value>
+  </data>
+  <data name="Concrete_Qunlitly" xml:space="preserve">
+    <value>جودة الخرسانة</value>
+  </data>
+  <data name="Edit User Profile" xml:space="preserve">
+    <value>تعديل  الملف الشخصي</value>
+  </data>
+  <data name="Monitor Name" xml:space="preserve">
+    <value>اسم المراقب</value>
+  </data>
+  <data name="Today Visits" xml:space="preserve">
+    <value>الزيارات لهذا اليوم</value>
+  </data>
+  <data name="Users List" xml:space="preserve">
+    <value>قائمة المستخدمين </value>
+  </data>
+  <data name="Visit Details" xml:space="preserve">
+    <value>تفاصيل الزيارة</value>
+  </data>
+  <data name="Visits" xml:space="preserve">
+    <value>الزيارات الميدانية </value>
+  </data>
+  <data name="Approved Done" xml:space="preserve">
+    <value>تم الموافقة</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>ملاحظات </value>
+  </data>
+  <data name="Decline Done" xml:space="preserve">
+    <value>تم الرفض</value>
+  </data>
+  <data name="Design added successfully" xml:space="preserve">
+    <value>تمت إضافة الخلطة بنجاح</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>عرض</value>
+  </data>
+  <data name="Factory created successfully" xml:space="preserve">
+    <value>تم إضافة المصنع بنجاح</value>
+  </data>
+  <data name="Visiting Report" xml:space="preserve">
+    <value>تقارير الزيارة</value>
+  </data>
+  <data name="days pressure resistance test" xml:space="preserve">
+    <value>اختبار مقاومة الضغط ٢٨  يوم</value>
+  </data>
+  <data name="day pressure resistance test" xml:space="preserve">
+    <value>اختبار مقاومة الضغط 7 يوم</value>
+  </data>
+  <data name="Administrative follow-ups" xml:space="preserve">
+    <value>المتابعات الإدارية</value>
+  </data>
+  <data name="Annual Report" xml:space="preserve">
+    <value>تقرير سنوي</value>
+  </data>
+  <data name="Attending pressure resistance test" xml:space="preserve">
+    <value>حضور اختبار مقاومة الضغط</value>
+  </data>
+  <data name="Bring materials samples" xml:space="preserve">
+    <value>إحضار عينات مواد</value>
+  </data>
+  <data name="Circulars" xml:space="preserve">
+    <value>التعاميم</value>
+  </data>
+  <data name="Close the factory" xml:space="preserve">
+    <value>إغلاق مصنع</value>
+  </data>
+  <data name="Concrete awareness services" xml:space="preserve">
+    <value>خدمات توعية عن الخرسانة</value>
+  </data>
+  <data name="Concrete tests" xml:space="preserve">
+    <value>اختبارات الخرسانة</value>
+  </data>
+  <data name="daily report" xml:space="preserve">
+    <value>تقرير يومي</value>
+  </data>
+  <data name="Deliver Sapmle" xml:space="preserve">
+    <value>استلام وتسليم عينات</value>
+  </data>
+  <data name="Factories with a central mixer" xml:space="preserve">
+    <value>المصانع بخلاطة مركزية</value>
+  </data>
+  <data name="Factory classification" xml:space="preserve">
+    <value>تصنيف المصانع</value>
+  </data>
+  <data name="Factory evaluation" xml:space="preserve">
+    <value>تقييم المصانع</value>
+  </data>
+  <data name="Factory evaluation for the purpose of classification" xml:space="preserve">
+    <value>تقييم مصنع لغرض التصنيف</value>
+  </data>
+  <data name="Factory visit visit evaluation" xml:space="preserve">
+    <value>زيارة تقييم حالة مصنع</value>
+  </data>
+  <data name="Field visit report" xml:space="preserve">
+    <value>تقرير زيارة ميدانية</value>
+  </data>
+  <data name="Final warning" xml:space="preserve">
+    <value>الإنذار النهائي</value>
+  </data>
+  <data name="Followups" xml:space="preserve">
+    <value>المتابعات</value>
+  </data>
+  <data name="Interpol" xml:space="preserve">
+    <value>الانترلاب</value>
+  </data>
+  <data name="List of classified factories" xml:space="preserve">
+    <value>قائمة المصانع المصنفة ( السلي -  النظيم - ملهم )</value>
+  </data>
+  <data name="List of factories" xml:space="preserve">
+    <value>قائمة المصانع</value>
+  </data>
+  <data name="Material tests" xml:space="preserve">
+    <value>اختبارات المواد</value>
+  </data>
+  <data name="Meeting minutes" xml:space="preserve">
+    <value>محاضر الاجتماعات</value>
+  </data>
+  <data name="Mixture review" xml:space="preserve">
+    <value>مراجعة الخلطة</value>
+  </data>
+  <data name="Monthly performance report" xml:space="preserve">
+    <value>تقرير أداء شهري</value>
+  </data>
+  <data name="monthly report" xml:space="preserve">
+    <value>تقرير شهري</value>
+  </data>
+  <data name="Monthly report on warnings" xml:space="preserve">
+    <value>تقرير شهري عن الإنذارات</value>
+  </data>
+  <data name="Other reports" xml:space="preserve">
+    <value>تقارير أخرى</value>
+  </data>
+  <data name="Other tasks" xml:space="preserve">
+    <value>مهام أخرى</value>
+  </data>
+  <data name="Pledge" xml:space="preserve">
+    <value>تعهد</value>
+  </data>
+  <data name="Prepare Sapmle" xml:space="preserve">
+    <value>تحضير العينات</value>
+  </data>
+  <data name="Receiving samples" xml:space="preserve">
+    <value>استلام العينات</value>
+  </data>
+  <data name="Reopen" xml:space="preserve">
+    <value>إعادة فتح</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>التقارير</value>
+  </data>
+  <data name="Request for mixing approval" xml:space="preserve">
+    <value>طلب اعتماد خلطة</value>
+  </data>
+  <data name="String1Technical report to close the factory" xml:space="preserve">
+    <value>تقرير فني لإغلاق مصنع</value>
+  </data>
+  <data name="Temporary closure" xml:space="preserve">
+    <value>إغلاق مؤقت</value>
+  </data>
+  <data name="Test result report" xml:space="preserve">
+    <value>تقرير نتيجة اختبار</value>
+  </data>
+  <data name="The program's media portal" xml:space="preserve">
+    <value>البوابة الإعلامية للبرنامج</value>
+  </data>
+  <data name="Violations" xml:space="preserve">
+    <value>مخالفات</value>
+  </data>
+  <data name="Warnings" xml:space="preserve">
+    <value>الإنذرات</value>
+  </data>
+  <data name="Administrative Circulars" xml:space="preserve">
+    <value>التعاميم الإدارية</value>
+  </data>
+  <data name="Approve or Reject Mixure" xml:space="preserve">
+    <value>اعتماد أو رفض الخلطة</value>
+  </data>
+  <data name="Cement" xml:space="preserve">
+    <value>الاسمنت</value>
+  </data>
+  <data name="Materials Source" xml:space="preserve">
+    <value>مصادر المواد</value>
+  </data>
+  <data name="Waiting" xml:space="preserve">
+    <value>قيد المراجعة</value>
+  </data>
+  <data name="Water" xml:space="preserve">
+    <value>الماء</value>
+  </data>
+  <data name="Weights of the ingredients of the mixture" xml:space="preserve">
+    <value>أوزان مكونات الخلطة</value>
+  </data>
+  <data name="Landing" xml:space="preserve">
+    <value>الهبوط</value>
+  </data>
+  <data name="AddTests" xml:space="preserve">
+    <value>اضافه اختبارات </value>
+  </data>
+  <data name="Arabic Name" xml:space="preserve">
+    <value>الاسم باللغة العربية </value>
+  </data>
+  <data name="Attach Test" xml:space="preserve">
+    <value>ارفاق الاختبار</value>
+  </data>
+  <data name="English Name" xml:space="preserve">
+    <value>الاسم باللغة الانجليزية </value>
+  </data>
+  <data name="PreperingReport" xml:space="preserve">
+    <value>تقرير تحضير العينة</value>
+  </data>
+  <data name="Reason Of Cancle Visit" xml:space="preserve">
+    <value>أسباب الغاء الزيارة</value>
+  </data>
+  <data name="Preparing Report" xml:space="preserve">
+    <value>تحضير تقرير</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
+  </data>
+  <data name="Invoice Photo" xml:space="preserve">
+    <value>صورة الفاتورة</value>
+  </data>
+  <data name="Receive" xml:space="preserve">
+    <value>استقبال</value>
+  </data>
+  <data name="Factory close" xml:space="preserve">
+    <value>المصنع مغلق</value>
+  </data>
+  <data name="Redirect to Visit Report" xml:space="preserve">
+    <value>الذهاب لتقرير الزياره</value>
+  </data>
+  <data name="Sample not ready" xml:space="preserve">
+    <value>لم يتم يتحضير عينة</value>
+  </data>
+  <data name="OtherReason" xml:space="preserve">
+    <value>اسباب اخري</value>
+  </data>
+  <data name="Edit Visit" xml:space="preserve">
+    <value>تعديل زيارة</value>
+  </data>
+  <data name="Cube" xml:space="preserve">
+    <value>المكعب</value>
+  </data>
+  <data name="28-day pressure resistance test for factory samples" xml:space="preserve">
+    <value>اختبار مقاومة الضغط 28 يوم الخاصة بعينات المصنع</value>
+  </data>
+  <data name="Break_Concrete_7_days" xml:space="preserve">
+    <value>نتيجة كسر 7 يوم</value>
+  </data>
+  <data name="Control of volatile dust in the mixing plant is effective" xml:space="preserve">
+    <value>التحكم فى الغبار المتطاير في محطة الخلط فعال</value>
+  </data>
+  <data name="Good site cleanliness" xml:space="preserve">
+    <value>نضافة الموقع جيدة</value>
+  </data>
+  <data name="Hardware not calibrated" xml:space="preserve">
+    <value>عدم معايرة الاجهزة</value>
+  </data>
+  <data name="High temperature concrete" xml:space="preserve">
+    <value>ارتفاع درجة حرارة الخرسانة</value>
+  </data>
+  <data name="Infraction Count" xml:space="preserve">
+    <value>عدد المخالفات</value>
+  </data>
+  <data name="Infractions" xml:space="preserve">
+    <value>مخالفات</value>
+  </data>
+  <data name="Insufficient quality and documentation records" xml:space="preserve">
+    <value>القصور في سجلات الجودة وتوثيق النتائج</value>
+  </data>
+  <data name="Laboratory engineer is available" xml:space="preserve">
+    <value>مهندس المختبر متواجد</value>
+  </data>
+  <data name="Lack of attention to site cleanliness and environmental protection" xml:space="preserve">
+    <value>عدم الاهتمام بنظافة الموقع وحماية البيئة</value>
+  </data>
+  <data name="LowPressureResistance" xml:space="preserve">
+    <value>انخفاض مقاومة الضغط</value>
+  </data>
+  <data name="Measuring the drop within the required limits" xml:space="preserve">
+    <value>قياس الهبوط ضمن الحدود المطلوبة</value>
+  </data>
+  <data name="Name of the violation" xml:space="preserve">
+    <value>اسم المخالفة</value>
+  </data>
+  <data name="Not using a mixture of class" xml:space="preserve">
+    <value>عدم استخدام خلطة صنف (35) للاساسات والاعمدة</value>
+  </data>
+  <data name="NotApproved" xml:space="preserve">
+    <value>لم يتم الاعتماد</value>
+  </data>
+  <data name="Reduced amount of decline" xml:space="preserve">
+    <value>انخفاض مقدار الهبوط</value>
+  </data>
+  <data name="The absence of the device for the laboratory technician" xml:space="preserve">
+    <value>عدم تواجد الجهاز الفني للمختبر</value>
+  </data>
+  <data name="The pressure resistance meets the requirements" xml:space="preserve">
+    <value>مقاومة الضغط محققة للمتطلبات</value>
+  </data>
+  <data name="the temperature meets the requirements" xml:space="preserve">
+    <value>درجة الحراره متوافقة مع المتطلبات</value>
+  </data>
+  <data name="Use compatible with the approved mixture" xml:space="preserve">
+    <value>الاستخدام متوافق مع الخلطة المعتمدة</value>
+  </data>
+  <data name="Visit" xml:space="preserve">
+    <value>زيارة</value>
+  </data>
+  <data name="Alerts" xml:space="preserve">
+    <value>الإنذارات</value>
+  </data>
+  <data name="Generate Alerts" xml:space="preserve">
+    <value>اصدار الانذارات</value>
+  </data>
+  <data name="AverageCompressiveStrengthMonthly" xml:space="preserve">
+    <value>نتيجة مقاومة 28 يوم</value>
+  </data>
+  <data name="AverageCompressiveStrengthSevenDays" xml:space="preserve">
+    <value>نتيجة مقاومة 7 يوم</value>
+  </data>
+  <data name="CreateCircular" xml:space="preserve">
+    <value>إصدار تعميم</value>
+  </data>
+  <data name="dateOfCircular" xml:space="preserve">
+    <value>تاريخ صدور التعميم</value>
+  </data>
+  <data name="dateOfReceivingSample" xml:space="preserve">
+    <value>تاريخ إستلام العينة</value>
+  </data>
+  <data name="DownloadCircularFile" xml:space="preserve">
+    <value>تحميل الملف</value>
+  </data>
+  <data name="FactoryDownloadFile" xml:space="preserve">
+    <value>المصنع قام بتحميل الملف</value>
+  </data>
+  <data name="FactoryLocation" xml:space="preserve">
+    <value>موقع المصنع</value>
+  </data>
+  <data name="ShowCircular" xml:space="preserve">
+    <value>عرض التعاميم</value>
+  </data>
+  <data name="Usage" xml:space="preserve">
+    <value>الاستخدام</value>
+  </data>
+  <data name="ApprovedByDirector" xml:space="preserve">
+    <value>اعتمادها من مدير الادارة</value>
+  </data>
+  <data name="ApprovedBySuperVisor" xml:space="preserve">
+    <value>اعتمادها من مشرف المختبر</value>
+  </data>
+  <data name="Reviewed" xml:space="preserve">
+    <value>تمت مراجعته</value>
+  </data>
+  <data name="message" xml:space="preserve">
+    <value>رساله</value>
+  </data>
+  <data name="Break 7 Days" xml:space="preserve">
+    <value>كسر عينة 7 أيام</value>
+  </data>
+  <data name="basic information" xml:space="preserve">
+    <value>البيانات الاساسية</value>
+  </data>
+  <data name="Evaluation Factory Visit Report" xml:space="preserve">
+    <value>زيارة تقييم حالة مصنع</value>
+  </data>
+  <data name="Evaluation of equipment and special requirements" xml:space="preserve">
+    <value>تقويم التجهيزات والمتطلبات الخاصة</value>
+  </data>
+  <data name="Laboratory evaluation and self-quality control activities" xml:space="preserve">
+    <value>تقويم المختبر و أنشطة ضبط الجودة الذاتية</value>
+  </data>
+  <data name="Supplementary data" xml:space="preserve">
+    <value>البيانات التكميلية</value>
+  </data>
+  <data name="Technical Director" xml:space="preserve">
+    <value>المدير الفني</value>
+  </data>
+  <data name="Factroy Stauts" xml:space="preserve">
+    <value>جالة المصنع</value>
+  </data>
+  <data name="Alerts Details" xml:space="preserve">
+    <value>تفاصيل الإنذار</value>
+  </data>
+  <data name="Add Plagde" xml:space="preserve">
+    <value>إسناد تعهد لمصنع</value>
+  </data>
+  <data name="Download Pladge" xml:space="preserve">
+    <value>تحميل التعهد</value>
+  </data>
+  <data name="Pladge Date" xml:space="preserve">
+    <value>تاريخ أصدار التعهدات</value>
+  </data>
+  <data name="Show Previous Pladge" xml:space="preserve">
+    <value>الذهاب للتعهدات المسندة</value>
+  </data>
+  <data name="Upload Pladge after signature" xml:space="preserve">
+    <value>إرفاق التعهد بعد توقيعه</value>
+  </data>
+  <data name="Factory and fittings indicator" xml:space="preserve">
+    <value>مؤشر المصنع والتجهيزات</value>
+  </data>
+  <data name="Laboratory index and self-quality control activities" xml:space="preserve">
+    <value>مؤشر المختبر وأنشطة ضبط الجودة الذاتية</value>
+  </data>
+  <data name="Production quality index" xml:space="preserve">
+    <value>مؤشر جودة الإنتاج</value>
+  </data>
+  <data name="Administrative organization and technical qualification" xml:space="preserve">
+    <value>التنظيم الإداري والتأهيل الفني</value>
+  </data>
+  <data name="Calendar of mixing stations" xml:space="preserve">
+    <value>تقويم محطات الخلط</value>
+  </data>
+  <data name="Central mixer" xml:space="preserve">
+    <value>خلاطة مركزية</value>
+  </data>
+  <data name="Cleaning and maintenance of mixing stations and control rooms are done periodically" xml:space="preserve">
+    <value>نظافة  وصيانة محطات الخلط وغرف التحكم تتم بصورة دورية</value>
+  </data>
+  <data name="Cleanliness and maintenance of the site and the internal facilities that are done regularly" xml:space="preserve">
+    <value>نظافة وصيانة الموقع والمنشآت الداخلية التي تتم بصورة منتظمة</value>
+  </data>
+  <data name="Concrete mixer trucks" xml:space="preserve">
+    <value>شاحنات خلط ونقل الخرسانة</value>
+  </data>
+  <data name="Concrete ordering and supplying system" xml:space="preserve">
+    <value>نظام طلب وتوريد الخرسانة</value>
+  </data>
+  <data name="Confused in the truck" xml:space="preserve">
+    <value>الخلط في الشاحنة</value>
+  </data>
+  <data name="Material storage and handling" xml:space="preserve">
+    <value>تخزين ومناولة المواد</value>
+  </data>
+  <data name="Mixing method" xml:space="preserve">
+    <value>طريقة الخلط</value>
+  </data>
+  <data name="Mixing process control system" xml:space="preserve">
+    <value>نظام التحكم في عملية الخلط</value>
+  </data>
+  <data name="Precautions for producing concrete in hot weather" xml:space="preserve">
+    <value>احتياطات إنتاج الخرسانة في الجو الحار</value>
+  </data>
+  <data name="Scales" xml:space="preserve">
+    <value>الموازين</value>
+  </data>
+  <data name="Site regulation and environmental precautions" xml:space="preserve">
+    <value>تنظيم الموقع والاحتياطات البيئية</value>
+  </data>
+  <data name="Spacers and barriers are sufficient to prevent overlapping of various types of aggregate" xml:space="preserve">
+    <value>الفواصل والحواجز كافية لمنع تداخل أنواع الركام المختلفة</value>
+  </data>
+  <data name="Stacking is carried out in a manner that prevents granular separation or breakage" xml:space="preserve">
+    <value>تخزين الركام يتم بطريقة تمنع حدوث انفصال حبيبي أو تكسرات</value>
+  </data>
+  <data name="The factory has a Saudi quality mark or ISO 9000 certificate" xml:space="preserve">
+    <value>المصنع حاصل على علامة الجودة السعودية أو شهادة الأيزو ٩٠٠٠</value>
+  </data>
+  <data name="The method of transporting and handling aggregates does not cause granular separation" xml:space="preserve">
+    <value>طريقة نقل ومناولة الركام لا تسبب حدوث انفصال حبيبي له</value>
+  </data>
+  <data name="The senior management (executive director or technical director) has academic qualification and appropriate experience in the field of engineering and concrete technology" xml:space="preserve">
+    <value>الإداراة العليا ( المدير التنفيذي أو المدير الفني ) ذات تأهيل أكاديمي وخبرة مناسبة في مجال الهندسة وتقنية الخرسانة</value>
+  </data>
+  <data name="There is a quality system and written procedure guide for all activities in the factory" xml:space="preserve">
+    <value>يوجد نظام جودة ودليل إجراءات مكتوب لجميع  الأنشطة في المصنع</value>
+  </data>
+  <data name="There is a system and safety precautions inside the factory" xml:space="preserve">
+    <value>يوجد نظام واحتياطات السلامة داخل المصنع</value>
+  </data>
+  <data name="There is an organizational structure between the administrative organization and specifies the responsibilities of factory workers" xml:space="preserve">
+    <value>يوجد هيكل تنظيمي بين التنظيم الإداراي ويحدد مسؤوليات العاملين في المصنع</value>
+  </data>
+  <data name="Use a wet mixing method to reduce flying dust" xml:space="preserve">
+    <value>استخدام طريقة الخلط الرطب لتقليل الغبار المتطاير</value>
+  </data>
+  <data name="Volume control system" xml:space="preserve">
+    <value>نظام التحكم في الأحجام</value>
+  </data>
+  <data name="Weights control system" xml:space="preserve">
+    <value>نظام التحكم في الأوزان</value>
+  </data>
+  <data name="A device for measuring the thickness of doubt in concrete" xml:space="preserve">
+    <value>جهاز قياس زمن الشك في الخرسانة</value>
+  </data>
+  <data name="A device to measure the percentage of air spaces" xml:space="preserve">
+    <value>جهاز قياس نسبة الفراغات الهوائية</value>
+  </data>
+  <data name="Additional devices and tools" xml:space="preserve">
+    <value>الاجهزة والأدوات الإضافية</value>
+  </data>
+  <data name="All required data is filled out (10 points are deducted for every lack of required data)" xml:space="preserve">
+    <value>يتم تعبئة جميع البيانات المطلوبة ( يخصم 10  نقاط مقابل كل نقص في تعئبة البيانات المطلوبة )</value>
+  </data>
+  <data name="art Device" xml:space="preserve">
+    <value>الجهاز الفني</value>
+  </data>
+  <data name="Automatic" xml:space="preserve">
+    <value>أوتوماتيكي</value>
+  </data>
+  <data name="By air-conditioned rooms" xml:space="preserve">
+    <value>بواسطة غرف مكيفة الهواء</value>
+  </data>
+  <data name="By rooms controlled by temperature" xml:space="preserve">
+    <value>بواسطة غرف يتم التحكم في درجة حرارتها</value>
+  </data>
+  <data name="Cement time measuring device" xml:space="preserve">
+    <value>جهاز قياس زمن الشك للأسمنت</value>
+  </data>
+  <data name="Cement vessels painted white" xml:space="preserve">
+    <value>أوعية الأسمنت مطلية باللون الأبيض</value>
+  </data>
+  <data name="Chute surface is smooth and clean" xml:space="preserve">
+    <value>سطح القمع والزلاق (Chute) أملس ونظيف</value>
+  </data>
+  <data name="Concrete hearts sampling machine" xml:space="preserve">
+    <value>ماكينة أخذ عينات قلوب الخرسانة</value>
+  </data>
+  <data name="Concrete tests and the method of handling and testing cubes" xml:space="preserve">
+    <value>اختبارات الخرسانة وطريقة معالجة  واختبار المكعبات</value>
+  </data>
+  <data name="Digital" xml:space="preserve">
+    <value>رقمية</value>
+  </data>
+  <data name="Digital and in good condition" xml:space="preserve">
+    <value>رقمية وبحالة جيدة</value>
+  </data>
+  <data name="Documentation of produced concrete" xml:space="preserve">
+    <value>توثيق الخرسانة المنتجة</value>
+  </data>
+  <data name="Documentation, laboratory records and reports" xml:space="preserve">
+    <value>التوثيق وسجلات المختبر والتقارير</value>
+  </data>
+  <data name="Download speed control method" xml:space="preserve">
+    <value>طريقة التحكم في سرعة التحميل</value>
+  </data>
+  <data name="Each accurate scale is within (0.2%) of the scale capacity" xml:space="preserve">
+    <value>كل ميزان دقيق في حدود (0.2 %) من سعة الميزان</value>
+  </data>
+  <data name="Efficient control of the temperature of the concrete mixture" xml:space="preserve">
+    <value>كفاءة التحكم في درجة حرارة الخلطة الخرسانية</value>
+  </data>
+  <data name="Every normal or digital indicator of the scales is closed and protected from dust" xml:space="preserve">
+    <value>كل مؤشر عادي أو رقمي للموازين مغلق ومحمي من الغبار</value>
+  </data>
+  <data name="Good cleanliness and organization" xml:space="preserve">
+    <value>النظافة والتنظيم جيدة</value>
+  </data>
+  <data name="Index of the scales in the central station" xml:space="preserve">
+    <value>مؤشر الموازين في المحطة المركزية</value>
+  </data>
+  <data name="Laboratory records" xml:space="preserve">
+    <value>سجلات المختبر</value>
+  </data>
+  <data name="Los Angeles device" xml:space="preserve">
+    <value>جهاز  لوس انجلوس</value>
+  </data>
+  <data name="Machine type" xml:space="preserve">
+    <value>نوع الماكينة</value>
+  </data>
+  <data name="Mananger Lab Exists" xml:space="preserve">
+    <value>يوجد مدير مختبر مفرغ بالكامل لأنشطة ضبط وتأكيد جودة في المختبر</value>
+  </data>
+  <data name="Mixed (regular and digital)" xml:space="preserve">
+    <value>مختلطة ( عادية ورقمية )</value>
+  </data>
+  <data name="Non-destructive testing devices for concrete" xml:space="preserve">
+    <value>أجهزة اختبار غير متلفة للخرسانة</value>
+  </data>
+  <data name="Normal" xml:space="preserve">
+    <value>عادية</value>
+  </data>
+  <data name="Normal and in good condition" xml:space="preserve">
+    <value>عادية وبحالة جيدة</value>
+  </data>
+  <data name="Pressure resistance test requirements" xml:space="preserve">
+    <value>متطلبات اختبار مقاومة الضغط</value>
+  </data>
+  <data name="Pressure resistance tests" xml:space="preserve">
+    <value>اختبارات مقاومة الضغط</value>
+  </data>
+  <data name="Production control level" xml:space="preserve">
+    <value>مستوى التحكم في الإنتاج</value>
+  </data>
+  <data name="Quality lab and its equipments" xml:space="preserve">
+    <value>مختبر الجودة والتجهيزات الخاصة به</value>
+  </data>
+  <data name="Self-control quality activities" xml:space="preserve">
+    <value>أنشطة ضبط جودة الخرسانة الذاتية</value>
+  </data>
+  <data name="Slugability of concrete mixture" xml:space="preserve">
+    <value>قابلية التشغيل للخلطة الخرسانية (slump )</value>
+  </data>
+  <data name="Sprinklers of water are located above the aggregate chokes" xml:space="preserve">
+    <value>توجد رشاشات ماء فوق تشوينات الركام</value>
+  </data>
+  <data name="Standard Cubes Set (50 * 50 * 50mm)" xml:space="preserve">
+    <value>مجموعة مكعبات قياسية (50 *50 *50  مم)</value>
+  </data>
+  <data name="Standard cylindrical molds (150 * 300mm)" xml:space="preserve">
+    <value>قوالب اسطوانية قياسية (150 *300 مم)</value>
+  </data>
+  <data name="Statistical analysis of pressure resistance results" xml:space="preserve">
+    <value>التحليل الإحصائي لنتائج مقاومة الضغط</value>
+  </data>
+  <data name="Store samples in designated areas" xml:space="preserve">
+    <value>تخزين العينات في أماكن مخصصة لها</value>
+  </data>
+  <data name="Stored storage is done in a way that prevents granular separation or breakage" xml:space="preserve">
+    <value>تخزين الركام يتم بطريقة تمنع حدوث انفصال حبيبي او تكسرات</value>
+  </data>
+  <data name="The aggregate aggregates are not exposed to pollution or dust" xml:space="preserve">
+    <value>تشوينات الركام غير معرضة للتلوث أو الأتربة</value>
+  </data>
+  <data name="The barrel of the truck is free from the accumulation of cement and concrete" xml:space="preserve">
+    <value>The barrel of the truck is free from the accumulation of cement and concrete</value>
+  </data>
+  <data name="The issuance of a concrete supply ticket is automated directly from the control room" xml:space="preserve">
+    <value>إصدار تذكرة  توريد الخرسانة يتم آليا مباشرة من غرفة التحكم</value>
+  </data>
+  <data name="The machine is not acceptable" xml:space="preserve">
+    <value>الماكينة غير مقبول</value>
+  </data>
+  <data name="The mixer operator can read devices from its usual position easily" xml:space="preserve">
+    <value>يستطيع مشغل الخلاطة قراءة الأجهزة من موقعه المعتاد</value>
+  </data>
+  <data name="The numbers for each normal or numerical indicator for the scales are large so that they can be read easily" xml:space="preserve">
+    <value>أرقام كل مؤشر عادي أو رقمي للموازين كبيرة بحيث يمكن قراءتها بسهولة</value>
+  </data>
+  <data name="The place is air-conditioned and well-ventilated" xml:space="preserve">
+    <value>المكان مكيف وجيد التهوية</value>
+  </data>
+  <data name="The trucks are clean and the paint is in good condition" xml:space="preserve">
+    <value>الشاحنات نظيفة والطلاء بحالة جيدة</value>
+  </data>
+  <data name="The water cooled tubes to the mixing plant are buried or thermally insulated" xml:space="preserve">
+    <value>أنابيب نقل الماء المبرد إلى محطة الخلط مدفونة أو معزولة حراريا</value>
+  </data>
+  <data name="The water meter is in good condition" xml:space="preserve">
+    <value>عداد الماء في حالة جيدة</value>
+  </data>
+  <data name="There are (2) technicians qualified to work on the site" xml:space="preserve">
+    <value>يوجد عدد (2 ) فنيين مؤهلين للعمل في الموقع</value>
+  </data>
+  <data name="There are standard weights (at least 250 kg) to check the accuracy of the scale" xml:space="preserve">
+    <value>يوجد أوزان معيارية ( على الأقل 250  كغم ) لفحص دقة قياس الموازين</value>
+  </data>
+  <data name="There is a separate and isolated water tank for cold water" xml:space="preserve">
+    <value>يوجد خزان ماء مستقل ومعزول للماء البارد</value>
+  </data>
+  <data name="There is an ice production plant in the factory" xml:space="preserve">
+    <value>يوجد محطة إنتاج ثلج في المصنع</value>
+  </data>
+  <data name="There is an internal communication system for connecting mixing stations with other departments inside the factory" xml:space="preserve">
+    <value>يوجد نظام اتصالات داخلي لربط محطات الخلط بالأقسام الأخرى داخل المصنع</value>
+  </data>
+  <data name="Truck barrel spindle is working properly" xml:space="preserve">
+    <value>عداد دوران برميل الشاحنة يعمل بشكل سليم</value>
+  </data>
+  <data name="Use a tape recorder to keep a permanent record of the quantities used in each mixture produced" xml:space="preserve">
+    <value>استخدام جهاز تسجيل لحفظ سجل دائم للكميات المستخدمة في كل خلطة أنتجت</value>
+  </data>
+  <data name="Using heaters running inside the water" xml:space="preserve">
+    <value>باستخدام سخانات تعمل داخل الماء</value>
+  </data>
+  <data name="White drums of concrete transport trucks" xml:space="preserve">
+    <value>براميل شاحنات نقل الخرسانة مطلية باللون الأبيض</value>
+  </data>
+  <data name="Add calibration machine" xml:space="preserve">
+    <value>إضافة ماكينة معايرة</value>
+  </data>
+  <data name="Calibration of a machine" xml:space="preserve">
+    <value>معايرة ماكينة</value>
+  </data>
+  <data name="Follow the temperature" xml:space="preserve">
+    <value>متابعة درجة الحرارة</value>
+  </data>
+  <data name="Show added machines" xml:space="preserve">
+    <value>عرض المكائن المضافة</value>
+  </data>
+  <data name="Add new temperature" xml:space="preserve">
+    <value>إضافة متابعة درجة حرارة جديدة</value>
+  </data>
+  <data name="Basin number" xml:space="preserve">
+    <value>رقم الحوض</value>
+  </data>
+  <data name="Date and time" xml:space="preserve">
+    <value>التاريخ والتوقيت</value>
+  </data>
+  <data name="temperature" xml:space="preserve">
+    <value>درجة الحرارة</value>
+  </data>
+  <data name="Add new Machine" xml:space="preserve">
+    <value>إضافة ماكينة جديدة للمعايرة</value>
+  </data>
+  <data name="Check duration" xml:space="preserve">
+    <value>مدة المعايرة</value>
+  </data>
+  <data name="Machine Check Date" xml:space="preserve">
+    <value>تاريخ المعايرة القادمة للماكينة</value>
+  </data>
+  <data name="Machine Name" xml:space="preserve">
+    <value>اسم الماكينة</value>
+  </data>
+  <data name="Sample Added Sucessfully" xml:space="preserve">
+    <value>تم إضافة العينة بنجاح</value>
+  </data>
+  <data name="Visit Program" xml:space="preserve">
+    <value>برنامج الزيارات</value>
+  </data>
+  <data name="Material sample type" xml:space="preserve">
+    <value>نوع عينة المواد</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>الكمية</value>
+  </data>
+  <data name="Dlivered" xml:space="preserve">
+    <value>تم الاستلام</value>
+  </data>
+  <data name="Not Dlivered" xml:space="preserve">
+    <value>لم يتم الاستلام</value>
+  </data>
+  <data name="Task Details" xml:space="preserve">
+    <value>تفاصيل المهمة</value>
+  </data>
+  <data name="April" xml:space="preserve">
+    <value>أبريل</value>
+  </data>
+  <data name="August" xml:space="preserve">
+    <value>أغسطس</value>
+  </data>
+  <data name="Dec" xml:space="preserve">
+    <value>ديسمبر</value>
+  </data>
+  <data name="February" xml:space="preserve">
+    <value>فبراير</value>
+  </data>
+  <data name="January" xml:space="preserve">
+    <value>يناير</value>
+  </data>
+  <data name="July" xml:space="preserve">
+    <value>يوليو</value>
+  </data>
+  <data name="June" xml:space="preserve">
+    <value>يونيو</value>
+  </data>
+  <data name="March" xml:space="preserve">
+    <value>مارس</value>
+  </data>
+  <data name="May" xml:space="preserve">
+    <value>مايو</value>
+  </data>
+  <data name="November" xml:space="preserve">
+    <value>نوفمبر</value>
+  </data>
+  <data name="October" xml:space="preserve">
+    <value>أكتوبر</value>
+  </data>
+  <data name="September" xml:space="preserve">
+    <value>سبتمبر</value>
+  </data>
+  <data name="The number of sediment samples" xml:space="preserve">
+    <value>عدد العينات الراسبة</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>الإجمالي</value>
+  </data>
+</root>

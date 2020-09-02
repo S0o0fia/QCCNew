@@ -1,0 +1,409 @@
+﻿@model AspnetMvcDemo.Models.ConcreteSample1
+
+@{
+    ViewBag.Title = "ConcreteFactoryReports";
+}
+
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/smartwizard/smartwizard")
+}
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/smartwizard/smartwizard")
+    @Scripts.Render("~/bundle/vendor/js/validate/validate")
+
+    @Scripts.Render("~/bundle/js/forms_wizard")
+
+    <script src="https://maps.google.com/maps/api/js?key=AIzaSyCdFgjBkq4uZTK7P5-mvWukUrkQVub8jw0"></script>
+    @Scripts.Render("~/bundle/vendor/js/gmaps/gmaps")
+
+    @*@Scripts.Render("~/bundle/js/charts_gmaps")*@
+}
+
+<style type="text/css">
+    .col-md-2 {
+        flex: 0 0 16.66667%;
+        max-width: 16.66667%;
+        text-align: left;
+        vertical-align: text-bottom;
+    }
+</style>
+
+
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <h3 style="text-align:center">@Resources.Resources.Prepare_Concrete</h3>
+    <hr class="container-m-nx border-light my-4">
+    @*<h6 class="text-muted small font-weight-bold py-3 my-4">
+            With icon
+        </h6>*@
+    @using (Html.BeginForm("AddConcreteSample", "ConcreteFactoryReports", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
+        <form>
+            <div id="smartwizard-2" class="smartwizard-example">
+                <div class="mb-3">
+                    <div id="smartwizard-2-step-1" class="card animated fadeIn">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.Report_Number</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @*<input type="text" class="form-control">*@
+                                    @Html.TextBoxFor(m => m.ReportNo, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.Report_Date</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @*<input type="date" class="form-control">*@
+                                    @Html.TextBoxFor(m => m.ReportDate, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                                @*<div class="col-md-2 form-group">
+                                        <input type="date" class="form-control">
+                                    </div>*@
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Factory_Name</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @*<input class="form-control" type="text" id="name" readonly="readonly" />*@
+                                    @Html.TextBoxFor(m => m.FactoryName, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Factroy_Location</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @*<input class="form-control" type="text" id="location" readonly="readonly" />*@
+                                    @Html.TextBoxFor(m => m.FactoryLocation, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Mixer_Number</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.MixerNumber, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                                    @*<input class="form-control" type="number" />*@
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Factroy_Visit_Number</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.VisitNumber, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Sample_Number</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @*<input class="form-control" type="number" />*@
+                                    @Html.TextBoxFor(m => m.SampleNumber, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                                @*<div class="col-md-2 form-group">
+                                        <label class="form-label">@Resources.Resources.Sample_Time </label>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <input class="form-control" type="time" />
+                                    </div>*@
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Client_Name </label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @*<input class="form-control" type="text" />*@
+                                    @Html.TextBoxFor(m => m.ClientName, new { type = "text", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Trucker_Number</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.TruckNumber, new { type = "text", @class = "form-control" , @readonly = "readonly" })
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Invoice_Number</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.InvoiceNumber, new { type = "text", @class = "form-control" ,@readonly = "readonly" })
+                                </div>
+                            </div>
+
+
+                            @*<div class="row">
+                                    <div class="col-md-2 form-group">
+                                        <label class="form-label">@Resources.Resources.Client_Name </label>
+                                    </div>
+                                    <div class="col-md-4 form-group">
+                                        <input class="form-control" type="text" />
+                                    </div>
+
+                                </div>*@
+
+                            
+                            <br />
+                           
+                        </div>
+                    </div>
+
+                    <!--Step Two-->
+                    <div id="smartwizard-2-step-2" class="card animated fadeIn">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.Concrete_Rank</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @*<input type="text" class="form-control">*@
+                                    @*<select class="form-control">
+                                            <option selected="selected">-- Select Rank --</option>
+                                            <option>C-20</option>
+                                            <option>C-30</option>
+                                            <option>C-35</option>
+                                            <option>C-40</option>
+                                        </select>*@
+                                    @{
+                                        var selectList = new SelectList(
+                                            new List<SelectListItem>
+{
+                                                                                            new SelectListItem {Text = "C-15", Value = "C-15"},
+                                                                                            new SelectListItem {Text = "C-20", Value = "C-20"},
+                                                                                            new SelectListItem {Text = "C-30", Value = "C-30"},
+                                                                                            new SelectListItem {Text = "C-35", Value = "C-35"}
+                                            }, "Value", "Text");
+                                    }
+                                    @Html.DropDownListFor(m => m.ConcreteRank, selectList, "-- Select Rank --", new { @class = "form-control", @id = "dropRank" , @readonly = "readonly" })
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.Concrete_Tempereture</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.ConcreteTemperture, new { type = "number", min = "0", step = "1", @class = "form-control" , @readonly = "readonly" })
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Water_Tempreture</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.WaterTemperature, new { type = "number", min = "0", step = "1", @class = "form-control" , @readonly = "readonly" })
+                                </div>
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Weather_Tempreture</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.WeatherTemperture, new { type = "number", min = "0", step = "1", @class = "form-control" , @readonly = "readonly" })
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Down_Amount</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.DownAmount, new { type = "number", min = "0", step = "1", @class = "form-control" , @readonly = "readonly" })
+                                </div>
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Cement_Type</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.CementType, new { type = "text", @class = "form-control" , @readonly = "readonly" })
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Cement_Source</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.CementSource, new { type = "text", @class = "form-control" , @readonly = "readonly" })
+                                </div>
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Addtion_Type</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.AdditionType, new { type = "text", @class = "form-control" , @readonly = "readonly" })
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Addtion_Amount</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.AdditionAmount, new { type = "number", min = "0", step = "1", @class = "form-control" , @readonly = "readonly" })
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="smartwizard-2-step-3" class="card animated fadeIn">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.Cement_Weight</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.CementWeight, new { type = "number", min = "0", step = "1", @class = "form-control" , @readonly = "readonly" })
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.Water_Weight</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.WaterWieght, new { type = "number", min = "0", step = "1", @class = "form-control" , @readonly = "readonly" })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.Washed_Sand</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.WashedSandWeight, new { type = "number", min = "0", step = "1", @class = "form-control" , @readonly = "readonly" })
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.White_Sand</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.WhiteSandWeight, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.Rubble_3_4</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.Rubble3by4, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.Rubble_3_8</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.Rubble3by8, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+
+                           
+                            <br />
+                          
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    }
+    <hr class="container-m-nx border-light mt-0 mb-5">
+
+    
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    })
+
+    $("#dropRank").change(function () {
+        if ($("#dropRank").val() == "C-35")
+            $("#ReasonHiddenDrop").attr("hidden", "hidden")
+        else
+            $("#ReasonHiddenDrop").removeAttr("hidden")
+
+    })
+    $("#IsCleanUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsCleanUsage").val(true);
+    });
+
+    $("#IsBasicUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsBasicUsage").val(true)
+    });
+    $("#IsColumnUsageTrue").click(function () {
+        ChangeFalse();
+       $("#IsColumnUsage").val(true);
+     });
+    $("#IsRoofUsageTrue").click(function () {
+        ChangeFalse();
+       $("#IsRoofUsage").val(true);
+    });
+    $("#IsOtherUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsOtherUsage").val(true);
+        $("#ReasonHidden").removeAttr("hidden")
+        if ($("#dropRank").val() == "C-35")
+            $("#ReasonHiddenDrop").attr("hidden", "hidden")
+        else
+            $("#ReasonHiddenDrop").removeAttr("hidden")
+
+
+     });
+    function ChangeFalse() {
+        $("#IsOtherUsage").val(false);
+        $("#IsRoofUsage").val(false);
+        $("#IsColumnUsage").val(false);
+        $("#IsBasicUsage").val(false)
+        $("#IsCleanUsage").val(false);
+        $("#ReasonHidden").attr("hidden","hidden")
+
+    }
+    $("#IsCleanLocationTrue").click(function () {
+        $("#IsCleanLocation").val(true);
+        console.log("clean")
+        console.log($("#IsCleanLocation").val() )
+    });
+    $("#IsCleanLocationFalse").click(function () {
+        $("#IsCleanLocation").val(false);
+        console.log("clean")
+        console.log($("#IsCleanLocation").val())
+    });
+    $("#IsMoldanatInTrucksTrue").click(function () {
+        $("#IsMoldanatInTrucks").val(true);
+    });
+    $("#IsMoldanatInTrucksFalse").click(function () {
+        $("#IsMoldanatInTrucks").val(false);
+    });
+    $("#IsRokamSummerTrue").click(function () {
+        $("#IsRokamSummer").val(true);
+    });
+    $("#IsRokamSummerFalse").click(function () {
+        $("#IsRokamSummer").val(false);
+    });
+    $("#IsLabEngineerTrue").click(function () {
+        $("#IsLabEngineer").val(true);
+    });
+    $("#IsLabEngineerFalse").click(function () {
+        $("#IsLabEngineer").val(false);
+    });
+    $("#IsDustControlInStationTrue").click(function () {
+        $("#IsDustControlInStation").val(true);
+    });
+    $("#IsDustControlInStationFalse").click(function () {
+        $("#IsDustControlInStation").val(false);
+    });
+    $("#IsPeopleSaftyTrue").click(function () {
+        $("#IsPeopleSafty").val(true);
+    });
+    $("#IsPeopleSaftyFalse").click(function () {
+        $("#IsPeopleSafty").val(false);
+    });
+
+
+</script>
+

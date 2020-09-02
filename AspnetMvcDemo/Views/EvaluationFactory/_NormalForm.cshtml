@@ -1,0 +1,129 @@
+﻿
+<style>
+    input , label{
+        font-size:large;
+
+    }
+
+</style>
+
+<div dir="rtl" style="text-align:right; font-size:medium;">
+    @foreach (var Qualification in (List<AspnetMvcDemo.Models.EquipmentRequirementsType>)ViewBag.ListOfTitles)
+    {
+        var ListOfOptionsOfQualification = (Qualification.CheckEquipmentRequirements).GroupBy(b => b.SubType_Arabic);
+    <div>
+       
+        <h3 style="font-size:large; font-weight:bold ; text-decoration:underline; text-decoration-color:sandybrown;">
+            <i class="ion-ios-star" style="color:sandybrown"></i>
+            @Qualification.Title
+        </h3>
+
+
+        @if (Qualification.ID == 18)
+        {
+            <div class="btn btn-outline-success"  onclick="AddNewMixitingStation()" style="margin-bottom:3%">
+                <i class="ion-ios-add-circle text-success"></i> إضافة محطة خلط
+            </div>
+        }
+        else
+        {
+            for (int i = 0; i < ListOfOptionsOfQualification.Count(); i++)
+            {
+                if (ListOfOptionsOfQualification.ElementAtOrDefault(i).Key != null || ListOfOptionsOfQualification.ElementAtOrDefault(i).Key != string.Empty ||
+                    ListOfOptionsOfQualification.ElementAtOrDefault(i).Key == "")
+                {
+                    <div class="col-12" style="background-color:#2e323a; padding-top:0.5%; color:white;" >
+                         <h5 style="font-size:large; font-weight:bold; padding:0.5%;">
+                            <i class="ion-ios-information-circle" style="color:white;"></i>
+                            @ListOfOptionsOfQualification.ElementAtOrDefault(i).Key
+                        </h5>
+                    </div>
+                }
+       
+        foreach (var Options in ListOfOptionsOfQualification.ElementAtOrDefault(i))
+        {
+           var first = Guid.NewGuid();
+        <input type="hidden" name="option.Index" value="@first" />
+        <input class="" type="text" name="option[@first].QuestionId" value="@Options.ID" hidden />
+
+            <div class="row">
+            <label class="col-md-11" style="float:right">
+                * &nbsp;
+                @Options.Description
+            </label>
+            <hr class="container-m-nx border-light my-4">
+            @if (Options.InputFieldType == "checkbox")
+            {
+                <input class="col-md-1" type="checkbox" name="option[@first].Answer" value="@Options.ID" />
+                <hr class="container-m-nx border-light my-4">
+
+            }
+            else if (Options.InputFieldType == "radiobutton")
+            {
+                if (ListOfOptionsOfQualification.ElementAtOrDefault(i).Key != null && ListOfOptionsOfQualification.ElementAtOrDefault(i).Key != string.Empty)
+                {
+                    string RadioBtnId = Qualification.ID.ToString() + i.ToString();
+                    <input id="" class="col-md-1 radio_@RadioBtnId" type="radio" value="@Options.ID" />
+                    <input id="" hidden class="text_@RadioBtnId" type="text" name="option[@first].Answer" value="" />
+                    <hr class="container-m-nx border-light my-4">
+                }
+                var ListOfoppptions = ListOfOptionsOfQualification.ElementAtOrDefault(i).ToList();
+                foreach (var Option in ListOfoppptions)
+                {
+                    <input id="" class="col-md-1 radio_@Qualification.ID" type="radio" value="@Option.ID" />
+                    <input id="" hidden class="text_@Qualification.ID" type="text" name="option[@first].Answer" value="" />
+                    <hr class="container-m-nx border-light my-4">
+                }
+            }
+            else if (Options.InputFieldType == "text")
+            {
+                <input class="col-md-1" type="text" name="option[@first].Answer" />
+                <hr class="container-m-nx border-light my-4">
+            }
+        </div>
+        <hr class="container-m-nx border-light my-4">
+
+        }
+   
+
+                if (ListOfOptionsOfQualification.ElementAtOrDefault(i).FirstOrDefault() != null && ListOfOptionsOfQualification.ElementAtOrDefault(i).FirstOrDefault().InputFieldType == "radiobutton")
+                {
+
+                    if (ListOfOptionsOfQualification.ElementAtOrDefault(i).Key != null && ListOfOptionsOfQualification.ElementAtOrDefault(i).Key != string.Empty)
+                    {
+                        string RadioBtnId = Qualification.ID.ToString() + i.ToString();
+                        <script>
+                                $('.radio_@RadioBtnId').change(function () {
+                                    var value = $(this).val();
+                                    $('.radio_@RadioBtnId').not(this).prop('checked', false);
+                                    $('.text_@RadioBtnId').attr("value","");
+                                    $(this).next('input').attr("value",value);
+                                });
+                        </script>
+                    }
+                    else
+                    {
+                        <script>
+                                $('.radio_@Qualification.ID').change(function () {
+                                    var value = $(this).val();
+                                    $('.radio_@Qualification.ID').not(this).prop('checked', false);
+                                    $('.text_@Qualification.ID').attr("value","");
+                                    $(this).next('input').attr("value",value);
+                                });
+                        </script>
+                    }
+                }
+            }
+        }
+    </div>
+       
+    }
+
+</div>
+
+
+<script>
+    $(function () {
+        $("#accordion").accordion();
+    });
+</script>

@@ -1,0 +1,301 @@
+﻿@model AspnetMvcDemo.ViewModel.DetailsTestResultViewModel
+@using Resources 
+
+    <style type="text/css">
+    @*for Mobile Design*@
+ @@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+
+    tr{
+      display:grid;
+      border-bottom:1px solid #ccc;
+    }
+   /* Force table to not be like tables anymore */
+	table, tbody , thead , td, tr, th  {
+		display: block;
+	}
+	table {
+        width :100%;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+
+	td {
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+	}
+
+   td:before {
+		width: 45%;
+		padding-left: 10px;
+		white-space: nowrap;
+        float:right;
+        text-align:center;
+        font-weight : bold;
+	}
+
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "اسم المصنع"; }
+	td:nth-of-type(2):before { content: "موقع الزيارة"; }
+	td:nth-of-type(3):before { content: "تقرير تحضير العينة"; }
+	td:nth-of-type(4):before { content: "إلغاء"; }
+
+      #prepareSample
+      {
+         width : 100%;
+
+      }
+
+}
+
+
+    @*for General and PC Design*@
+    .nav-tabs-top {
+        -ms-flex-direction: column;
+        flex-direction: column;
+        margin-top: 5%;
+
+    }
+    table {
+        background-color : white;
+         width:75%;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    }
+
+    a {
+        font-weight: bold;
+        text-align: right;
+    }
+
+    .edit:hover {
+        background-color: white;
+        color: #02BC77;
+    }
+
+    tr:hover {
+        color: white;
+        background-color: gray;
+    }
+    .nav-tabs {
+       margin-bottom : 1%;
+
+    }
+     td , tr{
+         font-size:large;
+     }
+    #prepareSample{
+        color : white;
+        font-size : large;
+         background-color:#2E323A;
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
+         border-radius : 25px;
+    }
+    </style>
+
+<body dir="rtl">
+   <!--First Table-->
+
+    <div class="card">
+        <div class="card-body Mix">
+            <table class="table table-reponsive">
+                <thead style="text-align:center">
+                    <tr>
+                        <th>
+                            @Resources.Factory_Name
+                        </th>
+                        <th>
+                            @Resources.FactoryLocation
+                        </th>
+                        <th>
+                            @Resources.Sample_Number
+                        </th>
+                        <th>
+                            @Resources.dateOfReceivingSample
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody style="text-align:center">
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.ConcreteSample1.FactoryName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.ConcreteSample1.FactoryLocation)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.ConcreteSample1.SampleNumber)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.ConcreteSample1.ReportDate)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card-body Mix">
+            <table class="table table-reponsive">
+                <thead style="text-align:center">
+                    <tr>
+                        <th>
+                            @Resources.Concrete_Tempereture
+                        </th>
+                        <th>
+                            @Resources.Down_Amount
+                        </th>
+                        <th>
+                            @Resources.Concrete_Rank
+                        </th>
+                        <th>
+                            @Resources.Cement_Type
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody style="text-align:center">
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.ConcreteSample1.ConcreteTemperture, new { @class = "form-control-plaintext" })
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.ConcreteSample1.DownAmount, new { @class = "form-control-plaintext" })
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.ConcreteSample1.ConcreteRank, new { @class = "form-control-plaintext" })
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.ConcreteSample1.CementType, new { @class = "form-control-plaintext" })
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        
+        <div class="card-body Mix">
+            <table class="table table-reponsive">
+                <thead style="text-align:center ; font-weight:bold">
+                    <tr>
+                        <th>@Resources.Weight</th>
+                        <th>@Resources.Volume</th>
+                        <th>@Resources.Area_Loaded</th>
+                        <th>@Resources.Unit_Weight</th>
+                        <th>@Resources.Test_Date</th>
+                        <th>@Resources.Age</th>
+                        <th>@Resources.Crushing_Load</th>
+                        <th>@Resources.Compressive_Strength</th>
+                        <th>@Resources.AverageCompressiveStrengthSevenDays</th>
+                    </tr>
+                </thead>
+                <tbody style="text-align:center;">
+                    @foreach (var item in Model.sevenDaysResults)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(x => item.weight, new { @class = "form-control-plaintext" })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.volume, new { @class = "form-control-plaintext" })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.areaLoaded, new { @class = "form-control-plaintext" })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.unitWeight, new { @class = "form-control-plaintext" })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => Model.ConcreteSample1.ReportDate, new { @class = "form-control-plaintext" })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.age, new { @class = "form-control-plaintext" })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.crushingLoad, new { @class = "form-control-plaintext" })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.CompressiveStrength, new { @class = "form-control-plaintext" })
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.averageCompressiveStrength, new { @class = "form-control-plaintext" })
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card-body Mix">
+            <table class="table table-reponsive">
+                <thead style="text-align:center ; font-weight:bold">
+                    <tr>
+                        <th>@Resources.Weight</th>
+                        <th>@Resources.Volume</th>
+                        <th>@Resources.Area_Loaded</th>
+                        <th>@Resources.Unit_Weight</th>
+                        <th>@Resources.Test_Date</th>
+                        <th>@Resources.Age</th>
+                        <th>@Resources.Crushing_Load</th>
+                        <th>@Resources.Compressive_Strength</th>
+                        <th>@Resources.AverageCompressiveStrengthMonthly</th>
+                    </tr>
+                </thead>
+                <tbody style="text-align:center;">
+                    @foreach (var item in Model.monthlyResults)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(x => item.weight, new { @class = "form-control-plaintext"})
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.volume, new { @class = "form-control-plaintext"})
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.areaLoaded, new { @class = "form-control-plaintext"})
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.unitWeight, new { @class = "form-control-plaintext"})
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => Model.ConcreteSample1.ReportDate, new { @class = "form-control-plaintext"})
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.age, new { @class = "form-control-plaintext"})
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.crushingLoad, new { @class = "form-control-plaintext"})
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.CompressiveStrength, new { @class = "form-control-plaintext"})
+                            </td>
+                            <td>
+                                @Html.DisplayFor(x => item.averageCompressiveStrength, new { @class = "form-control-plaintext"})
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        </div>
+</body>

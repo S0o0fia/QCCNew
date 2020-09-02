@@ -1,0 +1,137 @@
+﻿@model AspnetMvcDemo.Models.BlockInfractionAlert
+@using Resources
+@{
+    ViewBag.Title = "AddTestsMixingDesign";
+}
+
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/smartwizard/smartwizard")
+}
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/smartwizard/smartwizard")
+    @Scripts.Render("~/bundle/vendor/js/validate/validate")
+
+    @Scripts.Render("~/bundle/js/forms_wizard")
+
+    <script src="https://maps.google.com/maps/api/js?key=AIzaSyCdFgjBkq4uZTK7P5-mvWukUrkQVub8jw0"></script>
+    @Scripts.Render("~/bundle/vendor/js/gmaps/gmaps")
+
+    @*@Scripts.Render("~/bundle/js/charts_gmaps")*@
+}
+
+<style type="text/css">
+    .col-md-2 {
+        flex: 0 0 16.66667%;
+        max-width: 16.66667%;
+        text-align: left;
+        vertical-align: text-bottom;
+    }
+</style>
+
+
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <h3 style="text-align:center">@Resources.Alerts_Details</h3>
+
+    @*<h6 class="text-muted small font-weight-bold py-3 my-4">
+            With icon
+        </h6>*@
+    @*@Html.HiddenFor(m => m.AlertId)*@
+
+    <table class="table table-reponsive">
+        <thead style="text-align:center">
+            <tr>
+                <th>
+                    @Resources.Visit_Date
+                </th>
+                <th>
+                    @Resources.Sample_Number
+                </th>
+              </tr>
+        </thead>
+        <tbody style="text-align:center">
+
+            @foreach (var item in Model.Infractions)
+            {
+                <tr>
+                    <td>@item.testDate</td>
+                    <td>@item.SampleNo</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (Model.Monitor1Approve == false)
+    {
+        <div class="col-12" style="margin-top:3%">
+            <button style="text-align:left; margin:auto" class="btn btn-primary" data-toggle="modal" onclick="Modalpop1(@Model.AlertId);">@Resources.Reviewed</button>
+        </div>
+    }
+    @if (Model.Monitor1Approve == true && Model.Monitor2Approve == false)
+    {
+        <div class="col-12" style="margin-top:3%">
+            <button style="text-align:left; margin:auto" class="btn btn-warning" data-toggle="modal" onclick="Modalpop2(@Model.AlertId);">@Resources.ApprovedBySuperVisor</button>
+        </div>
+    }
+
+    @if (Model.Monitor2Approve == true && Model.AdminApprove == false)
+    {
+
+
+        <div class="col-12" style="margin-top:3%">
+            <button style="text-align:left; margin:auto" class="btn btn-success" data-toggle="modal" onclick="Modalpop3(@Model.AlertId);">@Resources.ApprovedByDirector</button>
+        </div>
+    }
+
+
+    <script>
+
+
+        function Modalpop3(id) {
+
+            var urlPost = '@Url.Action("ApproveAdmin", "BlockAlert")' + "/" + id;
+             $.get(urlPost, function (data) {
+
+            $('#ModalBody').html(data.toString());
+
+            $('#Modal_sucess').modal('show');
+            console.log("ads")
+
+        });
+
+        }
+        function Modalpop1(id) {
+     
+            var urlPost = '@Url.Action("ApproveMonitor1", "BlockAlert")' + "/" + id;
+             $.get(urlPost, function (data) {
+
+            $('#ModalBody').html(data.toString());
+
+            $('#Modal_sucess').modal('show');
+            console.log("ads")
+
+        });
+
+        }
+        function Modalpop2(id) {
+       
+            var urlPost = '@Url.Action("ApproveMonitor2", "BlockAlert")' + "/" + id;
+             $.get(urlPost, function (data) {
+
+            $('#ModalBody').html(data.toString());
+
+            $('#Modal_sucess').modal('show');
+            console.log("ads")
+
+        });
+
+        }
+       
+   
+
+
+    </script>
+</body>
+
+

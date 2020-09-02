@@ -1,0 +1,106 @@
+﻿@model  List<AspnetMvcDemo.Models.EditAdminVisit>
+@using Resources
+
+<style type="text/css" >
+    @@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+     .modal-footer{
+         align-items:center;
+         justify-content:center;
+         justify-items:center;
+
+     }
+
+      tr{
+      display:grid;
+      border-bottom:1px solid #ccc;
+    }
+   /* Force table to not be like tables anymore */
+	table, tbody , thead , td, tr, th  {
+		display: block;
+	}
+	table {
+        width :100%;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+
+	td {
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+	}
+
+   td:before {
+		width: 45%;
+		padding-left: 10px;
+		white-space: nowrap;
+        float:right;
+        text-align:center;
+        font-weight : bold;
+	}
+
+	/*
+	Label the data
+	*/
+	
+	
+	
+        
+    }
+   *{
+        text-align : right;
+       
+    }
+   .border {
+       border : 1px solid #808080
+   }
+</style>
+
+<div class="card">
+    @using (Html.BeginForm("VisitDetails", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+     {
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td>@Resources.Monitor_Name</td>
+                            <td>@Resources.Visit_Location</td>
+                            <td>المراقب البديل</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for(int i = 0; i < Model.Count; i++)
+                        {
+                        <tr>
+                            @Html.HiddenFor(M => Model[i].Id)
+                            @Html.HiddenFor(M => Model[i].VisitDate)
+                            @Html.HiddenFor(M => Model[i].OldMonitorId)
+                            @Html.HiddenFor(M => Model[i].FactoryLocation)
+                            <td>@Model[i].Monitor</td>
+                            <td>@Model[i].FactoryLocation</td>
+                            <td>@Html.DropDownListFor(M => Model[i].NewMonitorId, new SelectList(Model[i].RemainingMonitors, "Id", "FullName"), "اختر اسم المراقب البديل", new { @class = "form-control" })</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+        <div class="card-footer" style="text-align : left;">
+            <input value="@Resources.Save" class="btn btn-success" type="submit" />
+        </div>
+     }
+</div>

@@ -1,0 +1,529 @@
+﻿@model IEnumerable<AspnetMvcDemo.Models.ConcreteMixingDesign>
+@using Resources 
+@{
+    ViewBag.Title = "MixingDesign";
+}
+
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/bootbox/bootbox")
+    @Scripts.Render("~/bundle/vendor/js/sweetalert2/sweetalert2")
+
+    @Scripts.Render("~/bundle/js/ui_modals")
+}
+
+<style type="text/css">
+    @*for Mobile Design*@ @@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+
+
+        tr {
+            display: grid;
+            border-bottom: 1px solid #ccc;
+        }
+        /* Force table to not be like tables anymore */
+        table, tbody, thead, td, tr, th {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+        }
+        /* Hide table headers (but not display: none;, for accessibility) */
+        thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+
+        td {
+            /* Behave  like a "row" */
+            border: none;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 50%;
+        }
+
+            td:before {
+                width: 45%;
+                padding-left: 10px;
+                white-space: nowrap;
+                float: right;
+                text-align: center;
+                font-weight: bold;
+            }
+            /*
+	Label the data
+	*/
+            td:nth-of-type(1):before {
+                content: "رتبة العينة";
+            }
+
+            td:nth-of-type(2):before {
+                content: "وزن الاسمنت";
+            }
+
+            td:nth-of-type(3):before {
+                content: "وزن الماء";
+            }
+
+            td:nth-of-type(4):before {
+                content: "الرمل المغسول";
+            }
+
+            td:nth-of-type(5):before {
+                content: "الرمل الأبيض";
+            }
+
+            td:nth-of-type(6):before {
+                content: "الركام 3/4";
+            }
+
+            td:nth-of-type(7):before {
+                content: "الركام 3/8";
+            }
+
+            td:nth-of-type(8):before {
+                content: "التفاصييل";
+            }
+    }
+
+        .Mix, button {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            border-radius : 10px;
+        }
+
+        .nav-link {
+            margin-bottom: 1%;
+            font-weight: bold;
+             border-radius : 25px;
+        }
+
+        * {
+            font-size: large;
+        }
+
+        .nav-tabs-top {
+        }
+
+        .table {
+            border-bottom: solid 2px #eeeeee;
+        }
+
+        h3 {
+            text-decoration: underline;
+            text-align: right;
+        }
+    
+    
+   
+</style>
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <div id="alertAdded" class="alert alert-dark-success alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      Saved successfully
+    </div>
+    <div class="page-header  align-items-center">
+        <div class="col-12">
+
+            <h3 style="cursor:pointer">@Resources.Mix_Design</h3>
+        </div>
+
+        <div class="col-7" style="margin-top:3%">
+            <button style="text-align:left; margin:auto" class="btn btn-success" data-toggle="modal" onclick="Modalpop();">@Resources.Add_Mixing_Design</button>
+        </div>
+
+    </div>
+
+    <div class="nav-tabs-top nav-responsive-xl" style="-ms-flex-direction: column; flex-direction: column;  -ms-flex-align:center ; padding:5% ; text-align:center">
+        @*@Html.ActionLink("Create New", "AddMixingDesign")*@
+
+
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link " data-toggle="tab" href="#navs-top-responsive-link-3">@Resources.Pending</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " data-toggle="tab" href="#navs-top-responsive-link-1">@Resources.Waiting</a>
+            </li>
+
+
+
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#navs-top-responsive-link-4"> @Resources.Declined</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#navs-top-responsive-link-2">@Resources.Approved</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="navs-top-responsive-link-1">
+                <div class="card-body Mix">
+                    <table class="table table-reponsive">
+                        <thead style="text-align:center">
+                            <tr>
+                                <th>
+                                    @Resources.Concrete_Rank
+                                </th>
+                                <th>
+                                    @Resources.Cement_Weight
+                                </th>
+                                <th>
+                                    @Resources.Water_Weight
+                                </th>
+                                <th>
+                                    @Resources.Washed_Sand
+                                </th>
+                                <th>
+                                    @Resources.White_Sand
+                                </th>
+                                <th>
+                                    @Resources.Rubble_3_4
+                                </th>
+                                <th>
+                                    @Resources.Rubble_3_8
+                                </th>
+                                <th>
+                                    @Resources.Details
+                                </th>
+
+
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model)
+                        {
+                            if (item.Status == "Waiting")
+                            {
+                                <tbody style="text-align:center">
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ConcreteRank)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CementWeight)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.WaterWeight)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.WashedSand)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.WhiteSand)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Rubble3by4)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Rubble3by8)
+                                        </td>
+                                        <td>
+                                            <i class="ion ion-ios-arrow-dropleft-circle d-block" data-toggle="modal" onclick="Modalpop2(@item.Id);" data-url="@Url.Action("UserDetails", "MixingDesign", new { id = item.Id })" style="cursor:pointer"></i>
+                                        </td>
+                                        @*<td>
+            <i class="ion ion-ios-arrow-dropleft-circle d-block" data-toggle="modal" data-target="#factory-details" onclick="Modalpop(@item.Id);" data-url="@Url.Action("Details", "MixingDesign", new { id = item.Id })" style="cursor:pointer"></i>
+        </td>*@
+                                    </tr>
+                                </tbody>
+
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="navs-top-responsive-link-3">
+                <div class="card-body Mix">
+                    <table class="table table-reponsive">
+                        <thead style="text-align:center">
+                            <tr>
+                                <th>
+                                    @Resources.Concrete_Rank
+                                </th>
+                                <th>
+                                    @Resources.Cement_Weight
+                                </th>
+                                <th>
+                                    @Resources.Water_Weight
+                                </th>
+                                <th>
+                                    @Resources.Washed_Sand
+                                </th>
+                                <th>
+                                    @Resources.White_Sand
+                                </th>
+                                <th>
+                                    @Resources.Rubble_3_4
+                                </th>
+                                <th>
+                                    @Resources.Rubble_3_8
+                                </th>
+                                <th>
+                                    @Resources.Details
+                                </th>
+
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model)
+                        {
+                            if (item.Status == "Pending")
+                            {
+                                <tbody style="text-align:center">
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ConcreteRank)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CementWeight)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.WaterWeight)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.WashedSand)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.WhiteSand)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Rubble3by4)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Rubble3by8)
+                                        </td>
+                                        <td>
+                                            <i class="ion ion-ios-arrow-dropleft-circle d-block" data-toggle="modal" onclick="Modalpop2(@item.Id);" data-url="@Url.Action("UserDetails", "MixingDesign", new { id = item.Id })" style="cursor:pointer"></i>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="navs-top-responsive-link-4">
+                <div class="card-body Mix">
+                    <table class="table table-reponsive">
+                        <thead style="text-align:center">
+                            <tr>
+                                <th>
+                                    @Resources.Concrete_Rank
+                                </th>
+                                <th>
+                                    @Resources.Cement_Weight
+                                </th>
+                                <th>
+                                    @Resources.Water_Weight
+                                </th>
+                                <th>
+                                    @Resources.Washed_Sand
+                                </th>
+                                <th>
+                                    @Resources.White_Sand
+                                </th>
+                                <th>
+                                    @Resources.Rubble_3_4
+                                </th>
+                                <th>
+                                    @Resources.Rubble_3_8
+                                </th>
+
+
+                                <th>
+                                    @Resources.Decline_Reason
+                                </th>
+                                <th>
+                                    @Resources.Details
+                                </th>
+
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model)
+                        {
+                            if (item.Status == "Declined")
+                            {
+                                <tbody style="text-align:center">
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ConcreteRank)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CementWeight)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.WaterWeight)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.WashedSand)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.WhiteSand)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Rubble3by4)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Rubble3by8)
+                                        </td>
+
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Comments)
+                                        </td>
+                                        <td>
+                                            <i class="ion ion-ios-arrow-dropleft-circle d-block" data-toggle="modal" onclick="Modalpop2(@item.Id);" data-url="@Url.Action("UserDetails", "MixingDesign", new { id = item.Id })" style="cursor:pointer"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane fade  " id="navs-top-responsive-link-2">
+                <div class="card-body Mix">
+                    <table class="table table-reponsive">
+                        <thead style="text-align:center">
+                            <tr>
+                                <th>
+                                    @Resources.Concrete_Rank
+                                </th>
+                                <th>
+                                    @Resources.Cement_Weight
+                                </th>
+                                <th>
+                                    @Resources.Water_Weight
+                                </th>
+                                <th>
+                                    @Resources.Washed_Sand
+                                </th>
+                                <th>
+                                    @Resources.White_Sand
+                                </th>
+                                <th>
+                                    @Resources.Rubble_3_4
+                                </th>
+                                <th>
+                                    @Resources.Rubble_3_8
+                                </th>
+                                <th>
+                                    @Resources.Expiary_Date
+                                </th>
+                                <th>
+                                    @Resources.Details
+                                </th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model)
+                        {
+                            if (item.Status == "Approved")
+                            {
+                                <tbody style="text-align:center">
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ConcreteRank)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CementWeight)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.WaterWeight)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.WashedSand)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.WhiteSand)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Rubble3by4)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Rubble3by8)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ExpiryDate)
+                                        </td>
+                                        <td>
+                                            <i class="ion ion-ios-arrow-dropleft-circle d-block" data-toggle="modal" onclick="Modalpop2(@item.Id);" data-url="@Url.Action("UserDetails", "MixingDesign", new { id = item.Id })" style="cursor:pointer"></i>
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                            }
+                        }
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal fade" id="Modal_sucess" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h3 class="modal-title text-primary text-center" id="myModalLabel">@Resources.Add_Mixing_Design</h3>
+                        </div>
+                        <div id="ModalBody" class="modal-body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="Modal_sucess2" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h3 class="modal-title text-dark text-center" id="myModalLabel">@Resources.Mix_Design_Details</h3>
+                        </div>
+                        <div id="ModalBody2" class="modal-body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+
+<script>
+      function Modalpop2(id) {
+        var urlPost = '@Url.Action("UserDetails", "MixingDesign")'+"/"+id;
+        $.get(urlPost, function (data) {
+
+            $('#ModalBody2').html(data.toString());
+
+            $('#Modal_sucess2').modal('show');
+
+        });
+    }
+    function Modalpop() {
+        var urlPost = '@Url.Action("AddMixingDesign", "MixingDesign")';
+        $.get(urlPost, function (data) {
+            debugger;
+
+            $('#ModalBody').html(data.toString());
+
+            $('#Modal_sucess').modal('show');
+
+        });
+    }
+
+
+    $(document).ready(function () {
+        $("#alertAdded").hide();
+
+        var message = "@TempData["AlertMessage"]";
+
+        if (message != null && message != "") {
+            $("#alertAdded").show("fast");
+        }
+    });
+
+</script>

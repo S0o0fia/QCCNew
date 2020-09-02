@@ -1,0 +1,530 @@
+﻿
+@{
+    ViewBag.Title = "أخذ عينة بلوك";
+}
+
+
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/smartwizard/smartwizard")
+}
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/smartwizard/smartwizard")
+    @Scripts.Render("~/bundle/vendor/js/validate/validate")
+
+    @Scripts.Render("~/bundle/js/forms_wizard")
+
+    <script src="https://maps.google.com/maps/api/js?key=AIzaSyABsPRMD1jkSGb6-D88OoFngcCKTU2dT0U"></script>
+    @Scripts.Render("~/bundle/vendor/js/gmaps/gmaps")
+
+}
+
+
+
+<script type="text/javascript">
+
+    function initialize() {
+        var myLatLng = new google.maps.LatLng(24.7136, 46.6753),
+            myOptions = {
+                zoom: 13,
+                center: myLatLng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            },
+            map = new google.maps.Map(document.getElementById('gmaps-example'), myOptions),
+            marker = new google.maps.Marker({ position: myLatLng, map: map });
+
+        marker.setMap(map);
+        //moveBus(map, marker);
+
+        google.maps.event.addListener(map, "click", function (event) {
+            // get lat/lon of click
+            var clickLat = event.latLng.lat();
+            var clickLon = event.latLng.lng();
+
+            // show in input box
+            //document.getElementById("lat").value = clickLat.toFixed(3);
+            //document.getElementById("lon").value = clickLon.toFixed(3);
+
+            if (marker && marker.setMap) {
+                marker.setMap(null);
+            }
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(clickLat, clickLon),
+                map: map
+            });
+
+            marker.setMap(map);
+        });
+    }
+
+    $('document').ready(function () {
+        initialize();
+    });
+
+</script>
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <h3 style="text-align:center">@Resources.Resources.Prepare_Block</h3>
+    <hr class="container-m-nx border-light my-4">
+    @*<h6 class="text-muted small font-weight-bold py-3 my-4">
+            With icon
+        </h6>*@
+    <div id="smartwizard-2" class="smartwizard-example">
+        <ul>
+            <li>
+                <a href="#smartwizard-2-step-1" class="mb-3">
+                    <span class="sw-done-icon ion ion-md-checkmark"></span>
+                    <span class="sw-icon ion ion-md-copy"></span>
+                    @Resources.Resources.Global_Information
+                    <div class="text-muted small">@Resources.Resources.Step1</div>
+                </a>
+            </li>
+            <li>
+                <a href="#smartwizard-2-step-2" class="mb-3">
+                    <span class="sw-done-icon ion ion-md-checkmark"></span>
+                    <span class="sw-icon ion ion-md-copy"></span>
+                    @Resources.Resources.Block_Sapmle_Infromation
+                    <div class="text-muted small">@Resources.Resources.Step2</div>
+                </a>
+            </li>
+            <li>
+                <a href="#smartwizard-2-step-3" class="mb-3">
+                    <span class="sw-done-icon ion ion-md-checkmark"></span>
+                    <span class="sw-icon ion ion-md-copy"></span>
+                    @Resources.Resources.Mix_Design
+                    <div class="text-muted small">@Resources.Resources.Step3</div>
+                </a>
+            </li>
+            <li>
+                <a href="#smartwizard-2-step-4" class="mb-3">
+                    <span class="sw-done-icon ion ion-md-checkmark"></span>
+                    <span class="sw-icon ion ion-md-copy"></span>
+                    @Resources.Resources.Factory_Status
+                    <div class="text-muted small">@Resources.Resources.Step4</div>
+                </a>
+            </li>
+        </ul>
+        <div class="mb-3">
+            <div id="smartwizard-2-step-1" class="card animated fadeIn">
+                <div class="card-body">
+                    <form class="my-5">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="form-label">@Resources.Resources.Report_Number</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">@Resources.Resources.Report_Date</label>
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <input type="date" class="form-control">
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Resources.Factory_Name</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input class="form-control" type="text" />
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Resources.Factroy_Location</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input class="form-control" type="text" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Resources.Factroy_Visit_Number</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input class="form-control" type="number" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Visit_Location </label>
+                                </div>
+                                <div id="gmaps-example" style="height: 400px; width: 100%;"></div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Resources.Latitude </label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input class="form-control" type="number" />
+                            </div>
+
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Resources.Longitude </label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input class="form-control" type="number" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!--Step Two-->
+            <div id="smartwizard-2-step-2" class="card animated fadeIn">
+                <div class="card-body">
+                    <form class="my-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label">@Resources.Resources.Dim</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+
+                                <label class="switcher">
+                                    <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio1">
+                                    <span class="switcher-indicator">
+                                        <span class="switcher-yes"></span>
+                                        <span class="switcher-no"></span>
+                                    </span>
+                                    <span class="switcher-label" style="color:black !important">400*200*200</span>
+                                </label>
+
+                            </div>
+
+
+                            <div class="col-md-4 form-group">
+                                <label class="switcher">
+                                    <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio1">
+                                    <span class="switcher-indicator">
+                                        <span class="switcher-yes"></span>
+                                        <span class="switcher-no"></span>
+                                    </span>
+                                    <span class="switcher-label" style="color:black !important">400*150*200</span>
+                                </label>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+
+                                <label class="switcher">
+                                    <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio1">
+                                    <span class="switcher-indicator">
+                                        <span class="switcher-yes"></span>
+                                        <span class="switcher-no"></span>
+                                    </span>
+                                    <span class="switcher-label" style="color:black !important">400*100*200</span>
+                                </label>
+
+                            </div>
+
+                            <div class="col-md-4 form-group">
+
+                                <label class="switcher">
+                                    <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio1">
+                                    <span class="switcher-indicator">
+                                        <span class="switcher-yes"></span>
+                                        <span class="switcher-no"></span>
+                                    </span>
+                                    <span class="switcher-label" style="color:black !important">400*250*200</span>
+                                </label>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="form-label">@Resources.Resources.Shape</label>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+
+                                <label class="switcher">
+                                    <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio4">
+                                    <span class="switcher-indicator">
+                                        <span class="switcher-yes"></span>
+                                        <span class="switcher-no"></span>
+                                    </span>
+                                    <span class="switcher-label" style="color:black !important">4</span>
+                                </label>
+
+                            </div>
+
+
+                            <div class="col-md-4 form-group">
+
+                                <label class="switcher">
+                                    <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio4">
+                                    <span class="switcher-indicator">
+                                        <span class="switcher-yes"></span>
+                                        <span class="switcher-no"></span>
+                                    </span>
+                                    <span class="switcher-label" style="color:black !important">3</span>
+                                </label>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 form-group">
+
+                                <label class="switcher">
+                                    <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio4">
+                                    <span class="switcher-indicator">
+                                        <span class="switcher-yes"></span>
+                                        <span class="switcher-no"></span>
+                                    </span>
+                                    <span class="switcher-label" style="color:black !important">2</span>
+                                </label>
+
+                            </div>
+
+                            <div class="col-md-4 form-group">
+
+                                <label class="switcher">
+                                    <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio4">
+                                    <span class="switcher-indicator">
+                                        <span class="switcher-yes"></span>
+                                        <span class="switcher-no"></span>
+                                    </span>
+                                    <span class="switcher-label" style="color:black !important">1</span>
+                                </label>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!--Step Three-->
+            <div id="smartwizard-2-step-3" class="card animated fadeIn">
+                <div class="card-body">
+                    <form class="my-5">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="form-label">@Resources.Resources.Cement_Weight</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input class="form-control" type="number" />
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">@Resources.Resources.Water_Weight</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input class="form-control" type="number" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="form-label">@Resources.Resources.Washed_Sand</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input class="form-control" type="number" />
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">@Resources.Resources.White_Sand</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input class="form-control" type="number" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="form-label">@Resources.Resources.Rubble_3_4</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input class="form-control" type="number" />
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">@Resources.Resources.Rubble_3_8</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                <input class="form-control" type="number" />
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div id="smartwizard-2-step-4" class="card animated fadeIn">
+                <div class="card-body">
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr style="text-align:center">
+                                <th>@Resources.Resources.Description</th>
+                                <th colspan="2">@Resources.Resources.Yes</th>
+                                <th colspan="2">@Resources.Resources.No</th>
+                                <th>@Resources.Resources.Note</th>
+                                <th>@Resources.Resources.Upload</th>
+                            </tr>
+                        </thead>
+                        <tbody style="text-align:center">
+                            <tr>
+                                <td>@Resources.Resources.Quality_of_Factory_Cleaning</td>
+                                <td colspan="2">
+                                    <div class=" form-group">
+                                        <label class="switcher">
+                                            <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio5">
+                                            <span class="switcher-indicator">
+                                                <span class="switcher-no"></span>
+                                                <span class="switcher-yes"></span>
+                                            </span>
+
+                                        </label>
+                                    </div>
+                                </td>
+                                <td colspan="2">
+                                    <div class=" form-group">
+                                        <label class="switcher">
+                                            <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio5">
+                                            <span class="switcher-indicator">
+                                                <span class="switcher-yes"></span>
+                                                <span class="switcher-no"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class=" form-group">
+                                        <input class="form-control" type="text" placeholder=@Resources.Resources.Note />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class=" form-group">
+                                        <input class="form-control" name="file" type="file" multiple placeholder=@Resources.Resources.Upload>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>@Resources.Resources.Laboratory_Exist</td>
+                                <td colspan="2">
+                                    <div class=" form-group">
+                                        <label class="switcher">
+                                            <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio6">
+                                            <span class="switcher-indicator">
+                                                <span class="switcher-no"></span>
+                                                <span class="switcher-yes"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td colspan="2">
+                                    <div class=" form-group">
+                                        <label class="switcher">
+                                            <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio6">
+                                            <span class="switcher-indicator">
+                                                <span class="switcher-yes"></span>
+                                                <span class="switcher-no"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class=" form-group">
+                                        <input class="form-control" type="text" placeholder=@Resources.Resources.Note />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class=" form-group">
+                                        <input class="form-control" name="file" type="file" placeholder=@Resources.Resources.Upload multiple>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>@Resources.Resources.Laboratroy_Engineer_Exist</td>
+                                <td colspan="2">
+                                    <div class=" form-group">
+                                        <label class="switcher">
+                                            <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio7">
+                                            <span class="switcher-indicator">
+                                                <span class="switcher-no"></span>
+                                                <span class="switcher-yes"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td colspan="2">
+                                    <div class=" form-group">
+                                        <label class="switcher">
+                                            <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio7">
+                                            <span class="switcher-indicator">
+                                                <span class="switcher-yes"></span>
+                                                <span class="switcher-no"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class=" form-group">
+                                        <input class="form-control" type="text" placeholder=@Resources.Resources.Note />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class=" form-group">
+                                        <input class="form-control" name="file" type="file" placeholder=@Resources.Resources.Upload multiple>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>@Resources.Resources.Factory_workers_commitment_to_wear_masks</td>
+                                <td colspan="2">
+                                    <div class=" form-group">
+                                        <label class="switcher">
+                                            <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio8">
+                                            <span class="switcher-indicator">
+                                                <span class="switcher-no"></span>
+                                                <span class="switcher-yes"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td colspan="2">
+                                    <div class=" form-group">
+                                        <label class="switcher">
+                                            <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio8">
+                                            <span class="switcher-indicator">
+                                                <span class="switcher-yes"></span>
+                                                <span class="switcher-no"></span>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class=" form-group">
+                                        <input class="form-control" type="text" placeholder=@Resources.Resources.Note />
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class=" form-group">
+                                        <input class="form-control" name="file" type="file" placeholder=@Resources.Resources.Upload multiple>
+                                    </div>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <div class=" form-group">
+                        <button type="button" class="btn btn-success">@Resources.Resources.Save</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="container-m-nx border-light mt-0 mb-5">
+
+
+</body>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bdfce9a00a1d400d8d9ebde14ee7ef6d" Name="Diagram1" ZoomLevel="59">
+        <EntityTypeShape EntityType="QCModel.C_ConClsCustomProperties" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.C_ConClsPropertyMulti" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.C_ConClsPropertyThirtyValues" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.AsphaltType" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.aspnet_Applications" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.aspnet_Membership" Width="1.5" PointX="6" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.aspnet_Paths" Width="1.5" PointX="3" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.aspnet_PersonalizationAllUsers" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.aspnet_PersonalizationPerUser" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.aspnet_Profile" Width="1.5" PointX="10.5" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.aspnet_Roles" Width="1.5" PointX="3" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.aspnet_SchemaVersions" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.aspnet_Users" Width="1.5" PointX="8.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.aspnet_WebEvent_Events" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.Branch" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.Client" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.Compaction" Width="1.5" PointX="8.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConClsCategory" Width="1.5" PointX="11.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConClsClassificationText" Width="1.5" PointX="10.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConClsEvalPerformControl" Width="1.5" PointX="5.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConClsLabAdditionalTool" Width="1.5" PointX="12.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConClsLabAdmixture" Width="1.5" PointX="14.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConClsLabEquipment" Width="1.5" PointX="16.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConClsLabProperty" Width="1.5" PointX="2.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConClsLabPropertyValue" Width="1.5" PointX="0.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConClsLabStuff" Width="1.5" PointX="2.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConClsLabTestPractice" Width="1.5" PointX="4.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConClsMaterialSupCategory" Width="1.5" PointX="17.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConClsMaterialSup" Width="1.5" PointX="6.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConClsMixDesign" Width="1.5" PointX="8.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConClsMixer" Width="1.5" PointX="10.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConClsPeriodicLabProperty" Width="1.5" PointX="18.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConClsProperty" Width="1.5" PointX="19.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConClsPropertiesReason" Width="1.5" PointX="19.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConClsPropertyValue" Width="1.5" PointX="12.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConClsPropPeriodic" Width="1.5" PointX="18.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConcreteSample" Width="1.5" PointX="0.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ContAsphaltSample" Width="1.5" PointX="20.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ContractorRetFlow" Width="1.5" PointX="14.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ContSoilSample" Width="1.5" PointX="21.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.Factory" Width="1.5" PointX="2.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.FactoryEquipment" Width="1.5" PointX="21.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.Factory1" Width="1.5" PointX="4.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.GeneralSampleType" Width="1.5" PointX="22.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.MapRole" Width="1.5" PointX="22.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.MapUserProject" Width="1.5" PointX="16.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.MapUserRole" Width="1.5" PointX="22.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.MapUser" Width="1.5" PointX="22.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.MarshalAsphaltSpec" Width="1.5" PointX="23.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.MarshalAspMixDesApp" Width="1.5" PointX="24.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.MarshalMixDesign" Width="1.5" PointX="10.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.MarshalSampleResult" Width="1.5" PointX="12.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.MarshalSample" Width="1.5" PointX="18.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.PermitLocationTest" Width="1.5" PointX="25.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.Permit" Width="1.5" PointX="14.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.PermitVisionTestDetail" Width="1.5" PointX="25.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.PermitVisionTest" Width="1.5" PointX="26.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.PlantLocation" Width="1.5" PointX="26.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.Plant" Width="1.5" PointX="26.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.Project" Width="1.5" PointX="26.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.QCWorkFlow" Width="1.5" PointX="26.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.SamplesWorkFlow" Width="1.5" PointX="27.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.SoilDesign" Width="1.5" PointX="6.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.SoilMoisture" Width="1.5" PointX="20.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.SoilResult" Width="1.5" PointX="28.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.SoilSampleResult" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.SoilSample" Width="1.5" PointX="28.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.SoilType" Width="1.5" PointX="28.75" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.SuperPaveMixDesign" Width="1.5" PointX="28.75" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.SuperPaveSampleResult" Width="1.5" PointX="29.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.SuperPaveSample" Width="1.5" PointX="2.75" PointY="29.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.Team" Width="1.5" PointX="30.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConcreteInspectorLogError" Width="1.5" PointX="30.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConcreteSamplesWorkFlow" Width="1.5" PointX="30.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConcreteTestSample" Width="1.5" PointX="14.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.QcAsphaltFieldsTest" Width="1.5" PointX="30.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.QcMCFieldsTest" Width="1.5" PointX="20.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.QcPermitMasterFieldsTest" Width="1.5" PointX="30.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.QcRCFieldsTest" Width="1.5" PointX="30.75" PointY="25.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.QcSoilFieldsTest" Width="1.5" PointX="30.75" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.FactoryDoc" Width="1.5" PointX="17.25" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.UserRole" Width="1.5" PointX="31.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.User" Width="1.5" PointX="15" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.VisitDetail" Width="1.5" PointX="31.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.Location" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.Factory11" Width="1.5" PointX="15" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.MaterialResultsPdf" Width="1.5" PointX="19.5" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConcreteMixingDesign" Width="1.5" PointX="17.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.TestsMixingDesign" Width="1.5" PointX="17.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.MixingDesignTest" Width="1.5" PointX="19.5" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConcretePath" Width="1.5" PointX="32.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QCModel.ConcreteTest" Width="1.5" PointX="32.75" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector Association="QCModel.FK__aspnet_Me__Appli__1209AD79" ManuallyRouted="false" />
+        <AssociationConnector Association="QCModel.FK__aspnet_Pa__Appli__13F1F5EB" ManuallyRouted="false" />
+        <AssociationConnector Association="QCModel.FK__aspnet_Ro__Appli__18B6AB08" ManuallyRouted="false" />
+        <AssociationConnector Association="QCModel.FK__aspnet_Us__Appli__19AACF41" ManuallyRouted="false" />
+        <AssociationConnector Association="QCModel.FK__aspnet_Me__UserI__12FDD1B2" ManuallyRouted="false" />
+        <AssociationConnector Association="QCModel.FK__aspnet_Pe__PathI__14E61A24" ManuallyRouted="false" />
+        <AssociationConnector Association="QCModel.FK__aspnet_Pe__PathI__15DA3E5D" ManuallyRouted="false" />
+        <AssociationConnector Association="QCModel.FK__aspnet_Pe__UserI__16CE6296" ManuallyRouted="false" />
+        <AssociationConnector Association="QCModel.FK__aspnet_Pr__UserI__17C286CF" ManuallyRouted="false" />
+        <AssociationConnector Association="QCModel.aspnet_UsersInRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="QCModel.FK__User__Location_I__30592A6F" ManuallyRouted="false" />
+        <AssociationConnector Association="QCModel.FK__Factory__Locatio__314D4EA8" ManuallyRouted="false" />
+        <AssociationConnector Association="QCModel.FK_FactoryId" ManuallyRouted="false" />
+        <AssociationConnector Association="QCModel.FK__ConcreteM__Facto__6ABAD62E" ManuallyRouted="false" />
+        <AssociationConnector Association="QCModel.FK_MaterialResultsPdf_ConcreteMixingDesign" ManuallyRouted="false" />
+        <AssociationConnector Association="QCModel.FK_MixingDesignTests_ConcreteMixingDesign" ManuallyRouted="false" />
+        <AssociationConnector Association="QCModel.FK_MixingDesignTests_TestsMixingDesign" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="QCModel.BringMaterialVisit" Width="1.5" PointX="23.375" PointY="33.75" />
+        <EntityTypeShape EntityType="QCModel.Infraction" Width="1.5" PointX="33.375" PointY="25.75" />
+        <EntityTypeShape EntityType="QCModel.MaterialforBringVisit" Width="1.5" PointX="25.375" PointY="33.75" />
+        <EntityTypeShape EntityType="QCModel.PressureResistanceTestforFactorySample" Width="1.5" PointX="33.375" PointY="30.75" />
+        <EntityTypeShape EntityType="QCModel.SampleCubePath" Width="1.5" PointX="34.375" PointY="0.75" />
+        <EntityTypeShape EntityType="QCModel.Alert" Width="1.5" PointX="17.25" PointY="35.125" />
+        <EntityTypeShape EntityType="QCModel.AlertInfraction" Width="1.5" PointX="35.625" PointY="30.375" />
+        <EntityTypeShape EntityType="QCModel.sevenDaysResult" Width="1.5" PointX="7.375" PointY="34.75" />
+        <EntityTypeShape EntityType="QCModel.monthlyResult" Width="1.5" PointX="35.375" PointY="4.75" />
+        <EntityTypeShape EntityType="QCModel.ReviewMaterial" Width="1.5" PointX="35.375" PointY="8.75" />
+        <AssociationConnector Association="QCModel.FK_Alert_Alert" />
+        <AssociationConnector Association="QCModel.FK_AlertInfraction_Alert" />
+        <AssociationConnector Association="QCModel.FK_AlertInfraction_Infraction" />
+        <EntityTypeShape EntityType="QCModel.Circular" Width="1.5" PointX="35.375" PointY="11.75" />
+        <EntityTypeShape EntityType="QCModel.Pledge" Width="1.5" PointX="35.375" PointY="14.75" />
+        <AssociationConnector Association="QCModel.FK_Pledge_Factory" />
+        <AssociationConnector Association="QCModel.FK_Pledge_Locations" />
+        <EntityTypeShape EntityType="QCModel.ConcreteSample1" Width="1.5" PointX="19.375" PointY="35.75" />
+        <EntityTypeShape EntityType="QCModel.MixingStationsAnswersOfFactory" Width="1.5" PointX="37.875" PointY="13" />
+        <AssociationConnector Association="QCModel.FK__MixingSta__Facto__4AD81681" />
+        <EntityTypeShape EntityType="QCModel.MixingStationsQuestion" Width="1.5" PointX="35.625" PointY="22" />
+        <AssociationConnector Association="QCModel.FK__MixingSta__Mixin__4BCC3ABA" />
+        <EntityTypeShape EntityType="QCModel.MixingStationsType" Width="1.5" PointX="33.375" PointY="22.5" />
+        <AssociationConnector Association="QCModel.FK__MixingSta__Mixin__47FBA9D6" />
+        <EntityTypeShape EntityType="QCModel.ConSamplesSummary" Width="1.5" PointX="35.375" PointY="33.75" />
+        <EntityTypeShape EntityType="QCModel.RptVPeriodic" Width="1.5" PointX="36.375" PointY="0.75" />
+        <EntityTypeShape EntityType="QCModel.vw_aspnet_Applications" Width="1.5" PointX="33.375" PointY="18.75" />
+        <EntityTypeShape EntityType="QCModel.vw_aspnet_MembershipUsers" Width="1.5" PointX="21.375" PointY="36.75" />
+        <EntityTypeShape EntityType="QCModel.vw_aspnet_Profiles" Width="1.5" PointX="35.375" PointY="18.75" />
+        <EntityTypeShape EntityType="QCModel.vw_aspnet_Roles" Width="1.5" PointX="23.375" PointY="36.75" />
+        <EntityTypeShape EntityType="QCModel.vw_aspnet_Users" Width="1.5" PointX="25.375" PointY="36.75" />
+        <EntityTypeShape EntityType="QCModel.vw_aspnet_UsersInRoles" Width="1.5" PointX="31.375" PointY="36.75" />
+        <EntityTypeShape EntityType="QCModel.vw_aspnet_WebPartState_Paths" Width="1.5" PointX="37.375" PointY="4.75" />
+        <EntityTypeShape EntityType="QCModel.vw_aspnet_WebPartState_Shared" Width="1.5" PointX="37.375" PointY="7.75" />
+        <EntityTypeShape EntityType="QCModel.vw_aspnet_WebPartState_User" Width="1.5" PointX="13.375" PointY="37.75" />
+        <EntityTypeShape EntityType="QCModel.CheckEquipmentRequirement" Width="1.5" PointX="37.625" PointY="26" />
+        <EntityTypeShape EntityType="QCModel.EquipmentRequirementsType" Width="1.5" PointX="35.375" PointY="26.125" />
+        <AssociationConnector Association="QCModel.FK__CheckEqui__Equip__3B95D2F1" />
+        <EntityTypeShape EntityType="QCModel.CheckEquipmentRequirementsOfFactory" Width="1.5" PointX="39.875" PointY="37.625" />
+        <EntityTypeShape EntityType="QCModel.FactoryEvaluationReport" Width="1.5" PointX="17.25" PointY="49.375" />
+        <AssociationConnector Association="QCModel.FK__CheckEqui__Check__60C757A0" />
+        <AssociationConnector Association="QCModel.FK__CheckEqui__Facto__668030F6" />
+        <AssociationConnector Association="QCModel.FK__FactoryEv__Facto__6497E884" />
+        <EntityTypeShape EntityType="QCModel.ReportResult" Width="1.5" PointX="24.5" PointY="40.125" />
+        <AssociationConnector Association="QCModel.FK__ReportRes__Facto__695C9DA1" />
+        <AssociationConnector Association="QCModel.FK__ReportRes__Facto__6A50C1DA" />
+        <EntityTypeShape EntityType="QCModel.OpenAndCloseFactory" Width="1.5" PointX="17.25" PointY="57.75" />
+        <AssociationConnector Association="QCModel.FK__OpenAndCl__Facto__71F1E3A2" />
+        <EntityTypeShape EntityType="QCModel.OpenCloseFactory" Width="1.5" PointX="17.25" PointY="60.75" />
+        <AssociationConnector Association="QCModel.FK__OpenClose__Facto__74CE504D" />
+        <EntityTypeShape EntityType="QCModel.TechnicalReport" Width="1.5" PointX="17.25" PointY="52.25" />
+        <AssociationConnector Association="QCModel.FK__Technical__Facto__6D2D2E85" />
+        <EntityTypeShape EntityType="QCModel.MachineCheck" Width="1.5" PointX="38.375" PointY="0.75" />
+        <EntityTypeShape EntityType="QCModel.temprutureCheck" Width="1.5" PointX="5.375" PointY="38.75" />
+        <EntityTypeShape EntityType="QCModel.BlockFactory" Width="1.5" PointX="39.375" PointY="3.75" />
+        <EntityTypeShape EntityType="QCModel.BlockUser" Width="1.5" PointX="38.375" PointY="19.75" />
+        <EntityTypeShape EntityType="QCModel.BlockVisitDetail" Width="1.5" PointX="38.375" PointY="29.75" />
+        <EntityTypeShape EntityType="QCModel.ClassficationParentItem" Width="1.5" PointX="37.375" PointY="16.75" />
+        <EntityTypeShape EntityType="QCModel.ClassificationSubItem" Width="1.5" PointX="37.375" PointY="33.75" />
+        <EntityTypeShape EntityType="QCModel.ClassificationResult" Width="1.5" PointX="7.375" PointY="38.75" />
+        <EntityTypeShape EntityType="QCModel.BlockTestResult" Width="1.5" PointX="15.375" PointY="38.75" />
+        <EntityTypeShape EntityType="QCModel.BlockInfraction" Width="1.5" PointX="31.375" PointY="39.75" />
+        <EntityTypeShape EntityType="QCModel.BlockAlert" Width="1.5" PointX="39.375" PointY="32.75" />
+        <EntityTypeShape EntityType="QCModel.BlockPledge" Width="1.5" PointX="39.375" PointY="16.75" />
+        </Diagram>
+      <Diagram DiagramId="5f4cbd8fdebb40edad5e97b558df7fec" Name="Diagram2" />
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,217 @@
+﻿@model IEnumerable<AspnetMvcDemo.ViewModel.ViewPledgeM>
+@using Resources
+@{
+    ViewBag.Title = "AddTestsMixingDesign";
+}
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/bootbox/bootbox")
+    @Scripts.Render("~/bundle/vendor/js/sweetalert2/sweetalert2")
+    @Scripts.Render("~/bundle/js/ui_modals")
+}
+<style type="text/css">
+ @*for Mobile Design*@ @@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+
+
+        tr {
+            display: grid;
+            border-bottom: 1px solid #ccc;
+        }
+        /* Force table to not be like tables anymore */
+        table, tbody, thead, td, tr, th {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+        }
+        /* Hide table headers (but not display: none;, for accessibility) */
+        thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+
+        td {
+            /* Behave  like a "row" */
+            border: none;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 50%;
+        }
+
+            td:before {
+                width: 45%;
+                padding-left: 10px;
+                white-space: nowrap;
+                float: right;
+                text-align: center;
+                font-weight: bold;
+            }
+            /*
+	Label the data
+	*/
+            td:nth-of-type(1):before {
+                content: "اسم المصنع";
+            }
+
+            td:nth-of-type(2):before {
+                content: "اسم مالك المصنع";
+            }
+
+            td:nth-of-type(3):before {
+                content: "رتبة العينة";
+            }
+            td:nth-of-type(4):before {
+                content: "التفاصييل";
+            }
+    }
+
+        .Mix, button {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            border-radius : 10px;
+        }
+
+        .nav-link {
+            margin-bottom: 1%;
+            font-weight: bold;
+             border-radius : 25px;
+        }
+
+        * {
+            font-size: large;
+        }
+
+
+    .table {
+        border-bottom: solid 2px #eeeeee;
+    }
+
+    .page-header {
+        margin-top: 2%;
+        margin-bottom: 3%;
+    }
+
+    h3 {
+        text-decoration: underline;
+        text-align: right;
+    }
+</style>
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <div class="page-header  align-items-center">
+        <h3>@Resources.Pledge</h3>
+    </div>
+    <div class="nav-tabs-top nav-responsive-xl" style="-ms-flex-direction: column; flex-direction: column; padding-left: 100px; padding-right: 100px;">
+      
+        <div class="tab-content">
+            <div id="navs-top-responsive-link-3" class="tab-pane fade show active">
+                <div class="card-body Mix">
+                    <table class="table table-reponsive">
+                        <thead style="text-align:center">
+                            <tr>
+                                <th>
+                                    @Resources.Pladge_Date
+                                </th>
+                                <th>
+                                    @Resources.Factory_Name
+                                </th>
+
+                                <th>
+                                    @Resources.Factroy_Location
+                                </th>
+                                <th>
+                                    @Resources.Download_Pladge
+                                </th>
+                                <th>
+                                    @Resources.Upload_Pladge_after_signature
+                                </th>
+                                <th>
+                                    @Resources.Save
+                                </th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model)
+                        {
+
+                             int i = 0;
+
+                            @Html.HiddenFor(modelItem => item.ID, new { id = "id"+i })
+
+                            <tbody style="text-align:center">
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Date)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FactoryName)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Location)
+                                    </td>
+                                    <td>
+                                        <a href="@Url.Action("Template" ,"Pledge" , new { id= item.ID })" class="btn  btn-success">PDF</a>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(model => item.files, "", new { @type = "file", @multiple = "multiple", @id = "file"+i })
+                                    </td>
+
+                                    <td>
+                                        <i class="ion ion-ios-save d-block" data-toggle="modal" onclick="send(@i)" style="cursor:pointer; font-size:larger"></i>
+                                    </td>
+                                    <td style="visibility:hidden">
+                                        @i= i +1;
+                                    </td>
+                                </tr>
+                            </tbody>
+
+
+                        }
+                    </table>
+                </div>
+            </div>
+
+       
+
+
+        </div>
+</div>
+
+        <div class="modal fade" id="Modal_sucess" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3 class="modal-title text-primary text-center" id="myModalLabel">@Resources.Details</h3>
+                    </div>
+                    <div id="ModalBody" class="modal-body">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="container-m-nx border-light mt-0 mb-5">
+
+
+</body>
+
+
+    <script type="text/javascript">
+        function send( i) {
+        var person = {
+            ID: $("#id"+i).val(),
+        files:$("#file"+i).val()
+    }
+
+            console.log(person)
+        $.ajax({
+            url: '/Pledge/ViewPledge',
+        type: 'post',
+        dataType: 'json',
+        contentType: 'application/json',
+            success: function (data) {
+        },
+        data: JSON.stringify(person)
+    });
+}
+</script>

@@ -1,0 +1,179 @@
+﻿@using Resources
+@{
+    ViewBag.Title = "AddTestsMixingDesign";
+}
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/bootbox/bootbox")
+    @Scripts.Render("~/bundle/vendor/js/sweetalert2/sweetalert2")
+    @Scripts.Render("~/bundle/js/ui_modals")
+}
+<style type="text/css">
+ @*for Mobile Design*@ @@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+
+
+        tr {
+            display: grid;
+            border-bottom: 1px solid #ccc;
+        }
+        /* Force table to not be like tables anymore */
+        table, tbody, thead, td, tr, th {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+        }
+        /* Hide table headers (but not display: none;, for accessibility) */
+        thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+
+        td {
+            /* Behave  like a "row" */
+            border: none;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 50%;
+        }
+
+            td:before {
+                width: 45%;
+                padding-left: 10px;
+                white-space: nowrap;
+                float: right;
+                text-align: center;
+                font-weight: bold;
+            }
+            /*
+	Label the data
+	*/
+            td:nth-of-type(1):before {
+                content: "اسم المصنع";
+            }
+
+            td:nth-of-type(2):before {
+                content: "اسم مالك المصنع";
+            }
+
+            td:nth-of-type(3):before {
+                content: "رتبة العينة";
+            }
+            td:nth-of-type(4):before {
+                content: "التفاصييل";
+            }
+    }
+
+        .Mix, button {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            border-radius : 10px;
+        }
+
+        .nav-link {
+            margin-bottom: 1%;
+            font-weight: bold;
+             border-radius : 25px;
+        }
+
+        * {
+            font-size: large;
+        }
+
+
+    .table {
+        border-bottom: solid 2px #eeeeee;
+    }
+
+    .page-header {
+        margin-top: 2%;
+        margin-bottom: 3%;
+    }
+
+    h3 {
+        text-decoration: underline;
+        text-align: right;
+    }
+</style>
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <div class="page-header  align-items-center">
+        <h3>@Resources.Alerts</h3>
+    </div>
+    <div class="row" style="margin-bottom:3%;">
+        <div class="col-6">
+            <h4 style="display:inline-block; margin-left:2%">اختر الشهر</h4>
+            <select id="Select" class="form-control" style="width:50%; margin:auto; display:inline-block">
+                @for (int i = 1; i <= 12; i++)
+                {
+                    <option value="@i">@i</option>
+
+                }
+            </select>
+        </div>
+        <div class="col-6">
+            <button onclick="Modalpop3()" class="btn btn-success">عرض الإنذارات</button>
+        </div>
+    </div>
+    <div class="nav-tabs-top nav-responsive-xl" style="-ms-flex-direction: column; flex-direction: column; padding-left: 100px; padding-right: 100px;">
+        @*@Html.ActionLink("Create New", "AddMixingDesign")*@
+        <div class="tab-content" id="AlertsData">
+
+
+
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="Modal_sucess" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title text-primary text-center" id="myModalLabel">@Resources.Details</h3>
+                </div>
+                <div id="ModalBody" class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="container-m-nx border-light mt-0 mb-5">
+
+
+</body>
+
+<script>
+
+    function Modalpop(id) {
+        var urlPost = '@Url.Action("AlertDetails", "Alert")'+"/"+id;
+        $.get(urlPost, function (data) {
+
+            $('#ModalBody').html(data.toString());
+
+            $('#Modal_sucess').modal('show');
+            console.log("ads")
+
+        });
+    }
+    function Modalpop3() {
+       var id= $('#Select').val();
+
+         var urlPost = '@Url.Action("ReporttIndex", "Alert")' + "/" + id;
+        $.get(urlPost, function (data) {
+
+            $('#AlertsData').html(data.toString());
+
+             console.log("ads")
+
+        });
+    }
+    function Modalpop2() {
+        var urlPost = '@Url.Action("Add", "Alert")';
+        $.get(urlPost, function (data) {
+
+            location.reload();
+         });
+    }
+</script>

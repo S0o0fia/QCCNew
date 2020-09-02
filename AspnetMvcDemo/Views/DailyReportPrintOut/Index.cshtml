@@ -1,0 +1,231 @@
+﻿@model List<AspnetMvcDemo.Models.ConcreteSample1>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        text-align: center;
+        vertical-align:middle;
+    }
+
+    h4{
+        text-decoration:underline;
+    }
+
+    .true{
+        background-color:#30d10c;
+    }
+
+    .false{
+        background-color:#f70202;
+    }
+</style>
+<body dir="rtl">
+    <div class="row">
+        <div class="col-12" style="text-align:center">
+            <h4> مشروع ضبط وتأكيد جودة إنتاج مصانع الخرسانة الجاهزة والبلوك بمدينة الرياض </h4>
+        </div>
+        <div class="col-12" style="text-align:center">
+            <h4> الاستشاري : التقنيون السعوديون (سعودي تك) لفحص التربية والمواد </h4>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-3" style="text-align:right;"><h4> @System.DateTime.Now.ToShortDateString()</h4> </div>
+
+        <div class="col-9" style="text-align:center"><h4>ملخص تقارير الزيارات اليومية لمصانع الخرسانة</h4></div>
+    </div>
+
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover">
+                <thead style="background-color:#c4c4c4;">
+                    <tr>
+                        <th rowspan="2">م</th>
+                        <th rowspan="2">اسم المصنع</th>
+                        <th rowspan="2">رقم العينة</th>
+                        <th rowspan="2">(MPA)رتبة الخرسانة</th>
+                        <th rowspan="2">نوع الاسمنت</th>
+                        <th rowspan="2">عنصر الاستخدام</th>
+                        <th rowspan="2">درجة الحراره</th>
+                        <th colspan="2">الاستخدام</th>
+                        <th rowspan="2">الهبوط</th>
+                        <th rowspan="2">نظافة الموقع</th>
+                        <th rowspan="2">التحكم في الغبار</th>
+                        <th rowspan="2">رش الركام</th>
+                        <th rowspan="2">تواجد مهندس المختبر</th>
+                        <th rowspan="2">وجود ملدنات</th>
+                        <th rowspan="2">لبس الكمامات</th>
+                    </tr>
+                    <tr>
+                        <th>مطابق</th>
+                        <th>غير مطابق</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{var count = 0;
+                        foreach (var item in Model)
+                        { 
+                                        <tr>
+                                            <td>
+                                                count = count+1;
+                                            </td>
+                                            <td>
+                                                @item.FactoryName
+                                            </td>
+                                            <td>
+                                                @item.SampleNumber
+                                            </td>
+                                            <td>
+                                                @item.ConcreteRank
+                                            </td>
+                                            <td>
+                                                @item.CementType
+                                            </td>
+                                            @if (item.IsCleanUsage == true)
+                                            {
+                                                <td>نظافة</td>
+                                            }
+                                            else if (item.IsColumnUsage == true)
+                                            {
+                                                <td>أعمدة</td>
+                                            }
+                                            else if (item.IsRoofUsage == true)
+                                            {
+                                                <td>أسقف</td>
+                                            }
+                                            else if (item.IsBasicUsage == true)
+                                            {
+                                                <td>أساسات</td>
+                                            }
+                                            else
+                                            {
+                                                <td> @item.OtherReason</td>
+                                            }
+
+                                            @if ((item.ConcreteRank == "C-15" && item.IsCleanUsage == true) ||
+                                                (item.ConcreteRank == "C-25" && item.IsRoofUsage == true) ||
+                                                (item.ConcreteRank == "C-30" && item.IsBasicUsage == true) ||
+                                                (item.ConcreteRank == "C-15" && item.IsColumnUsage == true) ||
+                                                (item.ConcreteRank == "C-15" && item.IsOtherUsage == true) ||
+                                                (item.ConcreteRank == "C-35"))
+                                            {
+                                                <td class="true">
+                                                    <i class="ion-ios-checkmark-circle" style="color:white; font-size:large"></i>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="false">
+                                                    <i class="ion-ios-close-circle" style="color:white; font-size:large"></i>
+                                                </td>
+                                            }
+
+                                            <td>
+                                                @item.ConcreteTemperture
+                                            </td>
+                                            <td>
+                                                @item.DownAmount
+                                            </td>
+
+                                            <!--for Clean location-->
+                                            @if (item.IsCleanLocation == true)
+                                            {
+                                                <td class="true">
+                                                    <i class="ion-ios-checkmark-circle" style="color:white; font-size:large"></i>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="false">
+                                                    <i class="ion-ios-close-circle" style="color:white; font-size:large"></i>
+                                                </td>
+                                            }
+
+                                            <!--IsDustControlInStation-->
+                                            @if (item.IsDustControlInStation == true)
+                                            {
+                                                <td class="true">
+                                                    <i class="ion-ios-checkmark-circle" style="color:white; font-size:large"></i>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="false">
+                                                    <i class="ion-ios-close-circle" style="color:white; font-size:large"></i>
+                                                </td>
+                                            }
+
+                                            <!--IsRokamSummer-->
+                                            @if (item.IsRokamSummer == true)
+                                            {
+                                                <td class="true">
+                                                    <i class="ion-ios-checkmark-circle" style="color:white; font-size:large"></i>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="false">
+                                                    <i class="ion-ios-close-circle" style="color:white; font-size:large"></i>
+                                                </td>
+                                            }
+
+                                            <!--IsLabEngineer-->
+                                            @if (item.IsLabEngineer == true)
+                                            {
+                                                <td class="true">
+                                                    <i class="ion-ios-checkmark-circle" style="color:white; font-size:large"></i>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="false">
+                                                    <i class="ion-ios-close-circle" style="color:white; font-size:large"></i>
+                                                </td>
+                                            }
+
+
+                                            <!--IsMoldanatInTrucks-->
+                                            @if (item.IsMoldanatInTrucks == true)
+                                            {
+                                                <td class="true">
+                                                    <i class="ion-ios-checkmark-circle" style="color:white; font-size:large"></i>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="false">
+                                                    <i class="ion-ios-close-circle" style="color:white; font-size:large"></i>
+                                                </td>
+                                            }
+
+                                            <!--IsPeopleSafty-->
+                                            @if (item.IsPeopleSafty == true)
+                                            {
+                                                <td class="true">
+                                                    <i class="ion-ios-checkmark-circle" style="color:white; font-size:large"></i>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="false">
+                                                    <i class="ion-ios-close-circle" style="color:white; font-size:large"></i>
+                                                </td>
+                                            }
+                                        </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-6" style="text-align:right;padding-right:5%; "><h5>مدير المشروع</h5></div>
+        <div class="col-6" style="text-align:left; padding-left:4%;"><h5>مشرف المشروع</h5></div>
+    </div>
+    <div class="row">
+        <div class="col-6" style="text-align:right;padding-right:2%; "><h5>م. وائل بن سليمان الحمدان</h5></div>
+        <div class="col-6" style="text-align:left; padding-left:2%;"><h5> م. حمد بن محمد الحربي</h5></div>
+    </div>
+</body>

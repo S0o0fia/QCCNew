@@ -1,0 +1,541 @@
+﻿@model List<AspnetMvcDemo.Models.BlockPrintout>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    h4 {
+        text-decoration: underline;
+    }
+
+    .true {
+        background-color: #30d10c;
+    }
+
+    .false {
+        background-color: #f70202;
+    }
+</style>
+<body dir="rtl">
+
+    <!--Page1-->
+    <div class="row" style="height:100%;">
+        <div class="row">
+            <div class="col-12" style="text-align:center">
+                <h4> مشروع ضبط وتأكيد جودة إنتاج مصانع الخرسانة الجاهزة والبلوك بمدينة الرياض </h4>
+            </div>
+            <div class="col-12" style="text-align:center">
+                <h4> الاستشاري : التقنيون السعوديون (سعودي تك) لفحص التربية والمواد </h4>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-3" style="text-align:right;"><h4> @System.DateTime.Now.ToShortDateString()</h4> </div>
+
+            <div class="col-9" style="text-align:center"><h4>ملخص تقارير الزيارات اليومية لمصانع البلوك</h4></div>
+        </div>
+
+        <div class="row">
+            <div>
+                <table class="table-borderless">
+                    <thead style="background-color:#c4c4c4;">
+                        <tr>
+                            <th rowspan="2">م</th>
+                            <th rowspan="2">رقم العينة</th>
+                            <th rowspan="2">اسم المصنع</th>
+                            <th rowspan="2">الطول * العرض * الارتفاع</th>
+                            <th rowspan="2"> جودة نظافة الموقع</th>
+                            <th rowspan="2">وجود مختبر</th>
+                            <th rowspan="2">تواجد مهندس المختبر</th>
+                            <th rowspan="2">التزام العاملين بلبس الكمامات</th>
+                        </tr>
+                        </thead>
+                    <tbody>
+                        @{var count = 0; }
+                            @foreach (var item in Model)
+                            {
+                        <tr>
+                            <td>
+                                @{
+                                    count = count + 1;
+                                }
+                                @count
+                            </td>
+                            <td> </td>
+                            <td>@item.FactoryName </td>
+                            <td>@item.Dim </td>
+                            @if (item.IsCleanLocation == true)
+                            {
+                                <td style="background-color:forestgreen;">&#10004;</td>
+                            }
+                            else
+                            {
+                                <td style="background-color:red;">&#10006;</td>
+                            }
+                            @if (item.IsLabExist == true)
+                            {
+                                <td style="background-color:forestgreen;">&#10004;</td>
+                            }
+                            else
+                            {
+                                <td style="background-color:red;">&#10006;</td>
+                            }
+                            @if (item.IsEngineerLab == true)
+                            {
+                                <td style="background-color:forestgreen;">&#10004;</td>
+                            }
+                            else
+                            {
+                                <td style="background-color:red;">&#10006;</td>
+                            }
+                            @if (item.IsMaskSafty == true)
+                            {
+                                <td style="background-color:forestgreen;">&#10004;</td>
+                            }
+                            else
+                            {
+                                <td style="background-color:red;">&#10006;</td>
+                            }
+                        </tr>
+                       
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br />
+        <br />
+
+        <div class="row">
+            <div class="col-6" style="text-align:right; "><h5>مدير المشروع</h5></div>
+            <div class="col-6" style="text-align:left;"><h5>مشرف المشروع</h5></div>
+        </div>
+        <div class="row">
+            <div class="col-6" style="text-align:right; "><h5>م. وائل بن سليمان الحمدان</h5></div>
+            <div class="col-6" style="text-align:left;"><h5> م. حمد بن محمد الحربي</h5></div>
+        </div>
+    </div>
+    <br />
+
+
+    @foreach (var item in Model)
+    {
+        <!--Page2-->
+        <div class="row" style="height:100%">
+            <div class="row">
+                <div class="col-12" style="text-align:center; font-weight:bold; text-decoration:underline"><h4>تقرير زيارة مصنع خرسانة وأخذ عينة</h4></div>
+            </div>
+
+            <div class="row">
+                <div class="col-6" style="text-align:right; font-weight:bold;"><h4>بيانات عامة</h4></div>
+            </div>
+
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table" style="width:100%">
+                        <tbody>
+                            <!--row 1-->
+                            <tr>
+                                <td>رقم التقرير</td>
+                                <td>@item.ReportDate</td>
+                                <td>تاريخ التقرير</td>
+                                <td>@item.ReportDate</td>
+                                <td>اسم المصنغ</td>
+                                <td>@item.FactoryName</td>
+
+                            </tr>
+                            <!--row 2-->
+                            <tr>
+                                <td>موقع المصنع</td>
+                                <td>@item.FatoryLocation</td>
+                                <td>إحداثيات المصنع</td>
+                                <td>N:@item.Latitude <br /> E: @item.Longitude</td>
+                                <td>رقم زيارة المصنع</td>
+                                <td>@item.VisitNumber</td>
+                            </tr>
+                       
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <br />
+            <br />
+            <div class="row">
+                <div class="col-6" style="text-align:right; font-weight:bold;"><h4>بيانات عينة البلوك</h4></div>
+            </div>
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table" style="width:100%">
+                        <tbody>
+                            <!--row 1-->
+                            <tr>
+                                <td>الأبعاد ( الطول * العرض * الارتفاع)ملم</td>
+                                <td >@item.Dim</td>
+                                <td>الشكل</td>
+                                <td>@item.ShapeNumber</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <br />
+            <br />
+            <div class="row">
+                <div class="col-6" style="text-align:right; font-weight:bold;"><h4>الخلطة التصميمية</h4></div>
+            </div>
+
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table" style="width:100%">
+                        <tbody>
+                            <!--row 1-->
+                            <tr>
+                                <td>وزن الأسمنت - كجم</td>
+
+                                <td>@item.CementWeight</td>
+
+                                <td>وزن الماء - كجم</td>
+                                <td>@item.waterWeight</td>
+                            </tr>
+                            <!--row 2-->
+                            <tr>
+                                <td>وزن الرمل - كجم</td>
+                                <td>@item.SandWeight</td>
+                                <td>وزن الركام 3/8 - كجم</td>
+                                <td>@item.Rubble38</td>
+
+                            </tr>
+                            <!--row 3-->
+                            <tr>
+                                <td>كمية الإضافات</td>
+                                <td>@item.AdditionalWeight</td>
+                               
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <br />
+            <br />
+
+           
+            <div class="row">
+                <div class="col-6" style="text-align:right; font-weight:bold;"><h4>حالة المصنع</h4></div>
+            </div>
+
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>الوصف</th>
+                                <th>نعم</th>
+                                <th>لا</th>
+                                <th>ملاحظات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>جودة نظافة الموقع</td>
+                                @if (item.IsCleanLocation == true)
+                                {
+                                    <td style="background-color:forestgreen;">
+                                        <i class="ion-ios-checkmark-circle" style="color:black; font-size:large">&#10004;</i>
+                                    </td>
+                                    <td></td>
+
+                                }
+                                else
+                                {
+                                    <td></td>
+                                    <td style="background-color:red;"><i class="ion-ios-close-circle" style="color:black; font-size:large">&#10006;</i></td>
+
+                                }
+                                <td>@item.CleanNote</td>
+                            </tr>
+                            <tr>
+                                <td>المختبر وجود</td>
+                                @if (item.IsLabExist == true)
+                                {
+                                    <td style="background-color:forestgreen;">&#10004;</td>
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                    <td style="background-color:red;"><i class="ion-ios-close-circle" style="color:black; font-size:large">&#10006;</i></td>
+
+                                }
+                                <td>@item.LabExistNote</td>
+
+                            </tr>
+                      
+                            <tr>
+                                <td>تواجد مهندس المختبر</td>
+                                @if (item.IsEngineerLab == true)
+                                {
+                                    <td style="background-color:forestgreen;"><i class="ion-ios-checkmark-circle" style="color:black; font-size:large">&#10004;</i></td>
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                    <td style="background-color:red;"><i class="ion-ios-close-circle" style="color:black; font-size:large">&#10006;</i></td>
+
+                                }
+                                <td>@item.EngineerNote</td>
+
+                            </tr>
+                            
+                            <tr>
+                                <td>التزام العاملين في المصنع بلبس الكمامة</td>
+                                @if (item.IsMaskSafty == true)
+                                {
+                                    <td style="background-color:forestgreen;"><i class="ion-ios-checkmark-circle" style="color:black; font-size:large">&#10004;</i></td>
+                                    <td></td>
+                                }
+                                else
+                                {
+                                    <td></td>
+                                    <td style="background-color:red;"><i class="ion-ios-close-circle" style="color:black; font-size:large">&#10006;</i></td>
+
+                                }
+                                <td>@item.MaskSaftyNote</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <br />
+
+
+            <div class="row">
+                <div class="col-6" style="text-align:right; "><h5>أسم اخذ العينة : @item.MonitorName</h5></div>
+                <div class="col-6" style="text-align:right;"><h5>التوقيع</h5></div>
+            </div>
+            <div class="row">
+                <div class="col-6" style="text-align:left; "><h5>مهندس المواد</h5></div>
+                <div class="col-6" style="text-align:left;"><h5> التوقيع</h5></div>
+            </div>
+
+        </div>
+
+        <br />
+        <br />
+
+        <br />
+        <br />
+        <!--Page4-->
+        <div class="row" style="height:350px">
+            <!--Clean Location-->
+            @if (item.IsCleanLocation == true)
+            {
+                <div class="col-12" style="text-align:center;">
+                    <div class="row">
+                        <div class="col-12" style="text-align:center ; margin-bottom:5px">
+                            @{
+                                var myimage1 = Server.MapPath("~/Content/" + item.CleanDocPath);
+                            }
+                            <img style="width:1100px; height:500px" src="@myimage1" />
+                        </div>
+                        <div class="col-12" style="text-align:center">
+                            <table class="table" style="width:100%">
+                                <tbody>
+                                    <!--1-->
+                                    <tr>
+                                        <td>رقم العينة</td>
+                                        <td></td>
+                                        <td>رقم التقرير</td>
+                                        <td>@item.ReportNumber</td>
+                                    </tr>
+                                    <!--2-->
+                                    <tr>
+                                        <td>اسم المصنع</td>
+                                        <td>@item.FactoryName</td>
+                                        <td>موقع المصنع</td>
+                                        <td>@item.FatoryLocation</td>
+                                    </tr>
+                                    <!--3-->
+                                    <tr>
+                                        <td>ملاحظات</td>
+                                        <td style="color:red">@item.CleanNote</td>
+                                        <td>نوع المصنع</td>
+                                        <td>حرسانة</td>
+                                    </tr>
+                                    <!--4-->
+                                    <tr>
+                                        <td>تاريخ الزيارة</td>
+                                        <td>@item.ReportDate</td>
+                                        <td>ايم آخذ العينة</td>
+                                        <td>@item.MonitorName</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row" style="height:350px">
+            <!--IsDustControlInStation-->
+            @if (item.IsLabExist == true)
+            {
+                <div class="col-12" style="text-align:center; margin-bottom:5px">
+                    <div class="row">
+                        <div class="col-12" style="text-align:center">
+                            @{
+                                var myimage3 = Server.MapPath("~/Content/" + item.LabExistDocPath);
+                            }
+                            <img style="width:1100px; height:500px" src="@myimage3" />
+                        </div>
+                        <div class="col-12" style="text-align:center">
+                            <table class="table" style="width:100%">
+                                <tbody>
+                                    <!--1-->
+                                    <tr>
+                                        <td>رقم العينة</td>
+                                        <td></td>
+                                        <td>رقم التقرير</td>
+                                        <td>@item.ReportNumber</td>
+                                    </tr>
+                                    <!--2-->
+                                    <tr>
+                                        <td>اسم المصنع</td>
+                                        <td>@item.FactoryName</td>
+                                        <td>موقع المصنع</td>
+                                        <td>@item.FatoryLocation</td>
+                                    </tr>
+                                    <!--3-->
+                                    <tr>
+                                        <td>ملاحظات</td>
+                                        <td style="color:red">@item.LabExistNote</td>
+                                        <td>نوع المصنع</td>
+                                        <td>حرسانة</td>
+                                    </tr>
+                                    <!--4-->
+                                    <tr>
+                                        <td>تاريخ الزيارة</td>
+                                        <td>@item.ReportDate</td>
+                                        <td>ايم آخذ العينة</td>
+                                        <td>@item.MonitorName</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="row" style="height:350px">
+            <!--IsLabEngineer-->
+            @if (item.IsEngineerLab == true)
+            {
+                <div class="col-12" style="text-align:center; margin-bottom:5px">
+                    <div class="row">
+                        <div class="col-12" style="text-align:center">
+                            @{
+                                var myimage4 = Server.MapPath("~/Content/" + item.EngineerPathDoc);
+                            }
+                            <img style="width:1100px; height:500px" src="@myimage4" />
+                        </div>
+                        <div class="col-12" style="text-align:center">
+                            <table class="table" style="width:100%">
+                                <tbody>
+                                    <!--1-->
+                                    <tr>
+                                        <td>رقم العينة</td>
+                                        <td></td>
+                                        <td>رقم التقرير</td>
+                                        <td>@item.ReportNumber</td>
+                                    </tr>
+                                    <!--2-->
+                                    <tr>
+                                        <td>اسم المصنع</td>
+                                        <td>@item.FactoryName</td>
+                                        <td>موقع المصنع</td>
+                                        <td>@item.FatoryLocation</td>
+                                    </tr>
+                                    <!--3-->
+                                    <tr>
+                                        <td>ملاحظات</td>
+                                        <td style="color:red">@item.EngineerNote</td>
+                                        <td>نوع المصنع</td>
+                                        <td>حرسانة</td>
+                                    </tr>
+                                    <!--4-->
+                                    <tr>
+                                        <td>تاريخ الزيارة</td>
+                                        <td>@item.ReportDate</td>
+                                        <td>ايم آخذ العينة</td>
+                                        <td>@item.MonitorName</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+      
+        <div class="row" style="height:500px">
+            <!--Safty-->
+            @if (item.IsMaskSafty == true)
+            {
+                <div class="col-12" style="text-align:center; margin-bottom:5px">
+                    <div class="row">
+                        <div class="col-12" style="text-align:center">
+                            @{
+                                var myimage5 = Server.MapPath("~/Content/" + item.MaskSaftyPathDoc);
+                            }
+                            <img style="width:1100px; height:500px" src="@myimage5" />
+                        </div>
+                        <div class="col-12" style="text-align:center">
+                            <table class="table" style="width:100%">
+                                <tbody>
+                                    <!--1-->
+                                    <tr>
+                                        <td>رقم العينة</td>
+                                        <td></td>
+                                        <td>رقم التقرير</td>
+                                        <td>@item.ReportNumber</td>
+                                    </tr>
+                                    <!--2-->
+                                    <tr>
+                                        <td>اسم المصنع</td>
+                                        <td>@item.FactoryName</td>
+                                        <td>موقع المصنع</td>
+                                        <td>@item.FatoryLocation</td>
+                                    </tr>
+                                    <!--3-->
+                                    <tr>
+                                        <td>ملاحظات</td>
+                                        <td style="color:red">@item.MaskSaftyNote</td>
+                                        <td>نوع المصنع</td>
+                                        <td>حرسانة</td>
+                                    </tr>
+                                    <!--4-->
+                                    <tr>
+                                        <td>تاريخ الزيارة</td>
+                                        <td>@item.ReportDate</td>
+                                        <td>ايم آخذ العينة</td>
+                                        <td>@item.MonitorName</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    
+    }
+</body>

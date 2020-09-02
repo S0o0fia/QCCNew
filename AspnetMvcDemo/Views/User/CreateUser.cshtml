@@ -1,0 +1,144 @@
+﻿@model AspnetMvcDemo.Models.User
+
+@{
+    ViewBag.Title = "CreateUser";
+}
+@using Resources
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/validate/validate")
+}
+<style type="text/css">
+
+    .nav-tabs-top {
+    }
+
+    .table {
+        border-bottom: solid 2px #eeeeee;
+    }
+
+    .col-md-2 {
+        flex: 0 0 16.66667%;
+        max-width: 16.66667%;
+        text-align: left;
+        vertical-align: text-bottom;
+    }
+
+    .card-text:last-child {
+        margin-bottom: 0;
+        margin-top: 2px;
+    }
+
+    .page-header {
+        padding-top : 2%;
+        padding-bottom : 5%
+    }
+
+    .nav-link {
+        text-align: right;
+        font-weight: bold;
+    }
+</style>
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+
+    <div class="page-header  align-items-center">
+        <h3 style="text-align : right ; text-decoration:underline;">@Resources.Create_User</h3>
+    </div>
+    @using (Html.BeginForm("CreateUser", "User", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+
+  
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="nav-tabs-top nav-responsive-xl">
+            <form>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.First_Name</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @*<input type="text" class="form-control">*@
+                                    @Html.TextBoxFor(m => m.FullName, new { @class = "form-control", @required = true, @autofocus = "autofocus" })
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Phone_Nubmer</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.PhoneNumber, new { type = "number", min = "0", step = "1", @class = "form-control", @required = true, })
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Email</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @*<input class="form-control" type="number" />*@
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @required = true })
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Job_Title</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @{
+                                        var selectList = new SelectList(
+                                            new List<SelectListItem>
+                                            {
+                                                                                                                            new SelectListItem {Text = "مراقب", Value = "Monitor"},
+                                                                                                                            new SelectListItem {Text = "فني مختبر", Value = "Doctor"},
+                                                                                                                            new SelectListItem {Text = "مصنع", Value = "Factory"},
+                                                                                                                            new SelectListItem {Text = "مهندس الأمانة", Value = "Admin"}
+                                            }, "Value", "Text");
+                                    }
+                                    @Html.DropDownListFor(m => m.JobTitle, selectList, "اختر المسمى الوظيفي", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Username</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @*<input class="form-control" type="number" />*@
+                                    @Html.TextBoxFor(m => m.Username, new { @class = "form-control", @required = true })
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Password</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @*<input class="form-control" type="number" />*@
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", @required = true })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Photo </label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @*<input class="form-control" type="text" />*@
+                                    @*@Html.TextBoxFor(m => m.photo, new { type = "file", @class = "form-control", @required = true, })*@
+                                    <input type="file" name="UserPhoto" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />
+
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Address </label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @*<input class="form-control" type="text" />*@
+                                    @Html.TextBoxFor(m => m.Address, new { type = "textarea", @class = "form-control", @required = true, })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" value="Create" class="btn btn-success">@Resources.Create</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        </div>
+    }
+</body>

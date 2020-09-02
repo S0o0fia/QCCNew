@@ -1,0 +1,214 @@
+﻿@model AspnetMvcDemo.Models.ApproveMixingDesign
+@using Resources
+<style type="text/css">
+    @@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+        .modal-footer {
+            align-items: center;
+            justify-content: center;
+            justify-items: center;
+        }
+    }
+    h4 {
+        margin-bottom: 2%;
+        font-weight: bold;
+    }
+    .col-12 {
+        margin-bottom: 3%;
+        text-align:center;
+    }
+     .modal-footer {
+            align-items: center;
+            justify-content: center;
+            justify-items: center;
+        }
+     h4{
+         text-align:center;
+     }
+</style>
+
+<body dir="rtl">
+    @using (Html.BeginForm("UpdateMixingDesign", "MixingDesign", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
+        <form>
+            <div dir="rtl" class="tab-pane fade active show">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12"><h4>@Resources.Global_Information</h4></div>
+                        <div class="col-md-2">
+                            <label class="form-label">@Resources.Factory_Name</label>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            @Html.TextBoxFor(M => M.FactoryName, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                        <div class="col-md-2">
+                            <label class="form-label">@Resources.Concrete_Rank </label>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            @Html.TextBoxFor(M => M.ConcreteRank, new { @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label class="form-label">@Resources.Break_Concrete_28_days</label>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            @*<input type="email" class="form-control">*@
+                            @Html.TextBoxFor(M => M.C28Day, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label class="form-label">@Resources.Landing</label>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            @*<input type="text" class="form-control">*@
+                            @Html.TextBoxFor(M => M.Landing, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <br />
+                    <hr />
+                    <br />
+                    <div class="col-12"> <h4>@Resources.Weights_of_the_ingredients_of_the_mixture </h4></div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label class="form-label">@Resources.Cement_Weight</label>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            @*<input type="email" class="form-control">*@
+                            @Html.TextBoxFor(M => M.CementWeight, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label class="form-label">@Resources.Water_Weight</label>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            @*<input type="text" class="form-control">*@
+                            @Html.TextBoxFor(M => M.WaterWeight, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 form-group">
+                            <label class="form-label">@Resources.Washed_Sand</label>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            @*<input class="form-control" type="text" />*@
+                            @Html.TextBoxFor(M => M.WashedSand, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label class="form-label">@Resources.White_Sand</label>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            @*<input class="form-control" type="email" />*@
+                            @Html.TextBoxFor(M => M.WhiteSand, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 form-group">
+                            <label class="form-label">@Resources.Rubble_3_4</label>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            @*<input class="form-control" type="text" />*@
+                            @Html.TextBoxFor(M => M.Rubble3by4, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label class="form-label">@Resources.Rubble_3_8</label>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            @*<input class="form-control" type="number" />*@
+                            @Html.TextBoxFor(M => M.Rubble3by8, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <br />
+                    <hr />
+                    <br />
+                    <div class="col-12"><h4>@Resources.Materials_Source</h4></div>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label class="form-label">@Resources.Cement</label>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            @*<input type="email" class="form-control">*@
+                            @Html.TextBoxFor(M => M.Cement, new { type = "string", @class = "form-control", @readonly = "readonly" })
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label class="form-label">@Resources.Water</label>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            @*<input type="text" class="form-control">*@
+                            @Html.TextBoxFor(M => M.Water, new { type = "string", @class = "form-control", @readonly = "readonly" })
+                        </div>
+
+                        <div class="col-md-2 form-group">
+                            <label class="form-label">@Resources.Washed_Sand</label>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            @*<input class="form-control" type="text" />*@
+                            @Html.TextBoxFor(M => M.WashedSand2, new { type = "string", @class = "form-control", @readonly = "readonly" })
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label class="form-label">@Resources.White_Sand</label>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            @*<input class="form-control" type="email" />*@
+                            @Html.TextBoxFor(M => M.WhiteSand2, new { type = "string", @class = "form-control", @readonly = "readonly" })
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label class="form-label">@Resources.Rubble_3_4</label>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            @*<input class="form-control" type="text" />*@
+                            @Html.TextBoxFor(M => M.Rubble3by42, new { type = "string", @class = "form-control", @readonly = "readonly" })
+                        </div>
+                        <div class="col-md-2 form-group">
+                            <label class="form-label">@Resources.Rubble_3_8</label>
+                        </div>
+                        <div class="col-md-4 form-group">
+                            @*<input class="form-control" type="number" />*@
+                            @Html.TextBoxFor(M => M.Rubble3by82, new { type = "string", @class = "form-control", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <br />
+                    <hr />
+                    <br />
+                    <div class="col-12"><h4>@Resources.Material_tests</h4></div>
+
+                    @foreach (var item in Model.Paths)
+                    {
+                        var url = "http://localhost:55607/Content/" + item.PathName;
+                        <a href=@url download> <i class="ion-ios-paper" style="font-size:larger"></i></a>
+                        <h3>@item.Filename</h3>
+                    }
+                    <br />
+                    <hr />
+                    <br />
+                    <div class="col-12">
+                        <h4>
+                            @Resources.Concrete_tests
+                        </h4>
+                    </div>
+                    @foreach (var item in Model.ConcreatePaths)
+                    {
+                        var url = "http://localhost:55607/Content/" + item.PathName;
+                        <a href=@url download> <i class="ion-ios-paper" style="font-size:larger"></i></a>
+                        <h3>@item.Filename</h3>
+
+                    }
+                </div>
+                @Html.HiddenFor(M => M.Status, new { id = "status" })
+                @Html.HiddenFor(M => M.Id)
+
+                <div class="modal-footer">
+                    <button type="button" id="approve" class="btn btn-success col-md-2" onclick="location.href='@Url.Action("changeStatus", "MixingDesign",new { id=Model.Id,status="Approved"})'">@Resources.Approve</button>
+                    <button type="button" id="Decline" class="btn btn-danger col-md-2" onclick="location.href='@Url.Action("changeStatus", "MixingDesign",new { id=Model.Id,status="Declined"})'">@Resources.Decline</button>
+
+                </div>
+
+
+            </div>
+        </form>
+    }
+</body>
+<script type="text/javascript">
+
+
+
+
+</script>

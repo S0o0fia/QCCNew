@@ -1,0 +1,225 @@
+﻿@model AspnetMvcDemo.Models.datePickerMonthlyReport
+@using Resources
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/datatables/datatables")
+    @Styles.Render("~/bundle/vendor/css/bootstrap-datepicker/bootstrap-datepicker")
+    @Styles.Render("~/bundle/vendor/css/flatpickr/flatpickr")
+    @Styles.Render("~/bundle/vendor/css/bootstrap-daterangepicker/bootstrap-daterangepicker")
+    @Styles.Render("~/bundle/vendor/css/bootstrap-material-datetimepicker/bootstrap-material-datetimepicker")
+    @Styles.Render("~/bundle/vendor/css/timepicker/timepicker")
+    @Styles.Render("~/bundle/vendor/css/minicolors/minicolors")
+}
+
+@section Scripts {
+
+    @Scripts.Render("~/bundle/vendor/js/datatables/datatables")
+
+    @Scripts.Render("~/bundle/js/tables_datatables")
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/bootbox/bootbox")
+    @Scripts.Render("~/bundle/vendor/js/sweetalert2/sweetalert2")
+
+    @Scripts.Render("~/bundle/js/ui_modals")
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/moment/moment")
+    @Scripts.Render("~/bundle/vendor/js/bootstrap-datepicker/bootstrap-datepicker")
+    @Scripts.Render("~/bundle/vendor/js/flatpickr/flatpickr")
+    @Scripts.Render("~/bundle/vendor/js/bootstrap-daterangepicker/bootstrap-daterangepicker")
+    @Scripts.Render("~/bundle/vendor/js/bootstrap-material-datetimepicker/bootstrap-material-datetimepicker")
+    @Scripts.Render("~/bundle/vendor/js/timepicker/timepicker")
+    @Scripts.Render("~/bundle/vendor/js/minicolors/minicolors")
+
+    @Scripts.Render("~/bundle/js/forms_pickers")
+}
+<style type="text/css">
+    @*for Mobile Design*@
+ @@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+
+    tr{
+      display:grid;
+      border-bottom:1px solid #ccc;
+    }
+   /* Force table to not be like tables anymore */
+	table, tbody , thead , td, tr, th  {
+		display: block;
+	}
+	table {
+        width :100%;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+
+	td {
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+	}
+
+   td:before {
+		width: 45%;
+		padding-left: 10px;
+		white-space: nowrap;
+        float:right;
+        text-align:center;
+        font-weight : bold;
+	}
+
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "اسم المصنع"; }
+	td:nth-of-type(2):before { content: "موقع الزيارة"; }
+	td:nth-of-type(3):before { content: "تقرير تحضير العينة"; }
+	td:nth-of-type(4):before { content: "إلغاء"; }
+
+      #prepareSample
+      {
+         width : 100%;
+
+      }
+
+}
+
+
+    @*for General and PC Design*@
+    .nav-tabs-top {
+        -ms-flex-direction: column;
+        flex-direction: column;
+        margin-top: 5%;
+
+    }
+    table {
+        background-color : white;
+         width:75%;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    }
+
+    a {
+        font-weight: bold;
+        text-align: right;
+    }
+
+    .edit:hover {
+        background-color: white;
+        color: #02BC77;
+    }
+
+    tr:hover {
+        color: white;
+        background-color: gray;
+    }
+    .nav-tabs {
+       margin-bottom : 1%;
+
+    }
+     td , tr{
+         font-size:large;
+     }
+    #prepareSample{
+        color : white;
+        font-size : large;
+         background-color:#2E323A;
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
+         border-radius : 25px;
+    }
+</style>
+<body dir="rtl">
+
+
+    <div class="card">
+        <div class="card-header">
+            @using (Html.BeginForm("MonthlyReport", "Reports", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+            {
+
+                <div class="row">
+                    <div class="col-8" style="text-align:center;">
+                        <div class="row">
+                            <div class="col-3">
+                                <h4>تاريخ الفترة من وإلى</h4>
+                            </div>
+                            <div class="col-9">
+
+                                @Html.TextBoxFor(model => model.toDate, new { id = "flatpickr-range", @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4" style="text-align:center;">
+                        <input type="submit" class="myclassname btn btn-success" value="@Resources.Search" />
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="card-body">
+            <table class=" table">
+                <thead style="text-align:center">
+                    <tr>
+                        <th>@Resources.Factory_Name</th>
+                        <th>@Resources.Concrete_Rank</th>
+                        <th>@Resources.Report_Date</th>
+                        <th>@Resources.Sample_Number</th>
+                        <th>@Resources.Concrete_Tempereture</th>
+                        <th>@Resources.Down_Amount</th>
+                        <th>@Resources.AverageCompressiveStrengthSevenDays</th>
+                        <th>@Resources.AverageCompressiveStrengthMonthly</th>
+
+
+                    </tr>
+                </thead>
+                <tbody style="text-align:center">
+
+                    @if (Model.monthlyReportViews.Count > 0)
+                    {
+                        foreach (var item in Model.monthlyReportViews)
+                        {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.factoryName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.conctreteRank)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.visitDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SampleNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ConcreteTemperture)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DownAmount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SevenDaysAverageCompressiveStrength)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MonthlyAverageCompressiveStrength)
+                        </td>
+                    </tr>
+                        }
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>

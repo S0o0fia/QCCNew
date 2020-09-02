@@ -1,0 +1,127 @@
+﻿@model AspnetMvcDemo.Models.ConcreateTests
+@using Resources
+<style>
+  @@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+        .modal-footer {
+            align-items: center;
+            justify-content: center;
+            justify-items: center;
+        }
+         tr {
+            display: grid;
+            border-bottom: 1px solid #ccc;
+        }
+        /* Force table to not be like tables anymore */
+        table, tbody, thead, td, tr, th {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+        }
+        /* Hide table headers (but not display: none;, for accessibility) */
+        thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+
+        td {
+            /* Behave  like a "row" */
+            border: none;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 50%;
+        }
+
+            td:before {
+                width: 45%;
+                padding-left: 10px;
+                white-space: nowrap;
+                float: right;
+                text-align: center;
+                font-weight: bold;
+            }
+            /*
+	Label the data
+	*/
+            td:nth-of-type(1):before {
+                content: "الاسم باللغة العربية";
+            }
+
+            td:nth-of-type(2):before {
+                content: "الاسم باللغة الانجليزية";
+            }
+
+            td:nth-of-type(3):before {
+                content: "إرفاق";
+            }
+
+          
+
+    }
+
+    h4 {
+        margin-bottom: 2%;
+        font-weight: bold;
+    }
+
+    .col-12 {
+        margin-bottom: 3%;
+    }
+     .modal-footer {
+            align-items: center;
+            justify-content: center;
+            justify-items: center;
+        }
+</style>
+@using (Html.BeginForm(Model.IsConcrete, "MixingDesign", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    <form>
+
+                        <table class="table table-reponsive">
+                            <thead style="text-align:center">
+                                <tr>
+                                    <th>
+                                        @Resources.Arabic_Name
+                                    </th>
+                                    <th>
+                                        @Resources.English_Name
+                                    </th>
+                                    <th>
+                                        @Resources.Attach_Test
+                                    </th>
+
+                                </tr>
+                            </thead>
+
+                            @for (var i = 0; i < Model.Tests.Count; i++)
+                            {
+                                <tbody style="text-align:center">
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => modelItem.Tests[i].ArName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => modelItem.Tests[i].EnName)
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(modelItem => modelItem.Tests[i].files, "", new { @type = "file", @multiple = "multiple" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+
+                                @Html.TextBoxFor(modelItem => modelItem.Tests[i].ID, "", new { @type = "text", @hidden = "hidden" })
+
+                            }
+                            @Html.TextBoxFor(m => m.MixingId, new { type = "number", @hidden = "hidden" })
+
+                        </table>
+                
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-success">@Resources.Add</button>
+        </div>
+
+    </form>
+}

@@ -1,0 +1,211 @@
+﻿@model  List<AspnetMvcDemo.Models.BlockTestResult>
+@{
+    ViewBag.Title = "BlockTestingResult";
+}
+@using Resources
+<style type="text/css">
+    .nav-tabs-top {
+    }
+
+    .table {
+        border-bottom: solid 2px #eeeeee
+    }
+
+    .form-control-plaintext {
+        padding-left: 3%;
+        outline-color: limegreen;
+        outline-style: solid;
+        outline-width: thin;
+    }
+</style>
+
+<body style="background-color :#ECECF1 ; background-size: cover " dir="rtl">
+    <div id="alertAdded" class="alert alert-dark-success alert-dismissible fade">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        @Resources.Sample_Added_Sucessfully
+    </div>
+    <div class="page-header  align-items-center">
+        <h3 style="text-align : center">@Resources.Block_Entering_Testing_Result</h3>
+    </div>
+   
+
+        <div class="nav-tabs-top nav-responsive-xl" style="-ms-flex-direction: column  ;flex-direction: column ; margin-top: 4% ; padding-left: 100px ; padding-right: 100px ">
+            <div class="tab-content">
+                <div class="tab-pane fade show active">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-7">
+                                <h4> @Resources.Compressive_Strength_of_Block_Cube</h4>
+                            </div>
+                         
+                         
+                        </div>
+                        <table class="table table-reponsive" dir="ltr">
+                            <thead style="text-align:center">
+                                <tr>
+                                    <th>@Resources.Sample_Number</th>
+                                    <th>1</th>
+                                    <th>2</th>
+                                    <th>3</th>
+                                </tr>
+                            </thead>
+
+
+                            <tbody style="text-align:center">
+                                <tr>
+                                    <th>Weight (kg)</th>
+                                    @foreach (var item in Model)
+                                    {
+                                        <td>
+                                            @*<input type="text" id="length1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                            @Html.TextBoxFor(m => item.weight , new { @class = "form-control" , @readonly="@readonly" })
+
+                                        </td>
+
+                                    }
+                                </tr>
+                                <tr>
+                                    <th>Length (mm)</th>
+                                    @foreach (var item in Model)
+                                    {
+                                        <td>
+                                            @*<input type="text" id="length1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                            @Html.TextBoxFor(m => item.length, new { @class = "form-control", @readonly = "@readonly" })
+
+                                        </td>
+
+                                    }
+                                </tr>
+                                <tr>
+                                    <th>Width (mm)</th>
+                                    @foreach (var item in Model)
+                                    {
+                                        <td>
+                                            @*<input type="text" id="length1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                            @Html.TextBoxFor(m => item.width, new { @class = "form-control", @readonly = "@readonly" })
+
+                                        </td>
+
+                                    }
+                                </tr>
+                                <tr>
+                                    <th>Height (mm)</th>
+                                    @foreach (var item in Model)
+                                    {
+                                        <td>
+                                            @*<input type="text" id="length1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                            @Html.TextBoxFor(m => item.height, new { @class = "form-control", @readonly = "@readonly" })
+
+                                        </td>
+
+                                    }
+                                </tr>
+                                <tr>
+                                    <th>Min Face Shell (mm)</th>
+                                    @foreach (var item in Model)
+                                    {
+                                        <td>
+                                            @*<input type="text" id="length1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                            @Html.TextBoxFor(m => item.Minfaceshell, new { @class = "form-control", @readonly = "@readonly" })
+
+                                        </td>
+
+                                    }
+                                </tr>
+                                <tr>
+                                    <th>Net Area (mm2) </th>
+                                    @foreach (var item in Model)
+                                    {
+                                        <td>
+                                            @*<input type="text" id="length1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                            @Html.TextBoxFor(m => item.NetArea, new { @class = "form-control", @readonly = "@readonly" })
+
+                                        </td>
+
+                                    }
+                                </tr>
+                                <tr>
+                                    <th>Gross Area (mm2) </th>
+                                    @foreach (var item in Model)
+                                    {
+                                        <td>
+                                            @*<input type="text" id="length1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                            @Html.TextBoxFor(m => item.GrossArea, new { @class = "form-control", @readonly = "@readonly" })
+
+                                        </td>
+
+                                    }
+                                </tr>
+                                <tr>
+                                    <th>Load (kn) </th>
+                                    @foreach (var item in Model)
+                                    {
+                                        <td>
+                                            @*<input type="text" id="length1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                            @Html.TextBoxFor(m => item.load, new { @class = "form-control", @readonly = "@readonly" })
+
+                                        </td>
+
+                                    }
+                                </tr>
+                                <tr>
+                                    <th>Comp Strength  (net Area) (Mpa) </th>
+                                    @foreach (var item in Model)
+                                    {
+                                        <td>
+                                            @*<input type="text" id="length1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                            @Html.TextBoxFor(m => item.compbetarea, new { @class = "form-control", @readonly = "@readonly" })
+
+                                        </td>
+
+                                    }
+                                </tr>
+                                <tr>
+                                    <th>Comp Strength (Gross Area) (Mpa) </th>
+                                    @foreach (var item in Model)
+                                    {
+                                        <td>
+                                            @*<input type="text" id="length1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                            @Html.TextBoxFor(m => item.compgrossarea, new { @class = "form-control", @readonly = "@readonly" })
+
+                                        </td>
+
+                                    }
+                                </tr>
+                                <tr>
+                                    <th>Strength Requirement</th>
+                                    <td colspan="3">MIN = 3.45 Mpa </td>
+                                </tr>
+                                <tr>
+                                    <th>Min Ave Compressive Strength of (3) Units (Net Area) (Mpa)</th>
+                                    <td>
+                                        @*<input type="text" id="macStrengthNet1" class="form-control-plaintext" readonly="readonly" />*@
+                                        @Html.TextBoxFor(m => m[0].AvgNetArea, new { @class = "form-control", @id = "macStrengthNet1", @readonly = "readonly" })
+
+                                    </td>
+                                    <td></td>
+                                    <td>MIN= 4.14Mpa </td>
+                                </tr>
+                                <tr>
+                                    <th>Min Ave Compressive Strength of (3) Units (Gross Area) (Mpa) </th>
+                                    <td>
+                                        @*<input type="text" id="macStrength1" class="form-control-plaintext" readonly="readonly" />*@
+                                        @Html.TextBoxFor(m => m[0].AvgGrossArea, new { @class = "form-control", @id = "macStrength1", @readonly = "readonly" })
+                                    </td>
+                                    <td>
+                                    </td>
+                                    <td>
+                                    </td>
+                                </tr>
+                            </tbody>
+
+                        </table>
+                      
+                    </div>
+                </div>
+            </div>
+
+        </div>
+   
+</body>
+

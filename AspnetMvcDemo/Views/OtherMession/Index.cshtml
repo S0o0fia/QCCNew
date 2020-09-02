@@ -1,0 +1,67 @@
+﻿@model AspnetMvcDemo.Models.othertask
+@{
+    ViewBag.Title = "مهام أخرى";
+}
+
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/smartwizard/smartwizard")
+}
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/smartwizard/smartwizard")
+    @Scripts.Render("~/bundle/vendor/js/validate/validate")
+
+    @Scripts.Render("~/bundle/js/forms_wizard")
+
+
+    @*@Scripts.Render("~/bundle/js/charts_gmaps")*@
+}
+
+
+<body dir="rtl">
+    <div class="card" style="top:15%">
+        <div class="card-header">
+            <h3 style="text-align:center">مهام أخرى</h3>
+        </div>
+
+        <div class="card-body">
+            @using (Html.BeginForm("Index", "OtherMession", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <!--Factory Name-->
+                <div class="row" style="margin-bottom:2%; text-align:center;">
+                    <div class="col-4" style="font-weight:bold">@Resources.Resources.Factory_Name</div>
+                    <div class="col-8">
+                        @Html.DropDownListFor(m => m.factid, new SelectList(Model.factories, "ID", "Name"), "اختيار المصنع", new { id = "fact", @class = "form-control" })
+                    </div>
+                </div>
+
+                <!--Monitor-->
+                <div class="row" style="margin-bottom:2%; text-align:center;">
+                    <div class="col-4" style="font-weight:bold">@Resources.Resources.Monitor_Name</div>
+                    <div class="col-8" >
+                        @Html.DropDownListFor(m => m.userid, new SelectList(Model.users, "Id", "FullName"), "اسم المراقب ", new { id = "user", @class = "form-control" })
+                    </div>
+                </div>
+
+                <!--Mission-->
+                <div class="row" style="margin-bottom:2%; text-align:center;">
+                    <div class="col-4" style="font-weight:bold">@Resources.Resources.Task_Details</div>
+                    <div class="col-8" >
+                        <textarea id="w3review" name="w3review" rows="4" cols="100%" class="form-control">
+                      
+                      </textarea>
+                    </div>
+
+                </div>
+           
+
+                <div class="row" style="margin-bottom:2%; text-align:center;">
+                    <input type="submit" value="@Resources.Resources.Save" class="btn btn-success" />
+                </div>
+            }
+
+        </div>
+            </div>
+</body>
+
+

@@ -1,0 +1,364 @@
+﻿@using Resources
+@{
+    ViewBag.Title = "ConcreteFactoryReports";
+
+    var Model = (AspnetMvcDemo.ViewModel.FactoryGeneralInfoVM)ViewBag.GeneralInfo;
+    var ListofBasicQualificationsNotLab = ((List<AspnetMvcDemo.Models.EquipmentRequirementsType>)ViewBag.ListOfQualifications).Where(p => p.LevelOfImportanc == 1 && !(bool)p.QualityLab).ToList();
+    var ListofSupplementaryQualificationsNotLab = ((List<AspnetMvcDemo.Models.EquipmentRequirementsType>)ViewBag.ListOfQualifications).Where(p => p.LevelOfImportanc == 2 && !(bool)p.QualityLab).ToList();
+    var ListofBasicQualificationsLab = ((List<AspnetMvcDemo.Models.EquipmentRequirementsType>)ViewBag.ListOfQualifications).Where(p => p.LevelOfImportanc == 1 && (bool)p.QualityLab).ToList();
+    var ListofSupplementaryQualificationsLab = ((List<AspnetMvcDemo.Models.EquipmentRequirementsType>)ViewBag.ListOfQualifications).Where(p => p.LevelOfImportanc == 2 && (bool)p.QualityLab).ToList();
+}
+
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/smartwizard/smartwizard")
+}
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/smartwizard/smartwizard")
+    @Scripts.Render("~/bundle/vendor/js/validate/validate")
+
+    @Scripts.Render("~/bundle/js/forms_wizard")
+
+    @*@Scripts.Render("~/bundle/js/charts_gmaps")*@
+}
+
+<style type="text/css">
+    .col-md-2 {
+        flex: 0 0 16.66667%;
+        max-width: 16.66667%;
+        text-align: left;
+        vertical-align: text-bottom;
+    }
+
+    span{
+        font-weight:bold;
+        font-size:medium;
+    }
+    .col-md-6{
+        font-size:medium;
+        
+    }
+</style>
+
+
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <h3 style="text-align:center">@Resources.Evaluation_Factory_Visit_Report</h3>
+    <hr class="container-m-nx border-light my-4">
+    @*<h6 class="text-muted small font-weight-bold py-3 my-4">
+            With icon
+        </h6>*@
+    
+    <div class="card">
+        <div class="card-header">
+            <h3 style="text-align:center">@Resources.Global_Information</h3>
+        </div>
+        <div class="card-body">
+            <div class="container" style="text-align:right;">
+                <div class="row">
+                    <div class="col-md-6">
+                        <span>  @Resources.Factory_Name</span>
+                        : @Model.FactoryName
+                    </div>
+                    <div class="col-md-6">
+                        <span>   @Resources.Factroy_Location</span>
+                        : @Model.Location
+                    </div>
+                    <div class="col-md-6">
+                        <span>@Resources.Owner_Name</span>
+                        : @Model.OwnerName
+                    </div>
+
+                </div>
+                <hr class="container-m-nx border-light my-4">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <span>@Resources.Manager__Name</span>
+                        : @Model.ManagerName
+
+                    </div>
+                    <div class="col-md-6">
+                        <span>@Resources.Manager_Experience__years_</span>
+                        : @Model.ManagerQualification
+
+                    </div>
+                </div>
+                <hr class="container-m-nx border-light my-4">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <span>@Resources.Technical_Director</span>
+                        :
+                    </div>
+                    <div class="col-md-6">
+                        <span>@Resources.Manager_Experience__years_</span>
+                        :
+                    </div>
+                </div>
+                <hr class="container-m-nx border-light my-4">
+
+                <div class="row">
+                    <div class="col-md-6"><span>@Resources.Factory_Phone_Number</span> : @Model.FactoryPhoneNumber</div>
+                    <div class="col-md-6"><span>@Resources.Factory_Fax</span> : @Model.FactoryFaxNumber</div>
+                </div>
+                <hr class="container-m-nx border-light my-4">
+
+                <div class="row">
+                    <div class="col-md-6"><span>@Resources.Produce_Power</span> : @Model.ProductionCapacity</div>
+                    <div class="col-md-6"><span>@Resources.Average_Daily_Production</span> : @Model.DailyProductionRate</div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card" style="margin-top:3%">
+        <div class="card-header">
+            <h3 style="text-align:center">@Resources.Visit_Details</h3>
+        </div>
+        <div class="card-body">
+            @using (Html.BeginForm("Create", "EvaluationFactory", FormMethod.Post, new { @class = "form-horizon[ID], [Title], [QualityLab], [LevelOfImportanc]tal", role = "form", enctype = "multipart/form-data" }))
+            {
+                @Html.Hidden("FactoryId", Model.FactoryId)
+                <div id="smartwizard-2" class="smartwizard-example" style="padding:2%;">
+                    <ul>
+                        <li>
+                            <a href="#smartwizard-2-factoryRate-1" class="mb-3">
+                                <span class="sw-done-icon ion ion-md-checkmark"></span>
+                                <span class="sw-icon ion ion-md-copy"></span>
+
+                                <div class="text-muted small">@Resources.Evaluation_of_equipment_and_special_requirements </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#smartwizard-2-factoryRate-2" class="mb-3">
+                                <span class="sw-done-icon ion ion-md-checkmark"></span>
+                                <span class="sw-icon ion ion-md-copy"></span>
+
+                                <div class="text-muted small">@Resources.Laboratory_evaluation_and_self_quality_control_activities</div>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="mb-3" style="margin-top:2% ; padding:2%;">
+                        <div id="smartwizard-2-factoryRate-1" class="card animated fadeIn">
+                            <div class="container">
+
+                                <div id="smartwizard-2" class="smartwizard-example">
+                                    <ul>
+                                        <li>
+                                            <a href="#smartwizard-2-step-1" class="mb-3">
+                                                <span class="sw-done-icon ion ion-md-checkmark"></span>
+                                                <span class="sw-icon ion ion-md-copy"></span>
+
+                                                <div class="text-muted small">@Resources.basic_information</div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#smartwizard-2-step-2" class="mb-3">
+                                                <span class="sw-done-icon ion ion-md-checkmark"></span>
+                                                <span class="sw-icon ion ion-md-copy"></span>
+
+                                                <div class="text-muted small">@Resources.Supplementary_data</div>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="mb-3">
+                                        <div id="smartwizard-2-step-1" class="card animated fadeIn">
+                                            <div class="card-body">
+                                                <div class="container">
+                                                    @{
+                                                        Html.RenderAction("NormalForm", new { ListOfTitles = ListofBasicQualificationsNotLab });
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="smartwizard-2-step-2" class="card animated fadeIn">
+                                            <div class="card-body">
+                                                <div class="container">
+                                                    @{
+                                                        Html.RenderAction("NormalForm", new { ListOfTitles = ListofSupplementaryQualificationsNotLab });
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div id="smartwizard-2-factoryRate-2" class="card animated fadeIn">
+
+                            <div class="container">
+                                <div id="smartwizard-2" class="smartwizard-example">
+                                    <ul>
+                                        <li>
+                                            <a href="#smartwizard-2-step-1" class="mb-3">
+                                                <span class="sw-done-icon ion ion-md-checkmark"></span>
+                                                <span class="sw-icon ion ion-md-copy"></span>
+                                                <div class="text-muted small">@Resources.basic_information</div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#smartwizard-2-step-2" class="mb-3">
+                                                <span class="sw-done-icon ion ion-md-checkmark"></span>
+                                                <span class="sw-icon ion ion-md-copy"></span>
+                                                <div class="text-muted small">@Resources.Supplementary_data</div>
+                                            </a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="mb-3">
+                                        <div id="smartwizard-2-step-1" class="card animated fadeIn">
+                                            <div class="card-body">
+                                                <div class="container">
+                                                    @{
+                                                        Html.RenderAction("NormalForm", new { ListOfTitles = ListofBasicQualificationsLab });
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="smartwizard-2-step-2" class="card animated fadeIn">
+                                            <div class="card-body">
+                                                <div class="container">
+                                                    @{
+                                                        Html.RenderAction("NormalForm", new { ListOfTitles = ListofSupplementaryQualificationsLab });
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="col-12">
+                    <input class="btn btn-success" type="submit" value="@Resources.Save" />
+                </div>
+
+
+            }
+
+        </div>
+    </div>
+
+    
+
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    })
+    var BaseUrl = '@Url.Content("~/EvaluationFactory/")';
+
+    function AddNewMixitingStation() {
+        var factoryId = @Model.FactoryId;
+        $.ajax({
+            type: "post",
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            url: BaseUrl + 'AddMixiningStation',
+            data: '{ FactoryId : ' + factoryId + '}',
+            success: function (data) {
+                $("#MixitingStation").html(data);
+            },
+            error: function () {
+            }
+        });
+    }
+    $("#dropRank").change(function () {
+        if ($("#dropRank").val() == "C-35")
+            $("#ReasonHiddenDrop").attr("hidden", "hidden")
+        else
+            $("#ReasonHiddenDrop").removeAttr("hidden")
+
+    })
+    $("#IsCleanUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsCleanUsage").val(true);
+    });
+
+    $("#IsBasicUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsBasicUsage").val(true)
+    });
+    $("#IsColumnUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsColumnUsage").val(true);
+    });
+    $("#IsRoofUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsRoofUsage").val(true);
+    });
+    $("#IsOtherUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsOtherUsage").val(true);
+        $("#ReasonHidden").removeAttr("hidden")
+        if ($("#dropRank").val() == "C-35")
+            $("#ReasonHiddenDrop").attr("hidden", "hidden")
+        else
+            $("#ReasonHiddenDrop").removeAttr("hidden")
+
+
+    });
+    function ChangeFalse() {
+        $("#IsOtherUsage").val(false);
+        $("#IsRoofUsage").val(false);
+        $("#IsColumnUsage").val(false);
+        $("#IsBasicUsage").val(false)
+        $("#IsCleanUsage").val(false);
+        $("#ReasonHidden").attr("hidden", "hidden")
+
+    }
+    $("#IsCleanLocationTrue").click(function () {
+        $("#IsCleanLocation").val(true);
+        console.log("clean")
+        console.log($("#IsCleanLocation").val())
+    });
+    $("#IsCleanLocationFalse").click(function () {
+        $("#IsCleanLocation").val(false);
+        console.log("clean")
+        console.log($("#IsCleanLocation").val())
+    });
+    $("#IsMoldanatInTrucksTrue").click(function () {
+        $("#IsMoldanatInTrucks").val(true);
+    });
+    $("#IsMoldanatInTrucksFalse").click(function () {
+        $("#IsMoldanatInTrucks").val(false);
+    });
+    $("#IsRokamSummerTrue").click(function () {
+        $("#IsRokamSummer").val(true);
+    });
+    $("#IsRokamSummerFalse").click(function () {
+        $("#IsRokamSummer").val(false);
+    });
+    $("#IsLabEngineerTrue").click(function () {
+        $("#IsLabEngineer").val(true);
+    });
+    $("#IsLabEngineerFalse").click(function () {
+        $("#IsLabEngineer").val(false);
+    });
+    $("#IsDustControlInStationTrue").click(function () {
+        $("#IsDustControlInStation").val(true);
+    });
+    $("#IsDustControlInStationFalse").click(function () {
+        $("#IsDustControlInStation").val(false);
+    });
+    $("#IsPeopleSaftyTrue").click(function () {
+        $("#IsPeopleSafty").val(true);
+    });
+    $("#IsPeopleSaftyFalse").click(function () {
+        $("#IsPeopleSafty").val(false);
+    });
+
+
+</script>
+

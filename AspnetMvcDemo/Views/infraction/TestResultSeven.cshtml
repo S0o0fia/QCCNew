@@ -1,0 +1,100 @@
+﻿
+@model List<AspnetMvcDemo.Models.sevenDaysResult>
+
+@{
+    ViewBag.Title = "SevenDaysResult";
+}
+@using Resources
+<style type="text/css">
+
+    .nav-tabs-top {
+    }
+
+    .table {
+        border: solid 2px #eeeeee;
+    }
+
+        .table tr td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+    .page-header {
+        padding-top: 2%;
+        padding-bottom: 3%;
+    }
+
+    .form-control-plaintext {
+        padding-left: 3%;
+        outline-color: limegreen;
+        outline-style: solid;
+        outline-width: thin;
+    }
+</style>
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+           <div class="page-header  align-items-center">
+                <h1 style="text-align : center">@Resources.Concrete_Testing_Result</h1>
+            </div>
+
+            <div class="nav-tabs-top nav-responsive-xl" style="-ms-flex-direction: column; flex-direction: column; margin-top: 4%; padding-left: 100px; padding-right: 100px;">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <h4>@Resources.Compressive_Strength_of_Concrete_Cube</h4>
+                                </div>
+                                <div class="col-md-5">
+                                    @Resources.Sample_Number  <span id="sampleNo"></span>
+                                </div>
+                            </div>
+
+                            <table class="table" dir="ltr">
+                                <thead style="text-align:center ; font-weight:bold">
+                                    <tr>
+                                        <th> No</th>
+                                        <th>Weight</th>
+                                        <th>Volume</th>
+                                        <th>Area Loaded</th>
+                                        <th>Unit Weight</th>
+                                        <th>Test Date</th>
+                                        <th>Age</th>
+                                        <th>Crushing Load</th>
+                                        <th>Compressive Strength</th>
+                                        <th>Average Compressive Strength</th>
+
+                                    </tr>
+                                </thead>
+
+
+                                <tbody style="text-align:center;">
+                                   @foreach (var item in Model)
+                                   {
+                                       <tr>
+                                           <td>#</td>
+                                           <td>@item.weight</td>
+                                           <td>@item.volume</td>
+                                           <td>@item.areaLoaded</td>
+                                           <td>@item.unitWeight</td>
+                                           <td>@item.testDate</td>
+                                           <td>@item.age</td>
+                                           <td>@item.crushingLoad</td>
+                                           <td>@item.CompressiveStrength</td>
+                                           <td>@item.averageCompressiveStrength</td>
+                                       </tr>
+                                   }
+                                </tbody>
+
+                            </table>
+                  
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+  
+</body>
+

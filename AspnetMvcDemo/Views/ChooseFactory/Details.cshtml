@@ -1,0 +1,88 @@
+﻿@model AspnetMvcDemo.ViewModel.ChooseFactoryVM
+
+@{
+    ViewBag.Title = "Choose Factory";
+}
+
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/smartwizard/smartwizard")
+}
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/smartwizard/smartwizard")
+    @Scripts.Render("~/bundle/vendor/js/validate/validate")
+
+    @Scripts.Render("~/bundle/js/forms_wizard")
+
+
+    @*@Scripts.Render("~/bundle/js/charts_gmaps")*@
+}
+
+<style type="text/css">
+    .col-md-2 {
+        flex: 0 0 16.66667%;
+        max-width: 16.66667%;
+        text-align: left;
+        vertical-align: text-bottom;
+    }
+    .col-12{
+        align-content:center;
+        justify-content : center;
+    }
+</style>
+
+
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <div class="card" style="top:30%">
+        <div class="card-header">
+            <h3 style="text-align:center">@Resources.Resources.Evaluation_Factory_Visit_Report</h3>
+        </div>
+
+        <div class="card-body">
+            @using (Html.BeginForm("Details", "ChooseFactory", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div id="Locations" class="col-md-6" style="margin-bottom:2%;">
+                    @Html.DropDownListFor(m => m.LocationId, new SelectList(ViewBag.Locations, "ID", "Location_Arabic"), "اختيار الموقع", new { id = "ddlLocation", @class = "form-control" })
+                </div>
+               
+                <div id="Factories" class="col-md-6"  style="margin-bottom:2%;"></div>
+                @Html.Hidden("TargetControllerName");
+                @Html.Hidden("TargetActionName");
+        <div class="col-12">
+            <input class="btn btn-success" id="visitbutton" type="submit" value="بدء زيارة تقييم المصنع" />
+        </div>
+            }
+            </div>
+        </div>
+</body>
+
+<script type="text/javascript">
+
+    var BaseUrl = '@Url.Content("~/ChooseFactory/")';
+    $("#visitbutton").prop('disabled', true);
+    
+    $(document).ready(function () {
+
+    })
+
+    $("#ddlLocation").change(function () {
+        var locationId = $(this).val();
+        $.ajax({
+            type: "post",
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            url: BaseUrl + 'GetFactories',
+            data: '{ Id : ' + locationId + '}',
+            success: function (data) {
+                $("#Factories").html(data);
+            },
+            error: function () {
+            }
+        });
+    });
+    
+   
+
+</script>
+

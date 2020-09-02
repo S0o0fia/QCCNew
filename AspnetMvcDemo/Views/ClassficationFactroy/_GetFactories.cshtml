@@ -1,0 +1,13 @@
+﻿@model AspnetMvcDemo.ViewModel.ChooseFactoryVM
+
+@Html.DropDownListFor(m => m.FactoryId, new SelectList(ViewBag.Factories, "ID", "Name"), "اختيار المصنع", new { id = "ddlFactory", @class = "form-control" })
+
+
+<script>
+    $("#ddlFactory").on("change",function () {
+        debugger;
+        if ($(this).val()) {
+            $("#visitbutton").prop('disabled', false);
+        }
+    });
+</script>

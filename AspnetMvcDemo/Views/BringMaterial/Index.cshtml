@@ -1,0 +1,104 @@
+﻿@model AspnetMvcDemo.ViewModel.ChooseFactoryVM
+@{
+    ViewBag.Title = "إحضار عينات المواد";
+}
+
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/smartwizard/smartwizard")
+}
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/smartwizard/smartwizard")
+    @Scripts.Render("~/bundle/vendor/js/validate/validate")
+
+    @Scripts.Render("~/bundle/js/forms_wizard")
+
+
+    @*@Scripts.Render("~/bundle/js/charts_gmaps")*@
+}
+
+
+<body dir="rtl">
+    <div class="card" style="top:15%">
+        <div class="card-header">
+            <h3 style="text-align:center">إحضار عينات مواد</h3>
+        </div>
+
+        <div class="card-body">
+            @using (Html.BeginForm("Index", "ClassficationFactroy", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div  class="row" style="margin-bottom:2%; text-align:center;" >
+                    <div class="col-4" style="font-weight:bold">@Resources.Resources.FactoryLocation</div>
+                    <div class="col-8" id="Locations">
+                        @Html.DropDownListFor(m => m.LocationId, new SelectList(ViewBag.Locations, "ID", "Location_Arabic"), "اختيار الموقع", new { id = "ddlLocation", @class = "form-control" })
+                    </div>
+                    </div>
+
+                <div  class="row" style="margin-bottom:2%; text-align:center">
+                    <div class="col-4" style="font-weight:bold">
+                        @Resources.Resources.Factory_Name
+                    </div>
+                    <div id="Factories" class="col-8">
+
+                    </div>
+                </div>
+                @Html.Hidden("TargetControllerName");
+                @Html.Hidden("TargetActionName");
+             <div class="col-12" style="text-align:center;">
+                <table class="table">
+                <thead>
+                    <tr>
+                        <th>@Resources.Resources.Material_sample_type</th>
+                        <th>@Resources.Resources.Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <select class="form-control">
+                                <option>M1</option>
+                                <option>M2</option>
+                                <option>M3</option>
+                                <option>M4</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control"/>
+                         </td>
+                    </tr>
+                 </tbody>
+                </table>
+                 <input type="submit" value="@Resources.Resources.Save" class="btn btn-success" />
+                </div>
+            }
+
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+
+    var BaseUrl = '@Url.Content("~/ClassficationFactroy/")';
+    $("#visitbutton").prop('disabled', true);
+
+    $(document).ready(function () {
+
+    })
+
+    $("#ddlLocation").change(function () {
+        var locationId = $(this).val();
+        $.ajax({
+            type: "post",
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            url: BaseUrl + 'GetFactories',
+            data: '{ Id : ' + locationId + '}',
+            success: function (data) {
+                $("#Factories").html(data);
+            },
+            error: function () {
+            }
+        });
+    });
+
+
+</script>

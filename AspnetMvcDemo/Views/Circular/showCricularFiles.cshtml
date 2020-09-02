@@ -1,0 +1,177 @@
+﻿@model AspnetMvcDemo.Models.Circular
+
+@using Resources
+<style type="text/css">
+    @*for Mobile Design*@
+ @@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+
+    tr{
+      display:grid;
+      border-bottom:1px solid #ccc;
+    }
+   /* Force table to not be like tables anymore */
+	table, tbody , thead , td, tr, th  {
+		display: block;
+	}
+	table {
+        width :100%;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+
+	td {
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+	}
+
+   td:before {
+		width: 45%;
+		padding-left: 10px;
+		white-space: nowrap;
+        float:right;
+        text-align:center;
+        font-weight : bold;
+	}
+
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "اسم الملف"; }
+	td:nth-of-type(2):before { content:"تحميل الملف"; }
+	td:nth-of-type(3):before { content: "تاريخ صدور التعميم"; }
+	
+      #prepareSample
+      {
+         width : 100%;
+
+      }
+
+}
+
+
+    @*for General and PC Design*@
+    .nav-tabs-top {
+        -ms-flex-direction: column;
+        flex-direction: column;
+        margin-top: 5%;
+
+    }
+    table {
+        background-color : white;
+         width:75%;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    }
+
+    a {
+        font-weight: bold;
+        text-align: right;
+    }
+
+    .edit:hover {
+        background-color: white;
+        color: #02BC77;
+    }
+
+    tr:hover {
+        color: white;
+        background-color: gray;
+    }
+    .nav-tabs {
+       margin-bottom : 1%;
+
+    }
+     td , tr{
+         font-size:large;
+     }
+    #prepareSample{
+        color : white;
+        font-size : large;
+         background-color:#2E323A;
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
+         border-radius : 25px;
+    }
+</style>
+
+
+<div class="page-header  align-items-center">
+    <h3 style="text-align : right ; text-decoration:underline ">@Resources.Circulars</h3>
+</div>
+
+@using (Html.BeginForm("showCricularFiles", "Circular", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+{
+    <form>
+        @Html.HiddenFor(m => m.id)
+        @*<div class="tab-pane fade active show">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <h4>
+                                @Resources.Concrete_tests
+                            </h4>
+                        </div>
+                        @{
+                            <h3>@Model.fileName</h3>
+
+                            @Html.Raw("\n")
+
+                            var url = "~/Content/" + Model.fileName;
+
+                            <button type="submit">
+                                Download
+                                <a href=@url download><i class="ion-ios-paper" style="font-size:larger"></i></a>
+                            </button>
+
+                            @Html.Raw("\n")
+
+                            <h3>@Model.fileDate</h3>
+                        }
+                    </div>
+                </div>
+            </div>*@
+
+        <div class="table-responsive">
+            <table class="datatables-demo table table-bordered">
+                <thead style="text-align:center">
+                    <tr>
+                        <th>@Resources.File_Name</th>
+                        <th>@Resources.DownloadCircularFile</th>
+                        <th>@Resources.dateOfCircular</th>
+                    </tr>
+                </thead>
+                <tbody style="text-align:center">
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => @Model.fileName)
+                        </td>
+                        <td>
+                            @{
+                                var url = "~/Content/" + Model.fileName;
+
+                                <button type="submit">
+                                    Download
+                                    <a href=@url download><i class="ion-ios-paper" style="font-size:larger"></i></a>
+                                </button>
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => @Model.fileDate)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+}

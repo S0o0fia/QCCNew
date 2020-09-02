@@ -1,0 +1,200 @@
+﻿@model AspnetMvcDemo.ViewModel.ReportResultVM
+
+
+@{
+    ViewBag.Title = "Choose Factory";
+}
+
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/smartwizard/smartwizard")
+}
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/smartwizard/smartwizard")
+    @Scripts.Render("~/bundle/vendor/js/validate/validate")
+
+    @Scripts.Render("~/bundle/js/forms_wizard")
+
+
+    @*@Scripts.Render("~/bundle/js/charts_gmaps")*@
+}
+
+<style type="text/css">
+    .col-md-2 {
+        flex: 0 0 16.66667%;
+        max-width: 16.66667%;
+        text-align: left;
+        vertical-align: text-bottom;
+    }
+
+    .col-12 {
+        align-content: center;
+        justify-content: center;
+    }
+</style>
+
+
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <div class="card" style="top:30%">
+        <div class="card-header">
+            <h3 style="text-align:center">فتح مصنع</h3>
+        </div>
+
+        <div class="card-body">
+            @using (Html.BeginForm("StartFactory", "ChooseFactory", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div id="Locations" class="col-md-6" style="margin-bottom:2%;">
+                    @Html.DropDownListFor(m => m.LocationId, new SelectList(ViewBag.Locations, "ID", "Location_Arabic"), "اختيار الموقع", new { id = "ddlLocation", @class = "form-control" })
+                </div>
+
+                <div id="Factories" class="col-md-6" style="margin-bottom:2%;"></div>
+
+                <div class="form-group">
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                    </div>
+                    @Html.LabelFor(model => model.Comment, "تعليق", htmlAttributes: new { @class = "control-label col-md-2" })
+
+                </div>
+
+                @*<div class="form-group">
+                    <div class="col-md-12">
+                        <div class="checkbox">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">الحالة</label>
+                                </div>
+                                <select class="custom-select" id="inputGroupSelect01" name="Status">
+                                    <option selected>Choose...</option>
+                                    <option value="0">مغلق</option>
+                                    <option value="1">مفتوح</option>
+                                </select>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>*@
+
+                <div class="col-12">
+                    <input class="btn btn-success" id="visitbutton" type="submit" value="اعادة فتح" />
+                </div>
+            }
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+
+    var BaseUrl = '@Url.Content("~/ChooseFactory/")';
+    $("#visitbutton").prop('disabled', true);
+
+    $(document).ready(function () {
+
+    })
+
+    $("#ddlLocation").change(function () {
+        var locationId = $(this).val();
+        $.ajax({
+            type: "post",
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            url: BaseUrl + 'GetFactories',
+            data: '{ Id : ' + locationId + ', Opened : false }',
+            success: function (data) {
+                $("#Factories").html(data);
+            },
+            error: function () {
+            }
+        });
+    });
+
+    $("#dropRank").change(function () {
+        if ($("#dropRank").val() == "C-35")
+            $("#ReasonHiddenDrop").attr("hidden", "hidden")
+        else
+            $("#ReasonHiddenDrop").removeAttr("hidden")
+
+    })
+    $("#IsCleanUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsCleanUsage").val(true);
+    });
+
+    $("#IsBasicUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsBasicUsage").val(true)
+    });
+    $("#IsColumnUsageTrue").click(function () {
+        ChangeFalse();
+       $("#IsColumnUsage").val(true);
+     });
+    $("#IsRoofUsageTrue").click(function () {
+        ChangeFalse();
+       $("#IsRoofUsage").val(true);
+    });
+    $("#IsOtherUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsOtherUsage").val(true);
+        $("#ReasonHidden").removeAttr("hidden")
+        if ($("#dropRank").val() == "C-35")
+            $("#ReasonHiddenDrop").attr("hidden", "hidden")
+        else
+            $("#ReasonHiddenDrop").removeAttr("hidden")
+
+
+     });
+    function ChangeFalse() {
+        $("#IsOtherUsage").val(false);
+        $("#IsRoofUsage").val(false);
+        $("#IsColumnUsage").val(false);
+        $("#IsBasicUsage").val(false)
+        $("#IsCleanUsage").val(false);
+        $("#ReasonHidden").attr("hidden","hidden")
+
+    }
+    $("#IsCleanLocationTrue").click(function () {
+        $("#IsCleanLocation").val(true);
+        console.log("clean")
+        console.log($("#IsCleanLocation").val() )
+    });
+    $("#IsCleanLocationFalse").click(function () {
+        $("#IsCleanLocation").val(false);
+        console.log("clean")
+        console.log($("#IsCleanLocation").val())
+    });
+    $("#IsMoldanatInTrucksTrue").click(function () {
+        $("#IsMoldanatInTrucks").val(true);
+    });
+    $("#IsMoldanatInTrucksFalse").click(function () {
+        $("#IsMoldanatInTrucks").val(false);
+    });
+    $("#IsRokamSummerTrue").click(function () {
+        $("#IsRokamSummer").val(true);
+    });
+    $("#IsRokamSummerFalse").click(function () {
+        $("#IsRokamSummer").val(false);
+    });
+    $("#IsLabEngineerTrue").click(function () {
+        $("#IsLabEngineer").val(true);
+    });
+    $("#IsLabEngineerFalse").click(function () {
+        $("#IsLabEngineer").val(false);
+    });
+    $("#IsDustControlInStationTrue").click(function () {
+        $("#IsDustControlInStation").val(true);
+    });
+    $("#IsDustControlInStationFalse").click(function () {
+        $("#IsDustControlInStation").val(false);
+    });
+    $("#IsPeopleSaftyTrue").click(function () {
+        $("#IsPeopleSafty").val(true);
+    });
+    $("#IsPeopleSaftyFalse").click(function () {
+        $("#IsPeopleSafty").val(false);
+    });
+
+
+</script>
+

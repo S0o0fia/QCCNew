@@ -1,0 +1,187 @@
+﻿
+@{
+    ViewBag.Title = "MakeChoice";
+    Layout = "~/Views/Shared/Layouts/_LayoutBlank.cshtml";
+
+}
+@using Resources
+@section Styles {
+    <!-- Page -->
+    @Styles.Render("~/bundle/vendor/css/pages/authentication")
+}
+
+<style type="text/css">
+    @@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+    
+     .card {
+       display:block;
+       width:100%;
+       justify-content:center;
+      justify-items:center;
+      text-align:center;
+      vertical-align:central;
+      position:center;
+      margin-bottom:2%;
+     }
+     
+    .row{
+      justify-content:center;
+      justify-items:center;
+      text-align:center;
+      vertical-align:central;
+      position:center;
+        
+      
+    }
+    
+    }
+    .nav-tabs-top {
+        -ms-flex-direction: column;
+        flex-direction: column;
+        margin-top: 3%;
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+
+    .table {
+        border-bottom: solid 2px #eeeeee;
+    }
+
+    a {
+        font-weight: bold;
+        text-align: right;
+    }
+
+    .page-header {
+        margin-top: 10%;
+        width:50%;
+    }
+
+    .card-body {
+
+        text-align: center;
+        background-color:white;
+        opacity:0.7;
+        padding-top:5%;
+     }
+
+    .card{
+        
+        background-color:white;
+        opacity:0.9;
+       display:inline;
+        border-radius :2%;
+    }
+
+    .row{
+      justify-content:center;
+      justify-items:center;
+      text-align:center;
+      vertical-align:central;
+      position:center;
+        
+      
+    }
+
+    button{
+      width:100%;
+      margin : 0;
+    
+    }
+
+    #btnConcrete{
+        margin-top : 10%;
+       padding : 5%;
+    }
+    
+    #btnBlock
+    {
+        padding : 5%;
+    }
+
+    #btnBlock:hover{
+       opacity:1;
+    }
+
+    #btnConcrete:hover{
+       opacity:1;
+    }
+    
+   
+</style>
+
+<body style="background-image:url('../../Images/back4.jpg'); background-size: cover;" dir="rtl">
+
+    <div class="nav-tabs-top nav-responsive-xl">
+        <div class="page-header  align-items-center">
+          
+        </div>
+
+        <div class="row">
+            <div class="card concrete">
+                <img class="card-img-top" src="~/Images/3.png" alt="Card image cap">
+                <div class="card-body">
+               
+              
+                    @*<a href="@Url.Action("Home" , "Home" )" class="btn btn-success">@Resources.go</a>*@
+                    @if (@Session["JobTitle"].ToString() == "Doctor")
+                    {
+                    <button id="btnConcrete" type="submit" class="btn btn-dark" onclick="location.href='@Url.Action("Laboratory", "Laboratory",new { id=1 })'">@Resources.Concrete_System</button>
+                    }
+                    @if (@Session["JobTitle"].ToString() == "Monitor")
+                    {
+                <button id="btnConcrete" type="submit" class="btn btn-dark" onclick="location.href='@Url.Action("Home", "Home",new { id=1 })'">@Resources.Concrete_System</button>
+                    }
+                    @if (@Session["JobTitle"].ToString() == "Factory")
+                    {
+                <button id="btnConcrete" type="submit" class="btn btn-dark" onclick="location.href='@Url.Action("MixingDesign", "MixingDesign",new { id=1 })'">@Resources.Concrete_System</button>
+                    }
+                    @if (@Session["JobTitle"].ToString() == "Admin")
+                    {
+                <button id="btnConcrete" type="submit" class="btn btn-dark" onclick="location.href='@Url.Action("Home", "Home",new { id=1 })'">@Resources.Concrete_System</button>
+                    }
+                        @*<input id="btnConcrete" type="button" class="btn btn-primary" value="Concrete System" onclick="location.href='@Url.Action("Home", "Home",new { id=1 })'" />*@
+                    </div>
+            </div>
+            <div class="col-2"></div>
+            <div class="card">
+                <img class="card-img-top" src="~/Images/block.png" alt="Card image cap">
+                <div class="card-body">
+              
+                    @*<a href="@Url.Action("Home" , "Home" )" class="btn btn-success">@Resources.go</a>*@
+                    @if (@Session["JobTitle"].ToString() == "Doctor")
+                    {
+                    <button id="btnBlock" type="submit" class="btn btn-dark" onclick="location.href='@Url.Action("Laboratory", "Laboratory",new { id=2 })'">@Resources.Block_System</button>
+                    }
+                    @if (@Session["JobTitle"].ToString() == "Monitor")
+                    {
+                <button id="btnBlock" type="submit" class="btn btn-dark" onclick="location.href='@Url.Action("BlockVisit", "Home")'">@Resources.Block_System</button>
+                    }
+                    @if (@Session["JobTitle"].ToString() == "Factory")
+                    {
+                <button id="btnBlock" type="submit" class="btn btn-dark" onclick="location.href='@Url.Action("BlockFactoriesList", "Factory",new { id=2 })'">@Resources.Block_System</button>
+                    }
+                    @if (@Session["JobTitle"].ToString() == "Admin")
+                    {
+                   <button id="btnBlock" type="submit" class="btn btn-dark" onclick="location.href='@Url.Action("BlockVisit", "Home")'">@Resources.Block_System</button>
+                    }
+                    @*<input id="btnBlock" type="button" class="btn btn-primary" value="Block System" onclick="location.href='@Url.Action("Home", "Home",new { id=2 })'" />*@
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+
+@*<script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnConcrete").click(function () {
+                $("#hfChoice").val("Concrete");
+            });
+
+            $("#btnBlock").click(function () {
+                $("#hfChoice").val("Block");
+            });
+        });
+    </script>*@

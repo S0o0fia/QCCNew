@@ -1,0 +1,128 @@
+﻿@model AspnetMvcDemo.ViewModel.MixingStationAnswersVM
+@{
+    var ListListMixStationTitls = (List<AspnetMvcDemo.Models.MixingStationsType>)ViewBag.ListMixStationTitls;
+}
+@using (Html.BeginForm("SubmitNewMixingStationsAnswers", "EvaluationFactory", FormMethod.Post, new { @class = "form-horizontal", Id = "MixingStationForm", role = "form", enctype = "multipart/form-data" }))
+{
+    <input name="FactoryId" value="@Model.FactoryId"  hidden/>
+    foreach (var Qualification in ListListMixStationTitls)
+    {
+        var ListOfOptionsOfQualification = ((List<AspnetMvcDemo.Models.MixingStationsQuestion>)ViewBag.ListMixStationOptions).Where(p => p.MixingStationsTypesId == Qualification.ID).GroupBy(b => b.SubType_Arabic);
+<div>
+    <h3 style="font-size:large; font-weight:bold ; text-decoration:underline; text-decoration-color:sandybrown;">
+        <i class="ion-ios-star" style="color:sandybrown"></i>
+        @Qualification.Title
+    </h3>
+    
+    @for (int i = 0; i < ListOfOptionsOfQualification.Count(); i++)
+    {
+        if (ListOfOptionsOfQualification.ElementAtOrDefault(i).Key != null || ListOfOptionsOfQualification.ElementAtOrDefault(i).Key != string.Empty)
+        {
+            <div class="col-12" style="background-color:#2e323a; padding-top:0.5%; color:white;">
+                <h5 style="font-size:large; font-weight:bold; padding:0.5%;">
+                    <i class="ion-ios-information-circle" style="color:white;"></i>
+                    @ListOfOptionsOfQualification.ElementAtOrDefault(i).Key
+                </h5>
+            </div>
+        }
+        foreach (var Options in ListOfOptionsOfQualification.ElementAtOrDefault(i))
+        {
+            var first = Guid.NewGuid();
+            <input type="hidden" name="mixstation.Index" value="@first" />
+            <input class="" type="text" name="mixstation[@first].QuestionId" value="@Options.ID" hidden />
+            <div class="row @(Options.ID == 4 || Options.ID == 5 ? "questionsmixing4and5" : "")" style="@(Options.ID == 4 || Options.ID == 5 ? "display:none" : "")">
+                <label class="col-md-11" style="float:right">* &nbsp; @Options.Description</label>
+                <hr class="container-m-nx border-light my-4">
+                @if (Options.InputFieldType == "checkbox")
+                {
+                    <input class="col-md-1" type="checkbox" name="mixstation[@first].Answer" value="@Options.ID" />
+                    <hr class="container-m-nx border-light my-4">
+                }
+                else if (Options.InputFieldType == "radiobutton")
+                {
+                    if (ListOfOptionsOfQualification.ElementAtOrDefault(i).Key != null && ListOfOptionsOfQualification.ElementAtOrDefault(i).Key != string.Empty)
+                    {
+                        string RadioBtnId = Qualification.ID.ToString() + i.ToString();
+                        <input id="" class="col-md-1 radio_@RadioBtnId" type="radio" value="@Options.ID" />
+                        <input id="" hidden class="text_@RadioBtnId" type="text" name="mixstation[@first].Answer" value="" />
+                        <hr class="container-m-nx border-light my-4">
+
+                    }
+                    else
+                    {
+                        <input id="" class="col-md-1 radio_@Qualification.ID" type="radio" value="@Options.ID" />
+                        <input id="" hidden class="text_@Qualification.ID" type="text" name="mixstation[@first].Answer" value="" />
+                        <hr class="container-m-nx border-light my-4">
+
+                    }
+                }
+                else if (Options.InputFieldType == "text")
+                {
+                    <input class="col-md-1" type="text" name="mixstation[@first].Answer" />
+                    <hr class="container-m-nx border-light my-4">
+                }
+            </div>
+        }
+        if (ListOfOptionsOfQualification.ElementAtOrDefault(i).FirstOrDefault() != null && ListOfOptionsOfQualification.ElementAtOrDefault(i).FirstOrDefault().InputFieldType == "radiobutton")
+        {
+
+            if (ListOfOptionsOfQualification.ElementAtOrDefault(i).Key != null && ListOfOptionsOfQualification.ElementAtOrDefault(i).Key != string.Empty)
+            {
+                string RadioBtnId = Qualification.ID.ToString() + i.ToString();
+                <script>
+                    $('.radio_@RadioBtnId').change(function () {
+                        var value = $(this).val();
+                        $('.radio_@RadioBtnId').not(this).prop('checked', false);
+                        $('.text_@RadioBtnId').attr("value","");
+                        $(this).next('input').attr("value",value);
+                    });
+                </script>
+            }
+            else
+            {
+                <script>
+                    $('.radio_@Qualification.ID').change(function () {
+                        var value = $(this).val();
+                        $('.radio_@Qualification.ID').not(this).prop('checked', false);
+                        $('.text_@Qualification.ID').attr("value","");
+                        $(this).next('input').attr("value",value);
+                    });
+                </script>
+            }
+        }
+    }
+</div>
+    }
+                <div class="col-12">
+                    <input class="btn btn-success" type="submit" value="@Resources.Resources.Save" />
+                </div>
+    }
+
+<script>
+
+    $("#MixingStationForm").submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: "post",
+            async: false,
+            url: BaseUrl + 'SubmitNewMixingStationsAnswers',
+            data: new FormData(this),
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                $("#MixitingStation").html("");
+                $("#MixitingStation").before('div').prepend(data);
+            },
+            error: function () {
+            }
+        });
+    });
+    $('.radio_1').change(function () {
+        if ($('.radio_1[value=2]').is(':checked')) {
+            $(".questionsmixing4and5").show();
+        }
+        else {
+            $(".questionsmixing4and5").hide();
+        }
+    });
+</script>

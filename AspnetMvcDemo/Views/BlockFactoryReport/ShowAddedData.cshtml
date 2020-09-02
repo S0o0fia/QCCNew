@@ -1,0 +1,520 @@
+﻿@model AspnetMvcDemo.Models.BlockFactoryReport
+
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/smartwizard/smartwizard")
+}
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/smartwizard/smartwizard")
+    @Scripts.Render("~/bundle/vendor/js/validate/validate")
+
+    @Scripts.Render("~/bundle/js/forms_wizard")
+
+    <script src="https://maps.google.com/maps/api/js?key=AIzaSyABsPRMD1jkSGb6-D88OoFngcCKTU2dT0U"></script>
+    @Scripts.Render("~/bundle/vendor/js/gmaps/gmaps")
+    @*@Scripts.Render("~/bundle/js/charts_gmaps")*@
+}
+
+<script type="text/javascript">
+    var options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0
+    };
+
+    function success(pos) {
+        var crd = pos.coords;
+        document.getElementById("lat").value = pos.coords.latitude;
+        document.getElementById("lon").value = pos.coords.longitude;
+        var myLatLng = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude),
+            myOptions = {
+                zoom: 13,
+                center: myLatLng,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            },
+            map = new google.maps.Map(document.getElementById('gmaps-example'), myOptions),
+            marker = new google.maps.Marker({ position: myLatLng, map: map });
+
+        marker.setMap(map);
+        //moveBus(map, marker);
+
+        google.maps.event.addListener(map, "click", function (event) {
+            // get lat/lon of click
+            var clickLat = event.latLng.lat();
+            var clickLon = event.latLng.lng();
+
+            // show in input box
+            document.getElementById("lat").value = clickLat.toFixed(3);
+            document.getElementById("lon").value = clickLon.toFixed(3);
+
+            if (marker && marker.setMap) {
+                marker.setMap(null);
+            }
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(clickLat, clickLon),
+                map: map
+            });
+
+            marker.setMap(map);
+        });
+    }
+
+
+
+    function error(err) {
+        console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+
+    $('document').ready(function () {
+        navigator.geolocation.getCurrentPosition(success, error, options);
+
+    });
+
+</script>
+
+
+<style type="text/css">
+    .col-md-2 {
+        flex: 0 0 16.66667%;
+        max-width: 16.66667%;
+        text-align: left;
+        vertical-align: text-bottom;
+    }
+</style>
+
+
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <div id="alertAdded" class="alert alert-dark-success alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        @Resources.Resources.Sample_Added_Sucessfully
+    </div>
+    <div id="fail" class="alert alert-dark-danger alert-dismissible fade hidden">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        لم تتم إضافة العينة
+    </div>
+    <h3 style="text-align:center">@Resources.Resources.Prepare_Block</h3>
+    <hr class="container-m-nx border-light my-4">
+
+
+    <form>
+        <div id="smartwizard-2" class="smartwizard-example">
+            <ul>
+                <li>
+                    <a href="#smartwizard-2-step-1" class="mb-3">
+                        <span class="sw-done-icon ion ion-md-checkmark"></span>
+                        <span class="sw-icon ion ion-md-copy"></span>
+                        @Resources.Resources.Global_Information
+                        <div class="text-muted small">@Resources.Resources.Step1</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#smartwizard-2-step-2" class="mb-3">
+                        <span class="sw-done-icon ion ion-md-checkmark"></span>
+                        <span class="sw-icon ion ion-md-copy"></span>
+                        @Resources.Resources.Concrete_Sample
+                        <div class="text-muted small">@Resources.Resources.Step2</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#smartwizard-2-step-3" class="mb-3">
+                        <span class="sw-done-icon ion ion-md-checkmark"></span>
+                        <span class="sw-icon ion ion-md-copy"></span>
+                        @Resources.Resources.Mix_Design
+                        <div class="text-muted small">@Resources.Resources.Step3</div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#smartwizard-2-step-4" class="mb-3">
+                        <span class="sw-done-icon ion ion-md-checkmark"></span>
+                        <span class="sw-icon ion ion-md-copy"></span>
+                        @Resources.Resources.Factory_Status
+                        <div class="text-muted small">@Resources.Resources.Step4</div>
+                    </a>
+                </li>
+            </ul>
+            <div class="mb-3">
+                <div id="smartwizard-2-step-1" class="card animated fadeIn">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="form-label">@Resources.Resources.Report_Number</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input type="text" class="form-control">*@
+                                @Html.TextBoxFor(m => m.ReportNumber, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">@Resources.Resources.Report_Date</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input type="date" class="form-control">*@
+                                @Html.TextBox("txtFrmDate", DateTime.Now.ToString("HH:mm:ss yyyy-MMM-dd"), new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            @*<div class="col-md-2 form-group">
+                                    <input type="date" class="form-control">
+                                </div>*@
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Resources.Factory_Name</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input class="form-control" type="text" id="name" readonly="readonly" />*@
+                                @Html.TextBoxFor(m => m.FactoryName, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Resources.Factroy_Location</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @*<input class="form-control" type="text" id="location" readonly="readonly" />*@
+                                @Html.TextBoxFor(m => m.FatoryLocation, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Resources.Factroy_Visit_Number</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @Html.TextBoxFor(m => m.VisitNumber, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Visit_Location </label>
+                                </div>
+                                <div id="gmaps-example" style="height: 400px; width: 100%;"></div>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row">
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Resources.Latitude </label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @Html.TextBoxFor(m => m.Latitude, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly", id = "lat" })
+                            </div>
+
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">@Resources.Resources.Longitude </label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @Html.TextBoxFor(m => m.Longitude, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly", id = "lon" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Step Two-->
+                <div id="smartwizard-2-step-2" class="card animated fadeIn">
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="form-label">الأبعاد (الطول * العرض * الارتفاع) ملم</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @Html.TextBoxFor(m => m.Dim, new { type = "text", @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            <div class="col-md-2 form-group">
+                                <label class="form-label">الشكل</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @Html.TextBoxFor(m => m.ShapeNumber, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                            </div>
+
+
+                        </div>
+
+                        
+                    </div>
+                </div>
+                <div id="smartwizard-2-step-3" class="card animated fadeIn">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="form-label">@Resources.Resources.Cement_Weight</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @Html.TextBoxFor(m => m.CementWeight, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">@Resources.Resources.Water_Weight</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @Html.TextBoxFor(m => m.waterWeight, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="form-label">وزن الرمل</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @Html.TextBoxFor(m => m.SandWeight, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label">@Resources.Resources.Rubble_3_8</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @Html.TextBoxFor(m => m.Rubble38, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label class="form-label">@Resources.Resources.Addtion_Amount</label>
+                            </div>
+                            <div class="col-md-4 form-group">
+                                @Html.TextBoxFor(m => m.AdditionalWeight, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                            </div>
+                            
+                        </div>
+                   
+
+                    </div>
+                </div>
+                <div id="smartwizard-2-step-4" class="card animated fadeIn">
+                    <div class="card-body">
+                        <table class="table table-responsive">
+                            <thead>
+                                <tr style="text-align:center">
+                                    <th>@Resources.Resources.Description</th>
+                                    <th colspan="2">@Resources.Resources.Yes</th>
+                                    <th colspan="2">@Resources.Resources.No</th>
+                                    <th>@Resources.Resources.Note</th>
+                                    <th>@Resources.Resources.Upload</th>
+                                </tr>
+                            </thead>
+                            <tbody style="text-align:center">
+                                <tr>
+                                    <td>@Resources.Resources.Quality_of_Factory_Cleaning</td>
+                                    <td colspan="2">
+                                        @if (Model.IsCleanLocation == true)
+                                        {
+                                            <i class="ion-ios-checkmark-circle" style="color:forestgreen; font-size:large"></i>
+                                        }
+
+                                    </td>
+                                    <td colspan="2">
+                                        @if (Model.IsCleanLocation == false)
+                                        {
+                                            <i class="ion-ios-close-circle" style="color:red; font-size:medium"></i>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class=" form-group">
+                                            @Html.TextBoxFor(m => m.CleanNote, new { @type = "text", @placeholder = @Resources.Resources.Note })
+                                        </div>
+                                    </td>
+                                    <td>
+
+                                        <div class=" form-group">
+                                            @*<input type="file" name="UserPhoto" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />*@
+                                            @Html.TextBoxFor(m => m.CleanDocPath, new { @type = "file", @multiple = "multiple" })
+                                        </div>
+                                    </td>
+                                </tr>
+                               
+                                <tr>
+                                    <td>وجود المختبر</td>
+                                    <td colspan="2">
+                                        @if (Model.IsLabExist == true)
+                                        {
+                                            <i class="ion-ios-checkmark-circle" style="color:forestgreen; font-size:medium"></i>
+                                        }
+
+                                    </td>
+                                    <td colspan="2">
+                                        @if (Model.IsLabExist == false)
+                                        {
+                                            <i class="ion-ios-close-circle" style="color:red; font-size:medium"></i>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class=" form-group">
+                                            @Html.TextBoxFor(m => m.LabExistNote, new { @type = "text", @placeholder = @Resources.Resources.Note })
+
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class=" form-group">
+                                            @Html.TextBoxFor(m => m.LabExistDocPath, new { @type = "file", @multiple = "multiple" })
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>@Resources.Resources.The_presence_of_the_laboratory_engineer</td>
+                                    <td colspan="2">
+                                        @if (Model.IsEngineerLab == true)
+                                        {
+                                            <i class="ion-ios-checkmark-circle" style="color:forestgreen; font-size:medium"></i>
+                                        }
+
+                                    </td>
+                                    <td colspan="2">
+                                        @if (Model.IsEngineerLab == false)
+                                        {
+                                            <i class="ion-ios-close-circle" style="color:red; font-size:medium"></i>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class=" form-group">
+                                            @Html.TextBoxFor(m => m.EngineerNote, new { @type = "text", @placeholder = @Resources.Resources.Note })
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class=" form-group">
+                                            @Html.TextBoxFor(m => m.EngineerPathDoc, new { @type = "file", @multiple = "multiple" })
+                                        </div>
+                                    </td>
+                                </tr>
+                              
+                                <tr>
+                                    <td>@Resources.Resources.Factory_workers_commitment_to_wear_masks</td>
+                                    <td colspan="2">
+                                        @if (Model.IsMaskSafty == true)
+                                        {
+                                            <i class="ion-ios-checkmark-circle" style="color:forestgreen; font-size:medium"></i>
+                                        }
+
+                                    </td>
+                                    <td colspan="2">
+                                        @if (Model.IsMaskSafty == false)
+                                        {
+                                            <i class="ion-ios-close-circle" style="color:red; font-size:medium"></i>
+                                        }
+                                    </td>
+                                    <td>
+                                        <div class=" form-group">
+                                            @Html.TextBoxFor(m => m.MaskSaftyNote, new { @type = "text", @placeholder = @Resources.Resources.Note })
+
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class=" form-group">
+                                            @Html.TextBoxFor(m => m.MaskSaftyPathDoc, new { @type = "file", @multiple = "multiple" })
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <hr class="container-m-nx border-light mt-0 mb-5">
+
+
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+    })
+    $("#dropRank").change(function () {
+        if ($("#dropRank").val() == "C-35")
+            $("#ReasonHiddenDrop").attr("hidden", "hidden")
+        else
+            $("#ReasonHiddenDrop").removeAttr("hidden")
+
+    })
+    $("#IsCleanUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsCleanUsage").val(true);
+    });
+
+    $("#IsBasicUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsBasicUsage").val(true)
+    });
+    $("#IsColumnUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsColumnUsage").val(true);
+    });
+    $("#IsRoofUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsRoofUsage").val(true);
+    });
+    $("#IsOtherUsageTrue").click(function () {
+        ChangeFalse();
+        $("#IsOtherUsage").val(true);
+        $("#ReasonHidden").removeAttr("hidden")
+        if ($("#dropRank").val() == "C-35")
+            $("#ReasonHiddenDrop").attr("hidden", "hidden")
+        else
+            $("#ReasonHiddenDrop").removeAttr("hidden")
+
+
+    });
+    function ChangeFalse() {
+        $("#IsOtherUsage").val(false);
+        $("#IsRoofUsage").val(false);
+        $("#IsColumnUsage").val(false);
+        $("#IsBasicUsage").val(false)
+        $("#IsCleanUsage").val(false);
+        $("#ReasonHidden").attr("hidden", "hidden")
+
+    }
+    $("#IsCleanLocationTrue").click(function () {
+        $("#IsCleanLocation").val(true);
+        console.log("clean")
+        console.log($("#IsCleanLocation").val())
+    });
+    $("#IsCleanLocationFalse").click(function () {
+        $("#IsCleanLocation").val(false);
+        console.log("clean")
+        console.log($("#IsCleanLocation").val())
+    });
+    $("#IsMoldanatInTrucksTrue").click(function () {
+        $("#IsMoldanatInTrucks").val(true);
+    });
+    $("#IsMoldanatInTrucksFalse").click(function () {
+        $("#IsMoldanatInTrucks").val(false);
+    });
+    $("#IsRokamSummerTrue").click(function () {
+        $("#IsRokamSummer").val(true);
+    });
+    $("#IsRokamSummerFalse").click(function () {
+        $("#IsRokamSummer").val(false);
+    });
+    $("#IsLabEngineerTrue").click(function () {
+        $("#IsLabEngineer").val(true);
+    });
+    $("#IsLabEngineerFalse").click(function () {
+        $("#IsLabEngineer").val(false);
+    });
+    $("#IsDustControlInStationTrue").click(function () {
+        $("#IsDustControlInStation").val(true);
+    });
+    $("#IsDustControlInStationFalse").click(function () {
+        $("#IsDustControlInStation").val(false);
+    });
+    $("#IsPeopleSaftyTrue").click(function () {
+        $("#IsPeopleSafty").val(true);
+    });
+    $("#IsPeopleSaftyFalse").click(function () {
+        $("#IsPeopleSafty").val(false);
+    });
+
+       $(document).ready(function () {
+        $("#alertAdded").hide();
+
+        var message = "@TempData["AlertMessage1"]";
+
+           if (message != null && message != "" && message == "Success") {
+            $("#alertAdded").show("fast");
+           }
+            else  if (message != null && message != "" && message == "Failed") {
+            $("#fail").show("fast");
+        }
+    });
+</script>
+
+

@@ -1,0 +1,199 @@
+﻿@model AspnetMvcDemo.Models.UserLogin
+@using MyResource = Resources
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/Layouts/_LayoutBlank.cshtml";
+
+}
+
+@section Styles {
+    <!-- Page -->
+    @Styles.Render("~/bundle/vendor/css/pages/authentication")
+}
+
+<style>
+    @*for Mobile Design*@ @@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+        #title {
+            font-size: large;
+            top: 100px;
+        }
+
+        img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .card {
+            width: 300px;
+        }
+
+        #img {
+            width: 75px;
+            display: block;
+        }
+
+        #header
+    {
+            
+        }
+    }
+
+       *{
+           color : black;
+           overflow:hidden;
+       }
+   
+            html,body {
+                width : 100%;
+          height: 100%;
+          font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+          padding: 0;
+          margin: 0;
+          overflow: hidden;
+        }
+        .panel-container {
+          display: flex;
+          flex-direction: column;
+          border: 1px solid silver;
+          height: 250px;
+          padding: 0;
+          justify-content: space-around;
+          flex-wrap: nowrap;
+          align-items: stretch;
+          overflow: auto;
+          height: 100%;          
+        }
+        
+        .header {
+          flex: 0  0 auto; /*  manualresize */
+          padding: 10px;
+          min-width: 200px;
+          white-space: nowrap;
+          background: #52505D;
+          color: white;
+          box-shadow: 1px 1px silver;
+          border: 0.5px solid silver;
+        }
+        
+        .footer {
+          flex: 0.5 0.5 auto;          
+          background:  #52505D;  
+          color: white;
+          cursor: col-resize;
+          padding: 10px;
+          box-shadow: 1px 1px silver;
+          border: 0.5px solid silver;
+        }
+        
+        .body {
+          flex: 20 20 auto;
+          /* resizable */
+          padding: 10px;
+          width: 100%;
+          min-width: 300px;
+          color: white;
+          background-image : url("../../Images/back1.jpg");
+          background-repeat:no-repeat;
+          background-size :cover;
+          background-position : center;
+          background-attachment : fixed;
+          justify-content : center;
+          text-align  : center;
+          justify-items : center;
+          justify-content : center;
+        }
+       p{
+            color:white;
+            font-weight:bold;
+            text-shadow: 1px 1px black;
+            margin-right:2%; 
+          
+            font-size:2vw;
+        }
+        .card {
+           width : 35%;
+          justify-self : center;
+          align-self : center;
+          margin: 0 auto; /* Added */
+          float: none; /* Added */
+          margin-top: 3%; /* Added */
+          padding : 2%;
+          opacity : 0.9;
+          border-radius : 25px;
+
+           
+        }
+         h5 
+         {
+             font-size: medium;
+             font-weight : bold;
+             margin-top : 4%;
+         }
+        .form-group  , .form-label { 
+            font-size : medium ; 
+            font-weight : bold;      
+        }
+        
+</style>
+<body dir="rtl" style="height:100%; width:100%">
+
+    <div class="panel-container"  dir="rtl">
+
+        <div class="header"  dir="rtl">
+            <div class="row" style="width:100%" id="header">
+                <div class="col-6"  style="text-align:right;">
+                    <p style="margin-top:3%;" id="title" >نظام مراقبة  جودة مصانع الخرسانة الجاهزة والبلوك</p>
+                </div>
+                <div class="col-6" style="text-align:left;" id="img">
+                    <img  src='@Url.Content("~/Content/themes/amana.png")' style="width:75px; height:75px; text-align:left;
+                      margin-left:5%;"/>
+                </div>
+            </div>
+        </div>
+        <div class="body"  dir="rtl">
+           <div class="card">
+               <div class="card-body">
+                   @using (Html.BeginForm("Login", "Authentication"))
+                   {
+                       @Html.AntiForgeryToken()
+                       <form class="my-5">
+                           <div class="form-group">
+                               <label class="form-label d-flex justify-content-between align-items-end">
+                                   <label class="form-label">@Resources.Resources.User_name</label>
+                                   @*<a href="javascript:void(0)" class="d-block small">Forgot password?</a>*@
+                               </label>
+                               @*<input type="text" class="form-control">*@
+                               @Html.TextBoxFor(m => m.UserName, new { @class = "form-control", placeholder = Resources.Resources.User_name, @required = true, @autofocus = "autofocus" })
+                           </div>
+                           <div class="form-group">
+                               <label class="form-label d-flex justify-content-between align-items-end">
+                                   <label class="form-label">@Resources.Resources.Password</label>
+                                   @*<a href="javascript:void(0)" class="d-block small">Forgot password?</a>*@
+                               </label>
+                               @*<input type="password" class="form-control">*@
+                               @Html.PasswordFor(m => m.Password, new { @class = "form-control sign-up-input", placeholder = Resources.Resources.Password, @required = true })
+                           </div>
+                           <div class="d-flex justify-content-center align-items-center m-0">
+                               <button type="submit" class="btn" style="text-align:center; background-color:#444444; color:white">@Resources.Resources.Sign_In</button>
+                           </div>
+                       </form>
+                       @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                       <h5> طُور بواسطة نقرة جميع الحقوق محفوظة 2020 &copy;</h5>
+                   }
+               </div>
+           </div>
+        </div>
+        <div class="footer"  dir="rtl" style="text-align:right;">
+            <img src="~/Images/comeback.png"  style="width:100px ; height:50px;"/>
+        </div>
+
+       
+    </div>
+</body>
+
+
+<script>
+   
+
+</script>

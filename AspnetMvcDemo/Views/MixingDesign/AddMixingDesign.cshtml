@@ -1,0 +1,192 @@
+﻿@model AspnetMvcDemo.Models.AddMixDesign
+@using Resources
+<style type="text/css"> @@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+     .modal-footer{
+         align-items:center;
+         justify-content:center;
+         justify-items:center;
+       
+
+     }
+        
+    }
+ h4 {
+     margin-bottom:2%;
+    
+     font-weight:bold;
+ }
+ .col-12 {
+     margin-bottom:3%;
+ }
+</style>
+
+@using (Html.BeginForm("AddMixingDesign", "MixingDesign", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="tab-pane fade active show">
+        <form>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12"><h4>@Resources.Global_Information</h4></div>
+                    <div class="col-md-2">
+                        <label class="form-label">@Resources.Factroy </label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @Html.DropDownListFor(M => M.FactoryId, new SelectList(Model.Factories, "FactoryId", "FactoryName"), new { @class = "form-control" })
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">@Resources.Concrete_Rank </label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @{
+                            var selectList = new SelectList(
+                                new List<SelectListItem>
+                                {
+                                                                                    new SelectListItem {Text = "C-40", Value =  "C-40"},
+                                                                                    new SelectListItem {Text = "C-35", Value =  "C-35"},
+                                                                                    new SelectListItem {Text = "C-30", Value =  "C-30"},
+                                                                                    new SelectListItem {Text = "C-20", Value =  "C-20"},
+        }, "Value", "Text");
+                        }
+                        @Html.DropDownListFor(m => m.ConcreteRank, selectList, "اختر الرتبة", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="form-label">@Resources.Break_Concrete_28_days</label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @*<input type="email" class="form-control">*@
+                        @Html.TextBoxFor(m => m.C28Day, new { type = "number", min = "0", step = "1", @class = "form-control" })
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label class="form-label">@Resources.Landing</label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @*<input type="text" class="form-control">*@
+                        @Html.TextBoxFor(m => m.Landing, new { type = "number", min = "0", step = "1", @class = "form-control" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-md-2 form-group">
+                            <label class="form-label">@Resources.Attachments</label>
+                        </div>
+                        <div class="col-md-4">
+                            @Html.TextBoxFor(model => model.files, "", new { @type = "file", @multiple = "multiple" })
+                            @Html.ValidationMessageFor(model => model.files, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <hr />
+                <br />
+                <div class="col-12"> <h4>@Resources.Weights_of_the_ingredients_of_the_mixture </h4></div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="form-label">@Resources.Cement_Weight</label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @*<input type="email" class="form-control">*@
+                        @Html.TextBoxFor(m => m.CementWeight, new { type = "number", min = "0", step = "1", @class = "form-control" })
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label class="form-label">@Resources.Water_Weight</label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @*<input type="text" class="form-control">*@
+                        @Html.TextBoxFor(m => m.WaterWeight, new { type = "number", min = "0", step = "1", @class = "form-control" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-2 form-group">
+                        <label class="form-label">@Resources.Washed_Sand</label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @*<input class="form-control" type="text" />*@
+                        @Html.TextBoxFor(m => m.WashedSand, new { type = "number", min = "0", step = "1", @class = "form-control" })
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label class="form-label">@Resources.White_Sand</label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @*<input class="form-control" type="email" />*@
+                        @Html.TextBoxFor(m => m.WhiteSand, new { type = "number", min = "0", step = "1", @class = "form-control" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 form-group">
+                        <label class="form-label">@Resources.Rubble_3_4</label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @*<input class="form-control" type="text" />*@
+                        @Html.TextBoxFor(m => m.Rubble3by4, new { type = "number", min = "0", step = "1", @class = "form-control" })
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label class="form-label">@Resources.Rubble_3_8</label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @*<input class="form-control" type="number" />*@
+                        @Html.TextBoxFor(m => m.Rubble3by8, new { type = "number", min = "0", step = "1", @class = "form-control" })
+                    </div>
+                </div>
+                <br />
+                <hr />
+                <br />
+                <div class="col-12"><h4>@Resources.Materials_Source</h4></div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="form-label">@Resources.Cement</label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @*<input type="email" class="form-control">*@
+                        @Html.TextBoxFor(m => m.Cement, new { type = "string", @class = "form-control" })
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label class="form-label">@Resources.Water</label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @*<input type="text" class="form-control">*@
+                        @Html.TextBoxFor(m => m.Water, new { type = "string", @class = "form-control" })
+                    </div>
+
+                    <div class="col-md-2 form-group">
+                        <label class="form-label">@Resources.Washed_Sand</label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @*<input class="form-control" type="text" />*@
+                        @Html.TextBoxFor(m => m.WashedSand2, new { type = "string", @class = "form-control" })
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label class="form-label">@Resources.White_Sand</label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @*<input class="form-control" type="email" />*@
+                        @Html.TextBoxFor(m => m.WhiteSand2, new { type = "string", @class = "form-control" })
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label class="form-label">@Resources.Rubble_3_4</label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @*<input class="form-control" type="text" />*@
+                        @Html.TextBoxFor(m => m.Rubble3by42, new { type = "string", @class = "form-control" })
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label class="form-label">@Resources.Rubble_3_8</label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @*<input class="form-control" type="number" />*@
+                        @Html.TextBoxFor(m => m.Rubble3by82, new { type = "string", @class = "form-control" })
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">@Resources.Add</button>
+                @*<input type="button" value="Add" onclick="location.href='@Url.Action("AddMixingDesign", "MixingDesign")'" />*@
+                @*@Html.ActionLink("Add", "AddMixingDesign", "MixingDesign", new { Model }, new { @class = "btn btn-info" })*@
+                <button type="button" class="btn btn-danger " data-dismiss="modal">@Resources.Cancel</button>
+            </div>
+        </form>
+    </div>
+}

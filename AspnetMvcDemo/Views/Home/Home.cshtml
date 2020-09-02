@@ -1,0 +1,401 @@
+﻿
+@model AspnetMvcDemo.Models.VisitDetailsModel
+@using Resources
+@{
+    ViewBag.Title = "Home";
+
+}
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/datatables/datatables")
+    @Styles.Render("~/bundle/vendor/css/datatables/datatables")
+    @Styles.Render("~/bundle/vendor/css/bootstrap-datepicker/bootstrap-datepicker")
+    @Styles.Render("~/bundle/vendor/css/flatpickr/flatpickr")
+    @Styles.Render("~/bundle/vendor/css/bootstrap-daterangepicker/bootstrap-daterangepicker")
+    @Styles.Render("~/bundle/vendor/css/bootstrap-material-datetimepicker/bootstrap-material-datetimepicker")
+    @Styles.Render("~/bundle/vendor/css/timepicker/timepicker")
+    @Styles.Render("~/bundle/vendor/css/minicolors/minicolors")
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundle/vendor/js/datatables/datatables")
+
+    @Scripts.Render("~/bundle/js/tables_datatables")
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/bootbox/bootbox")
+    @Scripts.Render("~/bundle/vendor/js/sweetalert2/sweetalert2")
+
+    @Scripts.Render("~/bundle/js/ui_modals")
+    @Scripts.Render("~/bundle/vendor/js/datatables/datatables")
+
+    @Scripts.Render("~/bundle/js/tables_datatables")
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/bootbox/bootbox")
+    @Scripts.Render("~/bundle/vendor/js/sweetalert2/sweetalert2")
+
+    @Scripts.Render("~/bundle/js/ui_modals")
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/moment/moment")
+    @Scripts.Render("~/bundle/vendor/js/bootstrap-datepicker/bootstrap-datepicker")
+    @Scripts.Render("~/bundle/vendor/js/flatpickr/flatpickr")
+    @Scripts.Render("~/bundle/vendor/js/bootstrap-daterangepicker/bootstrap-daterangepicker")
+    @Scripts.Render("~/bundle/vendor/js/bootstrap-material-datetimepicker/bootstrap-material-datetimepicker")
+    @Scripts.Render("~/bundle/vendor/js/timepicker/timepicker")
+    @Scripts.Render("~/bundle/vendor/js/minicolors/minicolors")
+
+    @Scripts.Render("~/bundle/js/forms_pickers")
+}
+}
+<style type="text/css">
+    @*for Mobile Design*@
+ @@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+  #editVisit {
+    text-align:center;
+  }
+
+    tr{
+      display:grid;
+      border-bottom:1px solid #ccc;
+    }
+   /* Force table to not be like tables anymore */
+	table, tbody , thead , td, tr, th  {
+		display: block;
+	}
+	table {
+        width :100%;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+
+	td {
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+	}
+
+   td:before {
+		width: 45%;
+		padding-left: 10px;
+		white-space: nowrap;
+        float:right;
+        text-align:center;
+        font-weight : bold;
+	}
+
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "اسم المصنع"; }
+	td:nth-of-type(2):before { content: "موقع الزيارة"; }
+	td:nth-of-type(3):before { content: "تقرير تحضير العينة"; }
+	td:nth-of-type(4):before { content: "إلغاء"; }
+
+      #prepareSample
+      {
+         width : 100%;
+
+      }
+
+}
+
+
+    @*for General and PC Design*@
+    .nav-tabs-top {
+        -m
+            s-flex-direction: column;
+        flex-direction: column;
+        margin-top: 5%;
+
+    }
+    table {
+        background-color : white;
+         width:75%;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    }
+
+    a {
+        font-weight: bold;
+        text-align: right;
+    }
+
+    .edit:hover {
+        background-color: white;
+        color: #02BC77;
+    }
+
+    tr:hover {
+        color: white;
+        background-color: gray;
+    }
+    .nav-tabs {
+       margin-bottom : 1%;
+
+    }
+     td , tr{
+         font-size:large;
+     }
+    #prepareSample{
+        color : white;
+        font-size : large;
+         background-color:#2E323A;
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
+         border-radius : 25px;
+    }
+    #editVisit{
+        text-align:right;
+    }
+</style>
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+
+    @if (TempData["message"] != null)
+    {
+        <div id="alertAdded" class="alert alert-danger alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            هناك زيارة للمصنع موجودة بالفعل بهذا التاريخ
+        </div>
+    }
+    <div class="page-header  align-items-center">
+        <h3 style="text-align : right ; text-decoration:underline ">
+
+            @if (Session["JobTitle"].ToString() == "Monitor")
+            {
+                @Resources.Today_Visits
+
+            }
+            &nbsp;
+            @if (Session["JobTitle"].ToString() == "Monitor")
+            {
+                @System.DateTime.Today.ToShortDateString()
+            }
+            @if (Session["JobTitle"].ToString() == "Admin")
+
+            {
+                @Resources.Visit_Program
+            }
+        </h3>
+    </div>
+    @if (Session["Choice"].ToString() == "Concrete")
+    {
+
+
+        <div class="nav-tabs-top nav-responsive-xl">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active " id="prepareSample" data-toggle="tab" href="#navs-top-responsive-link-1">
+                        &nbsp;
+                        @Resources.Prepare_Concrete
+
+                    </a>
+                </li>
+            </ul>
+        </div>
+        if (Session["JobTitle"].ToString() == "Admin")
+        {
+            <div class="row">
+                <div class="col-12" style="margin-bottom:2%; margin-right:1%;" id="editVisit">
+                    <button type="button" class="edit btn btn-success" data-toggle="modal" data-target="#Visit-details"
+                            onclick="Modalpop();" data-url="@Url.Action("VisitDetails", "Home")" style="cursor:pointer">
+                        تعديل مواقع المراقبين
+                    </button>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="datatables-demo table table-bordered">
+                    <thead style="text-align:center">
+                        <tr>
+                            <th>@Resources.Monitor_Name</th>
+                            <th>@Resources.Visit_Date</th>
+                            <th>@Resources.Factory_Name</th>
+                            <th>@Resources.Visit_Location</th>
+                            <th>تعديل التاريخ</th>
+                        </tr>
+                    </thead>
+                    <tbody style="text-align:center">
+                        @foreach (var item in Model.TotalVisits)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Monitor)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.VisitDate, new { Value = item.VisitDate.Value.ToShortDateString() })
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FactoryName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FactoryLocation)
+                                </td>
+                                <td>
+                                    <input type="button" value="تعديل التاريخ" id="editVisit" class="edit btn btn-success" data-toggle="modal" data-target="#Visit-details"
+                                           onclick="Modalpop2(@item.Id);" data-url="@Url.Action("VisitDetailsDateEdit", "Home", new { id = item.Id })" style="cursor:pointer" />
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+
+        if (Session["JobTitle"].ToString() == "Monitor")
+        {
+
+            <table class="table table-reponsive">
+                <thead style="text-align:center">
+                    <tr>
+                        <th>@Resources.Factory_Name</th>
+                        <th>@Resources.Visit_Location</th>
+                        <th>@Resources.PreperingReport</th>
+                        <th>@Resources.Cancel</th>
+                    </tr>
+                </thead>
+                <tbody style="text-align:center">
+                    @foreach (var item in Model.TodayVisits)
+                    {
+                        if (item.VisitPriority == true)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Location)
+                                </td>
+
+                                <td>
+                                    <i class="ion ion-ios-arrow-dropleft-circle d-block"
+                                       onclick="location.href='@Url.Action("ConcreteFactoryReports", "ConcreteFactoryReports", new { id = item.Id })'" style="cursor:pointer"></i>
+                                </td>
+
+                                <td>
+                                    <i class="ion ion-ios-trash d-block"
+                                       onclick="location.href='@Url.Action("CancleFactoryReport", "ConcreteFactoryReports", new { id = item.Id })'" style="cursor:pointer"></i>
+
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Location)
+                                </td>
+
+                                <td>
+                                    <i class="ion ion-ios-arrow-dropleft-circle d-block"
+                                       onclick="location.href='@Url.Action("ConcreteFactoryReports", "ConcreteFactoryReports", new { id = item.Id })'" style="cursor:pointer"></i>
+                                </td>
+
+                                <td>
+                                    <i class="ion ion-ios-trash d-block"
+                                       onclick="location.href='@Url.Action("CancleFactoryReport", "ConcreteFactoryReports", new { id = item.Id })'" style="cursor:pointer"></i>
+
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        }
+
+
+
+    }
+
+
+
+
+    <div class="modal fade" id="Modal_sucess" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title text-primary text-center" id="myModalLabel">تعديل مواقع المراقبين</h3>
+                </div>
+                <div id="ModalBody" class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade" id="Cancle_sucess" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modall" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title text-primary text-center" id="myModalLabel">@Resources.Reason_Of_Cancle_Visit</h3>
+                </div>
+                <div id="CancleBody" class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#hfReceived").val(0);
+
+        if ($("#hfReceived").val() == 1) {
+            $("#received").prop("disabled", true);
+        }
+    })
+
+    $("#received").click(function () {
+        $("#hfReceived").val(1);
+    });
+
+    function Modalpop() {
+        var urlPost = '@Url.Action("VisitDetails", "Home")';
+        $.get(urlPost, function (data) {
+            $('#ModalBody').html(data.toString());
+
+            $('#Modal_sucess').modal('show');
+
+        });
+    }
+
+    function Modalpop2(Id) {
+        var urlPost = '@Url.Action("VisitDetailsDateEdit", "Home")'+"/"+Id;
+        $.get(urlPost, function (data) {
+            $('#ModalBody').html(data.toString());
+
+            $('#Modal_sucess').modal('show');
+
+        });
+    }
+
+       function Modalpopp(Id) {
+        var urlPost = '@Url.Action("CancleFactoryReport", "ConcreteFactoryReports")'+"/"+Id;
+        $.get(urlPost, function (data) {
+            $('#CancleBody').html(data.toString());
+
+            $('#Cancle_sucess').modal('show');
+
+        });
+    }
+
+
+    
+</script>
+
+

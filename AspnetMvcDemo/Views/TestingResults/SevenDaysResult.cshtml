@@ -1,0 +1,253 @@
+﻿
+@model AspnetMvcDemo.Models.threeCubeOfSevenDaysSample
+
+@{
+    ViewBag.Title = "SevenDaysResult";
+}
+@using Resources
+<style type="text/css">
+
+    .nav-tabs-top {
+    }
+
+    .table {
+        border: solid 2px #eeeeee;
+    }
+
+        .table tr td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+    .page-header {
+        padding-top: 2%;
+        padding-bottom: 3%;
+    }
+
+    .form-control-plaintext {
+        padding-left: 3%;
+        outline-color: limegreen;
+        outline-style: solid;
+        outline-width: thin;
+    }
+</style>
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+
+    @using (Html.BeginForm("SevenDaysResult", "TestingResults", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
+        <div class="page-header  align-items-center">
+            <h2 style="text-align : center">اختبار مقاومة الضغط  7 يوم</h2>
+        </div>
+        <form>
+            <div class="nav-tabs-top nav-responsive-xl" style="-ms-flex-direction: column; flex-direction: column; margin-top: 1%; padding-left: 100px; padding-right: 100px;">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <h4>@Resources.Compressive_Strength_of_Concrete_Cube</h4>
+                                </div>
+                                <div class="col-md-5">
+                                    @{
+
+                                    }
+                                    @Resources.Sample_Number   : @Model.SamplePart1.sampleNumber
+                                </div>
+                            </div>
+                            <table class="table table-reponsive" dir="ltr">
+                                <thead style="text-align:center ; font-weight:bold">
+                                    <tr>
+                                        <th> No</th>
+                                        <th>Weight</th>
+                                        <th>Volume</th>
+                                        <th>Area Loaded</th>
+                                        <th>Unit Weight</th>
+                                        <th>Test Date</th>
+                                        <th>Age</th>
+                                        <th>Crushing Load</th>
+                                        <th>Compressive Strength</th>
+                                        <th>Average Compressive Strength</th>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody style="text-align:center;">
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            @*<input type="text" idx="weight1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                            @Html.TextBoxFor(x => Model.SamplePart1.weight, new { @class = "form-control-plaintext", id = "weight1", placeholder = @Resources.Enter_Data })
+                                        </td>
+                                        <td rowspan="3">3375</td>
+                                        <td rowspan="3">22500</td>
+                                        <td>
+                                            @* <input type="text" id="uWeight1" class="form-control-plaintext" readonly="readonly" />*@
+                                            @Html.TextBoxFor(x => Model.SamplePart1.unitWeight, new { @class = "form-control-plaintext", id = "uWeight1", @readonly = "readonly" })
+                                        </td>
+                                        <td>
+                                        </td>
+                                        <td>
+                                            <span id="age1"></span>
+                                        </td>
+                                        <td>
+                                            @*<input type="text" id="cLoad1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                            @Html.TextBoxFor(x => Model.SamplePart1.crushingLoad, new { @class = "form-control-plaintext", id = "cLoad1", placeholder = @Resources.Enter_Data })
+                                        </td>
+                                        <td>
+                                            @*<input type="text" id="cStrength1" class="form-control-plaintext" readonly="readonly" />*@
+                                            @Html.TextBoxFor(x => Model.SamplePart1.CompressiveStrength, new { @class = "form-control-plaintext", id = "cStrength1", @readonly = "readonly" })
+                                        </td>
+                                        <td rowspan="3">
+                                            @*<input type="text" class="form-control-plaintext" readonly="readonly" />*@
+                                            <span id="acStrength"></span>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>2</td>
+                                        <td>
+                                            @*<input type="text" id="weight2" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                            @Html.TextBoxFor(x => Model.SamplePart2.weight, new { @class = "form-control-plaintext", id = "weight2", placeholder = @Resources.Enter_Data })
+                                        </td>
+                                        @*<td>3375</td>
+                                            <td>22500</td>*@
+                                        <td>
+                                            @*<input type="text" id="uWeight2" class="form-control-plaintext" readonly="readonly" />*@
+                                            @Html.TextBoxFor(x => Model.SamplePart2.unitWeight, new { @class = "form-control-plaintext", id = "uWeight2", @readonly = "readonly" })
+                                        </td>
+                                        <td>
+                                            @*<input type="text" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                            @Html.TextBox("DateCreated", DateTime.Today, "{0:dd/MM/yyyy}", new { @class = "form-control-plaintext", @readonly = "readonly" })
+                                        </td>
+                                        <td>
+                                            <span>7</span>
+                                        </td>
+                                        <td>
+                                            @*<input type="text" id="cLoad2" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                            @Html.TextBoxFor(x => Model.SamplePart2.crushingLoad, new { @class = "form-control-plaintext", id = "cLoad2", placeholder = @Resources.Enter_Data })
+                                        </td>
+                                        <td>
+                                            @*<input type="text" id="cStrength2" class="form-control-plaintext" readonly="readonly" />*@
+                                            @Html.TextBoxFor(x => Model.SamplePart2.CompressiveStrength, new { @class = "form-control-plaintext", id = "cStrength2", @readonly = "readonly" })
+                                        </td>
+                                        @*<td>
+                                                <input type="text" id="acStrength2" class="form-control-plaintext" readonly="readonly" />
+                                            </td>*@
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>
+                                            @*<input type="text" id="weight3" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                            @Html.TextBoxFor(x => Model.SamplePart3.weight, new { @class = "form-control-plaintext", id = "weight3", placeholder = @Resources.Enter_Data })
+                                        </td>
+                                        @*<td>3375</td>
+                                            <td>22500</td>*@
+                                        <td>
+                                            @*<input type="text" id="uWeight3" class="form-control-plaintext" readonly="readonly" />*@
+                                            @Html.TextBoxFor(x => Model.SamplePart3.unitWeight, new { @class = "form-control-plaintext", id = "uWeight3", @readonly = "readonly" })
+                                        </td>
+                                        <td>
+                                           </td>
+                                        <td>
+                                           </td>
+                                        <td>
+                                            @*<input type="text" id="cLoad3" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
+                                            @Html.TextBoxFor(x => Model.SamplePart3.crushingLoad, new { @class = "form-control-plaintext", id = "cLoad3", placeholder = @Resources.Enter_Data })
+                                        </td>
+                                        <td>
+                                            @*<input type="text" id="cStrength3" class="form-control-plaintext" readonly="readonly" />*@
+                                            @Html.TextBoxFor(x => Model.SamplePart3.CompressiveStrength, new { @class = "form-control-plaintext", id = "cStrength3", @readonly = "readonly" })
+                                        </td>
+                                        @*<td>
+                                                <input type="text" id="acStrength3" class="form-control-plaintext" readonly="readonly" />
+                                            </td>*@
+                                    </tr>
+                                </tbody>
+
+                            </table>
+                          
+                                <div class="row">
+                                    <div class="col-12" style="text-align:center;">
+                                        <button type="submit" class="btn btn-success" id="save">@Resources.Save</button>
+                                    </div>
+                                </div>
+                          
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+    }
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#alertAdded").hide();
+
+        var message = "@TempData["AlertMessage"]";
+
+        if (message != null && message != "") {
+            $("#alertAdded").show("fast");
+        }
+        var q = document.location.search.substr(1).split('?').toString();
+        var sNo = document.location.toString().split('SevenDaysResult/');
+        var sample = sNo[1].toString().split('?');
+        $('#sampleNo').html('').append(sample[0]);
+        var i = q.split('=');
+        var age = i[1];
+        $('#age1').html('').append(age);
+        $('#age2').html('').append(age);
+        $('#age3').html('').append(age);
+        //Unit Weight Calculation
+        $('#weight1').change(function () {
+            var unitWeight;
+            var weight1 = $('#weight1').val();
+            unitWeight = weight1 / 3375;
+            $('#uWeight1').val(unitWeight.toFixed(2));
+        });
+        $('#weight2').change(function () {
+            var unitWeight;
+            var weight2 = $('#weight2').val();
+            unitWeight = weight2 / 3375;
+            $('#uWeight2').val(unitWeight.toFixed(2));
+        });
+        $('#weight3').change(function () {
+            var unitWeight;
+            var weight3 = $('#weight3').val();
+            unitWeight = weight3 / 3375;
+            $('#uWeight3').val(unitWeight.toFixed(2));
+        });
+
+        //Comprehensive Strength Calculation
+        var cStrength1;
+        var cStrength2;
+        var cStrength3;
+        $('#cLoad1').change(function () {
+            cStrength1 = (($('#cLoad1').val())*1000)/22500;
+            $('#cStrength1').val(cStrength1.toFixed(2));
+        });
+        $('#cLoad2').change(function () {
+            cStrength2 = (($('#cLoad2').val()) * 1000) / 22500;
+            $('#cStrength2').val(cStrength2.toFixed(2));
+        });
+        $('#cLoad3').change(function () {
+            cStrength3 = (($('#cLoad3').val()) * 1000) / 22500;
+            $('#cStrength3').val(cStrength3.toFixed(2));
+
+            //Average Comprehensive Strength Calculation
+            var acStrength = (cStrength1 + cStrength2 + cStrength3) / 3;
+            $('#acStrength').html('').append(acStrength.toFixed(2));
+        });
+
+
+        //$('#cStrength3').change(function () {
+
+        //});
+
+    });
+</script>

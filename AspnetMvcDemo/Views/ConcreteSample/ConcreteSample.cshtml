@@ -1,0 +1,102 @@
+﻿@model AspnetMvcDemo.Models.CubeSamplesWithPath
+
+@{
+    ViewBag.Title = "ConcreteSample";
+}
+@using Resources
+<style type="text/css">
+    .nav-tabs-top {
+    }
+
+    .table {
+        border: solid 2px #eeeeee;
+    }
+</style>
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <h1>@Model.SampleNumber</h1>
+    @using (Html.BeginForm("ConcreteSample", "ConcreteSample", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
+    <form>
+        @Html.HiddenFor(x => x.SampleNumber)
+        @Html.HiddenFor(x => x.ConcreteRank)
+
+
+        <div class="page-header  align-items-center">
+            <div class="row">
+                <div class="col-md-9">
+                    <h2 style="text-align : center">@Resources.Attend_Break_Concrete_Sample</h2>
+                </div>
+
+            </div>
+
+        </div>
+        <div class="nav-tabs-top nav-responsive-xl" style="-ms-flex-direction: column; flex-direction: column; margin-top: 4%; padding-left: 100px; padding-right: 100px;">
+            <div class="tab-content">
+                <div class="tab-pane fade show active">
+                    <div class="card-body">
+                        <table class="table table-reponsive">
+                            <thead style="text-align:center">
+                                <tr>
+                                    <th>
+                                        @Resources.Break_Concrete_Sample
+                                    </th>
+                                    <th>
+                                        @Resources.Attachments
+                                    </th>
+                                    <th>
+                                        @Resources.Attachments
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody style="text-align:center">
+                                <tr>
+                                    <td>
+                                        @Resources.Cube 1
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.Cube1P1Path, new { @type = "file", @multiple = "multiple" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.Cube1P2Path, new { @type = "file", @multiple = "multiple" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Resources.Cube 2
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.Cube2P1Path, new { @type = "file", @multiple = "multiple" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.Cube2P2Path, new { @type = "file", @multiple = "multiple" })
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        @Resources.Cube 3
+
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.Cube3P1Path, new { @type = "file", @multiple = "multiple" })
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.Cube3P2Path, new { @type = "file", @multiple = "multiple" })
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-success">@Resources.Save</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+    }
+            </body>
+

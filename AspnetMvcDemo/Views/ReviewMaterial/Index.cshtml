@@ -1,0 +1,116 @@
+﻿@model AspnetMvcDemo.Models.REviewMaterials
+@using Resources
+<style type="text/css">
+    @@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+        .modal-footer {
+            align-items: center;
+            justify-content: center;
+            justify-items: center;
+        }
+    }
+
+    h4 {
+        margin-bottom: 2%;
+        font-weight: bold;
+    }
+
+    .col-12 {
+        margin-bottom: 3%;
+    }
+</style>
+<div id="alertAdded" class="alert alert-dark-success alert-dismissible fade show">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    @Resources.Design_added_successfully
+</div>
+
+@using (Html.BeginForm("Index", "ReviewMaterial", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="tab-pane fade active show">
+        <form>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="form-label">@Resources.Factroy_Location </label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @Html.DropDownListFor(M => M.LocationID, new SelectList(Model.Locations, "ID", "Location_Arabic"), new { @class = "form-control", @id = "Location" })
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">@Resources.Factroy </label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @Html.DropDownListFor(M => M.FactoryID, new SelectList(Model.factories, "FactoryId", "FactoryName"), new { @class = "form-control", @id = "Factories" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <label class="form-label">@Resources.message</label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @*<input type="email" class="form-control">*@
+                        @Html.TextBoxFor(m => m.Message, new { type = "text", @class = "form-control" })
+                    </div>
+                    <div class="col-md-2 form-group">
+                        <label class="form-label">@Resources.Visit_Date</label>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        @*<input type="text" class="form-control">*@
+                        @Html.TextBoxFor(m => m.Date, new { type = "date", @class = "form-control" })
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-success">@Resources.Add</button>
+            </div>
+        </form>
+    </div>
+}
+<script>
+    $('#Location').change(function () {
+        var Location = $(this).val();
+        var urlPost = '@Url.Action("GetFactories", "ReviewMaterial")' + "/" + Location;
+
+        $.get(urlPost, function (data) {
+            var select = $('#Factories');
+            select.append('<option value="">Select a Factory</option>');
+
+            console.log(JSON.stringify(data))
+            //$('#Factories').val(data);
+            console.log($('#Factories').val())
+            var json = JSON.parse(data);
+            var len = json.length;
+            $("#Factories").empty();
+
+            //json.forEach((item) => {
+            //    console.log('ID: ' + item.Id);
+            //         console.log('FROMWHO: ' + item.Name);
+            //});
+            for (var i = 0; i < len; i++) {
+                console.log(json[i])
+                var id = json[i]['Id'];
+                var name = json[i]['Name'];
+
+                $("#Factories").append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+
+        });
+
+
+        });
+
+    $('#Factories').change(function () {
+        console.log($('#Factories').val())
+    });
+     $(document).ready(function () {
+        $("#alertAdded").hide();
+
+        var message = "@TempData["AlertMessage"]";
+
+        if (message != null && message != "") {
+            $("#alertAdded").show("fast");
+        }
+    });
+</script>

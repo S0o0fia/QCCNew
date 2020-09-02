@@ -1,0 +1,185 @@
+﻿
+@model List<AspnetMvcDemo.Models.PressureResistanceTestforFactorySamplePhoto>
+@using Resources
+@{
+    ViewBag.Title = "Home";
+
+}
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/datatables/datatables")
+}
+
+@section Scripts {
+
+    @Scripts.Render("~/bundle/vendor/js/datatables/datatables")
+
+    @Scripts.Render("~/bundle/js/tables_datatables")
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/bootbox/bootbox")
+    @Scripts.Render("~/bundle/vendor/js/sweetalert2/sweetalert2")
+
+    @Scripts.Render("~/bundle/js/ui_modals")
+}
+<style type="text/css">
+    @*for Mobile Design*@
+ @@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+
+    tr{
+      display:grid;
+      border-bottom:1px solid #ccc;
+    }
+   /* Force table to not be like tables anymore */
+	table, tbody , thead , td, tr, th  {
+		display: block;
+	}
+	table {
+        width :100%;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+
+	td {
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+	}
+
+   td:before {
+		width: 45%;
+		padding-left: 10px;
+		white-space: nowrap;
+        float:right;
+        text-align:center;
+        font-weight : bold;
+	}
+
+	/*
+	Label the data
+	*/
+		td:nth-of-type(1):before { content: "رقم العينة"; }
+	td:nth-of-type(2):before { content: "تفاصيل"; }
+
+      #prepareSample
+      {
+         width : 100%;
+
+      }
+
+}
+
+
+    @*for General and PC Design*@
+    .nav-tabs-top {
+        -ms-flex-direction: column;
+        flex-direction: column;
+        margin-top: 5%;
+
+    }
+    table {
+        background-color : white;
+         width:75%;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    }
+
+    a {
+        font-weight: bold;
+        text-align: right;
+    }
+
+    .edit:hover {
+        background-color: white;
+        color: #02BC77;
+    }
+
+    tr:hover {
+        color: white;
+        background-color: gray;
+    }
+    .nav-tabs {
+       margin-bottom : 1%;
+
+    }
+     td , tr{
+         font-size:large;
+     }
+    #prepareSample{
+        color : white;
+        font-size : large;
+         background-color:#2E323A;
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
+         border-radius : 25px;
+    }
+</style>
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <div class="page-header  align-items-center">
+        <h3 style="text-align : right ; text-decoration:underline ">@Resources._28_day_pressure_resistance_test_for_factory_samples.28
+        </h3>
+    </div>
+    @if (Session["Choice"].ToString() == "Concrete")
+    {
+
+
+        <div class="nav-tabs-top nav-responsive-xl">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" id="prepareSample"
+                       href="#navs-top-responsive-link-3">
+                        @Resources.Break_Concrete_Sample &nbsp; &nbsp;
+                        @if (Session["JobTitle"].ToString() == "Monitor")
+                        {
+                            @System.DateTime.Today.ToShortDateString()
+                        }
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <table class="table table-reponsive">
+            <thead style="text-align:center">
+                <tr>
+                    <th>@Resources.Sample_Number</th>
+                   
+                    <th>@Resources.Details</th>
+                </tr>
+            </thead>
+            <tbody style="text-align:center">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SampleNo)
+                        </td>
+                       
+
+                        <td>
+                            <i class="ion ion-ios-arrow-dropleft-circle d-block"
+                               onclick="location.href='@Url.Action( "ConcreteTestingResult","TestingResults", new { id = item.SampleNo })'" style="cursor:pointer"></i>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+
+    }
+</body>
+
+<script type="text/javascript">
+    
+
+</script>
+
+

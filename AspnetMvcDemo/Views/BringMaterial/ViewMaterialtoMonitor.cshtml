@@ -1,0 +1,93 @@
+﻿@model AspnetMvcDemo.ViewModel.ChooseFactoryVM
+@{
+    ViewBag.Title = "إحضار عينات المواد";
+}
+
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/smartwizard/smartwizard")
+}
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/smartwizard/smartwizard")
+    @Scripts.Render("~/bundle/vendor/js/validate/validate")
+
+    @Scripts.Render("~/bundle/js/forms_wizard")
+
+
+    @*@Scripts.Render("~/bundle/js/charts_gmaps")*@
+}
+
+
+    <body dir="rtl">
+        <div class="card" style="top:15%">
+            <div class="card-header">
+                <h3 style="text-align:center">إحضار عينات مواد</h3>
+            </div>
+
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center">@Resources.Resources.Factory_Name</th>
+                            <td style="text-align:center">@Resources.Resources.Details</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align:center">fact1</td>
+                            <td style="text-align:center">
+                                <i class="ion ion-ios-arrow-dropleft-circle d-block" data-toggle="modal" onclick="Modalpop()" style="cursor:pointer"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="modal fade" id="Modal_sucess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h3 class="modal-title text-primary text-center" id="myModalLabel">@Resources.Resources.Bring_materials_samples</h3>
+                    </div>
+                    @using (Html.BeginForm("", "", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        <div id="ModalBody" class="modal-body">
+                            <div class="row" style="text-align:center;">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>@Resources.Resources.Material_sample_type</th>
+                                            <th>@Resources.Resources.Quantity</th>
+                                            <th>@Resources.Resources.Dlivered</th>
+                                            <th>@Resources.Resources.Not_Dlivered</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>M1</td>
+                                            <td>10</td>
+                                            <td><button class="btn btn-success">@Resources.Resources.Dlivered</button></td>
+                                            <td><button class="btn btn-danger">@Resources.Resources.Not_Dlivered</button></td>
+                                        </tr>
+                                   </tbody>
+                                </table>
+                            </div>
+                        </div>
+                     }
+                </div>
+            </div>
+        </div>
+    </body>
+
+<script type="text/javascript">
+    function Modalpop() {
+
+
+        $('#ModalBody').html();
+        $('#Modal_sucess').modal('show');
+
+
+    }
+</script>

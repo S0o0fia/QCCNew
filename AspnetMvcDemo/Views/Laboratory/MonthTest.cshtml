@@ -1,0 +1,168 @@
+﻿@using Resources
+@{
+    ViewBag.Title = "Laboratory";
+}
+@model AspnetMvcDemo.Models.LaboratoryModel
+<style type="text/css">
+      @*for Mobile Design*@
+ @@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+
+    tr{
+      display:grid;
+      border-bottom:1px solid #ccc;
+    }
+   /* Force table to not be like tables anymore */
+	table, tbody , thead , td, tr, th  {
+		display: block;
+	}
+	table {
+        width :100%;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+
+	td {
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+	}
+
+   td:before {
+		width: 45%;
+		padding-left: 10px;
+		white-space: nowrap;
+        float:right;
+        text-align:center;
+        font-weight : bold;
+	}
+
+	/*
+	Label the data
+	*/
+	td:nth-of-type(1):before { content: "اسم المصنع"; }
+	td:nth-of-type(2):before { content: "موقع الزيارة"; }
+	td:nth-of-type(3):before { content: "تقرير تحضير العينة"; }
+	td:nth-of-type(4):before { content: "إلغاء"; }
+
+      #prepareSample
+      {
+         width : 100%;
+
+      }
+
+}
+
+
+    @*for General and PC Design*@
+    .nav-tabs-top {
+        -ms-flex-direction: column;
+        flex-direction: column;
+        margin-top: 5%;
+
+    }
+    table {
+        background-color : white;
+         width:75%;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    }
+
+    a {
+        font-weight: bold;
+        text-align: right;
+    }
+
+    .edit:hover {
+        background-color: white;
+        color: #02BC77;
+    }
+
+    tr:hover {
+        color: white;
+        background-color: gray;
+    }
+    .nav-tabs {
+       margin-bottom : 1%;
+
+    }
+     td , tr{
+         font-size:large;
+     }
+    #prepareSample{
+        color : white;
+        font-size : large;
+         background-color:#2E323A;
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
+         border-radius : 25px;
+    }
+
+</style>
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+
+    @if (Session["Choice"].ToString() == "Concrete")
+    {
+        <div class="nav-tabs-top nav-responsive-xl" style="-ms-flex-direction: column; flex-direction: column; margin-top: 4%; padding-left: 100px; padding-right: 100px;">
+
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" id="prepareSample" data-toggle="tab" href="#navs-top-responsive-link-2">@Resources.Break_Concrete_28_days</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="navs-top-responsive-link-2">
+                    <div class="card-body">
+                        <table class="table table-reponsive">
+                            <thead style="text-align:center">
+                                <tr>
+                                    <th>
+                                        @Resources.Sample_Number
+                                    </th>
+                                    <th>
+                                        @Resources.Move
+                                    </th>
+                                </tr>
+
+                            </thead>
+                            <tbody style="text-align:center">
+                                @foreach (var item in Model.TestedSamples)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SampleNumber)
+                                        </td>
+                                        <td>
+                                            <i class="ion ion-ios-arrow-dropleft-circle d-block" style="cursor:pointer"
+                                               onclick="location.href = '@Url.Action("MonthlyResult", "TestingResults", new { id = item.SampleNumber, duration = "28" })';">
+                                            </i>
+
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    }
+
+
+
+
+</body>
+

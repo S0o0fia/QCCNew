@@ -1,0 +1,168 @@
+﻿مش فاهم
+@model IEnumerable<AspnetMvcDemo.Models.allCircularsDisplay>
+@using Resources
+
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/datatables/datatables")
+}
+
+@section Scripts {
+
+    @Scripts.Render("~/bundle/vendor/js/datatables/datatables")
+
+    @Scripts.Render("~/bundle/js/tables_datatables")
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/bootbox/bootbox")
+    @Scripts.Render("~/bundle/vendor/js/sweetalert2/sweetalert2")
+
+    @Scripts.Render("~/bundle/js/ui_modals")
+}
+<style type="text/css">
+    @*for Mobile Design*@
+ @@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+
+    tr{
+      display:grid;
+      border-bottom:1px solid #ccc;
+    }
+   /* Force table to not be like tables anymore */
+	table, tbody , thead , td, tr, th  {
+		display: block;
+	}
+	table {
+        width :100%;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+
+	td {
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+	}
+
+   td:before {
+		width: 45%;
+		padding-left: 10px;
+		white-space: nowrap;
+        float:right;
+        text-align:center;
+        font-weight : bold;
+	}
+
+
+      #prepareSample
+      {
+         width : 100%;
+
+      }
+
+}
+
+
+    @*for General and PC Design*@
+    .nav-tabs-top {
+        -ms-flex-direction: column;
+        flex-direction: column;
+        margin-top: 5%;
+
+    }
+    table {
+        background-color : white;
+         width:75%;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    }
+
+    a {
+        font-weight: bold;
+        text-align: right;
+    }
+
+    .edit:hover {
+        background-color: white;
+        color: #02BC77;
+    }
+
+    tr:hover {
+        color: white;
+        background-color: gray;
+    }
+    .nav-tabs {
+       margin-bottom : 1%;
+
+    }
+     td , tr{
+         font-size:large;
+     }
+    #prepareSample{
+        color : white;
+        font-size : large;
+         background-color:#2E323A;
+          box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
+         border-radius : 25px;
+    }
+</style>
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <div class="page-header  align-items-center">
+        <h3 style="text-align : right ; text-decoration:underline ">@Resources.Circulars</h3>
+    </div>
+
+    <div class="table-responsive">
+        <table class="datatables-demo table table-bordered">
+            <thead style="text-align:center">
+                <tr>
+                    <th>@Resources.File_Name</th>
+                    <th>@Resources.Factory_Name</th>
+                    <th>@Resources.dateOfCircular</th>
+                    <th>@Resources.FactoryLocation</th>
+                    <th>@Resources.FactoryDownloadFile</th>
+                </tr>
+            </thead>
+            <tbody style="text-align:center">
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fileName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.factoryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.location)
+                    </td>
+                    @if (item.downloadState == true)
+                    {
+                        <td>
+                            @Html.TextBoxFor(modelItem => item.downloadState, new { @Value = "نعم", @class = "form-control", @readonly = "readonly", style = "text-align:center" })
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.TextBoxFor(modelItem => item.downloadState, new { @Value = "لا", @class = "form-control", @readonly = "readonly", style = "text-align:center" })
+                        </td>
+
+                    }
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>

@@ -1,0 +1,57 @@
+﻿@foreach (var Qualification in (List<AspnetMvcDemo.Models.EquipmentRequirementsType>)ViewBag.ListOfTitles)
+{
+    var ListOfOptionsOfQualification = (Qualification.CheckEquipmentRequirements).GroupBy(b => b.SubType_Arabic);
+    <div>
+        <h4>@Qualification.Title</h4>
+        @if (Qualification.ID == 18)
+        {
+            var stations = (int)ViewBag.MixingStations;
+            for (int i = 0; i < stations; i++)
+            {
+                <div id="MixitingStation" style="border:1px solid blue; border-radius:20px;">
+                    @{
+                        Html.RenderAction("ShowMixiningStation", new { FactoryId = (int)ViewBag.FactoryId  , StationNumber = i });
+                     }
+                </div>
+            }
+        }
+        else
+        {
+            for (int i = 0; i < ListOfOptionsOfQualification.Count(); i++)
+            {
+                if (ListOfOptionsOfQualification.ElementAtOrDefault(i).Key != null || ListOfOptionsOfQualification.ElementAtOrDefault(i).Key != string.Empty)
+                {
+                    <h5>@ListOfOptionsOfQualification.ElementAtOrDefault(i).Key</h5>
+                }
+                var ListOfoppptions = ListOfOptionsOfQualification.ElementAtOrDefault(i).ToList();
+                foreach (var Options in ListOfoppptions)
+                {
+                    var Answer = ((List<AspnetMvcDemo.Models.CheckEquipmentRequirementsOfFactory>)ViewBag.ReportAnswersOfFactories).Where(p => p.CheckEquipmentRequirementsId == Options.ID).Select(g => g.InputValue).FirstOrDefault();
+                    <div class="row">
+                        <label class="col-md-11" style="float:right">@Options.Description</label>
+                        @if (Options.InputFieldType == "checkbox")
+                        {
+                            <input disabled class="col-md-1" type="checkbox" value="@Options.ID" @(Answer != null && int.Parse(Answer) == Options.ID ? "checked" : "") />
+                        }
+                        else if (Options.InputFieldType == "radiobutton")
+                        {
+                            if (ListOfOptionsOfQualification.ElementAtOrDefault(i).Key != null && ListOfOptionsOfQualification.ElementAtOrDefault(i).Key != string.Empty)
+                            {
+                                string RadioBtnId = Qualification.ID.ToString() + i.ToString();
+                                <input disabled id="" class="col-md-1 radio_@RadioBtnId" type="radio" value="@Options.ID" @(Answer != null && int.Parse(Answer) == Options.ID ? "checked" : "") />
+                            }
+                            else
+                            {
+                                <input disabled id="" class="col-md-1 radio_@Qualification.ID" type="radio" value="@Options.ID" @(Answer != null && int.Parse(Answer) == Options.ID ? "checked" : "") />
+                            }
+                        }
+                        else if (Options.InputFieldType == "text")
+                        {
+                            <input disabled class="col-md-1" type="text" value="@(Answer)" />
+                        }
+                    </div>
+                }
+            }
+        }
+    </div>
+}

@@ -1,0 +1,622 @@
+﻿@{bool isHorizontal = ViewData["LayoutSidenavHorizontal"] != null && ViewData["LayoutSidenavHorizontal"].ToString() == "True";}
+@{string currentPage = @Request.Url.AbsolutePath;
+    Session["Choice"] = Session["Choice"] ?? "";
+    @Session["JobTitle"] = @Session["JobTitle"] ?? "";
+    }
+@using Resources
+<!-- Layout sidenav -->
+<div style="text-align:right" id="layout-sidenav" class="@(isHorizontal ? "layout-sidenav-horizontal sidenav-horizontal container-p-x flex-grow-0" : "layout-sidenav sidenav-vertical") sidenav bg-sidenav-theme">
+    @if (!isHorizontal)
+    {
+
+    <div style="text-align:right" class="app-brand demo">
+        <span>
+            @*<svg viewBox="0 0 148 80" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><defs><linearGradient id="a" x1="46.49" x2="62.46" y1="53.39" y2="48.2" gradientUnits="userSpaceOnUse"><stop stop-opacity=".25" offset="0"></stop><stop stop-opacity=".1" offset=".3"></stop><stop stop-opacity="0" offset=".9"></stop></linearGradient><linearGradient id="e" x1="76.9" x2="92.64" y1="26.38" y2="31.49" xlink:href="#a"></linearGradient><linearGradient id="d" x1="107.12" x2="122.74" y1="53.41" y2="48.33" xlink:href="#a"></linearGradient></defs><path style="fill: #fff;" transform="translate(-.1)" d="M121.36,0,104.42,45.08,88.71,3.28A5.09,5.09,0,0,0,83.93,0H64.27A5.09,5.09,0,0,0,59.5,3.28L43.79,45.08,26.85,0H.1L29.43,76.74A5.09,5.09,0,0,0,34.19,80H53.39a5.09,5.09,0,0,0,4.77-3.26L74.1,35l16,41.74A5.09,5.09,0,0,0,94.82,80h18.95a5.09,5.09,0,0,0,4.76-3.24L148.1,0Z"></path><path transform="translate(-.1)" d="M52.19,22.73l-8.4,22.35L56.51,78.94a5,5,0,0,0,1.64-2.19l7.34-19.2Z" fill="url(#a)"></path><path transform="translate(-.1)" d="M95.73,22l-7-18.69a5,5,0,0,0-1.64-2.21L74.1,35l8.33,21.79Z" fill="url(#e)"></path><path transform="translate(-.1)" d="M112.73,23l-8.31,22.12,12.66,33.7a5,5,0,0,0,1.45-2l7.3-18.93Z" fill="url(#d)"></path></svg>*@
+            <img src="~/Images/login_logo.jpg" style="width:45px; height:45px;" />
+        </span>
+        @if (@Session["Choice"].ToString() == "Concrete")
+        {
+            <h3 href="/" class="app-brand-text demo sidenav-text font-weight-normal ml-3" style="padding-top:5%">@Resources.Concrete_Qunlitly</h3>
+
+        }
+        else
+        {
+            <h3 href="/" class="app-brand-text demo sidenav-text font-weight-normal ml-3" style="padding-top:5%">@Resources.Block_Quanlty</h3>
+
+        }
+        <a href="javascript:void(0)" class="layout-sidenav-toggle sidenav-link text-large ml-auto">
+            <i class="ion ion-md-menu align-middle"></i>
+        </a>
+    </div>
+
+        <div style="text-align:right" class="sidenav-divider mt-0"></div>
+    }
+
+
+    <!-- Links -->
+    @if (@Session["JobTitle"].ToString() == "Admin")
+    {
+<ul class="sidenav-inner@(!isHorizontal ? " py-1" : "")" style="height:500px; overflow:scroll">
+    <!-- Home -->
+    <li class="sidenav-item@(currentPage.StartsWith("/Home/") ? " active open" : "")">
+        <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-md-paper"></i><div style="text-align:right">@Resources.Visits</div></a>
+        <ul class="sidenav-menu" dir="rtl">
+            <li class="sidenav-item@(currentPage == "/Home/Home" ? " active" : "")">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "Home", controller = "Home", id=1 })" class="sidenav-link"><i class="sidenav-icon"></i><div style="text-align:right">@Resources.Visit_Program</div></a>
+                }
+               else
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "BlockVisit", controller = "Home" })" class="sidenav-link"><i class="sidenav-icon"></i><div style="text-align:right">@Resources.Visit_Program</div></a>
+                }
+            </li>
+
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "ReceiveSample", controller = "Home", id=1})" class="sidenav-link"><i class="sidenav-icon"></i><div style="text-align:right">@Resources.Receiving_samples</div></a>
+                }
+            </li>
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new {action = "BrokenSample", Controller = "Home", id = 1})" class="sidenav-link"><i class="sidenav-icon" dir="rtl"></i><div style="text-align:right" dir="rtl">@Resources.Attending_pressure_resistance_test</div></a>
+                }
+            </li>
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "Index", Controller = "BringMaterial" })" class="sidenav-link"><i class="sidenav-icon"></i><div style="text-align:right">@Resources.Bring_materials_samples</div></a>
+
+                }
+                @if (@Session["Choice"].ToString() == "Block")
+                {
+                    <a href="" class="sidenav-link"><i class="sidenav-icon"></i><div style="text-align:right">@Resources.Bring_materials_samples</div></a>
+
+                }
+            </li>
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "Index", Controller = "OtherMession" })" class="sidenav-link"><i class="sidenav-icon"></i><div style="text-align:right">@Resources.Other_tasks</div></a>
+                }
+                @if (@Session["Choice"].ToString() == "Block")
+                {
+                    <a href="#" class="sidenav-link"><i class="sidenav-icon"></i><div style="text-align:right">@Resources.Other_tasks</div></a>
+
+                }
+            </li>
+        </ul>
+
+    </li>
+
+    @if (@Session["Choice"].ToString() == "Concrete")
+    {
+        <li class="sidenav-item@(currentPage.StartsWith("/MixingDesign/") ? " active open" : "")">
+            <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-md-checkmark-circle"></i><div style="text-align:right">@Resources.Approve_Mixing_Design</div></a>
+            <ul class="sidenav-menu" dir="rtl">
+
+                <li class="sidenav-item@(currentPage == "/MixingDesign/MixingDesign" ? " active" : "")">
+                    <a href="@Url.RouteUrl("Default", new { action = "MixingDesign", controller = "MixingDesign", id=1 })" class="sidenav-link"><i class="sidenav-icon"></i><div style="text-align:right">@Resources.Request_for_mixing_approval</div></a>
+                </li>
+                <li class="sidenav-item@(currentPage == "/MixingDesign/ApproveMixingDesign" ? " active" : "")">
+                    <a href="@Url.RouteUrl("Default", new { action = "ApproveMixingDesign", controller = "MixingDesign" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Mixture_review</div></a>
+                </li>
+                <li class="sidenav-item@(currentPage == "/MixingDesign/AddTestsMixingDesign" ? " active" : "")">
+                    <a href="@Url.RouteUrl("Default", new { action = "AddTestsMixingDesign", controller = "MixingDesign" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Material_tests</div></a>
+                </li>
+
+                <li class="sidenav-item@(currentPage == "/MixingDesign/AddTestsMixingDesign2" ? " active" : "")">
+                    <a href="@Url.RouteUrl("Default", new { action = "AddTestsMixingDesign2", controller = "MixingDesign" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Concrete_tests</div></a>
+                </li>
+                <li class="sidenav-item@(currentPage == "/MixingDesign/ApproveOrDeclineMixingDesign" ? " active" : "")">
+                    <a href="@Url.RouteUrl("Default", new { action = "ApproveOrDeclineMixingDesign", controller = "MixingDesign" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Approve_or_Reject_Mixure</div></a>
+                </li>
+
+            </ul>
+        </li>
+    }
+
+
+
+    <li class="sidenav-item@(currentPage.StartsWith("/Laboratory/") ? " active open" : "")">
+        <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-md-flask"></i><div style="text-align:right">@Resources.Laboratory_Screen</div></a>
+        <ul class="sidenav-menu" dir="rtl">
+
+            <li class="sidenav-item@(currentPage == "/Laboratory/Laboratory" ? " active" : "")">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "Laboratory", controller = "Laboratory", id=1 })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Receiving_samples</div></a>
+                }
+                else
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "BlockLaboratory", controller = "Laboratory" })" class="sidenav-link"><i class="sidenav-icon"></i><div style="text-align:right">@Resources.Receiving_samples</div></a>
+                }
+            </li>
+
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "SevenDaysTest", controller = "Laboratory", id=1 })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.day_pressure_resistance_test</div></a>
+                }
+                else
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "BlockTest", controller = "Laboratory"})" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">نتيجة اختبار كسر البلوك</div></a>
+                }
+            </li>
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "MonthTest", controller = "Laboratory", id = 1 })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.days_pressure_resistance_test</div></a>
+                }
+            </li>
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "MonthTest", controller = "Laboratory", id = 1 })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">نتيجة اختبار مفاومة 28 يوم خاص بالمصانع</div></a>
+                }
+            </li>
+           
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="#" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Interpol</div></a>
+                }
+            </li>
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "Index", controller = "Followings" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Followups</div></a>
+                }
+            </li>
+
+        </ul>
+    </li>
+
+
+    <li class="sidenav-item@(currentPage.StartsWith("/Factory/") ? " active open" : "")">
+        <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-md-build"></i><div style="text-align:right">@Resources.Factory_evaluation</div></a>
+        <ul class="sidenav-menu" dir="rtl">
+
+            <li class="sidenav-item@(currentPage == "/Factory/CreateFactory" ? " active" : "")">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "CreateFactory", controller = "Factory" })" class="sidenav-link"><i class="sidenav-icon ion ion-md-add-circle"></i><div style="text-align:right">@Resources.Signup_as_new_Factory</div></a>
+                }
+                @if (@Session["Choice"].ToString() == "Block")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "CreateBlockFactory", controller = "Factory" })" class="sidenav-link"><i class="sidenav-icon ion ion-md-add-circle"></i><div style="text-align:right">@Resources.Signup_as_new_Factory</div></a>
+                }
+            </li>
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.Action("Index", "ClassficationFactroy", new { targetActionName = "classficationvisit", targetControllerName = "ClassficationFactroy" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Factory_evaluation_for_the_purpose_of_classification</div></a>
+                }
+            </li>
+
+
+
+        </ul>
+    </li>
+
+    <li class="sidenav-item@(currentPage.StartsWith("/Manage/") ? " active open" : "")">
+        <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-ios-business"></i><div style="text-align:right">@Resources.Administrative_follow_ups</div></a>
+        <ul class="sidenav-menu" dir="rtl">
+            <li class="sidenav-item">
+                <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-ios-warning"></i><div style="text-align:right">@Resources.Circulars</div></a>
+                <ul class="sidenav-menu" dir="rtl">
+                    <li class="sidenav-item">
+                        @if (@Session["Choice"].ToString() == "Concrete")
+                        {
+
+                            <a href="@Url.RouteUrl("Default", new { action = "attachCircular", controller = "Circular" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.CreateCircular</div></a>
+                        }
+                        @if (@Session["Choice"].ToString() == "Block")
+                        {
+
+                            <a href="" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.CreateCircular</div></a>
+                        }
+                    </li>
+                    <li class="sidenav-item">
+                        @if (@Session["Choice"].ToString() == "Concrete")
+                        {
+                            <a href="@Url.RouteUrl("Default", new { action = "displayAllCircular", controller = "Circular" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.ShowCircular</div></a>
+                        }
+                        @if (@Session["Choice"].ToString() == "Block")
+                        {
+                            <a href="" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.ShowCircular</div></a>
+                        }
+                    </li>
+
+                </ul>
+            </li>
+            <li class="sidenav-item">
+                <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-ios-warning"></i><div style="text-align:right">@Resources.Warnings</div></a>
+                <ul class="sidenav-menu" dir="rtl">
+                    <li class="sidenav-item">
+                        @if (@Session["Choice"].ToString() == "Concrete")
+                        {
+                            <a href="@Url.RouteUrl("Default", new { action = "Index", controller = "infraction" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Violations</div></a>
+                        }
+                      else
+                        {
+                            <a href="@Url.RouteUrl("Default", new { action = "Index", controller = "BlockInfraction" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Violations</div></a>
+                        }
+                    </li>
+                    <li class="sidenav-item">
+                        @if (@Session["Choice"].ToString() == "Concrete")
+                        {
+                            <a href="@Url.RouteUrl("Default", new { action = "Index", controller = "Alert" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Final_warning</div></a>
+                        }
+                       else
+                        {
+                            <a  href="@Url.RouteUrl("Default", new { action = "Index", controller = "BlockAlert" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Final_warning</div></a>
+                        }
+                    </li>
+                    <li class="sidenav-item">
+                        @if (@Session["Choice"].ToString() == "Concrete")
+                        {
+                            <a href="@Url.RouteUrl("Default", new { action = "Index", controller = "Pledge" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Pledge</div></a>
+                        }
+                        @if (@Session["Choice"].ToString() == "Block")
+                        {
+                            <a href="" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Pledge</div></a>
+                        }
+                    </li>
+                </ul>
+            </li>
+
+            <li class="sidenav-item">
+                <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-ios-close"></i><div style="text-align:right">@Resources.Close_the_factory</div></a>
+                <ul class="sidenav-menu" dir="rtl">
+                    <li class="sidenav-item">
+                        @if (@Session["Choice"].ToString() == "Concrete")
+                        {
+                            <a href="@Url.Action("CloseFactory", "ChooseFactory")" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Temporary_closure</div></a>
+                        }
+                        @if (@Session["Choice"].ToString() == "Block")
+                        {
+                            <a href="" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Temporary_closure</div></a>
+                        }
+                    </li>
+                    <li class="sidenav-item">
+                        @if (@Session["Choice"].ToString() == "Concrete")
+                        {
+                            <a href="@Url.Action("Details", "ChooseFactory", new { targetActionName = "Create", targetControllerName = "EvaluationFactory" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Factory_visit_visit_evaluation</div></a>
+                        }
+                    </li>
+                    <li class="sidenav-item">
+                        @if (@Session["Choice"].ToString() == "Concrete")
+                        {
+                            <a href="@Url.Action("StartFactory", "ChooseFactory")" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Reopen</div></a>
+                        }
+                        @if (@Session["Choice"].ToString() == "Block")
+                        {
+                            <a href="" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Reopen</div></a>
+                        }
+                    </li>
+                </ul>
+            </li>
+
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+
+                    <a href="#" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Meeting_minutes</div></a>
+                }
+                @if (@Session["Choice"].ToString() == "Block")
+                {
+
+                    <a href="#" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Meeting_minutes</div></a>
+                }
+            </li>
+        </ul>
+    </li>
+
+
+    <li class="sidenav-item@(currentPage.StartsWith("/Reports/") ? " active open" : "")">
+        <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-ios-paper-plane"></i><div style="text-align:right">@Resources.Reports</div></a>
+        <ul class="sidenav-menu" dir="rtl">
+            <li class="sidenav-item@(currentPage == "/Reports/VisitsReport" ? " active" : "")">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "VisitsReport", controller = "Reports"})" class="sidenav-link"><i class="sidenav-icon ion ion-md-paper"></i><div style="text-align:right">@Resources.Field_visit_report</div></a>
+                }
+                @if (@Session["Choice"].ToString() == "Block")
+                {
+                    <a href="" class="sidenav-link"><i class="sidenav-icon ion ion-md-paper"></i><div style="text-align:right">@Resources.Field_visit_report</div></a>
+                }
+            </li>
+
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "dailyVisitsReport", controller = "Reports" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.daily_report</div></a>
+                }
+               else
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "dailyVisitsReport", controller = "BlockReport" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.daily_report</div></a>
+                }
+            </li>
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "showMonthlyReport", controller = "Reports" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.monthly_report</div></a>
+                }
+                @if (@Session["Choice"].ToString() == "Block")
+                {
+                    <a href="" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.monthly_report</div></a>
+                }
+            </li>
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "TestReport", Controller = "Reports" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Test_result_report</div></a>
+                }
+                @if (@Session["Choice"].ToString() == "Block")
+                {
+                    <a href="" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Monthly_performance_report</div></a>
+                }
+            </li>
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "YearlyReport", controller = "Reports" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Annual_Report</div></a>
+                }
+                @if (@Session["Choice"].ToString() == "Block")
+                {
+                    <a href="" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Annual_Report</div></a>
+                }
+            </li>
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.Action("CreateTechnicalReport", "ChooseFactory", new { targetActionName = "Create", targetControllerName = "TechnicalReports" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.String1Technical_report_to_close_the_factory</div></a>
+                }
+            </li>
+            
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "ReportIndex", controller = "Alert" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Monthly_report_on_warnings</div></a>
+                }
+                @if (@Session["Choice"].ToString() == "Block")
+                {
+                    <a href="" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Monthly_report_on_warnings</div></a>
+                }
+            </li>
+
+            <li class="sidenav-item@(currentPage == "/Factory/FactoriesList" ? " active" : "")">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "FactoriesList", controller = "Factory", id=1 })" class="sidenav-link"><i class="sidenav-icon ion ion-md-list"></i><div style="text-align:right">@Resources.Factories_List</div></a>
+                }
+                @if (@Session["Choice"].ToString() == "Block")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "BlockFactoriesList", controller = "Factory", id=2 })" class="sidenav-link"><i class="sidenav-icon ion ion-md-list"></i><div style="text-align:right">@Resources.Factories_List</div></a>
+                }
+            </li>
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="#" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Factories_with_a_central_mixer</div></a>
+                }
+            </li>
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="#" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Factory_classification</div></a>
+                }
+            </li>
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="#" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Other_reports</div></a>
+                }
+                @if (@Session["Choice"].ToString() == "Block")
+                {
+                    <a href="#" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Other_reports</div></a>
+                }
+            </li>
+        </ul>
+    </li>
+    @if (@Session["Choice"].ToString() == "Concrete")
+    {
+        <li class="sidenav-item@(currentPage.StartsWith("/Program/") ? " active open" : "")">
+            <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-md-microphone"></i><div style="text-align:right">@Resources.The_program_s_media_portal</div></a>
+            <ul class="sidenav-menu">
+                <li class="sidenav-item">
+                    <a href="#" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.List_of_classified_factories</div></a>
+                </li>
+                <li class="sidenav-item">
+
+
+                    <a href="#" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Concrete_awareness_services</div></a>
+
+                </li>
+            </ul>
+        </li>
+    }
+
+        <li class="sidenav-item@(currentPage.StartsWith("/User/") ? " active open" : "")">
+            <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-md-settings"></i><div style="text-align:right">@Resources.Settings</div></a>
+            <ul class="sidenav-menu">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <li class="sidenav-item@(currentPage == "/User/CreateUser" ? " active" : "")">
+                        <a href="@Url.RouteUrl("Default", new { action = "CreateUser", controller = "User" })" class="sidenav-link"><i class="sidenav-icon ion ion-md-person-add"></i><div style="text-align:right">@Resources.Roles_and_Accounts</div></a>
+                    </li>
+                    <li class="sidenav-item@(currentPage == "/User/UsersList" ? " active" : "")">
+                        <a href="@Url.RouteUrl("Default", new { action = "UsersList", controller = "User" })" class="sidenav-link"><i class="sidenav-icon ion ion-md-people"></i><div style="text-align:right">@Resources.Users_List</div></a>
+                    </li>
+                }
+                else
+                {
+                    <li class="sidenav-item@(currentPage == "/User/CreateUser" ? " active" : "")">
+                        <a href="@Url.RouteUrl("Default", new { action = "CreateBlockUser", controller = "User" })" class="sidenav-link"><i class="sidenav-icon ion ion-md-person-add"></i><div style="text-align:right">@Resources.Roles_and_Accounts</div></a>
+                    </li>
+                    <li class="sidenav-item@(currentPage == "/User/UsersList" ? " active" : "")">
+                        <a href="@Url.RouteUrl("Default", new { action = "BlockUsersList", controller = "User" })" class="sidenav-link"><i class="sidenav-icon ion ion-md-people"></i><div style="text-align:right">@Resources.Users_List</div></a>
+                    </li>
+                }
+            </ul>
+        </li>
+    </ul>
+        }
+
+
+
+        @if (@Session["JobTitle"].ToString() == "Factory")
+        {
+            <ul class="sidenav-inner@(!isHorizontal ? " py-1" : "")" style="height:500px; overflow:scroll">
+                <li class="sidenav-item@(currentPage == "/MixingDesign/MixingDesign" ? " active" : "")">
+                    @if (@Session["Choice"].ToString() == "Concrete")
+                    {
+                        <a href="@Url.RouteUrl("Default", new { action = "MixingDesign", controller = "MixingDesign", id=1 })" class="sidenav-link"><i class="sidenav-icon ion ion-md-circle"></i><div style="text-align:right">@Resources.Add_Mixing_Design</div></a>
+                    }
+                    @if (@Session["Choice"].ToString() == "Block")
+                    {
+                        <a href="@Url.RouteUrl("Default", new { action = "MixingDesign", controller = "MixingDesign", id=2 })" class="sidenav-link"><i class="sidenav-icon ion ion-md-circle"></i><div style="text-align:right">@Resources.Add_Mixing_Design</div></a>
+                    }
+                </li>
+                <li class="sidenav-item@(currentPage == "/Circular/showCricularFiles" ? " active" : "")">
+                    @if (@Session["Choice"].ToString() == "Concrete")
+                    {
+                        <a href="@Url.RouteUrl("Default", new { action = "showCricularFiles", controller = "Circular"})" class="sidenav-link"><i class="sidenav-icon ion ion-md-list"></i><div style="text-align:right">@Resources.Circulars</div></a>
+                    }
+                    @if (@Session["Choice"].ToString() == "Block")
+                    {
+                        <a href="@Url.RouteUrl("Default", new { action = "showCricularFiles", controller = "Circular"})" class="sidenav-link"><i class="sidenav-icon ion ion-md-list"></i><div style="text-align:right">@Resources.Circulars</div></a>
+                    }
+                </li>
+
+            </ul>
+        }
+        @if (@Session["JobTitle"].ToString() == "Doctor")
+        {
+<ul class="sidenav-inner@(!isHorizontal ? " py-1" : "")" style="height:500px; overflow:scroll">
+
+
+    <li class="sidenav-item@(currentPage.StartsWith("/Laboratory/") ? " active open" : "")">
+        <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-md-flask"></i><div style="text-align:right">@Resources.Laboratory_Screen</div></a>
+        <ul class="sidenav-menu" dir="rtl">
+
+            <li class="sidenav-item@(currentPage == "/Laboratory/Laboratory" ? " active" : "")">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "Laboratory", controller = "Laboratory", id=1 })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Receiving_samples</div></a>
+                }
+                else
+                {
+
+                    <a href="@Url.RouteUrl("Default", new { action = "BlockLaboratory", controller = "Laboratory" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Receiving_samples</div></a>
+                }
+              
+            </li>
+
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "SevenDaysTest", controller = "Laboratory", id=1 })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.day_pressure_resistance_test</div></a>
+                }
+                else
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "BlockTest", controller = "Laboratory"})" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">نتيجة اختبار كسر البلوك</div></a>
+                }
+            </li>
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "MonthTest", controller = "Laboratory", id = 1 })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.days_pressure_resistance_test</div></a>
+                }
+            </li>
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "MonthTest", controller = "Laboratory", id = 1 })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">نتيجة اختبار مفاومة 28 يوم خاص بالمصانع</div></a>
+                }
+            </li>
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="#" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Interpol</div></a>
+                }
+            </li>
+            <li class="sidenav-item">
+                @if (@Session["Choice"].ToString() == "Concrete")
+                {
+                    <a href="@Url.RouteUrl("Default", new { action = "Index", controller = "Followings" })" class="sidenav-link"><i class="sidenav-icon "></i><div style="text-align:right">@Resources.Followups</div></a>
+                }
+            </li>
+
+        </ul>
+    </li>
+
+</ul>
+        }
+
+
+        @if (@Session["JobTitle"].ToString() == "Monitor")
+        {
+            <ul class="sidenav-inner@(!isHorizontal ? " py-1" : "")" style="height:500px; overflow:scroll">
+           
+                <!-- Reports -->
+                <li class="sidenav-item open active">
+                    <a href="javascript:void(0)" class="sidenav-link sidenav-toggle"><i class="sidenav-icon ion ion-md-paper"></i><div style="text-align:right">@Resources.Prepare_Samples</div></a>
+                    <ul class="sidenav-menu">
+                        @if (@Session["Choice"].ToString() == "Concrete")
+                        {
+                            <li class="sidenav-item@(currentPage.StartsWith ("/Home/Home") ? " active" : "")">
+                                <a href="@Url.RouteUrl("Default", new { action = "Home", controller = "Home", id=1 })" class="sidenav-link"><div style="text-align:right">@Resources.Today_Visits</div></a>
+                            </li>
+                        }
+                      else
+                        {
+                            <li class="sidenav-item@(currentPage == "/Home/Home" ? " active" : "")">
+                                <a href="@Url.RouteUrl("Default", new { action = "BlockVisit", controller = "Home" })" class="sidenav-link"><div style="text-align:right">@Resources.Today_Visits</div></a>
+                            </li>
+                        }
+
+                        <li class="sidenav-item@(currentPage == "/Home/ReceiveSample/" ? "active" : "")">
+                            @if (@Session["Choice"].ToString() == "Concrete")
+                            {
+                                <a href="@Url.RouteUrl("Default", new { action = "ReceiveSample", controller = "Home", id=1})" class="sidenav-link"><div style="text-align:right">@Resources.Receiving_samples</div></a>
+                            }
+                        </li>
+                        <li class="sidenav-item">
+                            @if (@Session["Choice"].ToString() == "Concrete")
+                            {
+                                <a href="@Url.RouteUrl("Default", new {action = "BrokenSample", Controller = "Home", id = 1})" class="sidenav-link"><div style="text-align:right" dir="rtl">@Resources.Attending_pressure_resistance_test</div></a>
+                            }
+                        </li>
+                        <li class="sidenav-item">
+                            @if (@Session["Choice"].ToString() == "Concrete")
+                            {
+                                <a href="@Url.RouteUrl("Default", new {action = "ViewMaterialtoMonitor" +
+                                        "", Controller = "BringMaterial"})"  class="sidenav-link"><div style="text-align:right">@Resources.Bring_materials_samples</div></a>
+                            }
+                            @if (@Session["Choice"].ToString() == "Block")
+                            {
+                                <a href="#" class="sidenav-link"><div style="text-align:right">@Resources.Bring_materials_samples</div></a>
+                            }
+
+                        </li>
+                        <li class="sidenav-item">
+                            @if (@Session["Choice"].ToString() == "Concrete")
+
+                            {<a href="@Url.RouteUrl("Default", new { action = "ShowTasks", Controller = "OtherMession" })" class="sidenav-link"><div style="text-align:right">@Resources.Other_tasks</div></a>
+                        }
+                            @if (@Session["Choice"].ToString() == "Block")
+
+                            {<a href="#" class="sidenav-link"><div style="text-align:right">@Resources.Other_tasks</div></a>
+                        }
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+        }
+</div>
+<!-- / Layout sidenav -->

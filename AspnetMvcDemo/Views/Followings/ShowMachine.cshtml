@@ -1,0 +1,275 @@
+﻿@model AspnetMvcDemo.Models.MachineClass
+@using Resources
+@{
+    ViewBag.Title = "عرض المكائن المضافة";
+}
+
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/datatables/datatables")
+    @Styles.Render("~/bundle/vendor/css/bootstrap-datepicker/bootstrap-datepicker")
+    @Styles.Render("~/bundle/vendor/css/flatpickr/flatpickr")
+    @Styles.Render("~/bundle/vendor/css/bootstrap-daterangepicker/bootstrap-daterangepicker")
+    @Styles.Render("~/bundle/vendor/css/bootstrap-material-datetimepicker/bootstrap-material-datetimepicker")
+    @Styles.Render("~/bundle/vendor/css/timepicker/timepicker")
+    @Styles.Render("~/bundle/vendor/css/minicolors/minicolors")
+}
+
+@section Scripts {
+    <!-- Dependencies -->
+    @Scripts.Render("~/bundle/vendor/js/moment/moment")
+    @Scripts.Render("~/bundle/vendor/js/bootstrap-datepicker/bootstrap-datepicker")
+    @Scripts.Render("~/bundle/vendor/js/flatpickr/flatpickr")
+    @Scripts.Render("~/bundle/vendor/js/bootstrap-daterangepicker/bootstrap-daterangepicker")
+    @Scripts.Render("~/bundle/vendor/js/bootstrap-material-datetimepicker/bootstrap-material-datetimepicker")
+    @Scripts.Render("~/bundle/vendor/js/timepicker/timepicker")
+    @Scripts.Render("~/bundle/vendor/js/minicolors/minicolors")
+
+    @Scripts.Render("~/bundle/js/forms_pickers")
+    @Scripts.Render("~/bundle/vendor/js/validate/validate")
+    @Scripts.Render("~/bundle/js/forms_wizard")
+}
+
+<style type="text/css">
+        @*for Mobile Design*@
+ @@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px)  {
+
+
+    tr{
+      display:grid;
+      border-bottom:1px solid #ccc;
+    }
+   /* Force table to not be like tables anymore */
+	table, tbody , thead , td, tr, th  {
+		display: block;
+	}
+	table {
+        width :100%;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+
+	/* Hide table headers (but not display: none;, for accessibility) */
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+
+	td {
+		/* Behave  like a "row" */
+		border: none;
+		border-bottom: 1px solid #eee;
+		position: relative;
+		padding-left: 50%;
+	}
+
+   td:before {
+		width: 45%;
+		padding-left: 10px;
+		white-space: nowrap;
+        float:right;
+        text-align:center;
+        font-weight : bold;
+	}
+
+	/*
+	Label the data
+	*/
+
+      #prepareSample
+      {
+         width : 100%;
+
+      }
+
+     #flatpickr-date {
+         
+   
+ 
+      }
+
+}
+
+
+    @*for General and PC Design*@
+    .nav-tabs-top {
+        -ms-flex-direction: column;
+        flex-direction: column;
+        margin-top: 5%;
+
+    }
+    table {
+        background-color : white;
+         width:75%;
+         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    }
+
+    a {
+        font-weight: bold;
+        text-align: right;
+    }
+
+    .edit:hover {
+        background-color: white;
+        color: #02BC77;
+    }
+
+    tr:hover {
+        color: white;
+        background-color: gray;
+    }
+    .nav-tabs {
+       margin-bottom : 1%;
+
+    }
+     td , tr{
+         font-size:large;
+     }
+
+    .col-md-2 {
+        flex: 0 0 16.66667%;
+        max-width: 16.66667%;
+        text-align: left;
+        vertical-align: text-bottom;
+    }
+
+    .col-12 {
+        align-content: center;
+        justify-content: center;
+        margin-bottom: 2%;
+    }
+
+    .bt {
+        justify-self: center;
+        align-self: center;
+        box-shadow: 2px 2px #808080;
+    }
+
+        .bt:hover {
+            background-color: darkgrey;
+            border-color: black;
+            border-style: solid;
+            color: black;
+            padding: 1%;
+        }
+        #id{
+            box-shadow : 1px 1px gray;
+        }
+</style>
+
+
+
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <div class="card" style="top:20%">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-8">
+                    <h3 style="text-align:right; padding-right:2%;">@Resources.Calibration_of_a_machine</h3>
+                </div>
+                <div class="col-4">
+                    <a class="btn btn-success"
+                       href="@Url.Action("AddMachine", "Followings")"
+                       data-dismiss="modal" aria-hidden="true"
+                       style="box-shadow : 1px 1px gray; font-size:medium; text-shadow:1px 1px black; color:white;">
+                        @Resources.Add_new_Machine
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="row" style="text-align:center;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>@Resources.Machine_Name</th>
+                            <th>@Resources.Machine_Check_Date</th>
+                            <th>@Resources.Check_duration</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.machineChecks)
+                        {
+                            <tr>
+                                <td>@item.Machine_Name</td>
+                                <td>@item.Machine_Check_Date</td>
+                                <td>@item.Check_duration</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <!--For Add new Tempreture-->
+    <div class="modal fade" id="Modal_sucess" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title text-primary text-center" id="myModalLabel">@Resources.Add_new_Machine</h3>
+                </div>
+                @using (Html.BeginForm("AddMachine", "Followings", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+
+                    <div id="ModalBody" class="modal-body">
+                        <div class="row" style="text-align:center;">
+                            <table class="table border-0">
+
+                                <tbody>
+
+                                    <tr>
+                                        <td style="width:20% ; text-align:right">@Resources.Machine_Name</td>
+                                        <td style="width:80%">@Html.TextBoxFor(model => model.machine.Machine_Name, new { @class = "form-control" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width:20% ; text-align:right">@Resources.Check_duration</td>
+                                        <td style="width:80%">@Html.TextBoxFor(model => model.machine.Check_duration, new { @class = "form-control" })</td>
+                                    <tr>
+                                        <td style="width:20% ; text-align:right">@Resources.Machine_Check_Date</td>
+                                        <td style="width:80%">@Html.TextBoxFor(model => model.machine.Machine_Check_Date, new { id = "flatpickr-date", @class = "form-control" , @style="z-index: 2; position: absolute; top: 0px; left: 0px;" })</td>
+                                    </tr>
+                                </tbody>
+
+                            </table>
+
+
+
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input style="box-shadow : 1px 1px gray; font-size:medium; text-shadow:1px 1px black; color:white;"
+                               value="@Resources.Save" type="submit"
+                               class="btn btn-success" />
+
+
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+</body>
+
+<script type="text/javascript">
+    function Modalpop() {
+
+
+        $('#ModalBody').html();
+        $('#Modal_sucess').modal('show');
+
+
+    }
+</script>
+
+
+
+

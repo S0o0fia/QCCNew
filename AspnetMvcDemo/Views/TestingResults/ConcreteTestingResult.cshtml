@@ -1,0 +1,239 @@
+﻿@model List<AspnetMvcDemo.Models.PressureResistanceTestforFactorySamplePhoto>
+@{
+    ViewBag.Title = "ConcreteTestingResult";
+}
+@using Resources
+<style type="text/css">
+
+    .nav-tabs-top {
+    }
+
+    .table {
+        border: solid 2px #eeeeee;
+    }
+
+        .table tr td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+    .page-header {
+        padding-top: 2%;
+        padding-bottom: 3%;
+    }
+
+    .form-control-plaintext {
+        padding-left: 3%;
+        outline-color: limegreen;
+        outline-style: solid;
+        outline-width: thin;
+    }
+</style>
+<body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
+    <div id="alertAdded" class="alert alert-dark-success alert-dismissible fade show">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        Testing Result added successfully
+    </div>
+    @using (Html.BeginForm("ConcreteTestingResult", "TestingResults", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
+        <form>
+            <div class="page-header  align-items-center">
+                <h1 style="text-align : center">@Resources.Concrete_Testing_Result</h1>
+            </div>
+            <div class="nav-tabs-top nav-responsive-xl" style="-ms-flex-direction: column; flex-direction: column; margin-top: 4%; padding-left: 100px; padding-right: 100px;">
+                <div class="tab-content">
+                    <div class="tab-pane fade show active">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <h4>@Resources.Compressive_Strength_of_Concrete_Cube</h4>
+                                </div>
+                                <div class="col-md-5">
+                                    @Resources.Sample_Number  <span id="sampleNo">@Model[0].SampleNo</span>
+                                </div>
+                            </div>
+                            <table class="table table-reponsive">
+                                <thead style="text-align:center ; font-weight:bold">
+                                    <tr>
+                                        <th> No</th>
+                                        <th>Weight</th>
+                                        <th>Photo1</th>
+                                        <th>Photo2</th>
+                                        <th>Volume</th>
+                                        <th>Area Loaded</th>
+                                        <th>Unit Weight</th>
+                                        <th>Test Date</th>
+                                        <th>Age</th>
+                                        <th>Crushing Load</th>
+                                        <th>Compressive Strength</th>
+                                        <th>Average Compressive Strength</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody style="text-align:center;">
+                                    @for (int i = 0; i < Model.Count; i++)
+                                    {
+                                        <tr>
+                                            <td hidden> @Html.HiddenFor(m => m[i].Age) </td>
+                                            <td hidden> @Html.HiddenFor(m => m[i].AreaLoaded) </td>
+                                            <td hidden> @Html.HiddenFor(m => m[i].AvgCompressiveStrength, new { @id = "AvgCompressiveStrength" + i }) </td>
+                                            <td hidden> @Html.HiddenFor(m => m[i].ConcreteRank, new { @id = "ConcreteRank" + i }) </td>
+                                            <td hidden> @Html.HiddenFor(m => m[i].Result, new { @id = "Result" + i }) </td>
+                                            <td hidden> @Html.HiddenFor(m => m[i].SampleNo) </td>
+                                            <td hidden> @Html.HiddenFor(m => m[i].TestDate) </td>
+                                            <td hidden> @Html.HiddenFor(m => m[i].Volume) </td>
+                                            <td hidden> @Html.HiddenFor(m => m[i].Photo1) </td>
+                                            <td hidden> @Html.HiddenFor(m => m[i].Photo2) </td>
+                                            <td>@(i + 1)</td>
+                                            <td>
+                                                @Html.TextBoxFor(m => m[i].Weight, new { @type = "text", @placeholder = @Resources.Enter_Data, @id = "weight" + i })
+                                            </td>
+                                            <td>
+                                                <a href="http://localhost:55607/Content/@Model[i].Photo1" target="_blank">1</a>
+                                            </td>
+                                            <td>
+                                                <a href="http://localhost:55607/Content/@Model[i].Photo2" target="_blank">2</a>
+                                            </td>
+                                            @if (i == 0)
+                                            {
+                                                <td rowspan="3">
+                                                    @Html.DisplayFor(m => m[i].Volume, new { @type = "text", @id = "volume" + i })
+                                                </td>
+                                                <td rowspan="3">
+                                                    @Html.DisplayFor(m => m[i].AreaLoaded, new { @type = "text", @id = "AreaLoaded" + i })
+                                                </td>
+                                            }
+                                            <td>
+                                                @Html.TextBoxFor(m => m[i].UnitWeight, new { @type = "text", @id = "UnitWeight" + i, @readonly = "readonly" })
+                                            </td>
+                                            @if (i == 0)
+                                            {
+
+                                                <td rowspan="3">
+                                                    @Html.DisplayFor(m => m[i].TestDate, new { @type = "text", @id = "TestDate" + i })
+                                                </td>
+                                                <td rowspan="3">
+                                                    <span id="age1">
+                                                        @Html.DisplayFor(m => m[i].Age, new { @type = "text", @id = "Age" + i })
+                                                    </span>
+                                                </td>
+                                            }
+                                            <td>
+                                                @Html.TextBoxFor(m => m[i].CrushingLoad, new { @type = "text", @placeholder = @Resources.Enter_Data, @id = "CrushingLoad" + i })
+                                            </td>
+                                            <td>
+                                                @Html.TextBoxFor(m => m[i].CompressiveStrength, new { @type = "text", @id = "CompressiveStrength" + i, @readonly = "readonly" })
+                                            </td>
+                                            @if (i == 0)
+                                            {
+
+                                                <td rowspan="3">
+                                                    @*<input type="text" class="form-control-plaintext" readonly="readonly" />*@
+                                                    <span id="acStrength">
+                                                    </span>
+                                                </td>
+                                            }
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <button type="submit" class="btn btn-success">@Resources.Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    }
+</body>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#alertAdded").hide();
+
+        var message = "@TempData["AlertMessage"]";
+
+        if (message != null && message != "") {
+            $("#alertAdded").show("fast");
+        }
+        $('#weight0').change(function () {
+            var unitWeight;
+            var weight1 = $('#weight0').val();
+            var volume1 = 5302;
+            console.log(weight1)
+            console.log(volume1)
+            unitWeight = weight1 / volume1;
+            console.log(unitWeight.toFixed(2))
+            $('#UnitWeight0').val(unitWeight.toFixed(2));
+        });
+        $('#weight1').change(function () {
+            var unitWeight;
+            var weight1 = $('#weight1').val();
+            var volume1 = 5302;
+            unitWeight = weight1 / volume1;
+            $('#UnitWeight1').val(unitWeight.toFixed(2));
+        });
+        $('#weight2').change(function () {
+            var unitWeight;
+            var weight1 = $('#weight2').val();
+            var volume1 = 5302;
+            unitWeight = weight1 / volume1;
+            $('#UnitWeight2').val(unitWeight.toFixed(2));
+         });
+
+        //Comprehensive Strength Calculation
+        var cStrength1=0;
+        var cStrength2=0;
+        var cStrength3=0;
+        $('#CrushingLoad0').change(function () {
+            cStrength1 = (($('#CrushingLoad0').val()) * 1000) / 17574;
+            $('#CompressiveStrength0').val(cStrength1.toFixed(2));
+        });
+        $('#CrushingLoad1').change(function () {
+            cStrength2 = (($('#CrushingLoad1').val()) * 1000) / 17574;
+            $('#CompressiveStrength1').val(cStrength2.toFixed(2));
+        });
+        $('#CrushingLoad2').change(function () {
+            cStrength3 = (($('#CrushingLoad2').val()) * 1000) / 17574;
+            $('#CompressiveStrength2').val(cStrength3.toFixed(2));
+        }); //Average Comprehensive Strength Calculation
+
+
+
+        $('#CrushingLoad0').change(function () {
+        var acStrength = (cStrength1 + cStrength2 + cStrength3) / 3;
+            $('#acStrength').html('').append(acStrength.toFixed(2));
+            Avg(acStrength.toFixed(2))
+        });
+        $('#CrushingLoad1').change(function () {
+            var acStrength = (cStrength1 + cStrength2 + cStrength3) / 3;
+            $('#acStrength').html('').append(acStrength.toFixed(2));
+            Avg(acStrength.toFixed(2))
+     });
+        $('#CrushingLoad2').change(function () {
+            var acStrength = (cStrength1 + cStrength2 + cStrength3) / 3;
+            $('#acStrength').html('').append(acStrength.toFixed(2));
+            Avg(acStrength.toFixed(2))
+      });
+        function Avg(Num) {
+            $("#AvgCompressiveStrength0").val(Num)
+            $("#AvgCompressiveStrength1").val(Num)
+            $("#AvgCompressiveStrength2").val(Num)
+            if (($("#ConcreteRank0").val() - 0.5) < Num) {
+                $("#Result0").val("Pass")
+                $("#Result1").val("Pass")
+                $("#Result2").val("Pass")
+            }
+            else {
+                $("#Result0").val("Fail")
+                $("#Result1").val("Fail")
+                $("#Result2").val("Fail")
+
+            }
+            console.log($("#Result0").val())
+            console.log($("#AvgCompressiveStrength1").val())
+            console.log(($("#ConcreteRank0").val() - 0.5))
+
+        }
+
+
+    });
+</script>
