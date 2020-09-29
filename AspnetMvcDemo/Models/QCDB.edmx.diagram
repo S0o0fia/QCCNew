@@ -177,9 +177,9 @@
         <EntityTypeShape EntityType="QCModel.BlockInfraction" Width="1.5" PointX="31.375" PointY="39.75" />
         <EntityTypeShape EntityType="QCModel.BlockAlert" Width="1.5" PointX="39.375" PointY="32.75" />
         <EntityTypeShape EntityType="QCModel.BlockPledge" Width="1.5" PointX="39.375" PointY="16.75" />
-        <EntityTypeShape EntityType="QCModel.ReportUpdateHistory" Width="1.5" PointX="33.375" PointY="39.75" />
         <EntityTypeShape EntityType="QCModel.BreakSampleFactory" Width="1.5" PointX="35.375" PointY="39.75" />
         <EntityTypeShape EntityType="QCModel.ConcreteSample1" Width="1.5" PointX="9.375" PointY="40.75" />
+        <EntityTypeShape EntityType="QCModel.ReportUpdateHistory" Width="1.5" PointX="11.375" PointY="40.75" />
         </Diagram>
       <Diagram DiagramId="5f4cbd8fdebb40edad5e97b558df7fec" Name="Diagram2" />
     </edmx:Diagrams>

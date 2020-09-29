@@ -89,8 +89,8 @@ namespace AspnetMvcDemo.Models
         public string NewCementSource { get; set; }
         public string OldAdditionType { get; set; }
         public string NewAdditionType { get; set; }
-        public Nullable<double> OldAdditionAmount { get; set; }
-        public Nullable<double> NewAdditionAmount { get; set; }
+        public string OldAdditionAmount { get; set; }
+        public string NewAdditionAmount { get; set; }
         public Nullable<double> OldCementWeight { get; set; }
         public Nullable<double> NewCementWeight { get; set; }
         public Nullable<double> OldWaterWieght { get; set; }

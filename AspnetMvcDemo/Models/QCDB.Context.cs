@@ -166,9 +166,9 @@ namespace AspnetMvcDemo.Models
         public virtual DbSet<BlockInfraction> BlockInfractions { get; set; }
         public virtual DbSet<BlockAlert> BlockAlerts { get; set; }
         public virtual DbSet<BlockPledge> BlockPledges { get; set; }
-        public virtual DbSet<ReportUpdateHistory> ReportUpdateHistories { get; set; }
         public virtual DbSet<BreakSampleFactory> BreakSampleFactories { get; set; }
         public virtual DbSet<ConcreteSample1> ConcreteSample1 { get; set; }
+        public virtual DbSet<ReportUpdateHistory> ReportUpdateHistories { get; set; }
     
         public virtual ObjectResult<AsphaltInsepector_Result> AsphaltInsepector()
         {
@@ -1719,7 +1719,16 @@ namespace AspnetMvcDemo.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AddUpdateVisit", idParameter, factoryIdParameter, monitorIdParameter, visitDateParameter, statusCode, statusMessage);
         }
     
-        public virtual int UpdateConcreteSample(Nullable<long> reportNo, Nullable<System.DateTime> reportDate, string factoryName, string factoryLocation, string mixerNumber, Nullable<long> visitNumber, Nullable<long> sampleNumber, string truckNumber, string invoiceNumber, string clientName, string visitLocation, Nullable<double> latitude, Nullable<double> longitude, string concreteRank, Nullable<double> concreteTemperture, Nullable<double> waterTemperature, Nullable<double> weatherTemperture, Nullable<double> downAmount, string cementType, string cementSource, string additionType, Nullable<double> additionAmount, Nullable<double> cementWeight, Nullable<double> waterWieght, Nullable<double> washedSandWeight, Nullable<double> whiteSandWeight, Nullable<double> rubble3by4, Nullable<double> rubble3by8, Nullable<bool> isCleanUsage, Nullable<bool> isBasicUsage, Nullable<bool> isColumnUsage, Nullable<bool> isRoofUsage, Nullable<bool> isOtherUsage, Nullable<bool> isCleanLocation, string cleanDoc, Nullable<bool> isDustControlInStation, string dustDoc, Nullable<bool> isRokamSummer, string summerDoc, Nullable<bool> isLabEngineer, string labDoc, Nullable<bool> isMoldanatInTrucks, string truckDoc, Nullable<bool> isPeopleSafty, string safteyDoc, Nullable<int> sampledBy, Nullable<System.DateTime> createdDate, ObjectParameter statusCode, ObjectParameter statusMessage, string cleanNote, string dustNote, string summerNote, string labNote, string truckNote, string safteyNote, string otherReason)
+        public virtual int UpdateConcreteSample(Nullable<long> reportNo, 
+            Nullable<System.DateTime> reportDate, 
+            string factoryName, string factoryLocation, 
+            string mixerNumber, Nullable<long> visitNumber,
+            Nullable<long> sampleNumber, string truckNumber,
+            string invoiceNumber, string clientName, string visitLocation,
+            Nullable<double> latitude, Nullable<double> longitude, string concreteRank, 
+            Nullable<double> concreteTemperture, Nullable<double> waterTemperature, 
+            Nullable<double> weatherTemperture, Nullable<double> downAmount, 
+            string cementType, string cementSource, string additionType, string additionAmount, Nullable<double> cementWeight, Nullable<double> waterWieght, Nullable<double> washedSandWeight, Nullable<double> whiteSandWeight, Nullable<double> rubble3by4, Nullable<double> rubble3by8, Nullable<bool> isCleanUsage, Nullable<bool> isBasicUsage, Nullable<bool> isColumnUsage, Nullable<bool> isRoofUsage, Nullable<bool> isOtherUsage, Nullable<bool> isCleanLocation, string cleanDoc, Nullable<bool> isDustControlInStation, string dustDoc, Nullable<bool> isRokamSummer, string summerDoc, Nullable<bool> isLabEngineer, string labDoc, Nullable<bool> isMoldanatInTrucks, string truckDoc, Nullable<bool> isPeopleSafty, string safteyDoc, Nullable<int> sampledBy, Nullable<System.DateTime> createdDate, ObjectParameter statusCode, ObjectParameter statusMessage, string cleanNote, string dustNote, string summerNote, string labNote, string truckNote, string safteyNote, string otherReason)
         {
             var reportNoParameter = reportNo.HasValue ?
                 new ObjectParameter("ReportNo", reportNo) :
@@ -1805,7 +1814,7 @@ namespace AspnetMvcDemo.Models
                 new ObjectParameter("AdditionType", additionType) :
                 new ObjectParameter("AdditionType", typeof(string));
     
-            var additionAmountParameter = additionAmount.HasValue ?
+            var additionAmountParameter = additionAmount != "" ?
                 new ObjectParameter("AdditionAmount", additionAmount) :
                 new ObjectParameter("AdditionAmount", typeof(double));
     

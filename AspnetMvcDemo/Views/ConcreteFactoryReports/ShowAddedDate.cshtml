@@ -549,18 +549,17 @@
 
                                 </div>
                                 <div class="col-md-2 form-group">
-                                    9
                                     <label class="form-label">@Resources.Resources.Addtion_Amount</label>
                                 </div>
                                 <div class="col-md-4 form-group">
                                     @if (Model.AdditionAmount == null)
                                     {
-                                        @Html.TextBoxFor(m => m.AdditionAmount, new { type = "number", min = "0", step = "1", @class = "form-control" })
+                                        @Html.TextBoxFor(m => m.AdditionAmount, new { type = "text", @class = "form-control" })
 
                                     }
                                     else
                                     {
-                                        @Html.TextBoxFor(m => m.AdditionAmount, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                                        @Html.TextBoxFor(m => m.AdditionAmount, new { type = "text", @class = "form-control", @readonly = "readonly" })
 
                                     }
                                 </div>
@@ -1161,7 +1160,7 @@
                             @if (Model.ConcreteTemperture == null || Model.DownAmount == null)
                             {
                                 <div class=" form-group">
-                                    <input type="submit" class="btn btn-success" name="Submit2" id="Save" value="حفظ" />
+                                    <input type="submit" class="btn btn-success"  id="Save" value="حفظ" />
                                 </div>
                             }
                         </div>
