@@ -34,7 +34,7 @@ namespace AspnetMvcDemo.Services
         public void CreateVisit()
         {
             var Count = 0;
-            dateTime = DateTime.Now;
+            dateTime = DateTime.Today;
             var queryResult = new List<Visitviewmodel>();
             Users = userServ.UserDetails();
             while (Count < 30)

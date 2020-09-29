@@ -91,7 +91,7 @@ namespace AspnetMvcDemo.Controllers
             cubeOfOneSample.SamplePart3.testDate = DateTime.Now;
             cubeOfOneSample.SamplePart3.age = 7;
             double? avg = (cubeOfOneSample.SamplePart1.CompressiveStrength + cubeOfOneSample.SamplePart2.CompressiveStrength + cubeOfOneSample.SamplePart3.CompressiveStrength) / 3;
-
+            avg = Math.Round(Double.Parse(avg.ToString()), 1);
             cubeOfOneSample.SamplePart1.averageCompressiveStrength = avg;
             cubeOfOneSample.SamplePart2.averageCompressiveStrength = avg;
             cubeOfOneSample.SamplePart3.averageCompressiveStrength = avg;
@@ -171,9 +171,9 @@ namespace AspnetMvcDemo.Controllers
             cubeOfOneSample.SamplePart3.age = 28;
             double? avg = (cubeOfOneSample.SamplePart1.CompressiveStrength + cubeOfOneSample.SamplePart2.CompressiveStrength + cubeOfOneSample.SamplePart3.CompressiveStrength) / 3;
 
-            cubeOfOneSample.SamplePart1.averageCompressiveStrength = Math.Round(Double.Parse(avg.ToString()), 2);
-            cubeOfOneSample.SamplePart2.averageCompressiveStrength = Math.Round(Double.Parse(avg.ToString()), 2);
-            cubeOfOneSample.SamplePart3.averageCompressiveStrength = Math.Round(Double.Parse(avg.ToString()), 2);
+            cubeOfOneSample.SamplePart1.averageCompressiveStrength = Math.Round(Double.Parse(avg.ToString()), 1);
+            cubeOfOneSample.SamplePart2.averageCompressiveStrength = Math.Round(Double.Parse(avg.ToString()), 1);
+            cubeOfOneSample.SamplePart3.averageCompressiveStrength = Math.Round(Double.Parse(avg.ToString()), 1);
 
             qc.monthlyResults.Add(cubeOfOneSample.SamplePart1);
             qc.monthlyResults.Add(cubeOfOneSample.SamplePart2);

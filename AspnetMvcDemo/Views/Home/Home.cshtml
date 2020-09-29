@@ -44,7 +44,7 @@
 
     @Scripts.Render("~/bundle/js/forms_pickers")
 }
-}
+
 <style type="text/css">
     @*for Mobile Design*@
  @@media only screen and (max-width: 760px),
@@ -160,9 +160,25 @@
 
     @if (TempData["message"] != null)
     {
-        <div id="alertAdded" class="alert alert-danger alert-dismissible fade show">
+        <div id="alertAdded" class="alert alert-danger alert-dismissible fade show" style="text-align:right;">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             هناك زيارة للمصنع موجودة بالفعل بهذا التاريخ
+        </div>
+    }
+   
+    @if (TempData["addvisit"] != null)
+    {
+        <div id="alertAdded" class="alert alert-dark-success alert-dismissible fade show" style="text-align:right;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            تم إضافة الزيارة بنجاح
+        </div>
+    }
+
+    @if ( TempData["EditDate"] != null)
+    {
+        <div id="alertAdded" class="alert alert-dark-success alert-dismissible fade show" style="text-align:right;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+           تم تغيير التاريخ بنجاح
         </div>
     }
     <div class="page-header  align-items-center">
@@ -208,6 +224,10 @@
                             onclick="Modalpop();" data-url="@Url.Action("VisitDetails", "Home")" style="cursor:pointer">
                         تعديل مواقع المراقبين
                     </button>
+                    <a class="edit btn btn-success"
+                       href="@Url.Action("CreateNewVisit", "Home")" style="cursor:pointer; margin-right:1%">
+                        إنشاء زيارة
+                    </a>
                 </div>
             </div>
             <div class="table-responsive">
@@ -238,8 +258,8 @@
                                     @Html.DisplayFor(modelItem => item.FactoryLocation)
                                 </td>
                                 <td>
-                                    <input type="button" value="تعديل التاريخ" id="editVisit" class="edit btn btn-success" data-toggle="modal" data-target="#Visit-details"
-                                           onclick="Modalpop2(@item.Id);" data-url="@Url.Action("VisitDetailsDateEdit", "Home", new { id = item.Id })" style="cursor:pointer" />
+                                    <a type="button" id="editVisit" class="edit btn btn-success"
+                                       href="@Url.Action("VisitDetailsDateEdit", "Home", new { id = item.Id })" style="cursor:pointer">تعديل التاريخ</a>
                                 </td>
                             </tr>
                         }
@@ -279,9 +299,17 @@
                                 </td>
 
                                 <td>
-                                    <i class="ion ion-ios-trash d-block"
-                                       onclick="location.href='@Url.Action("CancleFactoryReport", "ConcreteFactoryReports", new { id = item.Id })'" style="cursor:pointer"></i>
+                                    @if (item.VisitStatus != true)
+                                    {
+                                        <i class="ion ion-ios-trash d-block"
+                                           onclick="location.href='@Url.Action("CancleFactoryReport", "ConcreteFactoryReports", new { id = item.Id })'" style="cursor:pointer"></i>
 
+
+                                    }
+                                    else
+                                    {
+                                        <span>-</span>
+                                    }
                                 </td>
                             </tr>
                         }
@@ -301,9 +329,17 @@
                                 </td>
 
                                 <td>
-                                    <i class="ion ion-ios-trash d-block"
-                                       onclick="location.href='@Url.Action("CancleFactoryReport", "ConcreteFactoryReports", new { id = item.Id })'" style="cursor:pointer"></i>
+                                    @if (item.VisitStatus != true)
+                                    {
+                                        <i class="ion ion-ios-trash d-block"
+                                           onclick="location.href='@Url.Action("CancleFactoryReport", "ConcreteFactoryReports", new { id = item.Id })'" style="cursor:pointer"></i>
 
+
+                                    }
+                                    else
+                                    {
+                                        <span>-</span>
+                                    }
                                 </td>
                             </tr>
                         }
@@ -333,6 +369,19 @@
         </div>
     </div>
 
+    <div class="modal fade" id="Modify_sucess" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title text-primary text-center" id="myModalLabel">إنشاء زيارة جديدة</h3>
+                </div>
+                <div id="ModifyBody" class="modal-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <div class="modal fade" id="Cancle_sucess" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
@@ -394,6 +443,15 @@
         });
     }
 
+    function Modalpop3() {
+        var urlPost = '@Url.Action("CreateNewVisit", "Home")';
+        $.get(urlPost, function (data) {
+            $('#ModifyBody').html(data.toString());
+
+            $('#Modify_sucess').modal('show');
+
+        });
+    }
 
     
 </script>

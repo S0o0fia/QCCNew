@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace AspnetMvcDemo.Controllers
 {
@@ -12,23 +13,42 @@ namespace AspnetMvcDemo.Controllers
     {
         QCEntities db = new QCEntities();
         // GET: BringMaterial
-        public ActionResult Index(string targetControllerName, string targetActionName)
+        public ActionResult Index()
         {
-
-            ViewBag.Locations = db.Locations.ToList();
-            ChooseFactoryVM factoryvm = new ChooseFactoryVM();
-            factoryvm.TargetControllerName = targetControllerName;
-            factoryvm.TargetActionName = targetActionName;
-            return View(factoryvm);
+            BringMaterialVM createVisit = new BringMaterialVM();
+            createVisit.locations = db.Locations.ToList();
+            createVisit.factories = db.Factory11.Where(f => f.Location_Id == 1).ToList();
+            return View(createVisit);
 
         }
-        public PartialViewResult GetFactories(int Id)
-        {
-            var factories = db.Factory11.Where(p => p.Location_Id == Id).ToList();
-            ViewBag.Factories = factories.Where(p => p.IsActive == true).ToList();
-            return PartialView("_GetFactories");
-        }
 
+        public string GetFactories(int id)
+        {
+            List<FactoryTemp> TempF = new List<FactoryTemp>();
+            if (id > 3)
+            {
+                id = 3;
+            }
+            var query = db.Factory11.Where(f => f.Location_Id == id).ToList();
+
+            JavaScriptSerializer jss = new JavaScriptSerializer();
+            foreach (var item in query)
+            {
+
+                FactoryTemp f = new FactoryTemp();
+                f.Id = item.Id;
+                f.Name = item.Name;
+                TempF.Add(f);
+
+            }
+            string output = jss.Serialize(TempF);
+            Response.Write(output);
+            Response.Flush();
+            Response.End();
+
+            return output;
+        }
+       
         public ActionResult ViewMaterialtoMonitor ()
         {
             return View();

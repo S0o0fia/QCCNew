@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="bdfce9a00a1d400d8d9ebde14ee7ef6d" Name="Diagram1" ZoomLevel="59">
+      <Diagram DiagramId="bdfce9a00a1d400d8d9ebde14ee7ef6d" Name="Diagram1" ZoomLevel="43">
         <EntityTypeShape EntityType="QCModel.C_ConClsCustomProperties" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QCModel.C_ConClsPropertyMulti" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QCModel.C_ConClsPropertyThirtyValues" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
@@ -131,7 +131,6 @@
         <EntityTypeShape EntityType="QCModel.Pledge" Width="1.5" PointX="35.375" PointY="14.75" />
         <AssociationConnector Association="QCModel.FK_Pledge_Factory" />
         <AssociationConnector Association="QCModel.FK_Pledge_Locations" />
-        <EntityTypeShape EntityType="QCModel.ConcreteSample1" Width="1.5" PointX="19.375" PointY="35.75" />
         <EntityTypeShape EntityType="QCModel.MixingStationsAnswersOfFactory" Width="1.5" PointX="37.875" PointY="13" />
         <AssociationConnector Association="QCModel.FK__MixingSta__Facto__4AD81681" />
         <EntityTypeShape EntityType="QCModel.MixingStationsQuestion" Width="1.5" PointX="35.625" PointY="22" />
@@ -178,6 +177,9 @@
         <EntityTypeShape EntityType="QCModel.BlockInfraction" Width="1.5" PointX="31.375" PointY="39.75" />
         <EntityTypeShape EntityType="QCModel.BlockAlert" Width="1.5" PointX="39.375" PointY="32.75" />
         <EntityTypeShape EntityType="QCModel.BlockPledge" Width="1.5" PointX="39.375" PointY="16.75" />
+        <EntityTypeShape EntityType="QCModel.ReportUpdateHistory" Width="1.5" PointX="33.375" PointY="39.75" />
+        <EntityTypeShape EntityType="QCModel.BreakSampleFactory" Width="1.5" PointX="35.375" PointY="39.75" />
+        <EntityTypeShape EntityType="QCModel.ConcreteSample1" Width="1.5" PointX="9.375" PointY="40.75" />
         </Diagram>
       <Diagram DiagramId="5f4cbd8fdebb40edad5e97b558df7fec" Name="Diagram2" />
     </edmx:Diagrams>

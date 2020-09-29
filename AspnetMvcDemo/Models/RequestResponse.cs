@@ -128,6 +128,17 @@ namespace AspnetMvcDemo.Models
 
     }
 
+    public class FactoryBreakSamplePath : BreakSampleFactory
+    {
+        public int factId { get; set; }
+        public HttpPostedFileBase[] cube1img1File { get; set; }
+        public HttpPostedFileBase[] cube1img2File { get; set; }
+        public HttpPostedFileBase[] cube2img1File { get; set; }
+        public HttpPostedFileBase[] cube2img2File { get; set; }
+        public HttpPostedFileBase[] cube3img1File { get; set; }
+        public HttpPostedFileBase[] cube3img2File { get; set; }
+    }
+
 
     public class BlockSamplesWithPath : BlockFactoryReport
     {
@@ -235,7 +246,7 @@ namespace AspnetMvcDemo.Models
         public List<string> FactoryName { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public DateTime? VisitDate { get; set; }
     }
 
@@ -244,7 +255,7 @@ namespace AspnetMvcDemo.Models
     {
         public List<VisitsWithPriority> TodayVisits { get; set; }
         public List<ConcreteSample1> ReceiveSamples { get; set; }
-        public List<Factory11> BrokenSamples { get; set; }
+        public List<ConcreteSample1> BrokenSamples { get; set; }
 
         public List<AdminVisit> TotalVisits { get; set; }
 
@@ -445,6 +456,13 @@ namespace AspnetMvcDemo.Models
         public string toDate { get; set; }
     }
 
+
+    public class datePickerDailyReport
+    {
+        public List<VisitDetailsForReports> DailyReportViews { get; set; }
+        public string fromDate { get; set; }
+    }
+
     class ChooseFactroy
     {
         public List<Location> Locations { get; set; }
@@ -577,5 +595,33 @@ namespace AspnetMvcDemo.Models
     public class VisitsWithPriority : Factory11
     {
         public bool? VisitPriority { get; set; }
+        public bool? VisitStatus { get; set; }
     }
+
+    public class CreateVisitVM
+    {
+        public int factId { get; set; }
+
+        public int locationid { get; set; }
+        public string visitDate { get; set; }
+        public List<Location> locations { get; set; }
+        public List<Factory11> factories { get; set; }
+    }
+
+    public class BringMaterialVM
+    {
+        public int locationid { get; set; }
+
+        public int factId { get; set; }
+
+        public string Material { get; set; }
+
+        public List<Location> locations { get; set; }
+        public List<Factory11> factories { get; set; }
+
+
+
+    }
+
+    
 }

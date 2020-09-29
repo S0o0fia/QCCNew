@@ -146,15 +146,15 @@
                             @Html.DisplayFor(modelItem => item.location)
                         </td>
                         <td>
-                            @item.visitDate.Value.ToShortDateString()
+                            @Html.DisplayFor(modelItem => item.visitDate, new { Value = item.visitDate.Value.ToString("dd/MM/yyyy") })
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.monitorname)
                         </td>
 
-                        <td>
+                        <td >
                             <input type="button" value="@Resources.Details" id="editVisit" class="edit btn btn-success"
-                                   onclick="location.href = '@Url.Action( "ReportShowVisits","Reports", new { factoryname = item.factroyname, VisitDate = item.visitDate })'" style="cursor:pointer" />
+                             onclick="location.href = '@Url.Action("ReportShowDailyVisits", "Reports", new { factoryname = item.factroyname, VisitDate = item.visitDate })'" style="cursor:pointer" />
                         </td>
 
                     </tr>

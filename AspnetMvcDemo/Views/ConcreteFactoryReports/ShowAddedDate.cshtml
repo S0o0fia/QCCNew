@@ -1,4 +1,4 @@
-﻿@model AspnetMvcDemo.Models.ConcreteSample1
+﻿@model AspnetMvcDemo.Models.ConcreteSamplesWithPath
 
 @section Styles {
     @Styles.Render("~/bundle/vendor/css/smartwizard/smartwizard")
@@ -90,659 +90,1089 @@
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         @Resources.Resources.Sample_Added_Sucessfully
     </div>
+
     <h3 style="text-align:center">@Resources.Resources.Prepare_Concrete</h3>
     <hr class="container-m-nx border-light my-4">
 
+    @using (Html.BeginForm("ShowAddedDate", "ConcreteFactoryReports", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
 
-    <form>
-        <div id="smartwizard-2" class="smartwizard-example">
-            <ul>
-                <li>
-                    <a href="#smartwizard-2-step-1" class="mb-3">
-                        <span class="sw-done-icon ion ion-md-checkmark"></span>
-                        <span class="sw-icon ion ion-md-copy"></span>
-                        @Resources.Resources.Global_Information
-                        <div class="text-muted small">@Resources.Resources.Step1</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#smartwizard-2-step-2" class="mb-3">
-                        <span class="sw-done-icon ion ion-md-checkmark"></span>
-                        <span class="sw-icon ion ion-md-copy"></span>
-                        @Resources.Resources.Concrete_Sample
-                        <div class="text-muted small">@Resources.Resources.Step2</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#smartwizard-2-step-3" class="mb-3">
-                        <span class="sw-done-icon ion ion-md-checkmark"></span>
-                        <span class="sw-icon ion ion-md-copy"></span>
-                        @Resources.Resources.Mix_Design
-                        <div class="text-muted small">@Resources.Resources.Step3</div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#smartwizard-2-step-4" class="mb-3">
-                        <span class="sw-done-icon ion ion-md-checkmark"></span>
-                        <span class="sw-icon ion ion-md-copy"></span>
-                        @Resources.Resources.Factory_Status
-                        <div class="text-muted small">@Resources.Resources.Step4</div>
-                    </a>
-                </li>
-            </ul>
-            <div class="mb-3">
-                <div id="smartwizard-2-step-1" class="card animated fadeIn">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label class="form-label">@Resources.Resources.Report_Number</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @*<input type="text" class="form-control">*@
-                                @Html.TextBoxFor(m => m.ReportNo, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-label">@Resources.Resources.Report_Date</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @*<input type="date" class="form-control">*@
-                                @Html.TextBox("txtFrmDate", DateTime.Now.ToString("HH:mm:ss yyyy-MMM-dd"), new { @class = "form-control", @readonly = "readonly" })
-                            </div>
-                            @*<div class="col-md-2 form-group">
-                                    <input type="date" class="form-control">
-                                </div>*@
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-2 form-group">
-                                <label class="form-label">@Resources.Resources.Factory_Name</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @*<input class="form-control" type="text" id="name" readonly="readonly" />*@
-                                @Html.TextBoxFor(m => m.FactoryName, new { @class = "form-control", @readonly = "readonly" })
-                            </div>
-                            <div class="col-md-2 form-group">
-                                <label class="form-label">@Resources.Resources.Factroy_Location</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @*<input class="form-control" type="text" id="location" readonly="readonly" />*@
-                                @Html.TextBoxFor(m => m.FactoryLocation, new { @class = "form-control", @readonly = "readonly" })
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-2 form-group">
-                                <label class="form-label">@Resources.Resources.Mixer_Number</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.MixerNumber, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
-                                @*<input class="form-control" type="number" />*@
-                            </div>
-                            <div class="col-md-2 form-group">
-                                <label class="form-label">@Resources.Resources.Factroy_Visit_Number</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.VisitNumber, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-2 form-group">
-                                <label class="form-label">@Resources.Resources.Sample_Number</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @*<input class="form-control" type="number" />*@
-                                @Html.TextBoxFor(m => m.SampleNumber, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
-                            </div>
-                            @*<div class="col-md-2 form-group">
-                                    <label class="form-label">@Resources.Resources.Sample_Time </label>
+        <form>
+            <div id="smartwizard-2" class="smartwizard-example">
+                <ul>
+                    <li>
+                        <a href="#smartwizard-2-step-1" class="mb-3">
+                            <span class="sw-done-icon ion ion-md-checkmark"></span>
+                            <span class="sw-icon ion ion-md-copy"></span>
+                            @Resources.Resources.Global_Information
+                            <div class="text-muted small">@Resources.Resources.Step1</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#smartwizard-2-step-2" class="mb-3">
+                            <span class="sw-done-icon ion ion-md-checkmark"></span>
+                            <span class="sw-icon ion ion-md-copy"></span>
+                            @Resources.Resources.Concrete_Sample
+                            <div class="text-muted small">@Resources.Resources.Step2</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#smartwizard-2-step-3" class="mb-3">
+                            <span class="sw-done-icon ion ion-md-checkmark"></span>
+                            <span class="sw-icon ion ion-md-copy"></span>
+                            @Resources.Resources.Mix_Design
+                            <div class="text-muted small">@Resources.Resources.Step3</div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#smartwizard-2-step-4" class="mb-3">
+                            <span class="sw-done-icon ion ion-md-checkmark"></span>
+                            <span class="sw-icon ion ion-md-copy"></span>
+                            @Resources.Resources.Factory_Status
+                            <div class="text-muted small">@Resources.Resources.Step4</div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="mb-3">
+                    <div id="smartwizard-2-step-1" class="card animated fadeIn">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.Report_Number</label>
                                 </div>
                                 <div class="col-md-4 form-group">
-                                    <input class="form-control" type="time" />
-                                </div>*@
-                            <div class="col-md-2 form-group">
-                                <label class="form-label">@Resources.Resources.Client_Name </label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @*<input class="form-control" type="text" />*@
-                                @Html.TextBoxFor(m => m.ClientName, new { type = "text", @class = "form-control", @readonly = "readonly" })
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-2 form-group">
-                                <label class="form-label">@Resources.Resources.Trucker_Number</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.TruckNumber, new { type = "text", @class = "form-control", @readonly = "readonly" })
-                            </div>
-                            <div class="col-md-2 form-group">
-                                <label class="form-label">@Resources.Resources.Invoice_Number</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.InvoiceNumber, new { type = "text", @class = "form-control", @readonly = "readonly" })
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2 form-group">
-                                <label class="form-label">@Resources.Resources.Invoice_Photo</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @if (Model.InvoicePhoto != null && Model.InvoicePhoto != "")
-                                {
-                                    var myimage1 = Server.MapPath("~/Content/" + Model.InvoicePhoto);
-                                    <a href="~/Content/@Model.InvoicePhoto" target="_blank">فتح الصورة</a>
-                                }
-                                else
-                                {
-                                    <label class="form-label">لا يوجد صورة محفوظة</label>
-                                }
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="col-md-2 form-group">
-                                    <label class="form-label">@Resources.Resources.Visit_Location </label>
+                                    @*<input type="text" class="form-control">*@
+                                    @Html.TextBoxFor(m => m.ReportNo, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
                                 </div>
-                                <div id="gmaps-example" style="height: 400px; width: 100%;"></div>
-                            </div>
-                        </div>
-                        <br />
-                        <div class="row">
-                            <div class="col-md-2 form-group">
-                                <label class="form-label">@Resources.Resources.Latitude </label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.Latitude, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly", id = "lat" })
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.Report_Date</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @*<input type="date" class="form-control">*@
+                                    @Html.TextBox("txtFrmDate", DateTime.Now.ToString("HH:mm:ss yyyy-MMM-dd"), new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                                @*<div class="col-md-2 form-group">
+                <input type="date" class="form-control">
+            </div>*@
                             </div>
 
-                            <div class="col-md-2 form-group">
-                                <label class="form-label">@Resources.Resources.Longitude </label>
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Factory_Name</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @*<input class="form-control" type="text" id="name" readonly="readonly" />*@
+                                    @Html.TextBoxFor(m => m.FactoryName, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Factroy_Location</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @*<input class="form-control" type="text" id="location" readonly="readonly" />*@
+                                    @Html.TextBoxFor(m => m.FactoryLocation, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
                             </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.Longitude, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly", id = "lon" })
+
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Mixer_Number</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.MixerNumber, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                                    @*<input class="form-control" type="number" />*@
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Factroy_Visit_Number</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.VisitNumber, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Sample_Number</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @*<input class="form-control" type="number" />*@
+                                    @Html.TextBoxFor(m => m.SampleNumber, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                                @*<div class="col-md-2 form-group">
+                <label class="form-label">@Resources.Resources.Sample_Time </label>
+            </div>
+            <div class="col-md-4 form-group">
+                <input class="form-control" type="time" />
+            </div>*@
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Client_Name </label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @*<input class="form-control" type="text" />*@
+                                    @Html.TextBoxFor(m => m.ClientName, new { type = "text", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Trucker_Number</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.TruckNumber, new { type = "text", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Invoice_Number</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.InvoiceNumber, new { type = "text", @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label" style="text-align:right">@Resources.Resources.Concrete_Rank : @Model.ConcreteRank</label>
+
+                                </div>
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.Concrete_Using :</label>
+                                </div>
+
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    @Html.HiddenFor(x => x.FactoryName)
+
+                                    <label class="switcher">
+                                        @if (Model.IsCleanUsage == true)
+                                        {
+                                            <span class="switcher-label" style="color:black !important">@Resources.Resources.Clean</span>
+                                        }
+                                    </label>
+
+                                </div>
+                                <div class="col-md-2 form-group">
+
+                                    <label class="switcher">
+                                        @if (Model.IsBasicUsage == true)
+                                        {
+                                            <span class="switcher-label" style="color:black !important">@Resources.Resources.Infastructure</span>
+                                        }
+                                    </label>
+
+                                </div>
+
+                                <div class="col-md-2 form-group">
+
+                                    <label class="switcher">
+                                        @if (Model.IsColumnUsage == true)
+                                        {
+                                            <span class="switcher-label" style="color:black !important">@Resources.Resources.Columns</span>
+                                        }
+                                    </label>
+
+                                </div>
+                                <div class="col-md-2 form-group">
+
+                                    <label class="switcher">
+                                        @if (Model.IsRoofUsage == true)
+                                        {
+                                            <span class="switcher-label" style="color:black !important">@Resources.Resources.Roofs</span>
+                                        }
+                                    </label>
+
+                                </div>
+                                @if (Model.IsOtherUsage == true)
+                                {
+
+                                    <div class="row" id="ReasonHidden">
+                                        <div class="col-md-2">
+                                            <label class="form-label">@Resources.Resources.OtherReason</label>
+                                        </div>
+                                        <div class="col-md-4 form-group">
+                                            @Html.TextBoxFor(m => m.OtherReason, new { type = "text", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Invoice_Photo</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @if (Model.InvoicePhoto != null && Model.InvoicePhoto != "")
+                                    {
+                                        var myimage1 = Server.MapPath("~/Content/" + Model.InvoicePhoto);
+                                        <a href="~/Content/@Model.InvoicePhoto" target="_blank">فتح الصورة</a>
+                                    }
+                                    else
+                                    {
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-12 col-sm-12">
+
+                                                @Html.TextBoxFor(m => m.files, new { @type = "file", @multiple = "multiple" })
+                                            </div>
+                                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                                <label class="form-label">لا يوجد صورة محفوظة</label>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="col-md-2 form-group">
+                                        <label class="form-label">@Resources.Resources.Visit_Location </label>
+                                    </div>
+                                    <div id="gmaps-example" style="height: 400px; width: 100%;"></div>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Latitude </label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.Latitude, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly", id = "lat" })
+                                </div>
+
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Longitude </label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(m => m.Longitude, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly", id = "lon" })
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!--Step Two-->
-                <div id="smartwizard-2-step-2" class="card animated fadeIn">
-                    <div class="card-body">
+                    <!--Step Two-->
+                    <div id="smartwizard-2-step-2" class="card animated fadeIn">
+                        <div class="card-body">
 
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label class="form-label">@Resources.Resources.Concrete_Tempereture</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.ConcreteTemperture, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
-                            </div>
-                            <div class="col-md-2 form-group">
-                                <label class="form-label">@Resources.Resources.Water_Tempreture</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.WaterTemperature, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
-                            </div>
-
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-2 form-group">
-                                <label class="form-label">@Resources.Resources.Weather_Tempreture</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.WeatherTemperture, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
-                            </div>
-                            <div class="col-md-2 form-group">
-                                <label class="form-label">@Resources.Resources.Down_Amount</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.DownAmount, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
-                            </div>
-
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-2 form-group">
-                                <label class="form-label">@Resources.Resources.Cement_Type</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.CementType, new { type = "text", @class = "form-control", @readonly = "readonly" })
-                            </div>
-                            <div class="col-md-2 form-group">
-                                <label class="form-label">@Resources.Resources.Cement_Source</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.CementSource, new { type = "text", @class = "form-control", @readonly = "readonly" })
-                            </div>
-
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-2 form-group">
-                                <label class="form-label">@Resources.Resources.Addtion_Type</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.AdditionType, new { type = "text", @class = "form-control", @readonly = "readonly" })
-                            </div>
-                            <div class="col-md-2 form-group">9
-                                <label class="form-label">@Resources.Resources.Addtion_Amount</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.AdditionAmount, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-2 form-group">
-                                <label class="form-label">نتيجة اختبار درجة حرارة الخرسانة</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @if (Model.TempretureDocPath != null && Model.TempretureDocPath != "")
-                                {
-                                    //var myimage2 = Server.MapPath("~/Content/" + Model.TempretureDocPath);
-                                    <a href="~/Content/@Model.TempretureDocPath" target="_blank">فتح الصورة</a>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.Concrete_Tempereture</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @if (Model.ConcreteTemperture == null)
+                                    {@Html.TextBoxFor(m => m.ConcreteTemperture, new { type = "number", min = "0", step = "1", @class = "form-control" })
                                 }
                                 else
                                 {
-                                    <label class="form-label">لا يوجد صورة محفوظة</label>
+                                    @Html.TextBoxFor(m => m.ConcreteTemperture, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
                                 }
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">نتيجة اختبار درجة حرارة الخرسانة</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @if (Model.TempretureDocPath != null && Model.TempretureDocPath != "")
+                                    {
+                                        //var myimage2 = Server.MapPath("~/Content/" + Model.TempretureDocPath);
+                                        <a href="~/Content/@Model.TempretureDocPath" target="_blank">فتح الصورة</a>
+                                    }
+                                    else
+                                    {
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-12 col-sm-12">
+
+                                                @Html.TextBoxFor(m => m.TempretureDocFiles, new { @type = "file", @multiple = "multiple" })
+                                            </div>
+                                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                                <label class="form-label">لا يوجد صورة محفوظة</label>
+                                            </div>
+                                        </div>
+
+                                    }
+                                </div>
+
+
                             </div>
-                            <div class="col-md-2 form-group">
-                                <label class="form-label">نتيجة اختبار قيمة الهبوط</label>
+
+                            <div class="row">
+
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Down_Amount</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @if (Model.DownAmount == null)
+                                    {
+                                        @Html.TextBoxFor(m => m.DownAmount, new { type = "number", min = "0", step = "1", @class = "form-control" })
+
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(m => m.DownAmount, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+
+                                    }
+                                </div>
+
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">نتيجة اختبار قيمة الهبوط</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @if (Model.DownAmountDocPath != null && Model.DownAmountDocPath != "")
+                                    {
+                                        //var myimage3 = Server.MapPath("~/Content/" + Model.DownAmountDocPath);
+                                        <a href="~/Content/@Model.DownAmountDocPath" target="_blank">فتح الصورة</a>
+                                    }
+                                    else
+                                    {
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-12 col-sm-12">
+
+                                                @Html.TextBoxFor(m => m.DownAmountDocFiles, new { @type = "file", @multiple = "multiple" })
+                                            </div>
+                                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                                <label class="form-label">لا يوجد صورة محفوظة</label>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
                             </div>
-                            <div class="col-md-4 form-group">
-                                @if (Model.DownAmountDocPath != null && Model.DownAmountDocPath != "")
-                                {
-                                    //var myimage3 = Server.MapPath("~/Content/" + Model.DownAmountDocPath);
-                                    <a href="~/Content/@Model.DownAmountDocPath" target="_blank">فتح الصورة</a>
-                                }
-                                else
-                                {
-                                    <label class="form-label">لا يوجد صورة محفوظة</label>
-                                }
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Water_Tempreture</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @if (Model.WaterTemperature == null)
+                                    {
+                                        @Html.TextBoxFor(m => m.WaterTemperature, new { type = "number", min = "0", step = "1", @class = "form-control" })
+
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(m => m.WaterTemperature, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+
+                                    }
+
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Weather_Tempreture</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @if (Model.WeatherTemperture == null)
+                                    {
+                                        @Html.TextBoxFor(m => m.WeatherTemperture, new { type = "number", min = "0", step = "1", @class = "form-control" })
+
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(m => m.WeatherTemperture, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+
+                                    }
+                                </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Cement_Type</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @if (Model.CementType == null)
+                                    {
+                                        var cementist = new SelectList(
+                                                 new List<SelectListItem>
+                                          {
+                                            new SelectListItem {Text = "OPC", Value = "OPC"},
+                                            new SelectListItem {Text = " SRC", Value = "SRC"},
+
+                            }, "Value", "Text");
+
+
+                                        @Html.DropDownListFor(m => m.CementType, cementist, "اختر نوع الاسمنت", new { @class = "form-control", @id = "dropRank" })
+
+
+
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(m => m.CementType, new { type = "text", @class = "form-control", @readonly = "readonly" })
+
+                                    }
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Cement_Source</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @if (Model.CementSource == null)
+                                    {
+
+                                        var cementSourcelist = new SelectList(
+                                            new List<SelectListItem>
+                                            {
+                                            new SelectListItem {Text = "اليمامة", Value = "اليمامة"},
+                                            new SelectListItem {Text = "الراشد", Value = "الراشد"},
+                                            new SelectListItem {Text = "السعودي البحريني", Value = "السعودي البحريني"},
+                                            new SelectListItem {Text = "الشركة السعودية", Value = "الشركة السعودية"},
+                                            new SelectListItem {Text = "الهفوف", Value = "الهفوف"},
+                                            new SelectListItem {Text = "راس الخيمة", Value = "راس الخيمة"},
+                                            new SelectListItem {Text = "الرياض", Value = "الرياض"},
+                                            new SelectListItem {Text = "المدينة", Value = "المدينة"},
+                                            new SelectListItem {Text = "نجران", Value = "نجران"},
+                                            new SelectListItem {Text = "القصيم", Value = "القصيم"},
+                                            new SelectListItem {Text = "الجوف", Value = "الجوف"},
+                            }, "Value", "Text");
+
+                                        @Html.DropDownListFor(m => m.CementSource, cementSourcelist, "اختر مصدر الاسمنت", new { @class = "form-control", @id = "dropRank" })
+
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(m => m.CementSource, new { type = "text", @class = "form-control", @readonly = "readonly" })
+
+                                    }
+                                </div>
+
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Resources.Addtion_Type</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @if (Model.AdditionType == null)
+                                    {
+                                        @Html.TextBoxFor(m => m.AdditionType, new { type = "text", @class = "form-control" })
+
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(m => m.AdditionType, new { type = "text", @class = "form-control", @readonly = "readonly" })
+
+                                    }
+
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    9
+                                    <label class="form-label">@Resources.Resources.Addtion_Amount</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @if (Model.AdditionAmount == null)
+                                    {
+                                        @Html.TextBoxFor(m => m.AdditionAmount, new { type = "number", min = "0", step = "1", @class = "form-control" })
+
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(m => m.AdditionAmount, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+
+                                    }
+                                </div>
+                            </div>
+
+                           
                         </div>
-
-
                     </div>
-                </div>
-                <div id="smartwizard-2-step-3" class="card animated fadeIn">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label class="form-label">@Resources.Resources.Cement_Weight</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.CementWeight, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-label">@Resources.Resources.Water_Weight</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.WaterWieght, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label class="form-label">@Resources.Resources.Washed_Sand</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.WashedSandWeight, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-label">@Resources.Resources.White_Sand</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.WhiteSandWeight, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label class="form-label">@Resources.Resources.Rubble_3_4</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.Rubble3by4, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
-                            </div>
-                            <div class="col-md-2">
-                                <label class="form-label">@Resources.Resources.Rubble_3_8</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @Html.TextBoxFor(m => m.Rubble3by8, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label class="form-label">صورة خلطة الخرسانة</label>
-                            </div>
-                            <div class="col-md-4 form-group">
-                                @if (Model.concretemixPath != null && Model.concretemixPath != "")
-                                {
-                                    //var myimage4 = Server.MapPath("~/Content/" + Model.concretemixPath);
-                                    <a href="~/Content/@Model.concretemixPath" target="_blank">فتح الصورة</a>
-                                }
-                                else
-                                {
-                                    <label class="form-label">لا يوجد صورة محفوظة</label>
-                                }
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label class="form-label" style="text-align:right">@Resources.Resources.Concrete_Rank : @Model.ConcreteRank</label>
-
-                            </div>
-
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label class="form-label">@Resources.Resources.Concrete_Using :</label>
-                            </div>
-
-                        </div>
-                        <br />
-                        <div class="row">
-                            <div class="col-md-2 form-group">
-                                @Html.HiddenFor(x => x.FactoryName)
-
-                                <label class="switcher">
-                                    @if (Model.IsCleanUsage == true)
+                    <div id="smartwizard-2-step-3" class="card animated fadeIn">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.Cement_Weight</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @if (Model.CementWeight == null)
                                     {
-                                        <span class="switcher-label" style="color:black !important">@Resources.Resources.Clean</span>
+                                        @Html.TextBoxFor(m => m.CementWeight, new { type = "number", min = "0", step = "1", @class = "form-control" })
+
                                     }
-                                </label>
-
-                            </div>
-                            <div class="col-md-2 form-group">
-
-                                <label class="switcher">
-                                    @if (Model.IsBasicUsage == true)
+                                    else
                                     {
-                                        <span class="switcher-label" style="color:black !important">@Resources.Resources.Infastructure</span>
+                                        @Html.TextBoxFor(m => m.CementWeight, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+
                                     }
-                                </label>
-
-                            </div>
-
-                            <div class="col-md-2 form-group">
-
-                                <label class="switcher">
-                                    @if (Model.IsColumnUsage == true)
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.Water_Weight</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @if (Model.WaterWieght == null)
                                     {
-                                        <span class="switcher-label" style="color:black !important">@Resources.Resources.Columns</span>
+                                        @Html.TextBoxFor(m => m.WaterWieght, new { type = "number", min = "0", step = "1", @class = "form-control" })
+
                                     }
-                                </label>
-
-                            </div>
-                            <div class="col-md-2 form-group">
-
-                                <label class="switcher">
-                                    @if (Model.IsRoofUsage == true)
+                                    else
                                     {
-                                        <span class="switcher-label" style="color:black !important">@Resources.Resources.Roofs</span>
-                                    }
-                                </label>
+                                        @Html.TextBoxFor(m => m.WaterWieght, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
 
+                                    }
+                                </div>
                             </div>
-                            @if (Model.IsOtherUsage == true)
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.Washed_Sand</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @if (Model.WashedSandWeight == null)
+                                    {
+                                        @Html.TextBoxFor(m => m.WashedSandWeight, new { type = "number", min = "0", step = "1", @class = "form-control" })
+
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(m => m.WashedSandWeight, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+
+                                    }
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.White_Sand</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @if (Model.WhiteSandWeight == null)
+                                    {
+                                        @Html.TextBoxFor(m => m.WhiteSandWeight, new { type = "number", min = "0", step = "1", @class = "form-control" })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(m => m.WhiteSandWeight, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.Rubble_3_4</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @if (Model.Rubble3by4 == null)
+                                    {
+                                        @Html.TextBoxFor(m => m.Rubble3by4, new { type = "number", min = "0", step = "1", @class = "form-control" })
+
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(m => m.Rubble3by4, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+
+                                    }
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Resources.Rubble_3_8</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @if (Model.Rubble3by8 == null)
+                                    {
+                                        @Html.TextBoxFor(m => m.Rubble3by8, new { type = "number", min = "0", step = "1", @class = "form-control" })
+
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(m => m.Rubble3by8, new { type = "number", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
+
+                                    }
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="form-label">صورة خلطة الخرسانة</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @if (Model.concretemixPath != null && Model.concretemixPath != "")
+                                    {
+                                        //var myimage4 = Server.MapPath("~/Content/" + Model.concretemixPath);
+                                        <a href="~/Content/@Model.concretemixPath" target="_blank">فتح الصورة</a>
+                                    }
+                                    else
+                                    {
+                                       <div class="row">
+                                           <div class="col-lg-6 col-md-12 col-sm-12">
+                                            
+                                               @Html.TextBoxFor(m => m.ConcreteMixDocFiles, new { @class = "form-control", @type = "file", @multiple = "multiple" })
+
+                                           </div>
+                                           <div class="col-lg-6 col-md-12 col-sm-12">
+                                               <label class="form-label">لا يوجد صورة محفوظة</label>
+                                           </div>
+                                       </div>
+                                    }
+                                </div>
+                            </div>
+
+                          
+
+                        </div>
+                    </div>
+                    <div id="smartwizard-2-step-4" class="card animated fadeIn">
+                        <div class="card-body">
+                            <table class="table">
+                                <thead>
+                                    <tr style="text-align:center">
+                                        <th>@Resources.Resources.Description</th>
+                                        <th colspan="2">@Resources.Resources.Yes</th>
+                                        <th colspan="2">@Resources.Resources.No</th>
+                                        <th>@Resources.Resources.Note</th>
+                                        <th>@Resources.Resources.Upload</th>
+                                    </tr>
+                                </thead>
+                                <tbody style="text-align:center">
+                                    <tr>
+                                        <td>@Resources.Resources.Quality_of_Factory_Cleaning</td>
+
+                                        @if (Model.IsCleanLocation != null)
+                                        {
+                                            <td colspan="2">
+
+                                                @if (Model.IsCleanLocation == true)
+                                                {
+                                                    <i class="ion-ios-checkmark-circle" style="color:forestgreen; font-size:large"></i>
+                                                }
+
+                                            </td>
+                                            <td colspan="2">
+                                                @if (Model.IsCleanLocation == false)
+                                                {
+                                                    <i class="ion-ios-close-circle" style="color:red; font-size:medium"></i>
+                                                }
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td colspan="2" class="yes">
+
+                                                <div class=" form-group">
+
+                                                    <label class="switcher" id="IsCleanLocationTrue">
+
+                                                        @Html.HiddenFor(x => x.IsCleanLocation, new { id = "IsCleanLocation" })
+                                                        <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio1">
+                                                        <span class="switcher-indicator">
+                                                            <span class="switcher-no"></span>
+                                                            <span class="switcher-yes"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td colspan="2" class="no">
+                                                <div class=" form-group">
+                                                    <label class="switcher" id="IsCleanLocationFalse">
+                                                        <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio1">
+                                                        <span class="switcher-indicator">
+                                                            <span class="switcher-yes"></span>
+                                                            <span class="switcher-no"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        }
+                                        <td>
+                                            <div class=" form-group">
+                                                @Html.TextBoxFor(m => m.CleanDocNote, new { @type = "text", @placeholder = @Resources.Resources.Note })
+                                            </div>
+                                        </td>
+                                        <td>
+
+                                            <div class=" form-group row">
+                                                @*<input type="file" name="UserPhoto" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />*@
+                                                @if (Model.CleanDocPath != null && Model.CleanDocPath != "")
+                                                {
+                                                    //var myimage4 = Server.MapPath("~/Content/" + Model.CleanDocPath);
+                                                    <a href="~/Content/@Model.CleanDocPath" target="_blank">فتح الصورة</a>
+                                                }
+                                                else
+                                                {
+                                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                                    @Html.TextBoxFor(m => m.CleanDocfiles, new { @class = "form-control", @type = "file", @multiple = "multiple" })
+
+                                                </div>
+                                           
+                                                 <div class="col-lg-6 col-md-12 col-sm-12">
+                                                    <label class="form-label">لا يوجد صورة محفوظة</label>
+                                                </div>
+
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Resources.Resources.Quality_control_of_flying_dust_from_the_mixer</td>
+                                        @if (Model.IsDustControlInStation != null)
+                                        {
+                                            <td colspan="2">
+                                                @if (Model.IsDustControlInStation == true)
+                                                {
+                                                    <i class="ion-ios-checkmark-circle" style="color:forestgreen; font-size:medium"></i>
+                                                }
+
+                                            </td>
+                                            <td colspan="2">
+                                                @if (Model.IsDustControlInStation == false)
+                                                {
+                                                    <i class="ion-ios-close-circle" style="color:red; font-size:medium"></i>
+                                                }
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td colspan="2" class="yes">
+                                                <div class=" form-group">
+                                                    <label class="switcher" id="IsDustControlInStationTrue">
+                                                        @Html.HiddenFor(x => x.IsDustControlInStation, new { id = "IsDustControlInStation" })
+                                                        <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio2">
+                                                        <span class="switcher-indicator">
+                                                            <span class="switcher-no"></span>
+                                                            <span class="switcher-yes"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td colspan="2" class="no">
+                                                <div class=" form-group">
+                                                    <label class="switcher" id="IsDustControlInStationFalse">
+                                                        @Html.HiddenFor(x => x.IsDustControlInStation, new { id = "IsDustControlInStation" })
+                                                        <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio2">
+                                                        <span class="switcher-indicator">
+                                                            <span class="switcher-yes"></span>
+                                                            <span class="switcher-no"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        }
+                                        <td>
+                                            <div class=" form-group">
+                                                @Html.TextBoxFor(m => m.DustDocNote, new { @type = "text", @placeholder = @Resources.Resources.Note })
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class=" form-group row">
+                                                @if (Model.DustDocPath != null && Model.DustDocPath != "")
+                                                {
+                                                    //var myimage4 = Server.MapPath("~/Content/" + Model.DustDocPath);
+                                                    <a href="~/Content/@Model.DustDocPath" target="_blank">فتح الصورة</a>
+                                                }
+                                                else
+                                                {
+                                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                                @Html.TextBoxFor(m => m.DustDocfiles, new { @class = "form-control", @type = "file", @multiple = "multiple" })
+
+                                            </div>
+                                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                                <label class="form-label">لا يوجد صورة محفوظة</label>
+
+                                            </div>
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Resources.Resources.Spray_debris_in_the_summer</td>
+                                        @if (Model.IsRokamSummer != null)
+                                        {
+                                            <td colspan="2">
+                                                @if (Model.IsRokamSummer == true)
+                                                {
+                                                    <i class="ion-ios-checkmark-circle" style="color:forestgreen; font-size:medium"></i>
+                                                }
+
+                                            </td>
+                                            <td colspan="2">
+                                                @if (Model.IsRokamSummer == false)
+                                                {
+                                                    <i class="ion-ios-close-circle" style="color:red; font-size:medium"></i>
+                                                }
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td colspan="2" class="yes">
+                                                <div class=" form-group">
+                                                    <label class="switcher" id="IsRokamSummerTrue">
+                                                        @Html.HiddenFor(x => x.IsRokamSummer, new { id = "IsRokamSummer" })
+                                                        <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio3">
+                                                        <span class="switcher-indicator">
+                                                            <span class="switcher-no"></span>
+                                                            <span class="switcher-yes"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td colspan="2" class="no">
+                                                <div class=" form-group">
+                                                    <label class="switcher" id="IsRokamSummerFalse">
+                                                        <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio3">
+                                                        <span class="switcher-indicator">
+                                                            <span class="switcher-yes"></span>
+                                                            <span class="switcher-no"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        }
+                                        <td>
+                                            <div class=" form-group">
+                                                @Html.TextBoxFor(m => m.SummerDocNote, new { @type = "text", @placeholder = @Resources.Resources.Note })
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class=" form-group row">
+                                                @if (Model.SummerDocPath != null && Model.SummerDocPath != "")
+                                                {
+                                                    //var myimage4 = Server.MapPath("~/Content/" + Model.SummerDocPath);
+                                                    <a href="~/Content/@Model.SummerDocPath" target="_blank">فتح الصورة</a>
+                                                }
+                                                else
+                                                {
+
+                                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                                        @Html.TextBoxFor(m => m.SummerDocfiles, new { @class = "form-control", @type = "file", @multiple = "multiple" })
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-12 col-sm-12">
+                                                        <label class="form-label">لا يوجد صورة محفوظة</label>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Resources.Resources.The_presence_of_the_laboratory_engineer</td>
+                                        @if (Model.IsLabEngineer != null)
+                                        {
+                                            <td colspan="2">
+                                                @if (Model.IsLabEngineer == true)
+                                                {
+                                                    <i class="ion-ios-checkmark-circle" style="color:forestgreen; font-size:medium"></i>
+                                                }
+
+                                            </td>
+                                            <td colspan="2">
+                                                @if (Model.IsLabEngineer == false)
+                                                {
+                                                    <i class="ion-ios-close-circle" style="color:red; font-size:medium"></i>
+                                                }
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td colspan="2" class="yes">
+                                                <div class=" form-group">
+                                                    <label class="switcher" id="IsLabEngineerTrue">
+                                                        @Html.HiddenFor(x => x.IsLabEngineer, new { id = "IsLabEngineer" })
+                                                        <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio4">
+                                                        <span class="switcher-indicator">
+                                                            <span class="switcher-no"></span>
+                                                            <span class="switcher-yes"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td colspan="2" class="no">
+                                                <div class=" form-group">
+                                                    <label class="switcher" id="IsLabEngineerFalse">
+                                                        <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio4">
+                                                        <span class="switcher-indicator">
+                                                            <span class="switcher-yes"></span>
+                                                            <span class="switcher-no"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        }
+                                        <td>
+                                            <div class=" form-group">
+                                                @if (Model.LabDocNote == null)
+                                                {
+                                                    var Lablist = new SelectList(new List<SelectListItem>{
+                                               new SelectListItem {Text = "تم تحضير عينة خاصة بالمصنع", Value = "تم تحضير عينة"},
+                                               new SelectListItem {Text = "لم يتم تحضير عينة خاصة بالمصنع", Value = "لم يتم تحضير عينة"}
+                                               }, "Value", "Text");
+
+
+                                                    @Html.DropDownListFor(m => m.LabDocNote, Lablist, "الملاحظات", new { @class = "form-control", @id = "dropRank" })
+
+                                                }
+                                                else
+                                                {
+                                                    @Html.TextBoxFor(m => m.LabDocNote, new { @type = "text", @placeholder = @Resources.Resources.Note })
+
+                                                }
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class=" form-group row">
+                                                @if (Model.LabDocPath != null && Model.LabDocPath != "")
+                                                {
+                                                    //var myimage4 = Server.MapPath("~/Content/" + Model.LabDocPath);
+                                                    <a href="~/Content/@Model.LabDocPath" target="_blank">فتح الصورة</a>
+                                                }
+                                                else
+                                                {
+                                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                                @Html.TextBoxFor(m => m.LabDocfiles, new { @class = "form-control", @type = "file", @multiple = "multiple" })
+
+                                            </div>
+                                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                                <label class="form-label">لا يوجد صورة محفوظة</label>
+
+                                            </div>
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Resources.Resources.The_presence_of_plasticizers_in_the_concrete_transport_vehicle</td>
+                                        @if (Model.IsMoldanatInTrucks != null)
+                                        {
+                                            <td colspan="2">
+                                                @if (Model.IsMoldanatInTrucks == true)
+                                                {
+                                                    <i class="ion-ios-checkmark-circle" style="color:forestgreen; font-size:medium"></i>
+                                                }
+
+                                            </td>
+                                            <td colspan="2">
+                                                @if (Model.IsMoldanatInTrucks == false)
+                                                {
+                                                    <i class="ion-ios-close-circle" style="color:red; font-size:medium"></i>
+                                                }
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td colspan="2" class="yes">
+                                                <div class=" form-group">
+                                                    <label class="switcher" id="IsMoldanatInTrucksTrue">
+                                                        @Html.HiddenFor(x => x.IsMoldanatInTrucks, new { id = "IsMoldanatInTrucks" })
+                                                        <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio5">
+                                                        <span class="switcher-indicator">
+                                                            <span class="switcher-no"></span>
+                                                            <span class="switcher-yes"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td colspan="2" class="no">
+                                                <div class=" form-group">
+                                                    <label class="switcher" id="IsMoldanatInTrucksFalse">
+                                                        <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio5">
+                                                        <span class="switcher-indicator">
+                                                            <span class="switcher-yes"></span>
+                                                            <span class="switcher-no"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        }
+                                        <td>
+                                            <div class=" form-group">
+                                                @Html.TextBoxFor(m => m.TruckDocNote, new { @type = "text", @placeholder = @Resources.Resources.Note })
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class=" form-group row">
+                                                @if (Model.TruckDocPath != null && Model.TruckDocPath != "")
+                                                {
+                                                    //var myimage4 = Server.MapPath("~/Content/" + Model.TruckDocPath);
+                                                    <a href="~/Content/@Model.TruckDocPath" target="_blank">فتح الصورة</a>
+                                                }
+                                                else
+                                                {
+                                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                                @Html.TextBoxFor(m => m.TruckDocfiles, new { @class = "form-control", @type = "file", @multiple = "multiple" })
+                                            </div>
+                                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                                <label class="form-label">لا يوجد صورة محفوظة</label>
+
+                                            </div>
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>@Resources.Resources.Factory_workers_commitment_to_wear_masks</td>
+                                        @if (Model.IsPeopleSafty != null)
+                                        {
+                                            <td colspan="2">
+                                                @if (Model.IsPeopleSafty == true)
+                                                {
+                                                    <i class="ion-ios-checkmark-circle" style="color:forestgreen; font-size:medium"></i>
+                                                }
+
+                                            </td>
+                                            <td colspan="2">
+                                                @if (Model.IsPeopleSafty == false)
+                                                {
+                                                    <i class="ion-ios-close-circle" style="color:red; font-size:medium"></i>
+                                                }
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td colspan="2" class="yes">
+                                                <div class=" form-group">
+                                                    <label class="switcher" id="IsPeopleSaftyTrue">
+                                                        @Html.HiddenFor(x => x.IsPeopleSafty, new { id = "IsPeopleSafty" })
+                                                        <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio6">
+                                                        <span class="switcher-indicator">
+                                                            <span class="switcher-no"></span>
+                                                            <span class="switcher-yes"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td colspan="2" class="no">
+                                                <div class=" form-group">
+                                                    <label class="switcher" id="IsPeopleSaftyFalse">
+                                                        <input type="radio" class="switcher-input is-valid" name="switchers-stacked-radio6">
+                                                        <span class="switcher-indicator">
+                                                            <span class="switcher-yes"></span>
+                                                            <span class="switcher-no"></span>
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </td>
+                                        }
+
+                                        <td>
+                                            <div class=" form-group">
+                                                @Html.TextBoxFor(m => m.SafteyDocNote, new { @type = "text", @placeholder = @Resources.Resources.Note })
+
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class=" form-group row">
+                                                @if (Model.SafteyDocPath != null && Model.SafteyDocPath != "")
+                                                {
+                                                    //var myimage4 = Server.MapPath("~/Content/" + Model.SafteyDocPath);
+                                                    <a href="~/Content/@Model.SafteyDocPath" target="_blank">فتح الصورة</a>
+                                                }
+                                                else
+                                                {
+                                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                                @Html.TextBoxFor(m => m.SafteyDocfiles, new { @class = "form-control", @type = "file", @multiple = "multiple" })
+                                             </div>
+                                            <div class="col-lg-6 col-md-12 col-sm-12">
+                                                <label class="form-label">لا يوجد صورة محفوظة</label>
+                                            </div>
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            @if (Model.ConcreteTemperture == null || Model.DownAmount == null)
                             {
-
-                                <div class="row" id="ReasonHidden">
-                                    <div class="col-md-2">
-                                        <label class="form-label">@Resources.Resources.OtherReason</label>
-                                    </div>
-                                    <div class="col-md-4 form-group">
-                                        @Html.TextBoxFor(m => m.OtherReason, new { type = "text", min = "0", step = "1", @class = "form-control", @readonly = "readonly" })
-                                    </div>
+                                <div class=" form-group">
+                                    <input type="submit" class="btn btn-success" name="Submit2" id="Save" value="حفظ" />
                                 </div>
                             }
                         </div>
-
-
-                    </div>
-                </div>
-                <div id="smartwizard-2-step-4" class="card animated fadeIn">
-                    <div class="card-body">
-                        <table class="table table-responsive">
-                            <thead>
-                                <tr style="text-align:center">
-                                    <th>@Resources.Resources.Description</th>
-                                    <th colspan="2">@Resources.Resources.Yes</th>
-                                    <th colspan="2">@Resources.Resources.No</th>
-                                    <th>@Resources.Resources.Note</th>
-                                    <th>@Resources.Resources.Upload</th>
-                                </tr>
-                            </thead>
-                            <tbody style="text-align:center">
-                                <tr>
-                                    <td>@Resources.Resources.Quality_of_Factory_Cleaning</td>
-                                    <td colspan="2">
-                                        @if (Model.IsCleanLocation == true)
-                                        {
-                                            <i class="ion-ios-checkmark-circle" style="color:forestgreen; font-size:large"></i>
-                                        }
-
-                                    </td>
-                                    <td colspan="2">
-                                        @if (Model.IsCleanLocation == false)
-                                        {
-                                            <i class="ion-ios-close-circle" style="color:red; font-size:medium"></i>
-                                        }
-                                    </td>
-                                    <td>
-                                        <div class=" form-group">
-                                            @Html.TextBoxFor(m => m.CleanDocNote, new { @type = "text", @placeholder = @Resources.Resources.Note })
-                                        </div>
-                                    </td>
-                                    <td>
-
-                                        <div class=" form-group">
-                                            @*<input type="file" name="UserPhoto" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif" />*@
-                                            @if (Model.CleanDocPath != null && Model.CleanDocPath != "")
-                                            {
-                                                //var myimage4 = Server.MapPath("~/Content/" + Model.CleanDocPath);
-                                                <a href="~/Content/@Model.CleanDocPath" target="_blank">فتح الصورة</a>
-                                            }
-                                            else
-                                            {
-                                                <a><label class="form-label">لا يوجد صورة محفوظة</label></a>
-                                            }
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>@Resources.Resources.Quality_control_of_flying_dust_from_the_mixer</td>
-                                    <td colspan="2">
-                                        @if (Model.IsDustControlInStation == true)
-                                        {
-                                            <i class="ion-ios-checkmark-circle" style="color:forestgreen; font-size:medium"></i>
-                                        }
-
-                                    </td>
-                                    <td colspan="2">
-                                        @if (Model.IsDustControlInStation == false)
-                                        {
-                                            <i class="ion-ios-close-circle" style="color:red; font-size:medium"></i>
-                                        }
-                                    </td>
-                                    <td>
-                                        <div class=" form-group">
-                                            @Html.TextBoxFor(m => m.DustDocNote, new { @type = "text", @placeholder = @Resources.Resources.Note })
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class=" form-group">
-                                            @if (Model.DustDocPath != null && Model.DustDocPath != "")
-                                            {
-                                                //var myimage4 = Server.MapPath("~/Content/" + Model.DustDocPath);
-                                                <a href="~/Content/@Model.DustDocPath" target="_blank">فتح الصورة</a>
-                                            }
-                                            else
-                                            {
-                                                <label class="form-label">لا يوجد صورة محفوظة</label>
-                                            }
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>@Resources.Resources.Spray_debris_in_the_summer</td>
-                                    <td colspan="2">
-                                        @if (Model.IsRokamSummer == true)
-                                        {
-                                            <i class="ion-ios-checkmark-circle" style="color:forestgreen; font-size:medium"></i>
-                                        }
-
-                                    </td>
-                                    <td colspan="2">
-                                        @if (Model.IsRokamSummer == false)
-                                        {
-                                            <i class="ion-ios-close-circle" style="color:red; font-size:medium"></i>
-                                        }
-                                    </td>
-                                    <td>
-                                        <div class=" form-group">
-                                            @Html.TextBoxFor(m => m.SummerDocNote, new { @type = "text", @placeholder = @Resources.Resources.Note })
-
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class=" form-group">
-                                            @if (Model.SummerDocPath != null && Model.SummerDocPath != "")
-                                            {
-                                                //var myimage4 = Server.MapPath("~/Content/" + Model.SummerDocPath);
-                                                <a href="~/Content/@Model.SummerDocPath" target="_blank">فتح الصورة</a>
-                                            }
-                                            else
-                                            {
-                                                <label class="form-label">لا يوجد صورة محفوظة</label>
-                                            }
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>@Resources.Resources.The_presence_of_the_laboratory_engineer</td>
-                                    <td colspan="2">
-                                        @if (Model.IsLabEngineer == true)
-                                        {
-                                            <i class="ion-ios-checkmark-circle" style="color:forestgreen; font-size:medium"></i>
-                                        }
-
-                                    </td>
-                                    <td colspan="2">
-                                        @if (Model.IsLabEngineer == false)
-                                        {
-                                            <i class="ion-ios-close-circle" style="color:red; font-size:medium"></i>
-                                        }
-                                    </td>
-                                    <td>
-                                        <div class=" form-group">
-                                            @Html.TextBoxFor(m => m.LabDocNote, new { @type = "text", @placeholder = @Resources.Resources.Note })
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class=" form-group">
-                                            @if (Model.LabDocPath != null && Model.LabDocPath != "")
-                                            {
-                                                //var myimage4 = Server.MapPath("~/Content/" + Model.LabDocPath);
-                                                <a href="~/Content/@Model.LabDocPath" target="_blank">فتح الصورة</a>
-                                            }
-                                            else
-                                            {
-                                                <label class="form-label">لا يوجد صورة محفوظة</label>
-                                            }
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>@Resources.Resources.The_presence_of_plasticizers_in_the_concrete_transport_vehicle</td>
-                                    <td colspan="2">
-                                        @if (Model.IsMoldanatInTrucks == true)
-                                        {
-                                            <i class="ion-ios-checkmark-circle" style="color:forestgreen; font-size:medium"></i>
-                                        }
-
-                                    </td>
-                                    <td colspan="2">
-                                        @if (Model.IsMoldanatInTrucks == false)
-                                        {
-                                            <i class="ion-ios-close-circle" style="color:red; font-size:medium"></i>
-                                        }
-                                    </td>
-                                    <td>
-                                        <div class=" form-group">
-                                            @Html.TextBoxFor(m => m.TruckDocNote, new { @type = "text", @placeholder = @Resources.Resources.Note })
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class=" form-group">
-                                            @if (Model.TruckDocPath != null && Model.TruckDocPath != "")
-                                            {
-                                                //var myimage4 = Server.MapPath("~/Content/" + Model.TruckDocPath);
-                                                <a href="~/Content/@Model.TruckDocPath" target="_blank">فتح الصورة</a>
-                                            }
-                                            else
-                                            {
-                                                <label class="form-label">لا يوجد صورة محفوظة</label>
-                                            }
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>@Resources.Resources.Factory_workers_commitment_to_wear_masks</td>
-                                    <td colspan="2">
-                                        @if (Model.IsPeopleSafty == true)
-                                        {
-                                            <i class="ion-ios-checkmark-circle" style="color:forestgreen; font-size:medium"></i>
-                                        }
-
-                                    </td>
-                                    <td colspan="2">
-                                        @if (Model.IsPeopleSafty == false)
-                                        {
-                                            <i class="ion-ios-close-circle" style="color:red; font-size:medium"></i>
-                                        }
-                                    </td>
-                                    <td>
-                                        <div class=" form-group">
-                                            @Html.TextBoxFor(m => m.SafteyDocNote, new { @type = "text", @placeholder = @Resources.Resources.Note })
-
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class=" form-group">
-                                            @if (Model.SafteyDocPath != null && Model.SafteyDocPath != "")
-                                            {
-                                                //var myimage4 = Server.MapPath("~/Content/" + Model.SafteyDocPath);
-                                                <a href="~/Content/@Model.SafteyDocPath" target="_blank">فتح الصورة</a>
-                                            }
-                                            else
-                                            {
-                                                <label class="form-label">لا يوجد صورة محفوظة</label>
-                                            }
-                                        </div>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
-    <hr class="container-m-nx border-light mt-0 mb-5">
+        </form>
+        <hr class="container-m-nx border-light mt-0 mb-5">
 
-
-</body>
+    }
+    </body>
 
 <script type="text/javascript">
     $(document).ready(function () {

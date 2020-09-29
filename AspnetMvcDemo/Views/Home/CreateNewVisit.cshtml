@@ -1,0 +1,129 @@
+﻿@model AspnetMvcDemo.Models.CreateVisitVM
+@using Resources
+
+<style type="text/css">
+    @@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+        .modal-footer {
+            align-items: center;
+            justify-content: center;
+            justify-items: center;
+        }
+    }
+  
+    #flatpicker-date
+    {
+       z-index:99999 !important; ;
+    }
+</style>
+
+
+@section Styles {
+    @Styles.Render("~/bundle/vendor/css/datatables/datatables")
+    @Styles.Render("~/bundle/vendor/css/bootstrap-datepicker/bootstrap-datepicker")
+    @Styles.Render("~/bundle/vendor/css/flatpickr/flatpickr")
+    @Styles.Render("~/bundle/vendor/css/bootstrap-daterangepicker/bootstrap-daterangepicker")
+    @Styles.Render("~/bundle/vendor/css/bootstrap-material-datetimepicker/bootstrap-material-datetimepicker")
+    @Styles.Render("~/bundle/vendor/css/timepicker/timepicker")
+    @Styles.Render("~/bundle/vendor/css/minicolors/minicolors")
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundle/vendor/js/datatables/datatables")
+    @Scripts.Render("~/bundle/js/tables_datatables")
+    @Scripts.Render("~/bundle/vendor/js/bootbox/bootbox")
+    @Scripts.Render("~/bundle/vendor/js/sweetalert2/sweetalert2")
+    @Scripts.Render("~/bundle/js/ui_modals")
+    @Scripts.Render("~/bundle/vendor/js/moment/moment")
+    @Scripts.Render("~/bundle/vendor/js/bootstrap-datepicker/bootstrap-datepicker")
+    @Scripts.Render("~/bundle/vendor/js/flatpickr/flatpickr")
+    @Scripts.Render("~/bundle/vendor/js/bootstrap-daterangepicker/bootstrap-daterangepicker")
+    @Scripts.Render("~/bundle/vendor/js/bootstrap-material-datetimepicker/bootstrap-material-datetimepicker")
+    @Scripts.Render("~/bundle/vendor/js/timepicker/timepicker")
+    @Scripts.Render("~/bundle/vendor/js/minicolors/minicolors")
+    @Scripts.Render("~/bundle/js/forms_pickers")
+}
+
+<body dir="rtl">
+   <div class="card" style="top:10%;">
+       <div class="card-header" style="text-align:right ; padding-top:2%">
+           <h3 style="font-weight:bold"> إنشاء زيارة جديدة</h3>
+       </div>
+       <div class="card-body">
+           <div class="tab-pane fade active show" dir="rtl">
+               @using (Html.BeginForm("CreateNewVisit", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+               {
+                   <form>
+                       <div class="card-body">
+                           <div class="row">
+                               <div class="col-md-2">
+                                   <label class="form-label">@Resources.FactoryLocation</label>
+                               </div>
+                               <div class="col-md-4 form-group">
+                                   @Html.DropDownListFor(M => M.locationid, new SelectList(Model.locations, "ID", "Location_Arabic"), new { @class = "form-control", @id = "Location" })
+                               </div>
+                          
+                               <div class="col-md-2">
+                                   <label class="form-label">@Resources.Factory_Name</label>
+                               </div>
+                               <div class="col-md-4 form-group">
+                                   @Html.DropDownListFor(M => Model.factId, new SelectList(Model.factories, "Id", "Name"), "اختر اسم المصنع", new { @class = "form-control" ,  @id = "Factories"})
+
+                               </div>
+                               <div class="col-md-2">
+                                   <label class="form-label">@Resources.Visit_Date</label>
+                               </div>
+                               <div class="col-md-4 form-group">
+                                   @Html.TextBoxFor(model => model.visitDate, new { @id = "flatpickr-date", @class = "form-control", @placeholder = "yyyy-MM-dd", @style = "z-index:1500 !important;"  })
+
+                               </div>
+                           </div>
+
+                       </div>
+                       <div class="modal-footer" style="text-align:center; justify-content:center">
+                           <button type="submit" class="btn btn-success">@Resources.Save</button>
+                           <button type="button" class="btn btn-danger" data-dismiss="modal">@Resources.Cancel</button>
+                       </div>
+                   </form>
+               }
+           </div>
+
+       </div>
+   </div>
+</body>
+<script>
+    
+    $('#Location').change(function () {
+        var Location = $(this).val();
+        var urlPost = '@Url.Action("GetFactories", "Home")' + "/" + Location;
+
+        $.get(urlPost, function (data) {
+            var select = $('#Factories');
+            select.append('<option value="">Select a Factory</option>');
+
+            console.log(JSON.stringify(data))
+            //$('#Factories').val(data);
+            console.log($('#Factories').val())
+            var json = JSON.parse(data);
+            var len = json.length;
+            $("#Factories").empty();
+
+            for (var i = 0; i < len; i++) {
+                console.log(json[i])
+                var id = json[i]['Id'];
+                var name = json[i]['Name'];
+
+                $("#Factories").append("<option value='" + id + "'>" + name + "</option>");
+
+            }
+
+        });
+    });
+
+    $(function() {
+    $("body").delegate("#flatpickr-date", "focusin", function(){
+        $(this).datepicker();
+          $(this).css("z-index" , 9999);
+    });
+});
+</script>

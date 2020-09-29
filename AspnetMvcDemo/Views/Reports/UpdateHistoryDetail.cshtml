@@ -1,0 +1,534 @@
+﻿@model  AspnetMvcDemo.Models.ReportUpdateHistory
+
+<style>
+    *{
+        text-align:center;
+    }
+</style>
+    <body dir="rtl">
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr style="color:dodgerblue">
+                            <th>اسم العنصر</th>
+                            <th>القيمة  قبل التعديل </th>
+                            <th>القيمة بعد التعديل</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model.MixerNumber == true)
+                        {
+                            <tr>
+                                <td>رقم الخلاطة</td>
+                                <td>@Model.OldMixerNumber</td>
+                                <td>@Model.NewMixerNumber</td>
+                            </tr>
+                        }
+                        @if (Model.ClientName == true)
+                        {
+                            <tr>
+                                <td>اسم العميل</td>
+                                <td>@Model.OldClientName</td>
+                                <td>@Model.NewClientName</td>
+                            </tr>
+                        }
+                        @if (Model.TruckNumber == true)
+                        {
+                            <tr>
+                                <td>رقم الشاحنة</td>
+                                <td>@Model.OldTruckNumber</td>
+                                <td>@Model.NewTruckNumber</td>
+                            </tr>
+                        }
+                        @if (Model.InvoiceNumber == true)
+                        {
+                            <tr>
+                                <td>رقم الفاتورة</td>
+                                <td>@Model.OldInvoiceNumber</td>
+                                <td>@Model.NewInvoiceNumber</td>
+                            </tr>
+                        }
+
+                        @if (Model.InvoicePhoto == true)
+                        {
+                            <tr>
+                                <td>صورة الفاتورة</td>
+                                <td>  <a href="~/Content/@Model.OldInvoicePhoto" target="_blank">فتح الصورة</a></td>
+                                <td>  <a href="~/Content/@Model.NewInvoicePhoto" target="_blank">فتح الصورة</a></td>
+                            </tr>
+                        }
+
+                        @if (Model.ConcreteTemperture == true)
+                        {
+                            <tr>
+                                <td>درجة حرارة الخرسانة</td>
+                                <td>@Model.OldConcreteTemperture</td>
+                                <td>@Model.NewConcreteTemperture</td>
+                            </tr>
+                        }
+
+                        @if (Model.WaterTemperature == true)
+                        {
+                            <tr>
+                                <td>درجة حرارة الماء</td>
+                                <td>@Model.OldWaterTemperature</td>
+                                <td>@Model.NewWaterTemperature</td>
+                            </tr>
+                        }
+
+                        @if (Model.WeatherTemperture == true)
+                        {
+                            <tr>
+                                <td>درجة حرارة الجو</td>
+                                <td>@Model.OldWeatherTemperture</td>
+                                <td>@Model.NewWeatherTemperture</td>
+                            </tr>
+                        }
+
+                        @if (Model.DownAmount == true)
+                        {
+                            <tr>
+                                <td>قيمة الهبوط</td>
+                                <td>@Model.OldDownAmount</td>
+                                <td>@Model.NewDownAmount</td>
+                            </tr>
+                        }
+                        @if (Model.CementType == true)
+                        {
+                            <tr>
+                                <td>نوع الاسمنت</td>
+                                <td>@Model.OldCementType</td>
+                                <td>@Model.NewCementType</td>
+                            </tr>
+                        }
+                        @if (Model.CementSource == true)
+                        {
+                            <tr>
+                                <td>مصدر الاسمنت</td>
+                                <td>@Model.OldCementSource</td>
+                                <td>@Model.NewCementType</td>
+                            </tr>
+                        }
+                        @if (Model.AdditionType == true)
+                        {
+                            <tr>
+                                <td>نوع الإضافات</td>
+                                <td>@Model.OldAdditionType</td>
+                                <td>@Model.NewAdditionType</td>
+                            </tr>
+                        }
+                        @if (Model.AdditionAmount == true)
+                        {
+                            <tr>
+                                <td>كمية الإضافات</td>
+                                <td>@Model.OldAdditionAmount</td>
+                                <td>@Model.NewAdditionAmount</td>
+                            </tr>
+                        }
+                        @if (Model.TempretureDocPath == true)
+                        {
+                            <tr>
+                                <td>
+                                    نتيجة اختبار درجة حرارة الخرسانة
+
+                                </td>
+                                <td>  <a href="~/Content/@Model.OldTempretureDocPath" target="_blank">فتح الصورة</a></td>
+                                <td>  <a href="~/Content/@Model.NewTempretureDocPath" target="_blank">فتح الصورة</a></td>
+                            </tr>
+                        }
+
+                        @if (Model.DownAmountDocPath == true)
+                        {
+                            <tr>
+                                <td>
+                                    نتيجة اختبار قيمة الهبوط
+
+                                </td>
+                                <td>  <a href="~/Content/@Model.OldDownAmountDocPath" target="_blank">فتح الصورة</a></td>
+                                <td>  <a href="~/Content/@Model.NewDownAmountDocPath" target="_blank">فتح الصورة</a></td>
+                            </tr>
+                        }
+                        @if (Model.CementWeight == true)
+                        {
+                            <tr>
+                                <td>وزن الاسمنت</td>
+                                <td>@Model.OldCementWeight</td>
+                                <td>@Model.NewCementWeight</td>
+                            </tr>
+                        }
+                        @if (Model.WaterWieght == true)
+                        {
+                            <tr>
+                                <td>وزن الماء</td>
+                                <td>@Model.OldWaterWieght</td>
+                                <td>@Model.NewWaterWieght</td>
+                            </tr>
+                        }
+                        @if (Model.WhiteSandWeight == true)
+                        {
+                            <tr>
+                                <td>الرمل الأبيض</td>
+                                <td>@Model.OldWhiteSandWeight</td>
+                                <td>@Model.NewWhiteSandWeight</td>
+                            </tr>
+                        }
+                        @if (Model.WashedSandWeight == true)
+                        {
+                            <tr>
+                                <td>وزن الماءالرمل المغسول</td>
+                                <td>@Model.OldWashedSandWeight</td>
+                                <td>@Model.NewWashedSandWeight</td>
+                            </tr>
+                        }
+                        @if (Model.Rubble3by4 == true)
+                        {
+                            <tr>
+                                <td>الركام 4/3</td>
+                                <td>@Model.OldRubble3by4</td>
+                                <td>@Model.NewRubble3by4</td>
+                            </tr>
+                        }
+                        @if (Model.Rubble3by8 == true)
+                        {
+                            <tr>
+                                <td>الركام 8/3</td>
+                                <td>@Model.OldRubble3by8</td>
+                                <td>@Model.NewRubble3by8</td>
+                            </tr>
+                        }
+                        @if (Model.concretemixPath == true)
+                        {
+                            <tr>
+                                <td>
+                                    صورة خلطة الخرسانة
+                                </td>
+                                <td>  <a href="~/Content/@Model.OldconcretemixPath" target="_blank">فتح الصورة</a></td>
+                                <td>  <a href="~/Content/@Model.OldconcretemixPath" target="_blank">فتح الصورة</a></td>
+
+                            </tr>
+                        }
+                        @if (Model.ConcreteRank == true)
+                        {
+                            <tr>
+                                <td>
+                                    رتبة العينة نيوتن
+                                </td>
+                                <td>@Model.OldConcreteRank</td>
+                                <td>@Model.NewConcreteRank</td>
+                            </tr>
+                        }
+
+                        <tr>
+                            <td>
+                                استخدام الخرسانه
+                            </td>
+
+                            @if (Model.IsCleanUsage == true)
+                            {
+                                <td>نظافة</td>
+                            }
+                            @if (Model.IsBasicUsage == true)
+                            {
+                                <td>أساسات</td>
+                            }
+                            @if (Model.IsColumnUsage == true)
+                            {
+                                <td>أعمدة</td>
+                            }
+                            @if (Model.IsRoofUsage == true)
+                            {
+                                <td>أسقف</td>
+                            }
+                            @if (Model.IsRoofUsage == true)
+                            {
+                                <td>استخدامات أخرى @Model.NewConcreteRank</td>
+                            }
+                            <td></td>
+                        </tr>
+                        @if (Model.IsCleanLocation == true)
+                        {
+                            <tr>
+                                <td>
+                                    جودة نظافة الموقع
+                                </td>
+                                <td>
+                                    @if (@Model.OldIsCleanLocation == true)
+                                    {
+                                        <span>نعم</span>
+                                    }
+                                    else
+                                    {
+                                        <span>لا</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (@Model.NewIsCleanLocation == true)
+                                    {
+                                        <span>نعم</span>
+                                    }
+                                    else
+                                    {
+                                        <span>لا</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                        @if (Model.IsDustControlInStation == true)
+                        {
+                            <tr>
+                                <td>
+                                    جودة التحكم في الغبار المتطاير من الخلاطة
+                                </td>
+                                <td>
+
+                                    @if (@Model.OldIsDustControlInStation == true)
+                                    {
+                                        <span>نعم</span>
+                                    }
+                                    else
+                                    {
+                                        <span>لا</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (@Model.NewIsDustControlInStation == true)
+                                    {
+                                        <span>نعم</span>
+                                    }
+                                    else
+                                    {
+                                        <span>لا</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                        @if (Model.CleanDocNote == true)
+                        {
+                            <tr>
+                                <td>ملاحظات جودة نظافة الموقع</td>
+                                <td>@Model.OldCleanDocNote</td>
+                                <td>@Model.NewCleanDocNote</td>
+                            </tr>
+                        }
+                        @if (Model.CleanDocPath == true)
+                        {
+                            <tr>
+                                <td>
+                                    صورة جودة نظافة الموقع
+                                </td>
+                                <td>  <a href="~/Content/@Model.OldCleanDocPath" target="_blank">فتح الصورة</a></td>
+                                <td>  <a href="~/Content/@Model.OldCleanDocPath" target="_blank">فتح الصورة</a></td>
+
+                            </tr>
+                        }
+
+                        @if (Model.IsRokamSummer == true)
+                        {
+                            <tr>
+                                <td>
+                                    رش الركام في فصل الصيف
+                                </td>
+                                <td>
+                                    @if (@Model.OldIsRokamSummer == true)
+                                    {
+                                        <span>نعم</span>
+                                    }
+                                    else
+                                    {
+                                        <span>لا</span>
+                                    }
+
+                                </td>
+                                <td>
+                                    @if (@Model.NewIsRokamSummer == true)
+                                    {
+                                        <span>نعم</span>
+                                    }
+                                    else
+                                    {
+                                        <span>لا</span>
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                        @if (Model.SummerDocNote == true)
+                        {
+                            <tr>
+                                <td>ملاحظات رش الركام في فصل الصيف</td>
+                                <td>@Model.OldSummerDocNote</td>
+                                <td>@Model.NewSummerDocNote</td>
+                            </tr>
+                        }
+                        @if (Model.SummerDocPath == true)
+                        {
+                            <tr>
+                                <td>
+                                    صورة رش الركام في فصل الصيف
+                                </td>
+                                <td>  <a href="~/Content/@Model.OldSummerDocPath" target="_blank">فتح الصورة</a></td>
+                                <td>  <a href="~/Content/@Model.OldSummerDocPath" target="_blank">فتح الصورة</a></td>
+
+                            </tr>
+                        }
+
+                        @if (Model.IsLabEngineer == true)
+                        {
+                            <tr>
+                                <td>
+                                    تواجد مهندس المختبر
+                                </td>
+                                <td>
+                                    @if (@Model.OldIsLabEngineer == true)
+                                    {
+                                        <span>نعم</span>
+                                    }
+                                    else
+                                    {
+                                        <span>لا</span>
+                                    }
+
+                                </td>
+                                <td>
+                                    @if (@Model.NewIsLabEngineer == true)
+                                    {
+                                        <span>نعم</span>
+                                    }
+                                    else
+                                    {
+                                        <span>لا</span>
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                        @if (Model.LabDocNote == true)
+                        {
+                            <tr>
+                                <td>ملاحظات  تواجد مهندس المختبر</td>
+                                <td>@Model.OldLabDocNote</td>
+                                <td>@Model.NewLabDocNote</td>
+                            </tr>
+                        }
+                        @if (Model.LabDocPath == true)
+                        {
+                            <tr>
+                                <td>
+                                    صورة  تواجد مهندس المختبر
+                                </td>
+                                <td>  <a href="~/Content/@Model.OldLabDocPath" target="_blank">فتح الصورة</a></td>
+                                <td>  <a href="~/Content/@Model.OldLabDocPath" target="_blank">فتح الصورة</a></td>
+
+                            </tr>
+                        }
+
+                        @if (Model.IsMoldanatInTrucks == true)
+                        {
+                            <tr>
+                                <td>
+                                    وجود ملدنات في سيارة نقل الخرسانة
+                                </td>
+                                <td>
+                                    @if (@Model.OldIsMoldanatInTrucks == true)
+                                    {
+                                        <span>نعم</span>
+                                    }
+                                    else
+                                    {
+                                        <span>لا</span>
+                                    }
+
+
+                                </td>
+                                <td>
+                                    @if (@Model.NewIsMoldanatInTrucks == true)
+                                    {
+                                        <span>نعم</span>
+                                    }
+                                    else
+                                    {
+                                        <span>لا</span>
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                        @if (Model.TruckDocNote == true)
+                        {
+                            <tr>
+                                <td>ملاحظات وجود ملدنات في سيارة نقل الخرسانة</td>
+                                <td>@Model.OldTruckDocNote</td>
+                                <td>@Model.NewTruckDocNote</td>
+                            </tr>
+                        }
+                        @if (Model.TruckDocPath == true)
+                        {
+                            <tr>
+                                <td>
+                                    صورة وجود ملدنات في سيارة نقل الخرسانة
+                                </td>
+                                <td>  <a href="~/Content/@Model.OldTruckDocPath" target="_blank">فتح الصورة</a></td>
+                                <td>  <a href="~/Content/@Model.OldTruckDocPath" target="_blank">فتح الصورة</a></td>
+
+                            </tr>
+                        }
+
+                        @if (Model.IsPeopleSafty == true)
+                        {
+                            <tr>
+                                <td>
+                                    التزام العاملين بالمصنع بلبس الكمامات
+                                </td>
+                                <td>
+                                    @if (@Model.OldIsPeopleSafty == true)
+                                    {
+                                        <span>نعم</span>
+                                    }
+                                    else
+                                    {
+                                        <span>لا</span>
+                                    }
+
+                                </td>
+                                <td>
+                                    @if (@Model.NewIsPeopleSafty == true)
+                                    {
+                                        <span>نعم</span>
+                                    }
+                                    else
+                                    {
+                                        <span>لا</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                        @if (Model.SafteyDocNote == true)
+                        {
+                            <tr>
+                                <td>ملاحظات التزام العاملين بالمصنع بلبس الكمامات</td>
+                                <td>@Model.SafteyDocNote</td>
+                                <td>@Model.SafteyDocNote</td>
+                            </tr>
+                        }
+                        @if (Model.SafteyDocPath == true)
+                        {
+                            <tr>
+                                <td>
+                                    صورة التزام العاملين بالمصنع بلبس الكمامات
+                                </td>
+                                <td>  <a href="~/Content/@Model.OldSafteyDocPath" target="_blank">فتح الصورة</a></td>
+                                <td>  <a href="~/Content/@Model.OldSafteyDocPath" target="_blank">فتح الصورة</a></td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="card-footer">
+
+            </div>
+            </div>
+    </body>
+

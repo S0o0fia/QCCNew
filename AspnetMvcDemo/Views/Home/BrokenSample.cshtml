@@ -147,8 +147,7 @@
         </li>
     </ul>
 </div>
-           
-                        <table class="table table-reponsive">
+    <table class="table table-reponsive">
                             <thead style="text-align:center">
                                 <tr>
                                     <th>@Resources.Factory_Name</th>
@@ -162,15 +161,15 @@
                                 {
                                     <tr>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Name)
+                                            @Html.DisplayFor(modelItem => item.FactoryName)
                                         </td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Location)
+                                            @Html.DisplayFor(modelItem => item.FactoryLocation)
                                         </td>
 
                                         <td>
                                             <i class="ion ion-ios-arrow-dropleft-circle d-block"
-                                               onclick="location.href='@Url.Action("ConcreteSample", "ConcreteSample", new { id = item.Id })'" style="cursor:pointer"></i>
+                                               onclick="location.href='@Url.Action("BreakSample", "FactorySampleBreak", new { id = item.SampleNumber })'" style="cursor:pointer"></i>
                                         </td>
                                     </tr>
                                 }

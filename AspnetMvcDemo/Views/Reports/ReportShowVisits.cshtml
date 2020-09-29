@@ -130,7 +130,7 @@
                             </div>
                             <div class="col-md-4 form-group">
                                 @*<input type="date" class="form-control">*@
-                                @Html.TextBox("txtFrmDate", DateTime.Now.ToString("HH:mm:ss yyyy-MMM-dd"), new { @class = "form-control", @readonly = "readonly" })
+                                @Html.TextBox("txtFrmDate", Model.ReportDate.Value.ToString("dd/MM/yyyy"), new { @class = "form-control", @readonly = "readonly" })
                             </div>
                             @*<div class="col-md-2 form-group">
                                     <input type="date" class="form-control">

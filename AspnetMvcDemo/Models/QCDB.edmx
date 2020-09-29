@@ -353,6 +353,20 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="BreakSampleFactory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SampleNumber" Type="int" />
+          <Property Name="Cube1Img1" Type="nvarchar(max)" />
+          <Property Name="Cube1Img2" Type="nvarchar(max)" />
+          <Property Name="Cube2Img1" Type="nvarchar(max)" />
+          <Property Name="Cube2Img2" Type="nvarchar(max)" />
+          <Property Name="Cube3Img1" Type="nvarchar(max)" />
+          <Property Name="Cube3Img2" Type="nvarchar(max)" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
         <EntityType Name="BringMaterialVisit">
           <Key>
             <PropertyRef Name="id" />
@@ -362,6 +376,7 @@
           <Property Name="user_id" Type="int" />
           <Property Name="visitdate" Type="datetime" />
           <Property Name="location_id" Type="int" />
+          <Property Name="materialName" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="CheckEquipmentRequirements">
           <Key>
@@ -755,7 +770,7 @@ warning 6002: The table/view 'ConcreteClassificationDb2017Last.dbo.Classificatio
           <Property Name="CementType" Type="nvarchar" MaxLength="50" />
           <Property Name="CementSource" Type="nvarchar" MaxLength="150" />
           <Property Name="AdditionType" Type="nvarchar" MaxLength="50" />
-          <Property Name="AdditionAmount" Type="float" />
+          <Property Name="AdditionAmount" Type="nvarchar(max)" />
           <Property Name="CementWeight" Type="float" />
           <Property Name="WaterWieght" Type="float" />
           <Property Name="WashedSandWeight" Type="float" />
@@ -1735,6 +1750,157 @@ warning 6002: The table/view 'ConcreteClassificationDb2017Last.dbo.Classificatio
           <Property Name="Status" Type="bit" Nullable="false" />
           <Property Name="FactoryId" Type="int" Nullable="false" />
           <Property Name="FactoryReportId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportUpdateHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MixerNumber" Type="bit" />
+          <Property Name="TruckNumber" Type="bit" />
+          <Property Name="InvoiceNumber" Type="bit" />
+          <Property Name="ClientName" Type="bit" />
+          <Property Name="ConcreteRank" Type="bit" />
+          <Property Name="ConcreteTemperture" Type="bit" />
+          <Property Name="WaterTemperature" Type="bit" />
+          <Property Name="WeatherTemperture" Type="bit" />
+          <Property Name="DownAmount" Type="bit" />
+          <Property Name="CementType" Type="bit" />
+          <Property Name="CementSource" Type="bit" />
+          <Property Name="AdditionType" Type="bit" />
+          <Property Name="AdditionAmount" Type="bit" />
+          <Property Name="CementWeight" Type="bit" />
+          <Property Name="WaterWieght" Type="bit" />
+          <Property Name="WashedSandWeight" Type="bit" />
+          <Property Name="WhiteSandWeight" Type="bit" />
+          <Property Name="Rubble3by4" Type="bit" />
+          <Property Name="Rubble3by8" Type="bit" />
+          <Property Name="IsCleanUsage" Type="bit" />
+          <Property Name="IsBasicUsage" Type="bit" />
+          <Property Name="IsColumnUsage" Type="bit" />
+          <Property Name="IsRoofUsage" Type="bit" />
+          <Property Name="IsOtherUsage" Type="bit" />
+          <Property Name="IsCleanLocation" Type="bit" />
+          <Property Name="IsDustControlInStation" Type="bit" />
+          <Property Name="IsRokamSummer" Type="bit" />
+          <Property Name="IsLabEngineer" Type="bit" />
+          <Property Name="IsMoldanatInTrucks" Type="bit" />
+          <Property Name="IsPeopleSafty" Type="bit" />
+          <Property Name="InvoicePhoto" Type="bit" />
+          <Property Name="CleanDocPath" Type="bit" />
+          <Property Name="DustDocPath" Type="bit" />
+          <Property Name="SummerDocPath" Type="bit" />
+          <Property Name="LabDocPath" Type="bit" />
+          <Property Name="TruckDocPath" Type="bit" />
+          <Property Name="SafteyDocPath" Type="bit" />
+          <Property Name="OtherReason" Type="bit" />
+          <Property Name="CleanDocNote" Type="bit" />
+          <Property Name="DustDocNote" Type="bit" />
+          <Property Name="SummerDocNote" Type="bit" />
+          <Property Name="LabDocNote" Type="bit" />
+          <Property Name="TruckDocNote" Type="bit" />
+          <Property Name="SafteyDocNote" Type="bit" />
+          <Property Name="TempretureDocPath" Type="bit" />
+          <Property Name="DownAmountDocPath" Type="bit" />
+          <Property Name="concretemixPath" Type="bit" />
+          <Property Name="userId" Type="int" />
+          <Property Name="EditDate" Type="datetime" />
+          <Property Name="SampleNumber" Type="int" />
+          <Property Name="OldMixerNumber" Type="nvarchar(max)" />
+          <Property Name="NewMixerNumber" Type="nvarchar(max)" />
+          <Property Name="OldTruckNumber" Type="nvarchar(max)" />
+          <Property Name="NewTruckNumber" Type="nvarchar(max)" />
+          <Property Name="OldInvoiceNumber" Type="nvarchar(max)" />
+          <Property Name="NewInvoiceNumber" Type="nvarchar(max)" />
+          <Property Name="OldClientName" Type="nvarchar(max)" />
+          <Property Name="NewClientName" Type="nvarchar(max)" />
+          <Property Name="OldConcreteRank" Type="nvarchar(max)" />
+          <Property Name="NewConcreteRank" Type="nvarchar(max)" />
+          <Property Name="OldConcreteTemperture" Type="float" />
+          <Property Name="NewConcreteTemperture" Type="float" />
+          <Property Name="OldWaterTemperature" Type="float" />
+          <Property Name="NewWaterTemperature" Type="float" />
+          <Property Name="OldWeatherTemperture" Type="float" />
+          <Property Name="NewWeatherTemperture" Type="float" />
+          <Property Name="OldDownAmount" Type="float" />
+          <Property Name="NewDownAmount" Type="float" />
+          <Property Name="OldCementType" Type="nvarchar(max)" />
+          <Property Name="NewCementType" Type="nvarchar(max)" />
+          <Property Name="OldCementSource" Type="nvarchar(max)" />
+          <Property Name="NewCementSource" Type="nvarchar(max)" />
+          <Property Name="OldAdditionType" Type="nvarchar(max)" />
+          <Property Name="NewAdditionType" Type="nvarchar(max)" />
+          <Property Name="OldAdditionAmount" Type="float" />
+          <Property Name="NewAdditionAmount" Type="float" />
+          <Property Name="OldCementWeight" Type="float" />
+          <Property Name="NewCementWeight" Type="float" />
+          <Property Name="OldWaterWieght" Type="float" />
+          <Property Name="NewWaterWieght" Type="float" />
+          <Property Name="OldWashedSandWeight" Type="float" />
+          <Property Name="NewWashedSandWeight" Type="float" />
+          <Property Name="OldWhiteSandWeight" Type="float" />
+          <Property Name="NewWhiteSandWeight" Type="float" />
+          <Property Name="OldRubble3by4" Type="float" />
+          <Property Name="NewRubble3by4" Type="float" />
+          <Property Name="OldRubble3by8" Type="float" />
+          <Property Name="NewRubble3by8" Type="float" />
+          <Property Name="OldIsCleanUsage" Type="bit" />
+          <Property Name="NewIsCleanUsage" Type="bit" />
+          <Property Name="OldIsBasicUsage" Type="bit" />
+          <Property Name="NewIsBasicUsage" Type="bit" />
+          <Property Name="OldIsColumnUsage" Type="bit" />
+          <Property Name="NewIsColumnUsage" Type="bit" />
+          <Property Name="OldIsRoofUsage" Type="bit" />
+          <Property Name="NewIsRoofUsage" Type="bit" />
+          <Property Name="OldIsOtherUsage" Type="bit" />
+          <Property Name="NewIsOtherUsage" Type="bit" />
+          <Property Name="OldIsCleanLocation" Type="bit" />
+          <Property Name="NewIsCleanLocation" Type="bit" />
+          <Property Name="OldIsDustControlInStation" Type="bit" />
+          <Property Name="NewIsDustControlInStation" Type="bit" />
+          <Property Name="OldIsRokamSummer" Type="bit" />
+          <Property Name="NewIsRokamSummer" Type="bit" />
+          <Property Name="OldIsLabEngineer" Type="bit" />
+          <Property Name="NewIsLabEngineer" Type="bit" />
+          <Property Name="OldIsMoldanatInTrucks" Type="bit" />
+          <Property Name="NewIsMoldanatInTrucks" Type="bit" />
+          <Property Name="OldIsPeopleSafty" Type="bit" />
+          <Property Name="NewIsPeopleSafty" Type="bit" />
+          <Property Name="OldInvoicePhoto" Type="nvarchar(max)" />
+          <Property Name="NewInvoicePhoto" Type="nvarchar(max)" />
+          <Property Name="OldCleanDocPath" Type="nvarchar(max)" />
+          <Property Name="NewCleanDocPath" Type="nvarchar(max)" />
+          <Property Name="OldDustDocPath" Type="nvarchar(max)" />
+          <Property Name="NewDustDocPath" Type="nvarchar(max)" />
+          <Property Name="OldSummerDocPath" Type="nvarchar(max)" />
+          <Property Name="NewSummerDocPath" Type="nvarchar(max)" />
+          <Property Name="OldLabDocPath" Type="nvarchar(max)" />
+          <Property Name="NewLabDocPath" Type="nvarchar(max)" />
+          <Property Name="OldTruckDocPath" Type="nvarchar(max)" />
+          <Property Name="NewTruckDocPath" Type="nvarchar(max)" />
+          <Property Name="OldSafteyDocPath" Type="nvarchar(max)" />
+          <Property Name="NewSafteyDocPath" Type="nvarchar(max)" />
+          <Property Name="OldOtherReason" Type="nvarchar(max)" />
+          <Property Name="NewOtherReason" Type="nvarchar(max)" />
+          <Property Name="OldCleanDocNote" Type="nvarchar(max)" />
+          <Property Name="NewCleanDocNote" Type="nvarchar(max)" />
+          <Property Name="OldDustDocNote" Type="nvarchar(max)" />
+          <Property Name="NewDustDocNote" Type="nvarchar(max)" />
+          <Property Name="OldSummerDocNote" Type="nvarchar(max)" />
+          <Property Name="NewSummerDocNote" Type="nvarchar(max)" />
+          <Property Name="OldLabDocNote" Type="nvarchar(max)" />
+          <Property Name="NewLabDocNote" Type="nvarchar(max)" />
+          <Property Name="OldTruckDocNote" Type="nvarchar(max)" />
+          <Property Name="NewTruckDocNote" Type="nvarchar(max)" />
+          <Property Name="OldSafteyDocNote" Type="nvarchar(max)" />
+          <Property Name="NewSafteyDocNote" Type="nvarchar(max)" />
+          <Property Name="OldTempretureDocPath" Type="nvarchar(max)" />
+          <Property Name="NewTempretureDocPath" Type="nvarchar(max)" />
+          <Property Name="OldDownAmountDocPath" Type="nvarchar(max)" />
+          <Property Name="NewDownAmountDocPath" Type="nvarchar(max)" />
+          <Property Name="OldconcretemixPath" Type="nvarchar(max)" />
+          <Property Name="NewconcretemixPath" Type="nvarchar(max)" />
+          <Property Name="MonitorName" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="ReviewMaterial">
           <Key>
@@ -3512,6 +3678,7 @@ warning 6002: The table/view 'ConcreteClassificationDb2017Last.dbo.vw_aspnet_Web
           <EntitySet Name="BlockUsers" EntityType="Self.BlockUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BlockVisitDetails" EntityType="Self.BlockVisitDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Branches" EntityType="Self.Branches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BreakSampleFactory" EntityType="Self.BreakSampleFactory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="BringMaterialVisit" EntityType="Self.BringMaterialVisit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CheckEquipmentRequirements" EntityType="Self.CheckEquipmentRequirements" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CheckEquipmentRequirementsOfFactory" EntityType="Self.CheckEquipmentRequirementsOfFactory" Schema="dbo" store:Type="Tables" />
@@ -3587,6 +3754,7 @@ warning 6002: The table/view 'ConcreteClassificationDb2017Last.dbo.vw_aspnet_Web
           <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QCWorkFlow" EntityType="Self.QCWorkFlow" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReportResults" EntityType="Self.ReportResults" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportUpdateHistory" EntityType="Self.ReportUpdateHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ReviewMaterial" EntityType="Self.ReviewMaterial" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SampleCubePaths" EntityType="Self.SampleCubePaths" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SamplesWorkFlows" EntityType="Self.SamplesWorkFlows" Schema="dbo" store:Type="Tables" />
@@ -6928,7 +7096,6 @@ warning 6002: The table/view 'ConcreteClassificationDb2017Last.dbo.vw_aspnet_Web
             <End Role="Location" EntitySet="Locations" />
             <End Role="Pledge" EntitySet="Pledges" />
           </AssociationSet>
-          <EntitySet Name="ConcreteSample1" EntityType="QCModel.ConcreteSample1" />
           <EntitySet Name="MixingStationsAnswersOfFactories" EntityType="QCModel.MixingStationsAnswersOfFactory" />
           <AssociationSet Name="FK__MixingSta__Facto__4AD81681" Association="QCModel.FK__MixingSta__Facto__4AD81681">
             <End Role="Factory11" EntitySet="Factory11" />
@@ -7012,6 +7179,9 @@ warning 6002: The table/view 'ConcreteClassificationDb2017Last.dbo.vw_aspnet_Web
           <EntitySet Name="BlockInfractions" EntityType="QCModel.BlockInfraction" />
           <EntitySet Name="BlockAlerts" EntityType="QCModel.BlockAlert" />
           <EntitySet Name="BlockPledges" EntityType="QCModel.BlockPledge" />
+          <EntitySet Name="ReportUpdateHistories" EntityType="QCModel.ReportUpdateHistory" />
+          <EntitySet Name="BreakSampleFactories" EntityType="QCModel.BreakSampleFactory" />
+          <EntitySet Name="ConcreteSample1" EntityType="QCModel.ConcreteSample1" />
           </EntityContainer>
         <ComplexType Name="AsphaltInsepector_Result">
           <Property Type="String" Name="SampleType" Nullable="true" MaxLength="50" />
@@ -8260,6 +8430,7 @@ warning 6002: The table/view 'ConcreteClassificationDb2017Last.dbo.vw_aspnet_Web
           <Property Name="user_id" Type="Int32" />
           <Property Name="visitdate" Type="DateTime" Precision="3" />
           <Property Name="location_id" Type="Int32" />
+          <Property Name="materialName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Infraction">
           <Key>
@@ -8470,71 +8641,6 @@ warning 6002: The table/view 'ConcreteClassificationDb2017Last.dbo.vw_aspnet_Web
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="ConcreteSample1">
-          <Key>
-            <PropertyRef Name="ReportNo" />
-          </Key>
-          <Property Name="ReportNo" Type="Int64" Nullable="false" />
-          <Property Name="ReportDate" Type="DateTime" Precision="3" />
-          <Property Name="FactoryName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="FactoryLocation" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="MixerNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="VisitNumber" Type="Int64" />
-          <Property Name="SampleNumber" Type="Int64" />
-          <Property Name="TruckNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="InvoiceNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="ClientName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="VisitLocation" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Latitude" Type="Double" />
-          <Property Name="Longitude" Type="Double" />
-          <Property Name="ConcreteRank" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="ConcreteTemperture" Type="Double" />
-          <Property Name="WaterTemperature" Type="Double" />
-          <Property Name="WeatherTemperture" Type="Double" />
-          <Property Name="DownAmount" Type="Double" />
-          <Property Name="CementType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CementSource" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="AdditionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AdditionAmount" Type="Double" />
-          <Property Name="CementWeight" Type="Double" />
-          <Property Name="WaterWieght" Type="Double" />
-          <Property Name="WashedSandWeight" Type="Double" />
-          <Property Name="WhiteSandWeight" Type="Double" />
-          <Property Name="Rubble3by4" Type="Double" />
-          <Property Name="Rubble3by8" Type="Double" />
-          <Property Name="IsCleanUsage" Type="Boolean" />
-          <Property Name="IsBasicUsage" Type="Boolean" />
-          <Property Name="IsColumnUsage" Type="Boolean" />
-          <Property Name="IsRoofUsage" Type="Boolean" />
-          <Property Name="IsOtherUsage" Type="Boolean" />
-          <Property Name="IsCleanLocation" Type="Boolean" />
-          <Property Name="IsDustControlInStation" Type="Boolean" />
-          <Property Name="IsRokamSummer" Type="Boolean" />
-          <Property Name="IsLabEngineer" Type="Boolean" />
-          <Property Name="IsMoldanatInTrucks" Type="Boolean" />
-          <Property Name="IsPeopleSafty" Type="Boolean" />
-          <Property Name="SampledBy" Type="Int32" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
-          <Property Name="IsReceived" Type="Boolean" />
-          <Property Name="InvoicePhoto" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="CleanDocPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="DustDocPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="SummerDocPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="LabDocPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="TruckDocPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="SafteyDocPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="OtherReason" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="CleanDocNote" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
-          <Property Name="DustDocNote" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
-          <Property Name="SummerDocNote" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
-          <Property Name="LabDocNote" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
-          <Property Name="TruckDocNote" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
-          <Property Name="SafteyDocNote" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
-          <Property Name="labdeliver" Type="Boolean" />
-          <Property Name="TempretureDocPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="DownAmountDocPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="concretemixPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
         <EntityType Name="MixingStationsAnswersOfFactory">
           <Key>
             <PropertyRef Name="ID" />
@@ -9175,6 +9281,236 @@ warning 6002: The table/view 'ConcreteClassificationDb2017Last.dbo.vw_aspnet_Web
           <Property Name="LocationID" Type="Int32" />
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="Path" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ReportUpdateHistory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MixerNumber" Type="Boolean" />
+          <Property Name="TruckNumber" Type="Boolean" />
+          <Property Name="InvoiceNumber" Type="Boolean" />
+          <Property Name="ClientName" Type="Boolean" />
+          <Property Name="ConcreteRank" Type="Boolean" />
+          <Property Name="ConcreteTemperture" Type="Boolean" />
+          <Property Name="WaterTemperature" Type="Boolean" />
+          <Property Name="WeatherTemperture" Type="Boolean" />
+          <Property Name="DownAmount" Type="Boolean" />
+          <Property Name="CementType" Type="Boolean" />
+          <Property Name="CementSource" Type="Boolean" />
+          <Property Name="AdditionType" Type="Boolean" />
+          <Property Name="AdditionAmount" Type="Boolean" />
+          <Property Name="CementWeight" Type="Boolean" />
+          <Property Name="WaterWieght" Type="Boolean" />
+          <Property Name="WashedSandWeight" Type="Boolean" />
+          <Property Name="WhiteSandWeight" Type="Boolean" />
+          <Property Name="Rubble3by4" Type="Boolean" />
+          <Property Name="Rubble3by8" Type="Boolean" />
+          <Property Name="IsCleanUsage" Type="Boolean" />
+          <Property Name="IsBasicUsage" Type="Boolean" />
+          <Property Name="IsColumnUsage" Type="Boolean" />
+          <Property Name="IsRoofUsage" Type="Boolean" />
+          <Property Name="IsOtherUsage" Type="Boolean" />
+          <Property Name="IsCleanLocation" Type="Boolean" />
+          <Property Name="IsDustControlInStation" Type="Boolean" />
+          <Property Name="IsRokamSummer" Type="Boolean" />
+          <Property Name="IsLabEngineer" Type="Boolean" />
+          <Property Name="IsMoldanatInTrucks" Type="Boolean" />
+          <Property Name="IsPeopleSafty" Type="Boolean" />
+          <Property Name="InvoicePhoto" Type="Boolean" />
+          <Property Name="CleanDocPath" Type="Boolean" />
+          <Property Name="DustDocPath" Type="Boolean" />
+          <Property Name="SummerDocPath" Type="Boolean" />
+          <Property Name="LabDocPath" Type="Boolean" />
+          <Property Name="TruckDocPath" Type="Boolean" />
+          <Property Name="SafteyDocPath" Type="Boolean" />
+          <Property Name="OtherReason" Type="Boolean" />
+          <Property Name="CleanDocNote" Type="Boolean" />
+          <Property Name="DustDocNote" Type="Boolean" />
+          <Property Name="SummerDocNote" Type="Boolean" />
+          <Property Name="LabDocNote" Type="Boolean" />
+          <Property Name="TruckDocNote" Type="Boolean" />
+          <Property Name="SafteyDocNote" Type="Boolean" />
+          <Property Name="TempretureDocPath" Type="Boolean" />
+          <Property Name="DownAmountDocPath" Type="Boolean" />
+          <Property Name="concretemixPath" Type="Boolean" />
+          <Property Name="userId" Type="Int32" />
+          <Property Name="EditDate" Type="DateTime" Precision="3" />
+          <Property Name="SampleNumber" Type="Int32" />
+          <Property Name="OldMixerNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewMixerNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldTruckNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewTruckNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldInvoiceNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewInvoiceNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldClientName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewClientName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldConcreteRank" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewConcreteRank" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldConcreteTemperture" Type="Double" />
+          <Property Name="NewConcreteTemperture" Type="Double" />
+          <Property Name="OldWaterTemperature" Type="Double" />
+          <Property Name="NewWaterTemperature" Type="Double" />
+          <Property Name="OldWeatherTemperture" Type="Double" />
+          <Property Name="NewWeatherTemperture" Type="Double" />
+          <Property Name="OldDownAmount" Type="Double" />
+          <Property Name="NewDownAmount" Type="Double" />
+          <Property Name="OldCementType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewCementType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldCementSource" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewCementSource" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldAdditionType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewAdditionType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldAdditionAmount" Type="Double" />
+          <Property Name="NewAdditionAmount" Type="Double" />
+          <Property Name="OldCementWeight" Type="Double" />
+          <Property Name="NewCementWeight" Type="Double" />
+          <Property Name="OldWaterWieght" Type="Double" />
+          <Property Name="NewWaterWieght" Type="Double" />
+          <Property Name="OldWashedSandWeight" Type="Double" />
+          <Property Name="NewWashedSandWeight" Type="Double" />
+          <Property Name="OldWhiteSandWeight" Type="Double" />
+          <Property Name="NewWhiteSandWeight" Type="Double" />
+          <Property Name="OldRubble3by4" Type="Double" />
+          <Property Name="NewRubble3by4" Type="Double" />
+          <Property Name="OldRubble3by8" Type="Double" />
+          <Property Name="NewRubble3by8" Type="Double" />
+          <Property Name="OldIsCleanUsage" Type="Boolean" />
+          <Property Name="NewIsCleanUsage" Type="Boolean" />
+          <Property Name="OldIsBasicUsage" Type="Boolean" />
+          <Property Name="NewIsBasicUsage" Type="Boolean" />
+          <Property Name="OldIsColumnUsage" Type="Boolean" />
+          <Property Name="NewIsColumnUsage" Type="Boolean" />
+          <Property Name="OldIsRoofUsage" Type="Boolean" />
+          <Property Name="NewIsRoofUsage" Type="Boolean" />
+          <Property Name="OldIsOtherUsage" Type="Boolean" />
+          <Property Name="NewIsOtherUsage" Type="Boolean" />
+          <Property Name="OldIsCleanLocation" Type="Boolean" />
+          <Property Name="NewIsCleanLocation" Type="Boolean" />
+          <Property Name="OldIsDustControlInStation" Type="Boolean" />
+          <Property Name="NewIsDustControlInStation" Type="Boolean" />
+          <Property Name="OldIsRokamSummer" Type="Boolean" />
+          <Property Name="NewIsRokamSummer" Type="Boolean" />
+          <Property Name="OldIsLabEngineer" Type="Boolean" />
+          <Property Name="NewIsLabEngineer" Type="Boolean" />
+          <Property Name="OldIsMoldanatInTrucks" Type="Boolean" />
+          <Property Name="NewIsMoldanatInTrucks" Type="Boolean" />
+          <Property Name="OldIsPeopleSafty" Type="Boolean" />
+          <Property Name="NewIsPeopleSafty" Type="Boolean" />
+          <Property Name="OldInvoicePhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewInvoicePhoto" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldCleanDocPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewCleanDocPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldDustDocPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewDustDocPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldSummerDocPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewSummerDocPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldLabDocPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewLabDocPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldTruckDocPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewTruckDocPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldSafteyDocPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewSafteyDocPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldOtherReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewOtherReason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldCleanDocNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewCleanDocNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldDustDocNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewDustDocNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldSummerDocNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewSummerDocNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldLabDocNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewLabDocNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldTruckDocNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewTruckDocNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldSafteyDocNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewSafteyDocNote" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldTempretureDocPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewTempretureDocPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldDownAmountDocPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewDownAmountDocPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="OldconcretemixPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NewconcretemixPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MonitorName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="BreakSampleFactory">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SampleNumber" Type="Int32" />
+          <Property Name="Cube1Img1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Cube1Img2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Cube2Img1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Cube2Img2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Cube3Img1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Cube3Img2" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="ConcreteSample1">
+          <Key>
+            <PropertyRef Name="ReportNo" />
+          </Key>
+          <Property Name="ReportNo" Type="Int64" Nullable="false" />
+          <Property Name="ReportDate" Type="DateTime" Precision="3" />
+          <Property Name="FactoryName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="FactoryLocation" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="MixerNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="VisitNumber" Type="Int64" />
+          <Property Name="SampleNumber" Type="Int64" />
+          <Property Name="TruckNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="InvoiceNumber" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ClientName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="VisitLocation" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Latitude" Type="Double" />
+          <Property Name="Longitude" Type="Double" />
+          <Property Name="ConcreteRank" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ConcreteTemperture" Type="Double" />
+          <Property Name="WaterTemperature" Type="Double" />
+          <Property Name="WeatherTemperture" Type="Double" />
+          <Property Name="DownAmount" Type="Double" />
+          <Property Name="CementType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CementSource" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="AdditionType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdditionAmount" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CementWeight" Type="Double" />
+          <Property Name="WaterWieght" Type="Double" />
+          <Property Name="WashedSandWeight" Type="Double" />
+          <Property Name="WhiteSandWeight" Type="Double" />
+          <Property Name="Rubble3by4" Type="Double" />
+          <Property Name="Rubble3by8" Type="Double" />
+          <Property Name="IsCleanUsage" Type="Boolean" />
+          <Property Name="IsBasicUsage" Type="Boolean" />
+          <Property Name="IsColumnUsage" Type="Boolean" />
+          <Property Name="IsRoofUsage" Type="Boolean" />
+          <Property Name="IsOtherUsage" Type="Boolean" />
+          <Property Name="IsCleanLocation" Type="Boolean" />
+          <Property Name="IsDustControlInStation" Type="Boolean" />
+          <Property Name="IsRokamSummer" Type="Boolean" />
+          <Property Name="IsLabEngineer" Type="Boolean" />
+          <Property Name="IsMoldanatInTrucks" Type="Boolean" />
+          <Property Name="IsPeopleSafty" Type="Boolean" />
+          <Property Name="SampledBy" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsReceived" Type="Boolean" />
+          <Property Name="InvoicePhoto" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CleanDocPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DustDocPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SummerDocPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="LabDocPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="TruckDocPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="SafteyDocPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="OtherReason" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="CleanDocNote" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="DustDocNote" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="SummerDocNote" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="LabDocNote" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="TruckDocNote" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="SafteyDocNote" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="labdeliver" Type="Boolean" />
+          <Property Name="TempretureDocPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="DownAmountDocPath" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="concretemixPath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         </Schema>
     </edmx:ConceptualModels>
@@ -12299,6 +12635,7 @@ warning 6002: The table/view 'ConcreteClassificationDb2017Last.dbo.vw_aspnet_Web
           <EntitySetMapping Name="BringMaterialVisits">
             <EntityTypeMapping TypeName="QCModel.BringMaterialVisit">
               <MappingFragment StoreEntitySet="BringMaterialVisit">
+                <ScalarProperty Name="materialName" ColumnName="materialName" />
                 <ScalarProperty Name="location_id" ColumnName="location_id" />
                 <ScalarProperty Name="visitdate" ColumnName="visitdate" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
@@ -12457,72 +12794,6 @@ warning 6002: The table/view 'ConcreteClassificationDb2017Last.dbo.vw_aspnet_Web
                 <ScalarProperty Name="LocationID" ColumnName="LocationID" />
                 <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ConcreteSample1">
-            <EntityTypeMapping TypeName="QCModel.ConcreteSample1">
-              <MappingFragment StoreEntitySet="ConcreteSample">
-                <ScalarProperty Name="concretemixPath" ColumnName="concretemixPath" />
-                <ScalarProperty Name="DownAmountDocPath" ColumnName="DownAmountDocPath" />
-                <ScalarProperty Name="TempretureDocPath" ColumnName="TempretureDocPath" />
-                <ScalarProperty Name="labdeliver" ColumnName="labdeliver" />
-                <ScalarProperty Name="SafteyDocNote" ColumnName="SafteyDocNote" />
-                <ScalarProperty Name="TruckDocNote" ColumnName="TruckDocNote" />
-                <ScalarProperty Name="LabDocNote" ColumnName="LabDocNote" />
-                <ScalarProperty Name="SummerDocNote" ColumnName="SummerDocNote" />
-                <ScalarProperty Name="DustDocNote" ColumnName="DustDocNote" />
-                <ScalarProperty Name="CleanDocNote" ColumnName="CleanDocNote" />
-                <ScalarProperty Name="OtherReason" ColumnName="OtherReason" />
-                <ScalarProperty Name="SafteyDocPath" ColumnName="SafteyDocPath" />
-                <ScalarProperty Name="TruckDocPath" ColumnName="TruckDocPath" />
-                <ScalarProperty Name="LabDocPath" ColumnName="LabDocPath" />
-                <ScalarProperty Name="SummerDocPath" ColumnName="SummerDocPath" />
-                <ScalarProperty Name="DustDocPath" ColumnName="DustDocPath" />
-                <ScalarProperty Name="CleanDocPath" ColumnName="CleanDocPath" />
-                <ScalarProperty Name="InvoicePhoto" ColumnName="InvoicePhoto" />
-                <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="SampledBy" ColumnName="SampledBy" />
-                <ScalarProperty Name="IsPeopleSafty" ColumnName="IsPeopleSafty" />
-                <ScalarProperty Name="IsMoldanatInTrucks" ColumnName="IsMoldanatInTrucks" />
-                <ScalarProperty Name="IsLabEngineer" ColumnName="IsLabEngineer" />
-                <ScalarProperty Name="IsRokamSummer" ColumnName="IsRokamSummer" />
-                <ScalarProperty Name="IsDustControlInStation" ColumnName="IsDustControlInStation" />
-                <ScalarProperty Name="IsCleanLocation" ColumnName="IsCleanLocation" />
-                <ScalarProperty Name="IsOtherUsage" ColumnName="IsOtherUsage" />
-                <ScalarProperty Name="IsRoofUsage" ColumnName="IsRoofUsage" />
-                <ScalarProperty Name="IsColumnUsage" ColumnName="IsColumnUsage" />
-                <ScalarProperty Name="IsBasicUsage" ColumnName="IsBasicUsage" />
-                <ScalarProperty Name="IsCleanUsage" ColumnName="IsCleanUsage" />
-                <ScalarProperty Name="Rubble3by8" ColumnName="Rubble3by8" />
-                <ScalarProperty Name="Rubble3by4" ColumnName="Rubble3by4" />
-                <ScalarProperty Name="WhiteSandWeight" ColumnName="WhiteSandWeight" />
-                <ScalarProperty Name="WashedSandWeight" ColumnName="WashedSandWeight" />
-                <ScalarProperty Name="WaterWieght" ColumnName="WaterWieght" />
-                <ScalarProperty Name="CementWeight" ColumnName="CementWeight" />
-                <ScalarProperty Name="AdditionAmount" ColumnName="AdditionAmount" />
-                <ScalarProperty Name="AdditionType" ColumnName="AdditionType" />
-                <ScalarProperty Name="CementSource" ColumnName="CementSource" />
-                <ScalarProperty Name="CementType" ColumnName="CementType" />
-                <ScalarProperty Name="DownAmount" ColumnName="DownAmount" />
-                <ScalarProperty Name="WeatherTemperture" ColumnName="WeatherTemperture" />
-                <ScalarProperty Name="WaterTemperature" ColumnName="WaterTemperature" />
-                <ScalarProperty Name="ConcreteTemperture" ColumnName="ConcreteTemperture" />
-                <ScalarProperty Name="ConcreteRank" ColumnName="ConcreteRank" />
-                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
-                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
-                <ScalarProperty Name="VisitLocation" ColumnName="VisitLocation" />
-                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
-                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
-                <ScalarProperty Name="TruckNumber" ColumnName="TruckNumber" />
-                <ScalarProperty Name="SampleNumber" ColumnName="SampleNumber" />
-                <ScalarProperty Name="VisitNumber" ColumnName="VisitNumber" />
-                <ScalarProperty Name="MixerNumber" ColumnName="MixerNumber" />
-                <ScalarProperty Name="FactoryLocation" ColumnName="FactoryLocation" />
-                <ScalarProperty Name="FactoryName" ColumnName="FactoryName" />
-                <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
-                <ScalarProperty Name="ReportNo" ColumnName="ReportNo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -13002,6 +13273,239 @@ warning 6002: The table/view 'ConcreteClassificationDb2017Last.dbo.vw_aspnet_Web
                 <ScalarProperty Name="LocationID" ColumnName="LocationID" />
                 <ScalarProperty Name="FactoryID" ColumnName="FactoryID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportUpdateHistories">
+            <EntityTypeMapping TypeName="QCModel.ReportUpdateHistory">
+              <MappingFragment StoreEntitySet="ReportUpdateHistory">
+                <ScalarProperty Name="MonitorName" ColumnName="MonitorName" />
+                <ScalarProperty Name="NewconcretemixPath" ColumnName="NewconcretemixPath" />
+                <ScalarProperty Name="OldconcretemixPath" ColumnName="OldconcretemixPath" />
+                <ScalarProperty Name="NewDownAmountDocPath" ColumnName="NewDownAmountDocPath" />
+                <ScalarProperty Name="OldDownAmountDocPath" ColumnName="OldDownAmountDocPath" />
+                <ScalarProperty Name="NewTempretureDocPath" ColumnName="NewTempretureDocPath" />
+                <ScalarProperty Name="OldTempretureDocPath" ColumnName="OldTempretureDocPath" />
+                <ScalarProperty Name="NewSafteyDocNote" ColumnName="NewSafteyDocNote" />
+                <ScalarProperty Name="OldSafteyDocNote" ColumnName="OldSafteyDocNote" />
+                <ScalarProperty Name="NewTruckDocNote" ColumnName="NewTruckDocNote" />
+                <ScalarProperty Name="OldTruckDocNote" ColumnName="OldTruckDocNote" />
+                <ScalarProperty Name="NewLabDocNote" ColumnName="NewLabDocNote" />
+                <ScalarProperty Name="OldLabDocNote" ColumnName="OldLabDocNote" />
+                <ScalarProperty Name="NewSummerDocNote" ColumnName="NewSummerDocNote" />
+                <ScalarProperty Name="OldSummerDocNote" ColumnName="OldSummerDocNote" />
+                <ScalarProperty Name="NewDustDocNote" ColumnName="NewDustDocNote" />
+                <ScalarProperty Name="OldDustDocNote" ColumnName="OldDustDocNote" />
+                <ScalarProperty Name="NewCleanDocNote" ColumnName="NewCleanDocNote" />
+                <ScalarProperty Name="OldCleanDocNote" ColumnName="OldCleanDocNote" />
+                <ScalarProperty Name="NewOtherReason" ColumnName="NewOtherReason" />
+                <ScalarProperty Name="OldOtherReason" ColumnName="OldOtherReason" />
+                <ScalarProperty Name="NewSafteyDocPath" ColumnName="NewSafteyDocPath" />
+                <ScalarProperty Name="OldSafteyDocPath" ColumnName="OldSafteyDocPath" />
+                <ScalarProperty Name="NewTruckDocPath" ColumnName="NewTruckDocPath" />
+                <ScalarProperty Name="OldTruckDocPath" ColumnName="OldTruckDocPath" />
+                <ScalarProperty Name="NewLabDocPath" ColumnName="NewLabDocPath" />
+                <ScalarProperty Name="OldLabDocPath" ColumnName="OldLabDocPath" />
+                <ScalarProperty Name="NewSummerDocPath" ColumnName="NewSummerDocPath" />
+                <ScalarProperty Name="OldSummerDocPath" ColumnName="OldSummerDocPath" />
+                <ScalarProperty Name="NewDustDocPath" ColumnName="NewDustDocPath" />
+                <ScalarProperty Name="OldDustDocPath" ColumnName="OldDustDocPath" />
+                <ScalarProperty Name="NewCleanDocPath" ColumnName="NewCleanDocPath" />
+                <ScalarProperty Name="OldCleanDocPath" ColumnName="OldCleanDocPath" />
+                <ScalarProperty Name="NewInvoicePhoto" ColumnName="NewInvoicePhoto" />
+                <ScalarProperty Name="OldInvoicePhoto" ColumnName="OldInvoicePhoto" />
+                <ScalarProperty Name="NewIsPeopleSafty" ColumnName="NewIsPeopleSafty" />
+                <ScalarProperty Name="OldIsPeopleSafty" ColumnName="OldIsPeopleSafty" />
+                <ScalarProperty Name="NewIsMoldanatInTrucks" ColumnName="NewIsMoldanatInTrucks" />
+                <ScalarProperty Name="OldIsMoldanatInTrucks" ColumnName="OldIsMoldanatInTrucks" />
+                <ScalarProperty Name="NewIsLabEngineer" ColumnName="NewIsLabEngineer" />
+                <ScalarProperty Name="OldIsLabEngineer" ColumnName="OldIsLabEngineer" />
+                <ScalarProperty Name="NewIsRokamSummer" ColumnName="NewIsRokamSummer" />
+                <ScalarProperty Name="OldIsRokamSummer" ColumnName="OldIsRokamSummer" />
+                <ScalarProperty Name="NewIsDustControlInStation" ColumnName="NewIsDustControlInStation" />
+                <ScalarProperty Name="OldIsDustControlInStation" ColumnName="OldIsDustControlInStation" />
+                <ScalarProperty Name="NewIsCleanLocation" ColumnName="NewIsCleanLocation" />
+                <ScalarProperty Name="OldIsCleanLocation" ColumnName="OldIsCleanLocation" />
+                <ScalarProperty Name="NewIsOtherUsage" ColumnName="NewIsOtherUsage" />
+                <ScalarProperty Name="OldIsOtherUsage" ColumnName="OldIsOtherUsage" />
+                <ScalarProperty Name="NewIsRoofUsage" ColumnName="NewIsRoofUsage" />
+                <ScalarProperty Name="OldIsRoofUsage" ColumnName="OldIsRoofUsage" />
+                <ScalarProperty Name="NewIsColumnUsage" ColumnName="NewIsColumnUsage" />
+                <ScalarProperty Name="OldIsColumnUsage" ColumnName="OldIsColumnUsage" />
+                <ScalarProperty Name="NewIsBasicUsage" ColumnName="NewIsBasicUsage" />
+                <ScalarProperty Name="OldIsBasicUsage" ColumnName="OldIsBasicUsage" />
+                <ScalarProperty Name="NewIsCleanUsage" ColumnName="NewIsCleanUsage" />
+                <ScalarProperty Name="OldIsCleanUsage" ColumnName="OldIsCleanUsage" />
+                <ScalarProperty Name="NewRubble3by8" ColumnName="NewRubble3by8" />
+                <ScalarProperty Name="OldRubble3by8" ColumnName="OldRubble3by8" />
+                <ScalarProperty Name="NewRubble3by4" ColumnName="NewRubble3by4" />
+                <ScalarProperty Name="OldRubble3by4" ColumnName="OldRubble3by4" />
+                <ScalarProperty Name="NewWhiteSandWeight" ColumnName="NewWhiteSandWeight" />
+                <ScalarProperty Name="OldWhiteSandWeight" ColumnName="OldWhiteSandWeight" />
+                <ScalarProperty Name="NewWashedSandWeight" ColumnName="NewWashedSandWeight" />
+                <ScalarProperty Name="OldWashedSandWeight" ColumnName="OldWashedSandWeight" />
+                <ScalarProperty Name="NewWaterWieght" ColumnName="NewWaterWieght" />
+                <ScalarProperty Name="OldWaterWieght" ColumnName="OldWaterWieght" />
+                <ScalarProperty Name="NewCementWeight" ColumnName="NewCementWeight" />
+                <ScalarProperty Name="OldCementWeight" ColumnName="OldCementWeight" />
+                <ScalarProperty Name="NewAdditionAmount" ColumnName="NewAdditionAmount" />
+                <ScalarProperty Name="OldAdditionAmount" ColumnName="OldAdditionAmount" />
+                <ScalarProperty Name="NewAdditionType" ColumnName="NewAdditionType" />
+                <ScalarProperty Name="OldAdditionType" ColumnName="OldAdditionType" />
+                <ScalarProperty Name="NewCementSource" ColumnName="NewCementSource" />
+                <ScalarProperty Name="OldCementSource" ColumnName="OldCementSource" />
+                <ScalarProperty Name="NewCementType" ColumnName="NewCementType" />
+                <ScalarProperty Name="OldCementType" ColumnName="OldCementType" />
+                <ScalarProperty Name="NewDownAmount" ColumnName="NewDownAmount" />
+                <ScalarProperty Name="OldDownAmount" ColumnName="OldDownAmount" />
+                <ScalarProperty Name="NewWeatherTemperture" ColumnName="NewWeatherTemperture" />
+                <ScalarProperty Name="OldWeatherTemperture" ColumnName="OldWeatherTemperture" />
+                <ScalarProperty Name="NewWaterTemperature" ColumnName="NewWaterTemperature" />
+                <ScalarProperty Name="OldWaterTemperature" ColumnName="OldWaterTemperature" />
+                <ScalarProperty Name="NewConcreteTemperture" ColumnName="NewConcreteTemperture" />
+                <ScalarProperty Name="OldConcreteTemperture" ColumnName="OldConcreteTemperture" />
+                <ScalarProperty Name="NewConcreteRank" ColumnName="NewConcreteRank" />
+                <ScalarProperty Name="OldConcreteRank" ColumnName="OldConcreteRank" />
+                <ScalarProperty Name="NewClientName" ColumnName="NewClientName" />
+                <ScalarProperty Name="OldClientName" ColumnName="OldClientName" />
+                <ScalarProperty Name="NewInvoiceNumber" ColumnName="NewInvoiceNumber" />
+                <ScalarProperty Name="OldInvoiceNumber" ColumnName="OldInvoiceNumber" />
+                <ScalarProperty Name="NewTruckNumber" ColumnName="NewTruckNumber" />
+                <ScalarProperty Name="OldTruckNumber" ColumnName="OldTruckNumber" />
+                <ScalarProperty Name="NewMixerNumber" ColumnName="NewMixerNumber" />
+                <ScalarProperty Name="OldMixerNumber" ColumnName="OldMixerNumber" />
+                <ScalarProperty Name="SampleNumber" ColumnName="SampleNumber" />
+                <ScalarProperty Name="EditDate" ColumnName="EditDate" />
+                <ScalarProperty Name="userId" ColumnName="userId" />
+                <ScalarProperty Name="concretemixPath" ColumnName="concretemixPath" />
+                <ScalarProperty Name="DownAmountDocPath" ColumnName="DownAmountDocPath" />
+                <ScalarProperty Name="TempretureDocPath" ColumnName="TempretureDocPath" />
+                <ScalarProperty Name="SafteyDocNote" ColumnName="SafteyDocNote" />
+                <ScalarProperty Name="TruckDocNote" ColumnName="TruckDocNote" />
+                <ScalarProperty Name="LabDocNote" ColumnName="LabDocNote" />
+                <ScalarProperty Name="SummerDocNote" ColumnName="SummerDocNote" />
+                <ScalarProperty Name="DustDocNote" ColumnName="DustDocNote" />
+                <ScalarProperty Name="CleanDocNote" ColumnName="CleanDocNote" />
+                <ScalarProperty Name="OtherReason" ColumnName="OtherReason" />
+                <ScalarProperty Name="SafteyDocPath" ColumnName="SafteyDocPath" />
+                <ScalarProperty Name="TruckDocPath" ColumnName="TruckDocPath" />
+                <ScalarProperty Name="LabDocPath" ColumnName="LabDocPath" />
+                <ScalarProperty Name="SummerDocPath" ColumnName="SummerDocPath" />
+                <ScalarProperty Name="DustDocPath" ColumnName="DustDocPath" />
+                <ScalarProperty Name="CleanDocPath" ColumnName="CleanDocPath" />
+                <ScalarProperty Name="InvoicePhoto" ColumnName="InvoicePhoto" />
+                <ScalarProperty Name="IsPeopleSafty" ColumnName="IsPeopleSafty" />
+                <ScalarProperty Name="IsMoldanatInTrucks" ColumnName="IsMoldanatInTrucks" />
+                <ScalarProperty Name="IsLabEngineer" ColumnName="IsLabEngineer" />
+                <ScalarProperty Name="IsRokamSummer" ColumnName="IsRokamSummer" />
+                <ScalarProperty Name="IsDustControlInStation" ColumnName="IsDustControlInStation" />
+                <ScalarProperty Name="IsCleanLocation" ColumnName="IsCleanLocation" />
+                <ScalarProperty Name="IsOtherUsage" ColumnName="IsOtherUsage" />
+                <ScalarProperty Name="IsRoofUsage" ColumnName="IsRoofUsage" />
+                <ScalarProperty Name="IsColumnUsage" ColumnName="IsColumnUsage" />
+                <ScalarProperty Name="IsBasicUsage" ColumnName="IsBasicUsage" />
+                <ScalarProperty Name="IsCleanUsage" ColumnName="IsCleanUsage" />
+                <ScalarProperty Name="Rubble3by8" ColumnName="Rubble3by8" />
+                <ScalarProperty Name="Rubble3by4" ColumnName="Rubble3by4" />
+                <ScalarProperty Name="WhiteSandWeight" ColumnName="WhiteSandWeight" />
+                <ScalarProperty Name="WashedSandWeight" ColumnName="WashedSandWeight" />
+                <ScalarProperty Name="WaterWieght" ColumnName="WaterWieght" />
+                <ScalarProperty Name="CementWeight" ColumnName="CementWeight" />
+                <ScalarProperty Name="AdditionAmount" ColumnName="AdditionAmount" />
+                <ScalarProperty Name="AdditionType" ColumnName="AdditionType" />
+                <ScalarProperty Name="CementSource" ColumnName="CementSource" />
+                <ScalarProperty Name="CementType" ColumnName="CementType" />
+                <ScalarProperty Name="DownAmount" ColumnName="DownAmount" />
+                <ScalarProperty Name="WeatherTemperture" ColumnName="WeatherTemperture" />
+                <ScalarProperty Name="WaterTemperature" ColumnName="WaterTemperature" />
+                <ScalarProperty Name="ConcreteTemperture" ColumnName="ConcreteTemperture" />
+                <ScalarProperty Name="ConcreteRank" ColumnName="ConcreteRank" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="TruckNumber" ColumnName="TruckNumber" />
+                <ScalarProperty Name="MixerNumber" ColumnName="MixerNumber" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BreakSampleFactories">
+            <EntityTypeMapping TypeName="QCModel.BreakSampleFactory">
+              <MappingFragment StoreEntitySet="BreakSampleFactory">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Cube3Img2" ColumnName="Cube3Img2" />
+                <ScalarProperty Name="Cube3Img1" ColumnName="Cube3Img1" />
+                <ScalarProperty Name="Cube2Img2" ColumnName="Cube2Img2" />
+                <ScalarProperty Name="Cube2Img1" ColumnName="Cube2Img1" />
+                <ScalarProperty Name="Cube1Img2" ColumnName="Cube1Img2" />
+                <ScalarProperty Name="Cube1Img1" ColumnName="Cube1Img1" />
+                <ScalarProperty Name="SampleNumber" ColumnName="SampleNumber" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConcreteSample1">
+            <EntityTypeMapping TypeName="QCModel.ConcreteSample1">
+              <MappingFragment StoreEntitySet="ConcreteSample">
+                <ScalarProperty Name="concretemixPath" ColumnName="concretemixPath" />
+                <ScalarProperty Name="DownAmountDocPath" ColumnName="DownAmountDocPath" />
+                <ScalarProperty Name="TempretureDocPath" ColumnName="TempretureDocPath" />
+                <ScalarProperty Name="labdeliver" ColumnName="labdeliver" />
+                <ScalarProperty Name="SafteyDocNote" ColumnName="SafteyDocNote" />
+                <ScalarProperty Name="TruckDocNote" ColumnName="TruckDocNote" />
+                <ScalarProperty Name="LabDocNote" ColumnName="LabDocNote" />
+                <ScalarProperty Name="SummerDocNote" ColumnName="SummerDocNote" />
+                <ScalarProperty Name="DustDocNote" ColumnName="DustDocNote" />
+                <ScalarProperty Name="CleanDocNote" ColumnName="CleanDocNote" />
+                <ScalarProperty Name="OtherReason" ColumnName="OtherReason" />
+                <ScalarProperty Name="SafteyDocPath" ColumnName="SafteyDocPath" />
+                <ScalarProperty Name="TruckDocPath" ColumnName="TruckDocPath" />
+                <ScalarProperty Name="LabDocPath" ColumnName="LabDocPath" />
+                <ScalarProperty Name="SummerDocPath" ColumnName="SummerDocPath" />
+                <ScalarProperty Name="DustDocPath" ColumnName="DustDocPath" />
+                <ScalarProperty Name="CleanDocPath" ColumnName="CleanDocPath" />
+                <ScalarProperty Name="InvoicePhoto" ColumnName="InvoicePhoto" />
+                <ScalarProperty Name="IsReceived" ColumnName="IsReceived" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="SampledBy" ColumnName="SampledBy" />
+                <ScalarProperty Name="IsPeopleSafty" ColumnName="IsPeopleSafty" />
+                <ScalarProperty Name="IsMoldanatInTrucks" ColumnName="IsMoldanatInTrucks" />
+                <ScalarProperty Name="IsLabEngineer" ColumnName="IsLabEngineer" />
+                <ScalarProperty Name="IsRokamSummer" ColumnName="IsRokamSummer" />
+                <ScalarProperty Name="IsDustControlInStation" ColumnName="IsDustControlInStation" />
+                <ScalarProperty Name="IsCleanLocation" ColumnName="IsCleanLocation" />
+                <ScalarProperty Name="IsOtherUsage" ColumnName="IsOtherUsage" />
+                <ScalarProperty Name="IsRoofUsage" ColumnName="IsRoofUsage" />
+                <ScalarProperty Name="IsColumnUsage" ColumnName="IsColumnUsage" />
+                <ScalarProperty Name="IsBasicUsage" ColumnName="IsBasicUsage" />
+                <ScalarProperty Name="IsCleanUsage" ColumnName="IsCleanUsage" />
+                <ScalarProperty Name="Rubble3by8" ColumnName="Rubble3by8" />
+                <ScalarProperty Name="Rubble3by4" ColumnName="Rubble3by4" />
+                <ScalarProperty Name="WhiteSandWeight" ColumnName="WhiteSandWeight" />
+                <ScalarProperty Name="WashedSandWeight" ColumnName="WashedSandWeight" />
+                <ScalarProperty Name="WaterWieght" ColumnName="WaterWieght" />
+                <ScalarProperty Name="CementWeight" ColumnName="CementWeight" />
+                <ScalarProperty Name="AdditionAmount" ColumnName="AdditionAmount" />
+                <ScalarProperty Name="AdditionType" ColumnName="AdditionType" />
+                <ScalarProperty Name="CementSource" ColumnName="CementSource" />
+                <ScalarProperty Name="CementType" ColumnName="CementType" />
+                <ScalarProperty Name="DownAmount" ColumnName="DownAmount" />
+                <ScalarProperty Name="WeatherTemperture" ColumnName="WeatherTemperture" />
+                <ScalarProperty Name="WaterTemperature" ColumnName="WaterTemperature" />
+                <ScalarProperty Name="ConcreteTemperture" ColumnName="ConcreteTemperture" />
+                <ScalarProperty Name="ConcreteRank" ColumnName="ConcreteRank" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="VisitLocation" ColumnName="VisitLocation" />
+                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
+                <ScalarProperty Name="InvoiceNumber" ColumnName="InvoiceNumber" />
+                <ScalarProperty Name="TruckNumber" ColumnName="TruckNumber" />
+                <ScalarProperty Name="SampleNumber" ColumnName="SampleNumber" />
+                <ScalarProperty Name="VisitNumber" ColumnName="VisitNumber" />
+                <ScalarProperty Name="MixerNumber" ColumnName="MixerNumber" />
+                <ScalarProperty Name="FactoryLocation" ColumnName="FactoryLocation" />
+                <ScalarProperty Name="FactoryName" ColumnName="FactoryName" />
+                <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
+                <ScalarProperty Name="ReportNo" ColumnName="ReportNo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

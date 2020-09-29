@@ -118,8 +118,8 @@
     <Reference Include="itextsharp, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <HintPath>..\packages\iTextSharp.5.5.13.1\lib\itextsharp.dll</HintPath>
     </Reference>
-    <Reference Include="itextsharp.xmlworker, Version=5.5.13.1, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\packages\itextsharp.xmlworker.5.5.13.1\lib\itextsharp.xmlworker.dll</HintPath>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.13\lib\itextsharp.xmlworker.dll</HintPath>
     </Reference>
     <Reference Include="JavaScriptEngineSwitcher.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
       <HintPath>..\packages\JavaScriptEngineSwitcher.Core.3.3.0\lib\net45\JavaScriptEngineSwitcher.Core.dll</HintPath>
@@ -293,6 +293,7 @@
     <Compile Include="Controllers\DailyReportPrintOutController.cs" />
     <Compile Include="Controllers\EvaluationFactoryController.cs" />
     <Compile Include="Controllers\FactoryController.cs" />
+    <Compile Include="Controllers\FactorySampleBreakController.cs" />
     <Compile Include="Controllers\FollowingsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\infractionController.cs" />
@@ -440,6 +441,9 @@
       <DependentUpon>QCDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Branch.cs">
+      <DependentUpon>QCDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\BreakSampleFactory.cs">
       <DependentUpon>QCDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\BringMaterialVisit.cs">
@@ -777,6 +781,9 @@
     <Compile Include="Models\ReportResult.cs">
       <DependentUpon>QCDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReportUpdateHistory.cs">
+      <DependentUpon>QCDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\RequestResponse.cs" />
     <Compile Include="Models\ReviewMaterial.cs">
       <DependentUpon>QCDB.tt</DependentUpon>
@@ -999,6 +1006,8 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="css\main.css" />
+    <Content Include="css\util.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ApplicationInsights.config">
@@ -2614,9 +2623,9 @@
     <Content Include="..\.editorconfig">
       <Link>.editorconfig</Link>
     </Content>
-    <Content Include="App_Browsers\qt.browser" />
     <Content Include="fonts\Cairo-Regular.ttf" />
     <Content Include="fonts\Cairo-SemiBold.ttf" />
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Scripts\jquery-3.5.1.intellisense.js" />
     <Content Include="Rotativa\help-wkhtmltoimage.txt" />
     <Content Include="Rotativa\help-wkhtmltopdf.txt" />
@@ -2628,10 +2637,6 @@
     <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.js" />
     <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
-    <Content Include="Rotativa\help-wkhtmltoimage.txt" />
-    <Content Include="Rotativa\help-wkhtmltopdf.txt" />
-    <Content Include="Rotativa\wkhtmltoimage.exe" />
-    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
@@ -2875,11 +2880,18 @@
     <Content Include="Views\BlockAlert\Details.cshtml" />
     <Content Include="Views\TestingResults\AddedSevenDaysResult.cshtml" />
     <Content Include="Views\TestingResults\AddedMonthlyResult.cshtml" />
+    <Content Include="Views\Reports\UpdateReport.cshtml" />
+    <Content Include="Views\DailyReportPrintOut\PrintAllDailyReport.cshtml" />
+    <Content Include="Views\Home\CreateNewVisit.cshtml" />
+    <Content Include="Views\Reports\UpdateHistory.cshtml" />
+    <Content Include="Views\Reports\UpdateHistoryDetail.cshtml" />
+    <Content Include="Views\FactorySampleBreak\BreakSample.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="obj\" />
     <Folder Include="Views\BlockPlegde\" />
+    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="node_modules\%40claviska\jquery-minicolors\.editorconfig" />

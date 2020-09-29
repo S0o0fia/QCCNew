@@ -1,14 +1,26 @@
-﻿@model List<AspnetMvcDemo.ViewModel.VisitDetailsForReports>
+﻿@model AspnetMvcDemo.Models.datePickerDailyReport
 
 @using Resources
 @section Styles {
+    @Styles.Render("~/bundle/vendor/css/bootstrap-datepicker/bootstrap-datepicker")
     @Styles.Render("~/bundle/vendor/css/datatables/datatables")
+    @Styles.Render("~/bundle/vendor/css/flatpickr/flatpickr")
+    @Styles.Render("~/bundle/vendor/css/bootstrap-daterangepicker/bootstrap-daterangepicker")
+    @Styles.Render("~/bundle/vendor/css/bootstrap-material-datetimepicker/bootstrap-material-datetimepicker")
+    @Styles.Render("~/bundle/vendor/css/timepicker/timepicker")
+    @Styles.Render("~/bundle/vendor/css/minicolors/minicolors")
 }
 
 @section Scripts {
+    @Scripts.Render("~/bundle/vendor/js/moment/moment")
+    @Scripts.Render("~/bundle/vendor/js/bootstrap-datepicker/bootstrap-datepicker")
+    @Scripts.Render("~/bundle/vendor/js/flatpickr/flatpickr")
+    @Scripts.Render("~/bundle/vendor/js/bootstrap-daterangepicker/bootstrap-daterangepicker")
+    @Scripts.Render("~/bundle/vendor/js/bootstrap-material-datetimepicker/bootstrap-material-datetimepicker")
+    @Scripts.Render("~/bundle/vendor/js/timepicker/timepicker")
+    @Scripts.Render("~/bundle/vendor/js/minicolors/minicolors")
 
-    @Scripts.Render("~/bundle/vendor/js/datatables/datatables")
-
+    @Scripts.Render("~/bundle/js/forms_pickers")
     @Scripts.Render("~/bundle/js/tables_datatables")
     <!-- Dependencies -->
     @Scripts.Render("~/bundle/vendor/js/bootbox/bootbox")
@@ -17,7 +29,11 @@
     @Scripts.Render("~/bundle/js/ui_modals")
 }
 <style type="text/css">
-    @*for Mobile Design*@
+  @@media  only screen and  (min-device-width: 1024px){
+   #printall  {
+       float:left;
+   }
+  }
  @@media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 1024px)  {
 
@@ -63,11 +79,7 @@
 	/*
 	Label the data
 	*/
-	td:nth-of-type(1):before { content: "اسم المصنع"; }
-	td:nth-of-type(2):before { content: "موقع الزيارة"; }
-	td:nth-of-type(3):before { content: "تقرير تحضير العينة"; }
-	td:nth-of-type(4):before { content: "إلغاء"; }
-
+	
       #prepareSample
       {
          width : 100%;
@@ -119,61 +131,88 @@
           box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
          border-radius : 25px;
     }
+
+       #flatpickr-date
+      {
+          width:50%;
+      }
 </style>
 <body dir="rtl">
-   <div class="card">
-       <div class="card-header">
-           <div class="row">
-               <div class="col-9" style="text-align:center">
-                   <h4>التقرير اليومي للزيارات</h4>
-               </div>
-               <div class="col-3">
-                <a class="btn btn-success" href="@Url.Action("PrintDailyReport" ,"DailyReportPrintOut" )">طباعة</a>
-               </div>
-           </div>
-       </div>
-       <div class="card-body">
-           <div class="table-responsive">
-               <table class="datatables-demo table table-bordered">
-                   <thead style="text-align:center">
-                       <tr>
-                           <th>@Resources.Factory_Name</th>
-                           <th>@Resources.FactoryLocation</th>
-                           <th>@Resources.Visit_Date</th>
-                           <th>@Resources.Monitor_Name</th>
+   
+    @using (Html.BeginForm("dailyVisitsReport", "Reports", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-12" style="text-align:center">
+                        <h4>التقرير اليومي للزيارات</h4>
+                    </div>
+                    <div class="col-12" style="text-align:right">
+                        <div class="row">
+                            <div class="col-2">
+                                <label>اختر التاريخ</label>
 
-                           <th>
-                               @Resources.Details
-                           </th>
-                       </tr>
-                   </thead>
-                   <tbody style="text-align:center">
-                       @foreach (var item in Model)
-                       {
-                           <tr>
-                               <td>
-                                   @Html.DisplayFor(modelItem => item.factroyname)
-                               </td>
-                               <td>
-                                   @Html.DisplayFor(modelItem => item.location)
-                               </td>
-                               <td>
-                                   @item.visitDate.Value.ToShortDateString()
-                               </td>
-                               <td>
-                                   @Html.DisplayFor(modelItem => item.monitorname)
-                               </td>
+                            </div>
+                            <div class="col-6">
 
-                               <td>
-                                   <input type="button" value="@Resources.Details" id="editVisit" class="edit btn btn-success"
-                                          onclick="location.href = '@Url.Action( "ReportShowDailyVisits","Reports", new { factoryname = item.factroyname, VisitDate = item.visitDate })'" style="cursor:pointer" />
-                               </td>
+                                @Html.TextBoxFor(model => model.fromDate, new { id = "flatpickr-date", @class = "form-control" })
+                            </div>
+                            <div class="col-4">
+                                <input class="btn btn-success" value="@Resources.Search" type="submit" />
+                                @if (Model.DailyReportViews.Count != 0)
+                                {
+                                    <a class="btn btn-success" style="color:white" id="printall" href="@Url.Action("PrintAllDailyReport",
+                               "DailyReportPrintOut", new { id = Model.DailyReportViews[0].visitId })">طباعة الكل</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="datatables-demo table table-bordered">
+                        <thead style="text-align:center">
+                            <tr>
+                                <th>@Resources.Factory_Name</th>
+                                <th>@Resources.FactoryLocation</th>
+                                <th>@Resources.Visit_Date</th>
+                                <th>@Resources.Monitor_Name</th>
+                                <th>@Resources.Details</th>
+                            </tr>
+                        </thead>
+                        @foreach (var item in Model.DailyReportViews)
+                        {
 
-                           </tr>
-                       }
-                   </tbody>
-               </table>
-           </div>
-       </div>
-   </div>
+                            <tbody style="text-align:center">
+
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.factroyname)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.location)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.visitDate, new { Value = item.visitDate.Value.ToShortDateString() })
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.monitorname)
+                                    </td>
+
+                                    <td>
+                                        <a type="button" style="color:white; " id="editVisit" class="edit btn btn-success"
+                                           href="@Url.Action("PrintDailyReport" , "DailyReportPrintOut" , new { id = item.visitId})"
+                                           style="cursor:pointer">طباعة</a>
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
 </body>

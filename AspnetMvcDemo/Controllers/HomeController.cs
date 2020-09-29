@@ -13,6 +13,7 @@ using Microsoft.Ajax.Utilities;
 using Resources;
 
 namespace AspnetMvcDemo.Controllers
+
 {
     public class HomeController : Controller
     {
@@ -29,7 +30,7 @@ namespace AspnetMvcDemo.Controllers
             if (id == 1)
             {
                 Session["Choice"] = "Concrete";
-                var dateTime = DateTime.Now;
+                var dateTime = DateTime.Today;
                 if ((int)dateTime.DayOfWeek == 4)
                 {
                     dateTime = dateTime.AddDays(2);
@@ -40,11 +41,11 @@ namespace AspnetMvcDemo.Controllers
                     dateTime = dateTime.AddDays(1);
                 }
 
-                var date = db.VisitDetails.Where(vs => DbFunctions.TruncateTime(vs.VisitDate) == DbFunctions.TruncateTime(dateTime)).Select(vs => vs.VisitDate).FirstOrDefault();
-                if (date.Date.Year == 1)
+                var date = db.VisitDetails.Where(vs => DbFunctions.TruncateTime(vs.VisitDate) == DbFunctions.TruncateTime(dateTime)).FirstOrDefault();
+                if (date==null)
                 {
                     CreateVisitService vs = new CreateVisitService();
-                    vs.CreateVisit();
+                    //vs.CreateVisit();
                 }
 
             }
@@ -62,7 +63,106 @@ namespace AspnetMvcDemo.Controllers
             return View(model);
         }
 
+        public ActionResult CreateNewVisit()
+        {
+        CreateVisitVM createVisit = new CreateVisitVM();
+         createVisit.locations = db.Locations.ToList();
+         createVisit.factories = db.Factory11.Where(f => f.Location_Id == 1).ToList();
+        return View(createVisit);
+        }
 
+        public string GetFactories(int id)
+        {
+            List<FactoryTemp> TempF = new List<FactoryTemp>();
+            if(id> 3)
+            {
+                id = 3;
+            }
+            var query = db.Factory11.Where(f => f.Location_Id == id).ToList();
+           
+            JavaScriptSerializer jss = new JavaScriptSerializer();
+            foreach (var item in query)
+            {
+                
+                    FactoryTemp f = new FactoryTemp();
+                    f.Id = item.Id;
+                    f.Name = item.Name;
+                    TempF.Add(f);
+
+            }
+            string output = jss.Serialize(TempF);
+            Response.Write(output);
+            Response.Flush();
+            Response.End();
+
+            return output;
+        }
+
+        [HttpPost]
+        public ActionResult CreateNewVisit(CreateVisitVM model)
+        {
+            var visitDate = DateTime.ParseExact(model.visitDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+            var ifFactoryExist = db.VisitDetails.Where(v => v.FactoryId == model.factId
+          && DbFunctions.TruncateTime(v.VisitDate) == DbFunctions.TruncateTime(visitDate)).FirstOrDefault();
+
+            if (ifFactoryExist == null)
+            {
+                if (model.factId.ToString() != null && model.visitDate != null)
+                {
+                    var mon = db.VisitDetails.Where(v => DbFunctions.TruncateTime(v.VisitDate) == DbFunctions.TruncateTime(visitDate)).ToList();
+                    var newVisit = new VisitDetail();
+
+                    var FactoryLocation = db.Factory11.Where(f => f.Id == model.factId).Select(f => f.Location_Id).FirstOrDefault();
+
+                    foreach (var item in mon)
+                    {
+                        var getMonlocation = db.Factory11.Where(f => f.Id == item.FactoryId).Select(f => f.Location_Id).FirstOrDefault();
+                        newVisit.MonitorId = 0;
+                        if (getMonlocation == FactoryLocation)
+                        {
+                            newVisit.MonitorId = item.MonitorId;
+                        }
+                    }
+
+                    if (newVisit.MonitorId == 0)
+                    {
+                        var Monitor = db.Users.Where(u => u.JobTitle == "Monitor").ToList();
+                        foreach (var item in Monitor)
+                        {
+                            var visit = db.VisitDetails.Where(v => v.MonitorId == item.Id &&
+                            DbFunctions.TruncateTime(v.VisitDate) == DbFunctions.TruncateTime(visitDate)).ToList();
+                            if (visit.Count == 0)
+                            {
+                                newVisit.MonitorId = item.Id;
+                            }
+                        }
+
+                    }
+
+
+                    newVisit.VisitDate = visitDate;
+                    newVisit.FactoryId = model.factId;
+                    try
+                    {
+                        db.VisitDetails.Add(newVisit);
+                        db.SaveChanges();
+                        TempData["addvisit"] = "Sucess";
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+
+                }
+            }
+            else
+            {
+                TempData["message"] = "Your Save is Failed";
+            }
+            return RedirectToAction("Home", new { id = 1 });
+
+        }
         public ActionResult BlockVisit()
         {
 
@@ -158,7 +258,14 @@ namespace AspnetMvcDemo.Controllers
             VisitDetailsModel model = new VisitDetailsModel();
             VisitService visitService = new VisitService();
 
-            model.BrokenSamples = visitService.BrokenSample(userId);
+            if(Session["JobTitle"].ToString() == "Monitor")
+            {
+                model.BrokenSamples = visitService.BrokenSample(userId);
+            }
+            if (Session["JobTitle"].ToString() == "Admin")
+            {
+                model.BrokenSamples = visitService.BrokenSample();
+            }
             return View(model);
         }
 
@@ -317,10 +424,10 @@ namespace AspnetMvcDemo.Controllers
                 FactoryName = visit.FactoryName,
                 FactoryLocation = visit.FactoryLocation,
                 VisitDate = visit.VisitDate,
-             
+              
             };
 
-            return PartialView(result);
+            return View(result);
         }
 
        
@@ -329,30 +436,49 @@ namespace AspnetMvcDemo.Controllers
         public ActionResult UpdateVisiteDate (AdminVisit adminVisit)
         {
             var visit = db.VisitDetails.Where(v => v.Id == adminVisit.Id).FirstOrDefault();
+            var listReport = db.ConcreteSample1.Where(v => DbFunctions.TruncateTime(v.ReportDate) == DbFunctions.TruncateTime(visit.VisitDate)
+            && v.FactoryName == adminVisit.FactoryName).ToList();
             var visitloaction = db.Factory11.Where(f => f.Id == visit.FactoryId).Select(f => f.Location_Id).FirstOrDefault();
-            var visitDate = DateTime.ParseExact(adminVisit.Date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+            var visitDate = DateTime.ParseExact(adminVisit.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
             var newVisits = db.VisitDetails.Where(v => DbFunctions.TruncateTime(v.VisitDate) == DbFunctions.TruncateTime(visitDate)).ToList();
             //to createNew one 
             var ifFactoryExist = db.VisitDetails.Where(v => v.FactoryId == visit.FactoryId 
             && DbFunctions.TruncateTime(v.VisitDate) == DbFunctions.TruncateTime(visitDate)).FirstOrDefault();
-
-            if(ifFactoryExist == null)
+            if (ifFactoryExist == null)
             {
-                VisitDetail visitDetail = new VisitDetail();
-                foreach (var item in newVisits)
-                {
-                    var location_id = db.Factory11.Where(f => f.Id == item.FactoryId).Select(f => f.Location_Id).FirstOrDefault();
-                    if (location_id == visitloaction)
+
+                    foreach (var item1 in newVisits)
                     {
-                        visitDetail.MonitorId = item.MonitorId;
+                        var location_id = db.Factory11.Where(f => f.Id == item1.FactoryId).Select(f => f.Location_Id).FirstOrDefault();
+                        visit.MonitorId = 0;
+                        if (location_id == visitloaction)
+                        {
+                            visit.MonitorId = item1.MonitorId;
+                        }
+
                     }
 
-                }
-                visitDetail.VisitDate = DateTime.ParseExact(adminVisit.Date, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                visitDetail.visitpriority = true;
-                visitDetail.FactoryId = visit.FactoryId;
-                db.VisitDetails.Add(visitDetail);
-                db.SaveChanges();
+                    if (visit.MonitorId == 0)
+                    {
+                        var Monitor = db.Users.Where(u => u.JobTitle == "Monitor").ToList();
+                        foreach (var item in Monitor)
+                        {
+                            var visits = db.VisitDetails.Where(v => v.MonitorId == item.Id &&
+                                       DbFunctions.TruncateTime(v.VisitDate) == DbFunctions.TruncateTime(visitDate)).ToList();
+                            if (visits.Count == 0)
+                            {
+                                visit.MonitorId = item.Id;
+                            }
+                        }
+
+                    }
+                    visit.VisitDate = DateTime.ParseExact(adminVisit.Date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                    visit.visitpriority = true;
+                    visit.FactoryId = visit.FactoryId;
+                    db.SaveChanges();
+                TempData["EditDate"] = "Sucess";
+
+
             }
             else
             {

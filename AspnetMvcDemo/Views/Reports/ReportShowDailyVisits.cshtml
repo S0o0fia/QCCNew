@@ -81,16 +81,23 @@
         text-align: left;
         vertical-align: text-bottom;
     }
+    a{
+        color:white;
+    }
 </style>
 
 
 
 <body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
-    <div id="alertAdded" class="alert alert-dark-success alert-dismissible fade show">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        @Resources.Resources.Sample_Added_Sucessfully
-    </div>
+
     <h3 style="text-align:center">@Resources.Resources.Prepare_Concrete</h3>
+    <div class="row">
+        <div class="col-12 justify-content-center" style="text-align:center">
+            <a class="btn btn-success" href="@Url.Action("UpdateReport" , "Reports" , new { id = Model.SampleNumber })">@Resources.Resources.Edit</a>
+            <a class="btn btn-success" href="@Url.Action("UpdateHistory" , "Reports" , new { id = Model.SampleNumber })">عرض سجل التعديلات</a>
+
+        </div>
+    </div>
     <hr class="container-m-nx border-light my-4">
 
 
@@ -146,7 +153,7 @@
                             </div>
                             <div class="col-md-4 form-group">
                                 @*<input type="date" class="form-control">*@
-                                @Html.TextBox("txtFrmDate", DateTime.Now.ToString("HH:mm:ss yyyy-MMM-dd"), new { @class = "form-control", @readonly = "readonly" })
+                                @Html.TextBoxFor(m => m.ReportDate, new { @class = "form-control", @readonly = "readonly", Value = Model.ReportDate.Value.ToString("dd/MM/yyyy") })
                             </div>
                             @*<div class="col-md-2 form-group">
                                     <input type="date" class="form-control">
@@ -329,7 +336,7 @@
                                 @Html.TextBoxFor(m => m.AdditionType, new { type = "text", @class = "form-control", @readonly = "readonly" })
                             </div>
                             <div class="col-md-2 form-group">
-                                9
+                                
                                 <label class="form-label">@Resources.Resources.Addtion_Amount</label>
                             </div>
                             <div class="col-md-4 form-group">

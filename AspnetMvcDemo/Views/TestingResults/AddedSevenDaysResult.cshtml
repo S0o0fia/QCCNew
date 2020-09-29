@@ -5,32 +5,178 @@
     ViewBag.Title = "SevenDaysResult";
 }
 @using Resources
-<style type="text/css">
-
-    .nav-tabs-top {
-    }
-
-    .table {
-        border: solid 2px #eeeeee;
-    }
-
-        .table tr td {
-            text-align: center;
-            vertical-align: middle;
+    <style type="text/css">
+        /* to mobile Design*/
+        @@media only screen and (min-device-width: 1024px) {
+            .mobile {
+                visibility: hidden;
+            }
         }
 
-    .page-header {
-        padding-top: 2%;
-        padding-bottom: 3%;
-    }
+        @@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
 
-    .form-control-plaintext {
-        padding-left: 3%;
-        outline-color: limegreen;
-        outline-style: solid;
-        outline-width: thin;
-    }
-</style>
+
+            tr {
+                display: grid;
+                border-bottom: 1px solid #ccc;
+            }
+            /* Force table to not be like tables anymore */
+            table, tbody, thead, td, tr, th {
+                display: block;
+            }
+
+            table {
+                width: 100%;
+                box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            }
+            /* Hide table headers (but not display: none;, for accessibility) */
+            thead tr {
+                position: absolute;
+                top: -9999px;
+                left: -9999px;
+            }
+
+
+            td {
+                /* Behave  like a "row" */
+                border: none;
+                border-bottom: 1px solid #eee;
+                position: relative;
+                padding-left: 50%;
+            }
+
+                td:after {
+                    width: 45%;
+                    padding-left: 10px;
+                    white-space: nowrap;
+                    float: right;
+                    text-align: center;
+                    font-weight: bold;
+                }
+
+            .form-control forminput {
+                width: 40%;
+                text-align: center;
+            }
+
+
+            #prepareSample {
+                width: 100%;
+            }
+
+            td:nth-of-type(1):before {
+                content: "No";
+            }
+
+            td:nth-of-type(2):before {
+                content: "Weight";
+            }
+
+            td:nth-of-type(3):before {
+                content: "Volume : ";
+            }
+
+            td:nth-of-type(4):before {
+                content: "Area Loaded : ";
+            }
+
+            td:nth-of-type(5):before {
+                content: "Unit Weight";
+            }
+
+            td:nth-of-type(6):before {
+                content: "Test Date : ";
+            }
+
+            td:nth-of-type(7):before {
+                content: "Age : ";
+            }
+
+            td:nth-of-type(8):before {
+                content: "Crushing Load";
+            }
+
+            td:nth-of-type(9):before {
+                content: "Compressive Strength";
+            }
+
+            td:nth-of-type(10):before {
+                content: "Average Compressive Strength : "
+            }
+
+            .col-md-2 {
+                flex: 0 0 16.66667%;
+                max-width: 16.66667%;
+                text-align: left;
+                vertical-align: text-bottom;
+            }
+
+            .mobile {
+                visibility: visible;
+            }
+
+             .col-md-5 {
+                 text-align : center;
+
+        } 
+             .col-md-7{
+                 text-align : center;
+             }
+        }
+
+
+        /*to Desktop Design*/
+        .nav-tabs-top {
+        }
+
+        .table {
+            border: solid 2px #eeeeee;
+            width: 100%;
+            background-color: white;
+        }
+
+            .table tr td {
+                text-align: center;
+                vertical-align: middle;
+            }
+
+        .page-header {
+            padding-top: 2%;
+            padding-bottom: 3%;
+        }
+
+        .forminput {
+            padding-left: 3%;
+            outline-color: limegreen;
+            outline-style: solid;
+            outline-width: thin;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        /* Zebra striping */
+        tr:nth-of-type(odd) {
+            background: #ffffff;
+            ;
+        }
+
+        th {
+            background: #ffffff;
+            ;
+            color: black;
+            font-weight: bold;
+        }
+
+        td, th {
+            padding: 6px;
+            border: 1px solid #ffffff;
+            text-align: center;
+        }
+       
+    </style>
 
 <body style="background-color :#ECECF1; background-size: cover;" dir="rtl">
 
@@ -38,7 +184,7 @@
     {
         <div id="alertAdded" class="alert alert-success alert-dismissible fade show">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-           تم حفظ نتيجة الاختبار بنجاح
+            تم حفظ نتيجة الاختبار بنجاح
         </div>
     }
 
@@ -48,129 +194,120 @@
         <div class="page-header  align-items-center">
             <h2 style="text-align : center">اختبار مقاومة الضغط  7 يوم</h2>
         </div>
-        <form>
-            <div class="nav-tabs-top nav-responsive-xl" style="-ms-flex-direction: column; flex-direction: column; margin-top: 1%; padding-left: 100px; padding-right: 100px;">
-                <div class="tab-content">
-                    <div class="tab-pane fade show active">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <h4>@Resources.Compressive_Strength_of_Concrete_Cube</h4>
-                                </div>
-                                <div class="col-md-5">
-                                    @{
-
-                                    }
-                                    @Resources.Sample_Number   : @Model.SamplePart1.sampleNumber
-                                </div>
-                            </div>
-                            <table class="table" dir="ltr">
-                                <thead style="text-align:center ; font-weight:bold">
-                                    <tr>
-                                        <th> No</th>
-                                        <th>Weight</th>
-                                        <th>Volume</th>
-                                        <th>Area Loaded</th>
-                                        <th>Unit Weight</th>
-                                        <th>Test Date</th>
-                                        <th>Age</th>
-                                        <th>Crushing Load</th>
-                                        <th>Compressive Strength</th>
-                                        <th>Average Compressive Strength</th>
-                                    </tr>
-                                </thead>
-
-
-                                <tbody style="text-align:center;">
-                                    <tr>
-                                        <td>1</td>
-                                        <td>
-                                            @*<input type="text" idx="weight1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
-                                            @Html.TextBoxFor(x => Model.SamplePart1.weight, new { @class = "form-control-plaintext", id = "weight1", placeholder = @Resources.Enter_Data })
-                                        </td>
-                                        <td rowspan="3">3375</td>
-                                        <td rowspan="3">22500</td>
-                                        <td>
-                                            @* <input type="text" id="uWeight1" class="form-control-plaintext" readonly="readonly" />*@
-                                            @Html.TextBoxFor(x => Model.SamplePart1.unitWeight, new { @class = "form-control-plaintext", id = "uWeight1", @readonly = "readonly" })
-                                        </td>
-                                        <td>
-                                         </td>
-                                        <td>
-                                         </td>
-                                        <td>
-                                            @*<input type="text" id="cLoad1" class="form-control-plaintext" placeholder="@Resources.Enter_Data" />*@
-                                            @Html.TextBoxFor(x => Model.SamplePart1.crushingLoad, new { @class = "form-control-plaintext", id = "cLoad1", placeholder = @Resources.Enter_Data })
-                                        </td>
-                                        <td>
-                                            @*<input type="text" id="cStrength1" class="form-control-plaintext" readonly="readonly" />*@
-                                            @Html.TextBoxFor(x => Model.SamplePart1.CompressiveStrength, new { @class = "form-control-plaintext", id = "cStrength1", @readonly = "readonly" })
-                                        </td>
-                                        <td rowspan="3">
-                                            @*<input type="text" class="form-control-plaintext" readonly="readonly" />*@
-                                            <span>
-                                                @{
-                                                    var result = Math.Round(Double.Parse(@Model.SamplePart1.averageCompressiveStrength.ToString()), 2);
-                                                }
-                                                @result
-                                            </span>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>2</td>
-                                        <td>
-                                            @Html.TextBoxFor(x => Model.SamplePart2.weight, new { @class = "form-control-plaintext", id = "weight2", placeholder = @Resources.Enter_Data })
-                                        </td>
-
-                                        <td>
-                                            @Html.TextBoxFor(x => Model.SamplePart2.unitWeight, new { @class = "form-control-plaintext", id = "uWeight2", @readonly = "readonly" })
-                                        </td>
-                                        <td>
-                                            @Html.TextBox("DateCreated", DateTime.Today, "{0:dd/MM/yyyy}", new { @class = "form-control-plaintext", @readonly = "readonly" })
-                                        </td>
-                                        <td>
-                                            <span>7</span>
-                                        </td>
-                                        <td>
-                                            @Html.TextBoxFor(x => Model.SamplePart2.crushingLoad, new { @class = "form-control-plaintext", id = "cLoad2", placeholder = @Resources.Enter_Data })
-                                        </td>
-                                        <td>
-                                            @Html.TextBoxFor(x => Model.SamplePart2.CompressiveStrength, new { @class = "form-control-plaintext", id = "cStrength2", @readonly = "readonly" })
-                                        </td>
-                                      
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>
-                                            @Html.TextBoxFor(x => Model.SamplePart3.weight, new { @class = "form-control-plaintext", id = "weight3", placeholder = @Resources.Enter_Data })
-                                        </td>
-                                        <td>
-                                            @Html.TextBoxFor(x => Model.SamplePart3.unitWeight, new { @class = "form-control-plaintext", id = "uWeight3", @readonly = "readonly" })
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                            @Html.TextBoxFor(x => Model.SamplePart3.crushingLoad, new { @class = "form-control-plaintext", id = "cLoad3", placeholder = @Resources.Enter_Data })
-                                        </td>
-                                        <td>
-                                            @Html.TextBoxFor(x => Model.SamplePart1.CompressiveStrength, new { @class = "form-control-plaintext", id = "cStrength3", @readonly = "readonly" })
-                                        </td>
-                                        </tr>
-                                </tbody>
-
-                            </table>
-
-                        </div>
-
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h4>@Resources.Compressive_Strength_of_Concrete_Cube</h4>
                     </div>
+                    <div class="col-md-5">
+                        @{
 
+                        }
+                        @Resources.Sample_Number   : @Model.SamplePart1.sampleNumber
+                    </div>
                 </div>
-
             </div>
-        </form>
+        </div>
+
+        <table class="table" dir="ltr">
+            <thead style="font-weight:bold">
+                <tr>
+                    <th> No</th>
+                    <th>Weight</th>
+                    <th>Volume</th>
+                    <th>Area Loaded</th>
+                    <th>Unit Weight</th>
+                    <th>Test Date</th>
+                    <th>Age</th>
+                    <th>Crushing Load</th>
+                    <th>Compressive Strength</th>
+                    <th>Average Compressive Strength</th>
+                </tr>
+            </thead>
+
+
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>
+                        @*<input type="text" idx="weight1" class="form-control  forminput" placeholder="@Resources.Enter_Data" />*@
+                        @Html.TextBoxFor(x => Model.SamplePart1.weight, new { @class = "form-control  forminput", id = "weight1", placeholder = @Resources.Enter_Data })
+                    </td>
+                    <td><span class="mobile">3375</span></td>
+                    <td><span class="mobile">22500</span></td>
+                    <td>
+                        @Html.TextBoxFor(x => Model.SamplePart1.unitWeight, new { @class = "form-control  forminput", id = "uWeight1", @readonly = "readonly" })
+                    </td>
+                    <td>
+                    </td>
+                    <td>
+                        <span class="mobile">7</span>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(x => Model.SamplePart1.crushingLoad, new { @class = "form-control  forminput", id = "cLoad1", placeholder = @Resources.Enter_Data })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(x => Model.SamplePart1.CompressiveStrength, new { @class = "form-control  forminput", id = "cStrength1", @readonly = "readonly" })
+                    </td>
+
+                </tr>
+
+                <tr>
+                    <td>2</td>
+                    <td>
+                        @Html.TextBoxFor(x => Model.SamplePart2.weight, new { @class = "form-control  forminput", id = "weight2", placeholder = @Resources.Enter_Data })
+                    </td>
+                    <td>3375</td>
+                    <td>22500</td>
+
+                    <td>
+                        @Html.TextBoxFor(x => Model.SamplePart2.unitWeight, new { @class = "form-control  forminput", id = "uWeight2", @readonly = "readonly" })
+                    </td>
+                    <td>
+                        @Html.TextBox("DateCreated", DateTime.Today, "{0:dd/MM/yyyy}", new { @class = "form-control  forminput", @readonly = "readonly" })
+                    </td>
+                    <td>
+                        <span>7</span>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(x => Model.SamplePart2.crushingLoad, new { @class = "form-control  forminput", id = "cLoad2", placeholder = @Resources.Enter_Data })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(x => Model.SamplePart2.CompressiveStrength, new { @class = "form-control  forminput", id = "cStrength2", @readonly = "readonly" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>
+                        @Html.TextBoxFor(x => Model.SamplePart3.weight, new { @class = "form-control  forminput", id = "weight3", placeholder = @Resources.Enter_Data })
+                    </td>
+                    <td>      <span class="mobile">3375</span></td>
+                    <td>      <span class="mobile">22500<span></td>
+                    <td>
+                        @Html.TextBoxFor(x => Model.SamplePart3.unitWeight, new { @class = "form-control  forminput", id = "uWeight3", @readonly = "readonly" })
+                    </td>
+                    <td>
+                        <span class="mobile">@DateTime.Today.ToString("dd/MM/yyyy")</span>
+                    </td>
+                    <td>
+                        <span class="mobile">7</span>
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(x => Model.SamplePart3.crushingLoad, new { @class = "form-control  forminput", id = "cLoad3", placeholder = @Resources.Enter_Data })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(x => Model.SamplePart3.CompressiveStrength, new { @class = "form-control  forminput", id = "cStrength3", @readonly = "readonly" })
+                    </td>
+                    <td rowspan="3">
+                        <span id="acStrength"></span>
+                    </td>
+                </tr>
+            </tbody>
+
+        </table>
+
+       
     }
 </body>
 

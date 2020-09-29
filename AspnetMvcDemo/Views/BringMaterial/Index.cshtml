@@ -1,4 +1,4 @@
-﻿@model AspnetMvcDemo.ViewModel.ChooseFactoryVM
+﻿@model AspnetMvcDemo.Models.BringMaterialVM
 @{
     ViewBag.Title = "إحضار عينات المواد";
 }
@@ -29,8 +29,8 @@
             {
                 <div  class="row" style="margin-bottom:2%; text-align:center;" >
                     <div class="col-4" style="font-weight:bold">@Resources.Resources.FactoryLocation</div>
-                    <div class="col-8" id="Locations">
-                        @Html.DropDownListFor(m => m.LocationId, new SelectList(ViewBag.Locations, "ID", "Location_Arabic"), "اختيار الموقع", new { id = "ddlLocation", @class = "form-control" })
+                    <div class="col-8">
+                        @Html.DropDownListFor(M => M.locationid, new SelectList(Model.locations, "ID", "Location_Arabic"), new { @class = "form-control", @id = "Location" })
                     </div>
                     </div>
 
@@ -38,12 +38,12 @@
                     <div class="col-4" style="font-weight:bold">
                         @Resources.Resources.Factory_Name
                     </div>
-                    <div id="Factories" class="col-8">
+                    <div class="col-8">
+                        @Html.DropDownListFor(M => Model.factId, new SelectList(Model.factories, "Id", "Name"), "اختر اسم المصنع", new { @class = "form-control", @id = "Factories" })
 
                     </div>
                 </div>
-                @Html.Hidden("TargetControllerName");
-                @Html.Hidden("TargetActionName");
+             
              <div class="col-12" style="text-align:center;">
                 <table class="table">
                 <thead>
@@ -55,12 +55,19 @@
                 <tbody>
                     <tr>
                         <td>
-                            <select class="form-control">
-                                <option>M1</option>
-                                <option>M2</option>
-                                <option>M3</option>
-                                <option>M4</option>
-                            </select>
+                            @{
+                                var selectList = new SelectList(
+                                    new List<SelectListItem>
+                                {
+                                            new SelectListItem {Text = "الأسمنت", Value = "cement"},
+                                            new SelectListItem {Text = "الماء", Value = "water"},
+                                            new SelectListItem {Text = "الرمل", Value = "sand"},
+                                            new SelectListItem {Text = "الركام 3/4", Value = "rokam4"},
+                                             new SelectListItem {Text = "الركام 3/8", Value = "rokam8"}
+                               }, "Value", "Text");
+                            }
+                            @Html.DropDownListFor( m=> m.Material, selectList, "-- اختر العنصر --", new { @class = "form-control", @id = "dropRank" })
+
                         </td>
                         <td>
                             <input type="text" class="form-control"/>
@@ -84,19 +91,30 @@
 
     })
 
-    $("#ddlLocation").change(function () {
-        var locationId = $(this).val();
-        $.ajax({
-            type: "post",
-            async: false,
-            contentType: 'application/json; charset=utf-8',
-            url: BaseUrl + 'GetFactories',
-            data: '{ Id : ' + locationId + '}',
-            success: function (data) {
-                $("#Factories").html(data);
-            },
-            error: function () {
+    $('#Location').change(function () {
+        var Location = $(this).val();
+        var urlPost = '@Url.Action("GetFactories", "BringMaterial")' + "/" + Location;
+
+        $.get(urlPost, function (data) {
+            var select = $('#Factories');
+            select.append('<option value="">Select a Factory</option>');
+
+            console.log(JSON.stringify(data))
+            //$('#Factories').val(data);
+            console.log($('#Factories').val())
+            var json = JSON.parse(data);
+            var len = json.length;
+            $("#Factories").empty();
+
+            for (var i = 0; i < len; i++) {
+                console.log(json[i])
+                var id = json[i]['Id'];
+                var name = json[i]['Name'];
+
+                $("#Factories").append("<option value='" + id + "'>" + name + "</option>");
+
             }
+
         });
     });
 

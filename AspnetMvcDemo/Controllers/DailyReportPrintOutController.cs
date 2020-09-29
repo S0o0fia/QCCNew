@@ -37,13 +37,14 @@ namespace AspnetMvcDemo.Controllers
 
 
        
-        public ActionResult PrintDailyReport ()
+        public ActionResult PrintDailyReport (string id)
         {
-            var koloYaWaled = (from s in context.ConcreteSample1
+            int visitid = int.Parse(id);
+            var item = (from s in context.ConcreteSample1
                                join f in context.Factory11 on s.FactoryName equals f.Name
                                join v in context.VisitDetails on f.Id equals v.FactoryId
                                join u in context.Users on v.MonitorId equals u.Id
-                               where DbFunctions.TruncateTime(s.ReportDate) == DbFunctions.TruncateTime(DateTime.Now)
+                               where v.Id == visitid
                                orderby s.ReportDate
                                select new Printout
                                {
@@ -104,12 +105,106 @@ namespace AspnetMvcDemo.Controllers
 
 
                                }
-                            ).DistinctBy(cs => cs.SampleNumber).ToList();
+                            ).FirstOrDefault();
 
 
 
-            foreach (var item in koloYaWaled)
+                if (item.IsBasicUsage == null) item.IsBasicUsage = false;
+                if (item.IsCleanLocation == null) item.IsCleanLocation = false;
+                if (item.IsCleanUsage == null) item.IsCleanUsage = false;
+                if (item.IsColumnUsage == null) item.IsColumnUsage = false;
+                if (item.IsDustControlInStation == null) item.IsDustControlInStation = false;
+                if (item.IsLabEngineer == null) item.IsLabEngineer = false;
+                if (item.IsMoldanatInTrucks == null) item.IsMoldanatInTrucks = false;
+                if (item.IsOtherUsage == null) item.IsOtherUsage = false;
+                if (item.IsPeopleSafty == null) item.IsPeopleSafty = false;
+                if (item.IsRokamSummer == null) item.IsRokamSummer = false;
+                if (item.IsRoofUsage == null) item.IsRoofUsage = false;
+       
+
+            return new Rotativa.PartialViewAsPdf("ShowDailYReport" , item)
             {
+                FileName = "التقرير اليومي -"+item.ReportDate.Value.ToString("yyyy/MM/dd")+"للمصنع"+item.FactoryName+".pdf"
+            };
+        }
+   
+
+    public ActionResult PrintAllDailyReport (string id = "")
+        {
+            int visitid = int.Parse(id);
+            var date = context.VisitDetails.Where(v => v.Id == visitid).Select(v => v.VisitDate).FirstOrDefault();
+            var result = (from s in context.ConcreteSample1
+                        join f in context.Factory11 on s.FactoryName equals f.Name
+                        join v in context.VisitDetails on f.Id equals v.FactoryId
+                        join u in context.Users on v.MonitorId equals u.Id
+                        where DbFunctions.TruncateTime(s.ReportDate) == DbFunctions.TruncateTime(date)
+                        orderby s.ReportDate
+                        select new Printout
+                        {
+                            AdditionAmount = s.AdditionAmount,
+                            CementSource = s.CementSource,
+                            AdditionType = s.AdditionType,
+                            CementType = s.CementType,
+                            CementWeight = s.CementWeight,
+                            CleanDocNote = s.CleanDocNote,
+                            CleanDocPath = s.CleanDocPath,
+                            ClientName = s.ClientName,
+                            ConcreteRank = s.ConcreteRank,
+                            ConcreteTemperture = s.ConcreteTemperture,
+                            DownAmount = s.DownAmount,
+                            DustDocNote = s.DustDocNote,
+                            DustDocPath = s.DustDocPath,
+                            FactoryLocation = s.FactoryLocation,
+                            FactoryName = s.FactoryName,
+                            InvoiceNumber = s.InvoiceNumber,
+                            InvoicePhoto = s.InvoicePhoto,
+                            IsBasicUsage = s.IsBasicUsage,
+                            IsCleanLocation = s.IsCleanLocation,
+                            IsCleanUsage = s.IsCleanUsage,
+                            IsColumnUsage = s.IsColumnUsage,
+                            IsDustControlInStation = s.IsDustControlInStation,
+                            IsLabEngineer = s.IsLabEngineer,
+                            IsMoldanatInTrucks = s.IsMoldanatInTrucks,
+                            IsOtherUsage = s.IsOtherUsage,
+                            IsPeopleSafty = s.IsPeopleSafty,
+                            IsRokamSummer = s.IsRokamSummer,
+                            IsRoofUsage = s.IsRoofUsage,
+                            LabDocNote = s.LabDocNote,
+                            LabDocPath = s.LabDocPath,
+                            Latitude = s.Latitude,
+                            Longitude = s.Longitude,
+                            MixerNumber = s.MixerNumber,
+                            MonitorName = u.FullName,
+                            OtherReason = s.OtherReason,
+                            ReportDate = s.ReportDate,
+                            ReportNo = s.ReportNo,
+                            Rubble3by4 = s.Rubble3by4,
+                            Rubble3by8 = s.Rubble3by8,
+                            SafteyDocNote = s.SafteyDocNote,
+                            SafteyDocPath = s.SafteyDocPath,
+                            SampleNumber = s.SampleNumber,
+                            SummerDocNote = s.SummerDocNote,
+                            SummerDocPath = s.SummerDocPath,
+                            TruckDocNote = s.TruckDocNote,
+                            TruckDocPath = s.TruckDocPath,
+                            TruckNumber = s.TruckNumber,
+                            VisitLocation = s.VisitLocation,
+                            VisitNumber = s.VisitNumber,
+                            WashedSandWeight = s.WashedSandWeight,
+                            WaterTemperature = s.WaterTemperature,
+                            WhiteSandWeight = s.WhiteSandWeight,
+                            WaterWieght = s.WaterWieght,
+                            WeatherTemperture = s.WeatherTemperture
+
+
+                        }
+                            ).DistinctBy(s => s.SampleNumber).ToList();
+
+
+
+            foreach (var item in result)
+            {
+
                 if (item.IsBasicUsage == null) item.IsBasicUsage = false;
                 if (item.IsCleanLocation == null) item.IsCleanLocation = false;
                 if (item.IsCleanUsage == null) item.IsCleanUsage = false;
@@ -124,13 +219,12 @@ namespace AspnetMvcDemo.Controllers
             }
 
 
-            return new PartialViewAsPdf("ShowDailYReport" , koloYaWaled)
+            return new Rotativa.PartialViewAsPdf("PrintAllDailyReport", result)
             {
-                FileName = "التقرير اليومي -"+DateTime.Today.ToShortDateString()+".pdf"
+                FileName = "التقرير اليومي -" +date+ ".pdf"
             };
-        }
-   
 
+        }
 
     public ActionResult PrintBlockDailyReport()
     {

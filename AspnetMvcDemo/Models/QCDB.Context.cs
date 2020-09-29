@@ -131,7 +131,6 @@ namespace AspnetMvcDemo.Models
         public virtual DbSet<ReviewMaterial> ReviewMaterials { get; set; }
         public virtual DbSet<Circular> Circulars { get; set; }
         public virtual DbSet<Pledge> Pledges { get; set; }
-        public virtual DbSet<ConcreteSample1> ConcreteSample1 { get; set; }
         public virtual DbSet<MixingStationsAnswersOfFactory> MixingStationsAnswersOfFactories { get; set; }
         public virtual DbSet<MixingStationsQuestion> MixingStationsQuestions { get; set; }
         public virtual DbSet<MixingStationsType> MixingStationsTypes { get; set; }
@@ -167,6 +166,9 @@ namespace AspnetMvcDemo.Models
         public virtual DbSet<BlockInfraction> BlockInfractions { get; set; }
         public virtual DbSet<BlockAlert> BlockAlerts { get; set; }
         public virtual DbSet<BlockPledge> BlockPledges { get; set; }
+        public virtual DbSet<ReportUpdateHistory> ReportUpdateHistories { get; set; }
+        public virtual DbSet<BreakSampleFactory> BreakSampleFactories { get; set; }
+        public virtual DbSet<ConcreteSample1> ConcreteSample1 { get; set; }
     
         public virtual ObjectResult<AsphaltInsepector_Result> AsphaltInsepector()
         {

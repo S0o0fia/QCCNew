@@ -1,0 +1,231 @@
+﻿@model  AspnetMvcDemo.Models.FactoryBreakSamplePath
+
+@using Resources
+<style type="text/css">
+    /* to mobile Design*/
+    @@media only screen and (min-device-width: 1024px) {
+        .mobile {
+            visibility: hidden;
+        }
+    }
+
+    @@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+
+
+        tr {
+            display: grid;
+            border-bottom: 1px solid #ccc;
+        }
+        /* Force table to not be like tables anymore */
+        table, tbody, thead, td, tr, th {
+            display: block;
+        }
+
+        table {
+            width: 100%;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        /* Hide table headers (but not display: none;, for accessibility) */
+        thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+
+        td {
+            /* Behave  like a "row" */
+            border: none;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            padding-left: 50%;
+        }
+
+            td:after {
+                width: 45%;
+                padding-left: 10px;
+                white-space: nowrap;
+                float: right;
+                text-align: center;
+                font-weight: bold;
+            }
+
+        .form-control forminput {
+            width: 40%;
+            text-align: center;
+        }
+
+
+        #prepareSample {
+            width: 100%;
+        }
+
+        td:nth-of-type(1):before {
+            content: "No";
+        }
+
+        td:nth-of-type(2):before {
+            content: "Weight";
+        }
+
+        td:nth-of-type(3):before {
+            content: "Volume : ";
+        }
+
+        td:nth-of-type(4):before {
+            content: "Area Loaded : ";
+        }
+
+        td:nth-of-type(5):before {
+            content: "Unit Weight";
+        }
+
+        td:nth-of-type(6):before {
+            content: "Test Date : ";
+        }
+
+        td:nth-of-type(7):before {
+            content: "Age : ";
+        }
+
+        td:nth-of-type(8):before {
+            content: "Crushing Load";
+        }
+
+        td:nth-of-type(9):before {
+            content: "Compressive Strength";
+        }
+
+        td:nth-of-type(10):before {
+            content: "Average Compressive Strength : "
+        }
+
+        .col-md-2 {
+            flex: 0 0 16.66667%;
+            max-width: 16.66667%;
+            text-align: left;
+            vertical-align: text-bottom;
+        }
+
+        .mobile {
+            visibility: visible;
+        }
+
+        .col-md-5 {
+            text-align: center;
+        }
+
+        .col-md-7 {
+            text-align: center;
+        }
+    }
+
+
+    /*to Desktop Design*/
+    .nav-tabs-top {
+    }
+
+    .table {
+        border: solid 2px #eeeeee;
+        width: 100%;
+        background-color: white;
+    }
+
+        .table tr td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+    .page-header {
+        padding-top: 2%;
+        padding-bottom: 3%;
+    }
+
+    .forminput {
+        padding-left: 3%;
+        outline-color: limegreen;
+        outline-style: solid;
+        outline-width: thin;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    /* Zebra striping */
+    tr:nth-of-type(odd) {
+        background: #ffffff;
+        ;
+    }
+
+    th {
+        background: #ffffff;
+        ;
+        color: black;
+        font-weight: bold;
+    }
+
+    td, th {
+        padding: 6px;
+        border: 1px solid #ffffff;
+        text-align: center;
+    }
+    .card-footer {
+        text-align : center;
+    }
+    .table , tr , td , th 
+    {
+        text-align : center;
+    }
+</style>
+
+<body dir="rtl">
+    @using (Html.BeginForm("BreakSample", "FactorySampleBreak", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+    {
+        <div class="card">
+            <div class="card-header">
+                <h3>حضور كسر عينة في المصنع</h3>
+            </div>
+            <div class="card-body">
+                  <table class="table">
+                      <thead>
+                          <tr>
+                              <th>م</th>
+                              <th>الصورة الأولى</th>
+                              <th>الصورة الثانية</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          @Html.HiddenFor(m =>m.SampleNumber)
+                          <!--Row 1-->
+                          <tr>
+                              <td>1</td>
+                              <td>@Html.TextBoxFor(m => m.cube1img1File, new { @class = "form-control", @type = "file", @multiple = "multiple" })</td>
+                              <td>@Html.TextBoxFor(m => m.cube1img2File, new { @class = "form-control", @type = "file", @multiple = "multiple" })</td>
+                          </tr>
+                          <!--Row 1-->
+                          <tr>
+                              <td>2</td>
+                              <td>@Html.TextBoxFor(m => m.cube2img1File, new { @class = "form-control", @type = "file", @multiple = "multiple" })</td>
+                              <td>@Html.TextBoxFor(m => m.cube2img2File, new { @class = "form-control", @type = "file", @multiple = "multiple" })</td>
+                          </tr>
+                          <!--Row 3-->
+                          <tr>
+                              <td>1</td>
+                              <td>@Html.TextBoxFor(m => m.cube3img1File, new { @class = "form-control", @type = "file", @multiple = "multiple" })</td>
+                              <td>@Html.TextBoxFor(m => m.cube3img2File, new { @class = "form-control", @type = "file", @multiple = "multiple" })</td>
+                          </tr>
+                      </tbody>
+                  </table>
+            </div>
+            <div class="card-footer">
+                 <input type="submit"  class="btn btn-success" value="@Resources.Save" />
+            </div>
+        </div>
+
+    }
+</body>
+
+
+

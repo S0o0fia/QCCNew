@@ -17,8 +17,7 @@ namespace AspnetMvcDemo.Controllers
         {
             ViewBag.ReturnUrl = returnUrl;
             UserLogin UserLogin = new UserLogin();
-            CreateVisitService createVisitService = new CreateVisitService();
-           // createVisitService.CreateVisit();
+           
             return View(UserLogin);
 
         }

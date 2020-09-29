@@ -56,40 +56,69 @@ namespace AspnetMvcDemo.Services
         public List<VisitDetailsForReports> getVisitsReport()
         {
             var totalVisits = (from cs in db.ConcreteSample1
-                               join f in db.Factory11 on cs.FactoryName equals f.Name
-                               join v in db.VisitDetails on f.Id equals v.FactoryId
-                               join u in db.Users on v.MonitorId equals u.Id
-                               where DbFunctions.TruncateTime(cs.ReportDate) <= DbFunctions.TruncateTime(DateTime.Now)
+                               join v in db.VisitDetails 
+                               on DbFunctions.TruncateTime(cs.ReportDate) equals DbFunctions.TruncateTime(v.VisitDate) 
+                               where DbFunctions.TruncateTime(cs.ReportDate) <= DbFunctions.TruncateTime(DateTime.Today)
                                orderby cs.ReportDate
                                select new VisitDetailsForReports 
                                {
                                    visitId = v.Id,
-                                   factroyname = f.Name,
+                                   Mid = v.MonitorId , 
+                                   factroyname =cs.FactoryName,
                                    visitDate = DbFunctions.TruncateTime(cs.ReportDate),
-                                   monitorname = u.FullName,
-                                   location = f.Location
-                               }).DistinctBy(cs=> new { cs.monitorname , cs.factroyname , cs.visitDate}).ToList();
-            return (totalVisits);
+                                   location = cs.FactoryLocation
+                               }).DistinctBy(cs=> new { cs.factroyname , cs.visitDate}).ToList();
+
+
+            List<VisitDetailsForReports> list = new List<VisitDetailsForReports>();
+            foreach (var item in totalVisits)
+            {
+                item.monitorname = db.Users.Where(u=>u.Id == item.Mid).Select(u=>u.FullName).FirstOrDefault();
+                list.Add(item);
+            }
+
+            return (list);
         }
 
         //Function For Getting Daily Visits From DataBase For Report
         public List<VisitDetailsForReports> getDailyVisitsReport()
         {
             var totalVisits = (from cs in db.ConcreteSample1
-                               join f in db.Factory11 on cs.FactoryName equals f.Name
-                               join v in db.VisitDetails on f.Id equals v.FactoryId
+                               join v in db.VisitDetails
+                               on DbFunctions.TruncateTime(cs.ReportDate) equals DbFunctions.TruncateTime(v.VisitDate)
                                join u in db.Users on v.MonitorId equals u.Id
                                where DbFunctions.TruncateTime(cs.ReportDate) == DbFunctions.TruncateTime(DateTime.Now)
                                orderby cs.ReportDate
                                select new VisitDetailsForReports 
                                {
                                    visitId = v.Id,
+                                   factroyname = cs.FactoryName,
+                                   visitDate = DbFunctions.TruncateTime(cs.ReportDate),
+                                   monitorname = u.FullName,
+                                   location = cs.FactoryLocation
+                               }).DistinctBy(cs=>cs.factroyname).ToList();
+                
+            return (totalVisits);
+        }
+
+        //overload of the daily report
+        public List<VisitDetailsForReports> getDailyVisitsReport(DateTime date)
+        {
+            var totalVisits = (from cs in db.ConcreteSample1
+                               join f in db.Factory11 on cs.FactoryName equals f.Name
+                               join v in db.VisitDetails on f.Id equals v.FactoryId
+                               join u in db.Users on v.MonitorId equals u.Id
+                               where DbFunctions.TruncateTime(cs.ReportDate) == DbFunctions.TruncateTime(date)
+                               orderby cs.ReportDate
+                               select new VisitDetailsForReports
+                               {
+                                   visitId = v.Id,
                                    factroyname = f.Name,
                                    visitDate = DbFunctions.TruncateTime(cs.ReportDate),
                                    monitorname = u.FullName,
                                    location = f.Location
-                               }).DistinctBy(cs=>cs.factroyname).ToList();
-                
+                               }).DistinctBy(cs => cs.factroyname).ToList();
+
             return (totalVisits);
         }
 
@@ -191,42 +220,21 @@ namespace AspnetMvcDemo.Services
 
         public bool CancleVisit(VisitDetail visitDetail)
         {
-
+          try { 
             DateTime dateTime = DateTime.Today;
-            DateTime nextdate = DateTime.Today;
-            try
-            {
-                if ((int)nextdate.DayOfWeek == 4)
-                {
-                    nextdate = nextdate.AddDays(2);
-                }
-                else if ((int)nextdate.DayOfWeek == 5)
-                {
-                    nextdate = nextdate.AddDays(1);
-                }
-                else if ((int)nextdate.DayOfWeek == 3)
-                {
-                    nextdate = nextdate.AddDays(3);
-                }
-                else
-                {
-                    nextdate = nextdate.AddDays(1);
-                }
-
                 var visit = db.VisitDetails.Where(v => v.FactoryId == visitDetail.FactoryId && DbFunctions.TruncateTime(v.VisitDate) == DbFunctions.TruncateTime(DateTime.Today)).FirstOrDefault();
                 var locationid = db.Factory11.Where(f => f.Id == visit.FactoryId).Select(f => f.Location_Id).FirstOrDefault();
                 var dateOfNextDay = (
                     from vs in db.VisitDetails
                     join f in db.Factory11
                     on vs.FactoryId equals f.Id
-                    where DbFunctions.TruncateTime(vs.VisitDate) == DbFunctions.TruncateTime(nextdate) && f.Location_Id == locationid
+                    where DbFunctions.TruncateTime(vs.VisitDate) > DbFunctions.TruncateTime(DateTime.Today) && 
+                    f.Location_Id == locationid
                     select vs
                     ).FirstOrDefault();
 
 
-
-
-                visit.VisitDate = dateOfNextDay.VisitDate;
+              visit.VisitDate = dateOfNextDay.VisitDate;
                 dateOfNextDay.VisitDate = DateTime.Today;
                 db.SaveChanges();
 
@@ -329,7 +337,8 @@ namespace AspnetMvcDemo.Services
                                 Name = f.Name , 
                                 Id = f.Id , 
                                 Location = f.Location ,
-                                VisitPriority = v.visitpriority
+                                VisitPriority = v.visitpriority , 
+                                VisitStatus = v.Status
                                }).ToList();
             return (todayVisits);
         }
@@ -347,8 +356,8 @@ namespace AspnetMvcDemo.Services
         //Function to Get Total Visits
         public List<AdminVisit> getTotalVisits()
         {
-            var totalVisits = (from f in db.Factory11
-                               join v in db.VisitDetails on f.Id equals v.FactoryId
+            var totalVisits = (from v in db.VisitDetails
+                               join f in db.Factory11 on v.FactoryId equals f.Id
                                join u in db.Users on v.MonitorId equals u.Id
                                orderby v.VisitDate
                                select new AdminVisit { Id = v.Id, Monitor = u.FullName, VisitDate = DbFunctions.TruncateTime(v.VisitDate), FactoryName = f.Name, FactoryLocation = f.Location }
@@ -446,11 +455,20 @@ namespace AspnetMvcDemo.Services
         }
 
         //Function to get Broken Sample
-        public List<Factory11> BrokenSample(int userId)
+        public List<ConcreteSample1> BrokenSample(int userId)
         {
-            var brokenSamples = (from f in db.Factory11
-                                 join v in db.VisitDetails on f.Id equals v.FactoryId
-                                 where v.MonitorId == userId && DbFunctions.DiffDays(v.VisitDate, DateTime.Today) == 28
+            var brokenSamples = ( from f in db.ConcreteSample1
+                                 join v in db.VisitDetails on  DbFunctions.TruncateTime(f.ReportDate) equals DbFunctions.TruncateTime(v.VisitDate)
+                                 where v.MonitorId == userId && DbFunctions.DiffDays(f.ReportDate, DateTime.Today) == 28
+                                 select f).ToList();
+            return (brokenSamples);
+        }
+
+        public List<ConcreteSample1> BrokenSample()
+        {
+            var brokenSamples = (from f in db.ConcreteSample1
+                                 join v in db.VisitDetails on DbFunctions.TruncateTime(f.ReportDate) equals DbFunctions.TruncateTime(v.VisitDate)
+                                 where DbFunctions.DiffDays(f.ReportDate, DateTime.Today) == 28
                                  select f).ToList();
             return (brokenSamples);
         }

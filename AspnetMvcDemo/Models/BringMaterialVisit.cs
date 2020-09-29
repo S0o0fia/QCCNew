@@ -19,5 +19,6 @@ namespace AspnetMvcDemo.Models
         public Nullable<int> user_id { get; set; }
         public Nullable<System.DateTime> visitdate { get; set; }
         public Nullable<int> location_id { get; set; }
+        public string materialName { get; set; }
     }
 }

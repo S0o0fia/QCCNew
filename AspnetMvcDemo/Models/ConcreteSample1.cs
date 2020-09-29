@@ -35,7 +35,7 @@ namespace AspnetMvcDemo.Models
         public string CementType { get; set; }
         public string CementSource { get; set; }
         public string AdditionType { get; set; }
-        public Nullable<double> AdditionAmount { get; set; }
+        public string AdditionAmount { get; set; }
         public Nullable<double> CementWeight { get; set; }
         public Nullable<double> WaterWieght { get; set; }
         public Nullable<double> WashedSandWeight { get; set; }

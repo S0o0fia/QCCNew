@@ -8,7 +8,19 @@
             justify-content: center;
             justify-items: center;
         }
+        *{
+            text-align:right;
+        }
+
+       
     }
+
+            @@media only screen and (min-device-width: 1024px)
+        {
+          .card{
+                top:15%;
+          }
+        }
 </style>
 
 
@@ -22,16 +34,13 @@
     @Styles.Render("~/bundle/vendor/css/minicolors/minicolors")
 }
 
+
 @section Scripts {
     @Scripts.Render("~/bundle/vendor/js/datatables/datatables")
-
     @Scripts.Render("~/bundle/js/tables_datatables")
-    <!-- Dependencies -->
     @Scripts.Render("~/bundle/vendor/js/bootbox/bootbox")
     @Scripts.Render("~/bundle/vendor/js/sweetalert2/sweetalert2")
-
     @Scripts.Render("~/bundle/js/ui_modals")
-    <!-- Dependencies -->
     @Scripts.Render("~/bundle/vendor/js/moment/moment")
     @Scripts.Render("~/bundle/vendor/js/bootstrap-datepicker/bootstrap-datepicker")
     @Scripts.Render("~/bundle/vendor/js/flatpickr/flatpickr")
@@ -39,59 +48,65 @@
     @Scripts.Render("~/bundle/vendor/js/bootstrap-material-datetimepicker/bootstrap-material-datetimepicker")
     @Scripts.Render("~/bundle/vendor/js/timepicker/timepicker")
     @Scripts.Render("~/bundle/vendor/js/minicolors/minicolors")
-
     @Scripts.Render("~/bundle/js/forms_pickers")
 }
 
 
-<div class="tab-pane fade active show">
-    @using (Html.BeginForm("UpdateVisiteDate", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
-    {
-        <form>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-2">
-                        <label class="form-label">@Resources.Monitor_Name</label>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        @*@Html.TextBoxFor(M => M.Monitor, new { @class = "form-control" })*@
-                        @*@Html.DropDownListFor(m => m.RemainingMonitors,Model.Monitor, new { @class = "form-control" })*@
-                        @Html.HiddenFor(M => M.Id)
-                        @Html.HiddenFor(M => M.MonitorId)
-                        @* @Html.DropDownListFor(M => M.MonitorId, new SelectList(Model.RemainingMonitors, "MonitorId", "MonitorName"), new { @class = "form-control", @readonly = "readonly" })*@
-                        @Html.TextBoxFor(M => M.Monitor, new { @class = "form-control" })
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label">@Resources.Visit_Date</label>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        @Html.TextBoxFor(M => M.Date, new { id = "flatpickr-range", @class = "form-control" , Value = Model.VisitDate.Value.ToString("dd/MM/yyyy")})
-                        @*<input type="text" class="form-control" id="flatpickr-range" value="@Model.VisitDate.Value.ToShortDateString()">*@
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">
-                        <label class="form-label">@Resources.Factory_Name</label>
-                    </div>
+<body dir="rtl">
+    <div class="card" >
+        <div class="card-header" style="text-align:right">
+            <h3>تعديل تاريخ زيارة</h3>
+        </div>
+        <div class="card-body">
+            <div class="tab-pane fade active show">
+                @using (Html.BeginForm("UpdateVisiteDate", "Home", FormMethod.Post, new { @class = "form-horizontal", role = "form", enctype = "multipart/form-data" }))
+                {
+                    <form>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Monitor_Name</label>
+                                </div>
+                                <div class="col-md-4 form-group">
 
-                    <div class="col-md-4 form-group">
-                        @*<input type="email" class="form-control">*@
-                        @Html.HiddenFor(M => M.FactoryId)
-                        @Html.TextBoxFor(m => m.FactoryName, new { @class = "form-control", @readonly = "readonly" })
-                    </div>
-                    <div class="col-md-2 form-group">
-                        <label class="form-label">@Resources.Factroy_Location</label>
-                    </div>
-                    <div class="col-md-4 form-group">
-                        @*<input type="text" class="form-control">*@
-                        @Html.TextBoxFor(m => m.FactoryLocation, new { @class = "form-control", @readonly = "readonly" })
-                    </div>
-                </div>
+                                    @Html.HiddenFor(M => M.Id)
+                                    @Html.HiddenFor(M => M.MonitorId)
+                                    @Html.TextBoxFor(M => M.Monitor, new { @class = "form-control" })
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Visit_Date</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+                                    @Html.TextBoxFor(model => model.Date, new { @id = "flatpickr-date", @class = "form-control", Value = Model.VisitDate.Value.ToString("yyyy/MM/dd") })
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="form-label">@Resources.Factory_Name</label>
+                                </div>
+
+                                <div class="col-md-4 form-group">
+
+                                    @Html.HiddenFor(M => M.FactoryId)
+                                    @Html.TextBoxFor(m => m.FactoryName, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="form-label">@Resources.Factroy_Location</label>
+                                </div>
+                                <div class="col-md-4 form-group">
+
+                                    @Html.TextBoxFor(m => m.FactoryLocation, new { @class = "form-control", @readonly = "readonly" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="justify-content:center;">
+                            <button type="submit" class="btn btn-success">@Resources.Save</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">@Resources.Cancel</button>
+                        </div>
+                    </form>
+                }
             </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-success">@Resources.Save</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">@Resources.Cancel</button>
-            </div>
-        </form>
-    }
-</div>
+        </div>
+    </div>
+</body>
